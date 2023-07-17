@@ -1,0 +1,14 @@
+.wrapper {
+  padding: 1rem;
+  border-radius: var(--border-radius-sm);
+  background-color: var(--light-gray-color);
+
+  &.checked {
+    color: var(--white-color);
+    background-color: var(--main-color);
+  }
+}
+
+.checkboxInput {
+  display: none;
+}
