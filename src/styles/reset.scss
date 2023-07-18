@@ -165,7 +165,7 @@ table {
 }
 html {
   font-size: var(--font-size-xs);
-  color: var(--dark-gray-color);
+  color: var(--black-color);
   @include tablet {
     font-size: var(--font-size-sm);
   }
