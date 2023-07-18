@@ -20,6 +20,8 @@
     "axios": "^1.4.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-icons": "^4.10.1",
+    "react-router-dom": "^6.14.2",
     "sass": "^1.63.6"
   },
   "devDependencies": {
@@ -28,6 +30,7 @@
     "@typescript-eslint/eslint-plugin": "^5.59.0",
     "@typescript-eslint/parser": "^5.59.0",
     "@vitejs/plugin-react": "^4.0.0",
+    "classnames": "^2.3.2",
     "eslint": "^8.43.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-react-hooks": "^4.6.0",
