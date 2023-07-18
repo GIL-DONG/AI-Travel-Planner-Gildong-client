@@ -6,7 +6,7 @@ interface CheckboxProps {
 
 export default function Checkbox({ value }: CheckboxProps) {
   return (
-    <span className={styles.checkbox}>
+    <span className={styles.chk_box}>
       <input type="checkbox" id={value} />
       <label htmlFor={value}>{value}</label>
     </span>
