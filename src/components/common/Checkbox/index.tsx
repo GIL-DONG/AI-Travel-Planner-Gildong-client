@@ -1,14 +1,31 @@
+import { ReactNode } from 'react';
 import styles from './styles.module.scss';
 
 interface CheckboxProps {
+  id: string;
   value: string;
+  name: string;
+  children: ReactNode;
+  disabled?: boolean;
 }
 
-export default function Checkbox({ value }: CheckboxProps) {
+export default function Checkbox({
+  id,
+  value,
+  name,
+  children,
+  disabled,
+}: CheckboxProps) {
   return (
-    <span className={styles.chk_box}>
-      <input type="checkbox" id={value} />
-      <label htmlFor={value}>{value}</label>
-    </span>
+    <div className={styles.chk_box}>
+      <input
+        type="checkbox"
+        id={id}
+        value={value}
+        name={name}
+        disabled={disabled}
+      />
+      <label htmlFor={id}>{children}</label>
+    </div>
   );
 }
