@@ -1,19 +1,19 @@
 import Checkbox from './Checkbox';
 import styles from './styles.module.scss';
 
-interface CheckboxsProps {
+interface CheckboxesProps {
   label: string;
   checkBoxList: string[];
   checkedList: string[];
   setCheckedList: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
-export default function Checkboxs({
+export default function Checkboxes({
   label,
   checkBoxList,
   checkedList,
   setCheckedList,
-}: CheckboxsProps) {
+}: CheckboxesProps) {
   const checkedItemHandler = (value: string, isChecked: boolean) => {
     if (isChecked) {
       setCheckedList((prev) => [...prev, value]);
