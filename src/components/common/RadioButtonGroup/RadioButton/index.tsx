@@ -5,29 +5,30 @@ interface RadioProps {
   id: string;
   value: string;
   name: string;
-  children: ReactNode;
+  children?: ReactNode;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   defaultChecked?: boolean;
   disabled?: boolean;
 }
-export default function Radiobutton({
+export default function RadioButton({
   id,
   value,
   name,
   children,
-  defaultChecked,
+  onChange,
   disabled,
 }: RadioProps) {
   return (
-    <div className={styles.radio}>
+    <li className={styles.radioBtn}>
       <input
         type="radio"
         id={id}
         value={value}
         name={name}
-        defaultChecked={defaultChecked}
+        onChange={onChange}
         disabled={disabled}
       />
-      <label htmlFor={id}>{children}</label>
-    </div>
+      <label htmlFor={id}>{children || value}</label>
+    </li>
   );
 }
