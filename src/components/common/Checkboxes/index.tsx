@@ -39,7 +39,7 @@ export default function Checkboxes({
         <Checkbox
           id={item}
           key={idx}
-          name={item}
+          name={label}
           value={item}
           onChange={(event) => checkHandler(event, item)}
         />
