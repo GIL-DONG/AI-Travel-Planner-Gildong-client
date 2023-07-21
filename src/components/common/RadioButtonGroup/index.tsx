@@ -1,4 +1,4 @@
-import React, { SetStateAction, useState } from 'react';
+import React, { SetStateAction } from 'react';
 import RadioButton from './RadioButton';
 import styles from './styles.module.scss';
 
