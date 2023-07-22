@@ -5,16 +5,16 @@ import styles from './styles.module.scss';
 interface RadioButtonGroupProps {
   label: string;
   radioButtonlist: string[];
-  setValue: React.Dispatch<SetStateAction<string>>;
+  setRadioButtonItem: React.Dispatch<SetStateAction<string>>;
 }
 
 export default function RadioButtonGroup({
   label,
   radioButtonlist,
-  setValue,
+  setRadioButtonItem,
 }: RadioButtonGroupProps) {
   const radioHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(e.target.value);
+    setRadioButtonItem(e.target.value);
   };
 
   return (
