@@ -1,4 +1,5 @@
 @import './media.scss';
+@import './layouts.scss';
 
 :root {
   --main-color: #007bff;
@@ -11,6 +12,7 @@
   --gray-color: #6c757d;
   --light-gray-color: #d9d9d9;
   --white-color: #ffffff;
+  --background-color: rgba(0, 123, 255, 0.2);
 
   --border-radius-sm: 0.25rem; /* 4px */
   --border-radius-md: 0.5rem; /* 8px */
@@ -161,6 +163,8 @@ table {
   box-sizing: border-box;
 }
 html {
+  display: flex;
+  justify-content: center;
   font-size: var(--font-size-xs);
   color: var(--black-color);
   @include tablet {
