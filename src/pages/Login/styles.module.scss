@@ -28,20 +28,39 @@
 }
 
 .title {
-  font-size: 24px;
+  font-size: var(--font-size-xxl);
   font-weight: 600;
 }
 
 .img {
-  width: 120px;
+  width: 7.5rem;
   border-radius: var(--border-radius-lg);
 }
 
-.btn {
-  width: 300px;
-  height: 45px;
+.btnWrapper {
+  width: 19rem;
   border: none;
-  background: url('@assets/kakao.png');
-  background-repeat: no-repeat;
+  background-color: #fee500;
+  padding: 1rem;
+
+  border-radius: 0.75rem;
   cursor: pointer;
+}
+
+.btn {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: rgba(0, 0, 0, 0.85);
+
+  > img {
+    width: 1rem;
+    height: 1rem;
+  }
+
+  > span {
+    flex-grow: 1;
+    font-family: 'kakao';
+    font-weight: 600;
+  }
 }
