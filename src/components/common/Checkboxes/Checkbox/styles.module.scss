@@ -1,7 +1,6 @@
 .chk_box {
   display: flex;
   align-items: center;
-  margin: 0.5rem 0.5rem 0.5rem 0;
 
   input[type='checkbox'] {
     width: 1.5rem;
@@ -43,6 +42,7 @@
 
   label {
     padding-left: 0.5rem;
+    font-size: 1.5rem;
     cursor: pointer;
   }
 }

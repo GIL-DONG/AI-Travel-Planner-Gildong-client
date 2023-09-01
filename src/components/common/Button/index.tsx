@@ -18,7 +18,9 @@ interface ButtonProps {
   to?: string | undefined;
   type?: 'button' | 'submit' | 'reset' | undefined;
   onClick?: (
-    e: React.MouseEvent<Element, MouseEvent> | React.FormEvent<HTMLFormElement>,
+    event:
+      | React.MouseEvent<Element, MouseEvent>
+      | React.FormEvent<HTMLFormElement>,
   ) => void;
 }
 

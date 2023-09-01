@@ -1,15 +1,14 @@
 .radioBtn {
-  margin: 0.5rem 0.5rem 0.5rem 0;
-
   input[type='radio'] {
     display: none;
   }
 
   input[type='radio'] + label {
+    width: 5.5rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0.5rem 1rem;
+    padding: 0.8rem 1rem;
     border-radius: var(--border-radius-sm);
     background-color: var(--light-gray-color);
     color: var(--gray-color);

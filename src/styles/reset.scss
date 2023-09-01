@@ -167,12 +167,12 @@ table {
 html {
   display: flex;
   justify-content: center;
-  font-size: var(--font-size-xs);
+  font-size: var(--font-size-sm);
   color: var(--black-color);
   @include tablet {
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-md);
   }
   @include desktop {
-    font-size: var(--font-size-md);
+    font-size: var(--font-size-lg);
   }
 }

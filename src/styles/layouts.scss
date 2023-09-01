@@ -3,7 +3,7 @@
   width: 768px;
   height: 100vh;
 
-  @media (max-width: #{$tablet}) {
+  @include mobile {
     width: 100vw;
   }
 }

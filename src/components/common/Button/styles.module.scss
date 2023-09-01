@@ -50,7 +50,12 @@
   }
 
   &.lined {
-    border: 1px solid currentColor;
+    border: 2px solid currentColor;
+    background: var(--white-color);
+
+    &:hover {
+      opacity: 0.7;
+    }
   }
 
   &.disabled {
@@ -89,7 +94,9 @@
   }
 
   &.is_shadow {
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    box-shadow:
+      0 3px 6px rgba(0, 0, 0, 0.16),
+      0 3px 6px rgba(0, 0, 0, 0.23);
   }
 
   &.is_opacity {
