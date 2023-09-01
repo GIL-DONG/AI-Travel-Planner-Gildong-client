@@ -1,0 +1,21 @@
+@import '@styles/media.scss';
+
+.container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 1rem 0;
+
+  @include mobile {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+.label {
+  width: 4rem;
+
+  @include mobile {
+    margin-bottom: 0.7rem;
+  }
+}

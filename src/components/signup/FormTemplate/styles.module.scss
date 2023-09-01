@@ -1,0 +1,54 @@
+@import '@styles/media.scss';
+
+.container {
+  width: 28rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.form {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.progressBar {
+  width: 100%;
+  display: flex;
+  justify-content: end;
+  margin: 2rem 0;
+}
+
+.title {
+  font-size: 2.6rem;
+  margin-bottom: 0.5rem;
+
+  @include mobile {
+    font-size: 2.3rem;
+  }
+}
+
+.text {
+  font-size: 1rem;
+
+  @include mobile {
+    font-size: 0.85rem;
+  }
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  margin-top: 2rem;
+}
+
+.btn {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
