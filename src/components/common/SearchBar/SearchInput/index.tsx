@@ -6,7 +6,13 @@ export default function SearchInput() {
     <div className={styles.container}>
       <input className={styles.search} />
       <span className={styles.icon}>
-        <Button size="sm" color="primary" icon={<BiSearch />} iconBtn={true} />
+        <Button
+          variant="pure"
+          size="sm"
+          color="primary"
+          icon={<BiSearch />}
+          iconBtn={true}
+        />
       </span>
     </div>
   );

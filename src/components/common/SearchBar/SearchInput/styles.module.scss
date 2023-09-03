@@ -1,4 +1,6 @@
 .container {
+  display: flex;
+  align-items: center;
   position: relative;
 }
 
@@ -13,9 +15,8 @@
 
 .icon {
   position: absolute;
-  right: 0.1rem;
-  bottom: 0;
-
+  right: 0;
+  margin-right: 0.5rem;
   > button > svg {
     width: 1.5rem;
     height: 1.5rem;

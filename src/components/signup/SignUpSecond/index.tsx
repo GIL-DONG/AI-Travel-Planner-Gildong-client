@@ -1,7 +1,7 @@
 import RadioButtonGroup from '@components/common/RadioButtonGroup';
 import { useState } from 'react';
 import Select from '@components/common/Select';
-import { barrierList, barrierTypeList } from '@constants/signup';
+import { BARRIER_LIST, BARRIER_TYPE_LIST } from '@constants/signup';
 import InputTemplate from '../InputTemplate';
 
 export default function SignUpSecond() {
@@ -13,13 +13,13 @@ export default function SignUpSecond() {
         <RadioButtonGroup
           label="barrier"
           setRadioButtonItem={setBarrier}
-          radioButtonlist={barrierList}
+          radioButtonlist={BARRIER_LIST}
         />
       </InputTemplate>
       <InputTemplate id="barrierType" name="장애종류">
         <Select
           label="name"
-          selectList={barrierTypeList}
+          selectList={BARRIER_TYPE_LIST}
           setSelectedItem={setBarrierType}
         />
       </InputTemplate>

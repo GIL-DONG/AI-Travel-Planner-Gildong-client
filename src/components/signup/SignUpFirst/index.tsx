@@ -1,6 +1,6 @@
 import RadioButtonGroup from '@components/common/RadioButtonGroup';
 import { useState } from 'react';
-import { ageList, sexList } from '@constants/signup';
+import { AGE_LIST, SEX_LIST } from '@constants/signup';
 import InputTemplate from '../InputTemplate';
 import styles from './styles.module.scss';
 
@@ -15,14 +15,14 @@ export default function SignUpFirst() {
       <InputTemplate id="sex" name="성별">
         <RadioButtonGroup
           setRadioButtonItem={setSex}
-          radioButtonlist={sexList}
+          radioButtonlist={SEX_LIST}
           label="sex"
         />
       </InputTemplate>
       <InputTemplate id="age" name="나이">
         <RadioButtonGroup
           setRadioButtonItem={setAge}
-          radioButtonlist={ageList}
+          radioButtonlist={AGE_LIST}
           label="age"
         />
       </InputTemplate>
