@@ -1,6 +1,6 @@
-import RadioButtonGroup from '@components/common/RadioButtonGroup';
 import { useState } from 'react';
-import { AGE_LIST, SEX_LIST } from '@constants/signup';
+import RadioButtonGroup from '@/components/common/RadioButtonGroup';
+import { AGE_LIST, SEX_LIST } from '@/constants/signup';
 import InputTemplate from '../InputTemplate';
 import styles from './styles.module.scss';
 

@@ -1,5 +1,5 @@
 import { BiSearch } from 'react-icons/bi';
-import Button from '@components/common/Button';
+import Button from '@/components/common/Button';
 import styles from './styles.module.scss';
 export default function SearchInput() {
   return (

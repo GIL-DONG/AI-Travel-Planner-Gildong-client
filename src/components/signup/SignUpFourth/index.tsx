@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import Checkboxes from '@components/common/Checkboxes';
-import { TRAVEL_STYLE_LIST } from '@constants/signup';
+import Checkboxes from '@/components/common/Checkboxes';
+import { TRAVEL_STYLE_LIST } from '@/constants/signup';
 
 export default function SignUpFourth() {
   const [travelStyle, setTravelStyle] = useState<string[]>([]);

@@ -1,8 +1,8 @@
-import { ROUTE_PATHS } from '@constants/config';
-import Auth from '@pages/Auth';
-import SignIn from '@pages/SignIn';
-import SignUp from '@pages/SignUp';
 import { Route, Routes } from 'react-router-dom';
+import { ROUTE_PATHS } from '@/constants/config';
+import Auth from '@/pages/Auth';
+import SignIn from '@/pages/SignIn';
+import SignUp from '@/pages/SignUp';
 
 function App() {
   return (

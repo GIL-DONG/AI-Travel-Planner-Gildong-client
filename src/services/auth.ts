@@ -1,6 +1,6 @@
-import { API_URLS, DEFAULT_ERROR_MESSAGE } from '@constants/config';
 import axios, { AxiosError } from 'axios';
-import { REDIRECT_URL, REST_API_KEY } from '@constants/auth';
+import { API_URLS, DEFAULT_ERROR_MESSAGE } from '@/constants/config';
+import { REDIRECT_URL, REST_API_KEY } from '@/constants/auth';
 import apiClient from './apiClient';
 
 export const postKakaoAPI = async (code: string) => {

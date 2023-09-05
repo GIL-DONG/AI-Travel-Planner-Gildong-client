@@ -1,6 +1,6 @@
-import gildong from '@assets/gildong_3d_bg.png';
-import kakao from '@assets/kakao.png';
-import { REDIRECT_URL, REST_API_KEY } from '@constants/auth';
+import gildong from '@/assets/gildong_3d_bg.png';
+import kakao from '@/assets/kakao.png';
+import { REDIRECT_URL, REST_API_KEY } from '@/constants/auth';
 import styles from './styles.module.scss';
 
 export default function SignIn() {

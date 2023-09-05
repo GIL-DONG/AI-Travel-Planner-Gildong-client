@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import Button from '@components/common/Button';
+import Button from '@/components/common/Button';
 import ProgressBar from '../ProgressBar';
 import styles from './styles.module.scss';
 

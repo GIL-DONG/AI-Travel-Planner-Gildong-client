@@ -1,6 +1,6 @@
 import { useState, useCallback, useEffect } from 'react';
-import Loading from '@components/common/Loading';
-import { getUserInfoAPI, postKakaoAPI } from '@services/auth';
+import Loading from '@/components/common/Loading';
+import { getUserInfoAPI, postKakaoAPI } from '@/services/auth';
 import styles from './styles.module.scss';
 
 export default function Auth() {

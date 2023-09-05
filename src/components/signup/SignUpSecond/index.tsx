@@ -1,7 +1,7 @@
-import RadioButtonGroup from '@components/common/RadioButtonGroup';
 import { useState } from 'react';
-import Select from '@components/common/Select';
-import { BARRIER_LIST, BARRIER_TYPE_LIST } from '@constants/signup';
+import RadioButtonGroup from '@/components/common/RadioButtonGroup';
+import Select from '@/components/common/Select';
+import { BARRIER_LIST, BARRIER_TYPE_LIST } from '@/constants/signup';
 import InputTemplate from '../InputTemplate';
 
 export default function SignUpSecond() {

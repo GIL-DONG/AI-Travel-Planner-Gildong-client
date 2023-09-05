@@ -1,9 +1,9 @@
-import FormTemplate from '@components/signup/FormTemplate';
-import SignUpFirst from '@components/signup/SignUpFirst';
-import SignUpSecond from '@components/signup/SignUpSecond';
-import SignUpThird from '@components/signup/SignUpThird';
-import SignUpFourth from '@components/signup/SignUpFourth';
 import { useState } from 'react';
+import FormTemplate from '@/components/signup/FormTemplate';
+import SignUpFirst from '@/components/signup/SignUpFirst';
+import SignUpSecond from '@/components/signup/SignUpSecond';
+import SignUpThird from '@/components/signup/SignUpThird';
+import SignUpFourth from '@/components/signup/SignUpFourth';
 import styles from './styles.module.scss';
 
 const list = [
