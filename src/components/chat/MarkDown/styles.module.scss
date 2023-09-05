@@ -1,0 +1,37 @@
+.markdown {
+  > table {
+    border-collapse: collapse;
+    width: 500px;
+    margin: 1rem auto;
+    border: 1px solid var(--light-gray-color);
+    background-color: var(--white-color);
+  }
+
+  th,
+  td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid var(--light-gray-color);
+    text-align: center;
+  }
+
+  th {
+    background-color: var(--dark-gray-color);
+    color: var(--light-gray-color);
+  }
+
+  th:nth-child(1),
+  td:nth-child(1) {
+    width: 15%;
+  }
+
+  th:nth-child(2),
+  td:nth-child(2) {
+    width: 55%;
+  }
+
+  th:nth-child(3),
+  td:nth-child(3) {
+    width: 30%;
+  }
+}
