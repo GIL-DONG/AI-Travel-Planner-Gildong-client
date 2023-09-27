@@ -7,6 +7,7 @@ interface CheckboxProps {
   name?: string;
   children?: ReactNode;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  checked?: boolean;
   disabled?: boolean;
 }
 
@@ -16,6 +17,7 @@ export default function Checkbox({
   name,
   children,
   onChange,
+  checked,
   disabled,
 }: CheckboxProps) {
   return (
@@ -26,6 +28,7 @@ export default function Checkbox({
         value={value}
         name={name}
         onChange={onChange}
+        checked={checked}
         disabled={disabled}
       />
       <label htmlFor={id}>{children || value}</label>

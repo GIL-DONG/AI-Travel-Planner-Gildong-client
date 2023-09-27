@@ -35,15 +35,27 @@ export default function Checkboxes({
 
   return (
     <ul role="group" aria-labelledby={label} className={styles.chk_boxs}>
-      {checkBoxList.map((item, idx) => (
-        <Checkbox
-          id={item}
-          key={idx}
-          name={label}
-          value={item}
-          onChange={(event) => checkHandler(event, item)}
-        />
-      ))}
+      {checkBoxList.map((item, idx) =>
+        checkedList.includes(item) ? (
+          <Checkbox
+            id={item}
+            key={idx}
+            name={label}
+            value={item}
+            onChange={(event) => checkHandler(event, item)}
+            checked={true}
+          />
+        ) : (
+          <Checkbox
+            id={item}
+            key={idx}
+            name={label}
+            value={item}
+            onChange={(event) => checkHandler(event, item)}
+            checked={false}
+          />
+        ),
+      )}
     </ul>
   );
 }

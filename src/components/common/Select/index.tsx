@@ -4,12 +4,14 @@ import styles from './styles.module.scss';
 interface SelectProps {
   label: string;
   selectList: string[];
+  selectedItem?: string;
   setSelectedItem: React.Dispatch<SetStateAction<string>>;
 }
 
 export default function Select({
   label,
   selectList,
+  selectedItem,
   setSelectedItem,
 }: SelectProps) {
   const selectHandler = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -22,7 +24,11 @@ export default function Select({
       name={label}
       aria-labelledby={label}
       onChange={selectHandler}
+      defaultValue={selectedItem || 'default'}
     >
+      <option value="default" disabled>
+        ---- 선택 ----
+      </option>
       {selectList.map((item) => (
         <option key={item} value={item}>
           {item}
