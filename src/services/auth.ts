@@ -1,7 +1,6 @@
 import axios, { AxiosError } from 'axios';
 import { API_URLS, DEFAULT_ERROR_MESSAGE } from '@/constants/config';
 import { REDIRECT_URL, REST_API_KEY } from '@/constants/auth';
-import apiClient from './apiClient';
 
 export const postKakaoAPI = async (code: string) => {
   try {
@@ -27,8 +26,11 @@ export const postKakaoAPI = async (code: string) => {
 
 export const getUserInfoAPI = async (token: string) => {
   try {
-    const response = await apiClient.get(
-      `${API_URLS.token}?access_token=${token}`,
+    const response = await axios.get(
+      `${import.meta.env.VITE_APP_API_URL}${API_URLS.login}?token=${token}`,
+      {
+        withCredentials: true,
+      },
     );
     return response.data;
   } catch (error) {
