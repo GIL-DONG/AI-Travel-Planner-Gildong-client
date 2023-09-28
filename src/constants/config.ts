@@ -1,7 +1,10 @@
 export const BASE_URL = import.meta.env.VITE_APP_BASE_URL;
 
 export const API_URLS = {
-  token: '/kakao/user_info/token',
+  login: '/login',
+  signUp: '/users/register',
+  checkNickName: '/users/check-username',
+  searchResidence: '/region/autocomplete',
 };
 
 export const ROUTE_PATHS = {

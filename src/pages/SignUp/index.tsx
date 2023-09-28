@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useRecoilValue } from 'recoil';
 import FormTemplate from '@/components/signup/FormTemplate';
 import SignUpFirst from '@/components/signup/SignUpFirst';
 import SignUpSecond from '@/components/signup/SignUpSecond';
 import SignUpThird from '@/components/signup/SignUpThird';
 import SignUpFourth from '@/components/signup/SignUpFourth';
+import { indexState } from '@/store/atom/signUpAtom';
 import styles from './styles.module.scss';
 
 const list = [
@@ -38,15 +39,14 @@ const list = [
 ];
 
 export default function SignUp() {
-  const [index, setIndex] = useState(0);
+  const index = useRecoilValue(indexState);
+
   return (
     <div className={styles.pageWrapper}>
       <FormTemplate
         page={list[index].page}
         title={list[index].title}
         text={list[index].text}
-        button={list[index].button}
-        setIndex={setIndex}
       >
         {list[index].chidren}
       </FormTemplate>

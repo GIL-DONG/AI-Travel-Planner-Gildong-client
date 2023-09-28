@@ -4,3 +4,9 @@
   flex-direction: column;
   justify-content: space-between;
 }
+
+.btn {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}

@@ -27,10 +27,10 @@ export default function Checkboxes({
   };
 
   const checkHandler = (
-    e: React.ChangeEvent<HTMLInputElement>,
+    event: React.ChangeEvent<HTMLInputElement>,
     value: string,
   ) => {
-    checkedItemHandler(value, e.target.checked);
+    checkedItemHandler(value, event.target.checked);
   };
 
   return (

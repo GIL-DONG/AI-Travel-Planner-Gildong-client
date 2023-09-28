@@ -15,8 +15,8 @@ export default function RadioButtonGroup({
   radioButtonItem,
   setRadioButtonItem,
 }: RadioButtonGroupProps) {
-  const radioHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setRadioButtonItem(e.target.value);
+  const radioHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setRadioButtonItem(event.target.value);
   };
 
   return (
