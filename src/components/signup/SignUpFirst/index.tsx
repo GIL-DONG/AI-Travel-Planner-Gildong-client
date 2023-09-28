@@ -1,4 +1,4 @@
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { useEffect, useState } from 'react';
 import RadioButtonGroup from '@/components/common/RadioButtonGroup';
 import {
@@ -37,12 +37,11 @@ export default function SignUpFirst() {
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
     setName(event.target.value);
-    checkNickName(event.target.value);
   };
 
   useEffect(() => {
     checkNickName(name);
-  }, []);
+  }, [name]);
 
   return (
     <div className={styles.container}>
