@@ -1,7 +1,7 @@
 import { useState, useCallback, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
-import Loading from '@/components/common/Loading';
+import Loading from '@/components/common/LoadingSpinner';
 import { getUserInfoAPI, postKakaoAPI } from '@/services/auth';
 import { idState, nameState } from '@/store/atom/signUpAtom';
 import styles from './styles.module.scss';
