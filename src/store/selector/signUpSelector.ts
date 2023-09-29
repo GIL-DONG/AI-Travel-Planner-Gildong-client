@@ -39,7 +39,7 @@ export const signUpStateSelector = selector({
       age_group: +ageGroup.slice(0, 2),
       gender: gender === '남자' ? '남' : '여',
       prefer_travel: preferTravelStyle,
-      residence: { lat: 37.5665, lon: 126.978 },
+      residence: residence?.location,
       disability_status: disabilityStatus === '예' ? 'true' : 'false',
       disability_type: disabilityStatus === '예' ? type : '',
     };

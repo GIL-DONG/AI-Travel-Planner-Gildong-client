@@ -11,6 +11,14 @@ export interface SignUpType {
 }
 
 export interface residenceType {
+  id: number;
+  word: string;
+  city: string;
+  district: string;
+  location: locationType;
+}
+
+export interface locationType {
   lat: number;
   lon: number;
 }

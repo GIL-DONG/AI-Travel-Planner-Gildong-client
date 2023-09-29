@@ -29,3 +29,9 @@ export const VALIDATION_MESSAGE = {
   possible: '사용가능한 닉네임입니다.',
   impossible: '이미 사용중인 닉네임입니다.',
 };
+
+export const DEFAULT_PAGE = 1;
+
+export const DEFAULT_NEXT_PAGE = 2;
+
+export const LIMIT = 10;

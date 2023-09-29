@@ -1,9 +1,10 @@
-import { useSetRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import SearchBar from '@/components/common/SearchBar';
 import Button from '@/components/common/Button';
-import { indexState } from '@/store/atom/signUpAtom';
+import { indexState, residenceState } from '@/store/atom/signUpAtom';
 import styles from './styles.module.scss';
 export default function SignUpThird() {
+  const residence = useRecoilValue(residenceState);
   const setIndex = useSetRecoilState(indexState);
 
   return (
@@ -21,14 +22,20 @@ export default function SignUpThird() {
         >
           이전
         </Button>
-        <Button
-          variant="primary"
-          full={true}
-          size="lg"
-          onClick={() => setIndex(3)}
-        >
-          다음
-        </Button>
+        {residence ? (
+          <Button
+            variant="primary"
+            full={true}
+            size="lg"
+            onClick={() => setIndex(3)}
+          >
+            다음
+          </Button>
+        ) : (
+          <Button variant="disabled" full={true} size="lg">
+            다음
+          </Button>
+        )}
       </div>
     </div>
   );

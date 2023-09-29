@@ -1,6 +1,7 @@
 import axios, { AxiosError } from 'axios';
 import { API_URLS, DEFAULT_ERROR_MESSAGE } from '@/constants/config';
 import { SignUpType } from '@/types/signUp';
+import { LIMIT } from '@/constants/signUp';
 
 export const postSignUpAPI = async (formData: SignUpType) => {
   try {
@@ -33,12 +34,12 @@ export const postCheckNickNameAPI = async (value: string) => {
   }
 };
 
-export const getSearchResidenceAPI = async (value: string) => {
+export const getSearchResidenceAPI = async (keyword: string, page?: number) => {
   try {
     const response = await axios.get(
       `${import.meta.env.VITE_APP_API_URL}${
         API_URLS.searchResidence
-      }?autocomplete=${value}&page=1&page_size=10`,
+      }?autocomplete=${keyword}&page=${page}&page_size=${LIMIT}`,
 
       {
         withCredentials: true,
