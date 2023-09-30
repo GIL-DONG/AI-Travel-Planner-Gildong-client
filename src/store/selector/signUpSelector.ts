@@ -42,6 +42,7 @@ export const signUpStateSelector = selector({
       residence: residence?.location,
       disability_status: disabilityStatus === '예' ? 'true' : 'false',
       disability_type: disabilityStatus === '예' ? type : '',
+      user_photo: sessionStorage.getItem('profile_image') || '',
     };
   },
 });
