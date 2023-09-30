@@ -1,6 +1,6 @@
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import RadioButtonGroup from '@/components/common/RadioButtonGroup';
-import Select from '@/components/common/Select';
+import RadioButtonGroup from '@/components/Common/RadioButtonGroup';
+import Select from '@/components/Common/Select';
 import {
   DISABILITY_STATUS_LIST,
   DISABILITY_TYPE_LIST,
@@ -10,7 +10,7 @@ import {
   disabilityTypeState,
   indexState,
 } from '@/store/atom/signUpAtom';
-import Button from '@/components/common/Button';
+import Button from '@/components/Common/Button';
 import InputTemplate from '../InputTemplate';
 import styles from './styles.module.scss';
 
