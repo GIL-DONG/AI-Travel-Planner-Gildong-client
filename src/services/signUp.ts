@@ -2,13 +2,11 @@ import axios, { AxiosError } from 'axios';
 import { API_URLS, DEFAULT_ERROR_MESSAGE } from '@/constants/config';
 import { SignUpType } from '@/types/signUp';
 import { LIMIT } from '@/constants/signUp';
+import apiClient from './apiClient';
 
 export const postSignUpAPI = async (formData: SignUpType) => {
   try {
-    const response = await axios.post(
-      `${import.meta.env.VITE_APP_API_URL}${API_URLS.signUp}`,
-      formData,
-    );
+    const response = await apiClient.post(`${API_URLS.signUp}`, formData);
     return response.data;
   } catch (error) {
     const axiosError = error as AxiosError<ErrorResponse>;
@@ -19,13 +17,9 @@ export const postSignUpAPI = async (formData: SignUpType) => {
 
 export const postCheckNickNameAPI = async (value: string) => {
   try {
-    const response = await axios.post(
-      `${import.meta.env.VITE_APP_API_URL}${API_URLS.checkNickName}`,
-      { user_name: value },
-      {
-        withCredentials: true,
-      },
-    );
+    const response = await apiClient.post(`${API_URLS.checkNickName}`, {
+      user_name: value,
+    });
     return response.data;
   } catch (error) {
     const axiosError = error as AxiosError<ErrorResponse>;
@@ -36,14 +30,8 @@ export const postCheckNickNameAPI = async (value: string) => {
 
 export const getSearchResidenceAPI = async (keyword: string, page?: number) => {
   try {
-    const response = await axios.get(
-      `${import.meta.env.VITE_APP_API_URL}${
-        API_URLS.searchResidence
-      }?autocomplete=${keyword}&page=${page}&page_size=${LIMIT}`,
-
-      {
-        withCredentials: true,
-      },
+    const response = await apiClient.get(
+      `${API_URLS.searchResidence}?autocomplete=${keyword}&page=${page}&page_size=${LIMIT}`,
     );
     return response.data;
   } catch (error) {
