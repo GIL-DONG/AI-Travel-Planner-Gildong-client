@@ -20,17 +20,18 @@ export default function Auth() {
         const token = await postKakaoAPI(code);
         const data = await getUserInfoAPI(token);
         sessionStorage.setItem('kakao_token', token);
-        sessionStorage.setItem('id', data.data.id);
-        if (!data.data.kakao_account.profile.is_default_image)
-          sessionStorage.setItem(
-            'profile_image',
-            data.data.properties.profile_image,
-          );
-        setId(data.data.id);
-        setName(data.data.properties.nickname);
         if (data.message === 'User not registered. Please sign up first.') {
+          sessionStorage.setItem('id', data.data.id);
+          if (!data.data.kakao_account.profile.is_default_image)
+            sessionStorage.setItem(
+              'profile_image',
+              data.data.properties.profile_image,
+            );
+          setId(data.data.id);
+          setName(data.data.properties.nickname);
           navigate('/signup');
         } else {
+          localStorage.setItem('access_token', data.data.access_token);
           navigate('/');
         }
       }

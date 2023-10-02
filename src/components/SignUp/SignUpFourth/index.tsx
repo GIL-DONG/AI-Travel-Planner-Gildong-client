@@ -4,6 +4,7 @@ import { PREFER_TRAVEL_STYLE_LIST } from '@/constants/signUp';
 import { indexState, preferTravelStyleState } from '@/store/atom/signUpAtom';
 import Button from '@/components/Common/Button';
 import { signUpStateSelector } from '@/store/selector/signUpSelector';
+import { postSignUpAPI } from '@/services/signUp';
 import styles from './styles.module.scss';
 
 export default function SignUpFourth() {
@@ -12,8 +13,11 @@ export default function SignUpFourth() {
   const setPreferTravelStyle = useSetRecoilState(preferTravelStyleState);
   const setIndex = useSetRecoilState(indexState);
 
-  const submitHandler = () => {
-    console.log(signUpState);
+  const submitHandler = async () => {
+    const data = await postSignUpAPI(signUpState);
+    if (data) {
+      localStorage.setItem('access_token', data.access_token);
+    }
   };
 
   return (

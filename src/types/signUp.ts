@@ -1,13 +1,13 @@
 export interface SignUpType {
-  id: string;
-  name: string;
-  email: string;
+  userID: string | null;
+  user_name: string;
   gender: string;
-  ageGroup: number;
-  disabilityStatus: boolean;
-  disabilityType: string;
-  preferTravel: string[];
-  residence: residenceType;
+  age_group: number;
+  disability_status: boolean;
+  disability_type: string;
+  prefer_travel: string[];
+  residence: locationType | undefined;
+  user_photo: string;
 }
 
 export interface residenceType {

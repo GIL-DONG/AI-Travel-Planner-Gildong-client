@@ -1,4 +1,5 @@
 import { selector } from 'recoil';
+import { SignUpType } from '@/types/signUp';
 import {
   ageGroupState,
   disabilityStatusState,
@@ -12,7 +13,7 @@ import {
 
 export const signUpStateSelector = selector({
   key: 'signUpState',
-  get: ({ get }) => {
+  get: ({ get }): SignUpType => {
     const id = get(idState);
     const name = get(nameState);
     const ageGroup = get(ageGroupState);
@@ -40,7 +41,7 @@ export const signUpStateSelector = selector({
       gender: gender === '남자' ? '남' : '여',
       prefer_travel: preferTravelStyle,
       residence: residence?.location,
-      disability_status: disabilityStatus === '예' ? 'true' : 'false',
+      disability_status: disabilityStatus === '예' ? true : false,
       disability_type: disabilityStatus === '예' ? type : '',
       user_photo: sessionStorage.getItem('profile_image') || '',
     };
