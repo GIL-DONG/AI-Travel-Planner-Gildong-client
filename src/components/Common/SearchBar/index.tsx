@@ -43,6 +43,7 @@ export default function SearchBar() {
           isSearching={isSearching}
           hasNextPage={hasNextPage}
           getMoreItem={getMoreItem}
+          keyword={debouncedInputText}
           setInputText={setInputText}
         />
       )}

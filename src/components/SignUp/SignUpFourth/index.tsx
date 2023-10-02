@@ -1,8 +1,8 @@
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import Checkboxes from '@/components/common/Checkboxes';
+import Checkboxes from '@/components/Common/Checkboxes';
 import { PREFER_TRAVEL_STYLE_LIST } from '@/constants/signUp';
 import { indexState, preferTravelStyleState } from '@/store/atom/signUpAtom';
-import Button from '@/components/common/Button';
+import Button from '@/components/Common/Button';
 import { signUpStateSelector } from '@/store/selector/signUpSelector';
 import styles from './styles.module.scss';
 

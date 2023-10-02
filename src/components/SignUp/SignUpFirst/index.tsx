@@ -1,6 +1,6 @@
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { useEffect, useState } from 'react';
-import RadioButtonGroup from '@/components/common/RadioButtonGroup';
+import RadioButtonGroup from '@/components/Common/RadioButtonGroup';
 import {
   ageGroupState,
   genderState,
@@ -9,7 +9,8 @@ import {
 } from '@/store/atom/signUpAtom';
 import { AGEGROUP_LIST, GENDER_LIST } from '@/constants/signUp';
 import { postCheckNickNameAPI } from '@/services/signUp';
-import Button from '@/components/common/Button';
+import Button from '@/components/Common/Button';
+import useDebounce from '@/hooks/useDebounce';
 import InputTemplate from '../InputTemplate';
 import NickName from '../NickName';
 import styles from './styles.module.scss';
@@ -23,6 +24,7 @@ export default function SignUpFirst() {
   const setAgeGroup = useSetRecoilState(ageGroupState);
   const [nickNameValidation, setNickNameValidation] = useState(false);
   const setIndex = useSetRecoilState(indexState);
+  const debouncedInputText = useDebounce(name);
 
   const checkNickName = async (value: string) => {
     const data = await postCheckNickNameAPI(value);
@@ -40,8 +42,10 @@ export default function SignUpFirst() {
   };
 
   useEffect(() => {
-    checkNickName(name);
-  }, [name]);
+    if (debouncedInputText) {
+      checkNickName(debouncedInputText);
+    }
+  }, [debouncedInputText]);
 
   return (
     <div className={styles.container}>

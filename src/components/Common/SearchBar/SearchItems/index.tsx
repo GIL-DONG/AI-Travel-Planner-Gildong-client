@@ -10,6 +10,7 @@ interface SearchItemsProps {
   residenceList: residenceType[];
   isSearching: boolean;
   hasNextPage: boolean;
+  keyword: string;
   getMoreItem: () => Promise<void>;
   setInputText: React.Dispatch<SetStateAction<string>>;
 }
@@ -18,6 +19,7 @@ export default function SearchItems({
   residenceList,
   isSearching,
   hasNextPage,
+  keyword,
   getMoreItem,
   setInputText,
 }: SearchItemsProps) {
@@ -30,7 +32,12 @@ export default function SearchItems({
   return (
     <ul className={styles.container}>
       {residenceList?.map((el, idx) => (
-        <SearchItem key={idx} residence={el} setInputText={setInputText} />
+        <SearchItem
+          key={idx}
+          residence={el}
+          keyword={keyword}
+          setInputText={setInputText}
+        />
       ))}
       {isSearching && (
         <span className={styles.loading}>

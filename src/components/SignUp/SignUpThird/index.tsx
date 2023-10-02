@@ -1,6 +1,6 @@
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import SearchBar from '@/components/common/SearchBar';
-import Button from '@/components/common/Button';
+import SearchBar from '@/components/Common/SearchBar';
+import Button from '@/components/Common/Button';
 import { indexState, residenceState } from '@/store/atom/signUpAtom';
 import styles from './styles.module.scss';
 export default function SignUpThird() {
