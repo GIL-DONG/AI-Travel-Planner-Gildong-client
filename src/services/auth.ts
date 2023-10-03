@@ -27,9 +27,7 @@ export const postKakaoAPI = async (code: string) => {
 
 export const getUserInfoAPI = async (token: string) => {
   try {
-    const response = await apiClient.get(
-      `${API_URLS.token}?access_token=${token}`,
-    );
+    const response = await apiClient.get(`${API_URLS.login}?token=${token}`);
     return response.data;
   } catch (error) {
     const axiosError = error as AxiosError<ErrorResponse>;
