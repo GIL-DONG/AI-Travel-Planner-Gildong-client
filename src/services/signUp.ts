@@ -1,4 +1,4 @@
-import axios, { AxiosError } from 'axios';
+import { AxiosError } from 'axios';
 import { API_URLS, DEFAULT_ERROR_MESSAGE } from '@/constants/config';
 import { SignUpType } from '@/types/signUp';
 import { LIMIT } from '@/constants/signUp';
