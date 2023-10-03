@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { DEFAULT_NEXT_PAGE, DEFAULT_PAGE, LIMIT } from '@/constants/signUp';
 import { getSearchResidenceAPI } from '@/services/signUp';
 import { residenceType } from '@/types/signUp';
