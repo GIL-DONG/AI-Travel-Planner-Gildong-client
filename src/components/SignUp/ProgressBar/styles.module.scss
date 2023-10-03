@@ -1,0 +1,30 @@
+.progressBar {
+  background-color: var(--light-gray-color);
+  width: 3rem;
+  height: 0.5rem;
+  display: flex;
+  align-items: center;
+  border-radius: var(--border-radius-lg);
+}
+
+.hightlight {
+  background-color: var(--main-color);
+  height: 0.5rem;
+  border-radius: var(--border-radius-lg);
+
+  &.first {
+    width: calc(3 * 0.25rem);
+  }
+
+  &.second {
+    width: calc(3 * 0.5rem);
+  }
+
+  &.third {
+    width: calc(3 * 0.75rem);
+  }
+
+  &.fourth {
+    width: 3rem;
+  }
+}

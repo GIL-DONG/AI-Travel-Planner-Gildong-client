@@ -1,0 +1,22 @@
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.name {
+  width: 11.5rem;
+  height: 2rem;
+  border-radius: var(--border-radius-sm);
+  border: 1px solid var(--black-color);
+  margin: 0.3rem 0;
+  padding-left: 0.3rem;
+  font-size: 1rem;
+}
+
+.message {
+  color: var(--red-color);
+
+  &.possible {
+    color: var(--green-color);
+  }
+}

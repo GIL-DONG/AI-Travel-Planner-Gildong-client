@@ -1,0 +1,5 @@
+.chk_boxs {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem 0.4rem;
+}
