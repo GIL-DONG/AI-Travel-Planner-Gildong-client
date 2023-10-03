@@ -1,4 +1,4 @@
-import Header from '@/components/common/Header';
+import Header from '@/components/Common/Header';
 import styles from './styles.module.scss';
 export default function Home() {
   return (
