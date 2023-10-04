@@ -1,7 +1,8 @@
-import axios, { AxiosError } from 'axios';
-import { API_URLS, DEFAULT_ERROR_MESSAGE } from '@/constants/config';
+import { AxiosError } from 'axios';
+import { API_URLS } from '@/constants/config';
 import { SignUpType } from '@/types/signUp';
 import { LIMIT } from '@/constants/signUp';
+import { DEFAULT_ERROR_MESSAGE } from '@/constants/error';
 import apiClient from './apiClient';
 
 export const postSignUpAPI = async (formData: SignUpType) => {
