@@ -1,6 +1,62 @@
+@import '@/styles/media.scss';
+
 .pageWrapper {
   width: 100%;
   display: flex;
-  justify-content: center;
+  margin-top: 2.5rem;
+  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
+}
+
+.content {
+  height: 30rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title {
+  font-size: var(--font-size-xxxl);
+
+  @include mobile {
+    font-size: var(--font-size-xxl);
+  }
+}
+
+.img {
+  width: 10rem;
+  height: 10rem;
+}
+
+.exampleWrapper {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem;
+  padding: 1rem;
+  margin: 1rem;
+  background-color: rgba($color: #d9d9d9, $alpha: 0.2);
+  border-radius: var(--border-radius-md);
+}
+
+.example {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 1rem;
+  border-radius: var(--border-radius-md);
+  background-color: var(--white-color);
+
+  > svg {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  @include mobile {
+    flex-direction: column;
+  }
+}
+
+.text {
+  margin: 0.5rem;
 }
