@@ -1,5 +1,10 @@
-declare interface ChatDataTypes {
-  user_id: string;
+declare interface ChatQuestionTypes {
   session_id: string;
-  content: string;
+  question: string;
+}
+
+declare interface ChatAnswerTypes {
+  message: string | object;
+  session_id: string;
+  itinerary_id: string;
 }

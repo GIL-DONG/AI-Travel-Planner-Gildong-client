@@ -1,11 +1,11 @@
-import { ROUTE_PATHS } from '@constants/config';
+import { API_URLS } from '@constants/config';
 import { AxiosError } from 'axios';
 import { DEFAULT_ERROR_MESSAGE } from '@constants/error';
 import apiClient from './apiClient';
 
-export const postChatAPI = async (data: ChatDataTypes) => {
+export const postChatAPI = async (data: ChatQuestionTypes) => {
   try {
-    const response = await apiClient.post(`${ROUTE_PATHS.chat}`, data);
+    const response = await apiClient.post(`${API_URLS.mainChat}`, data);
     return response.data;
   } catch (error) {
     const axiosError = error as AxiosError<ErrorResponse>;

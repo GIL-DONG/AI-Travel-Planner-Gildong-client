@@ -3,7 +3,6 @@ import { AiFillPlusCircle } from 'react-icons/ai';
 import { TbSend } from 'react-icons/tb';
 import Button from '@components/common/Button';
 import ChatLoading from '@components/chat/ChatLoading';
-import { postChatAPI } from '@services/chat';
 import MarkDown from '@components/chat/MarkDown';
 import styles from './styles.module.scss';
 interface ChatTypes {
@@ -36,33 +35,98 @@ export default function Chat() {
   };
 
   const handleSubmit = async () => {
-    try {
+    // try {
+    //   setIsChatLoading(true);
+    //   setQuestion(value);
+    //   setValue('');
+    //   setStop(false);
+    //   const data: ChatQuestionTypes = {
+    //     session_id: '',
+    //     question: value,
+    //   };
+    //   const response = await postChatAPI(data);
+    //   setAnswer(response);
+    //   setList([
+    //     ...list,
+    //     {
+    //       question: value,
+    //       answer: response,
+    //     },
+    //   ]);
+    // } catch (error) {
+    //   console.error(error);
+    // } finally {
+    //   setIsChatLoading(false);
+    //   setQuestion('');
+    //   setAnswer('');
+    // }
+
+    const fetchSSE = () => {
       setIsChatLoading(true);
       setQuestion(value);
       setValue('');
       setStop(false);
-      const data: ChatDataTypes = {
-        user_id: '12345',
-        session_id: 'abcd1234',
-        content: value,
-      };
-      const response = await postChatAPI(data);
-      setAnswer(response);
-      setList([
-        ...list,
-        {
-          question: value,
-          answer: response,
+      fetch('http://211.169.248.182:5040/chatbot/main', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
         },
-      ]);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setIsChatLoading(false);
-      setQuestion('');
-      setAnswer('');
-    }
+        credentials: 'include',
+        body: JSON.stringify({
+          session_id: '',
+          question: value,
+        }),
+      })
+        .then(async (response) => {
+          const reader = response.body!.getReader();
+          const decoder = new TextDecoder();
+
+          // const readChunk: any = () => {
+          //   return reader.read().then(appendChunks);
+          // };
+
+          // const appendChunks = (result: any) => {
+          //   const chunk = decoder.decode(result.value || new Uint8Array(), {
+          //     stream: !result.done,
+          //   });
+
+          //   const parseData = JSON.parse(chunk);
+          //   console.log(parseData);
+
+          //   if (!result.done) {
+          //     return readChunk();
+          //   }
+          // };
+
+          // return readChunk();
+          for (;;) {
+            const { value, done } = await reader.read();
+            if (done) {
+              break;
+            }
+
+            const decodedChunk = decoder.decode(value, {
+              stream: !done,
+            });
+
+            console.log(JSON.parse(decodedChunk));
+          }
+        })
+        .then(() => {
+          setIsChatLoading(false);
+          setQuestion('');
+          setAnswer('');
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    };
+    fetchSSE();
   };
+
+  useEffect(() => {
+    console.log(answer);
+  }, [answer]);
 
   const handleEnter = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
