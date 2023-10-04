@@ -8,6 +8,7 @@ export const API_URLS = {
 };
 
 export const ROUTE_PATHS = {
+  home: '/',
   signIn: '/signin',
   auth: '/auth',
   signUp: '/signup',
