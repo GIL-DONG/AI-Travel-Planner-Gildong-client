@@ -2,8 +2,8 @@ import React, { useState, useRef, useEffect } from 'react';
 import { AiFillPlusCircle } from 'react-icons/ai';
 import { TbSend } from 'react-icons/tb';
 import Button from '@/components/Common/Button';
-import ChatLoading from '@/components/chat/ChatLoading';
-import MarkDown from '@/components/chat/MarkDown';
+import ChatLoading from '@/components/Chat/ChatLoading';
+import MarkDown from '@/components/Chat/MarkDown';
 import styles from './styles.module.scss';
 interface ChatTypes {
   question: string;
