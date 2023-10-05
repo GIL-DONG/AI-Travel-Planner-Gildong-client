@@ -13,7 +13,7 @@ interface ChatTypes {
 
 export default function Chat() {
   const [value, setValue] = useState('');
-  const [list, setList] = useState<ChatTypes[]>([]);
+  const [list] = useState<ChatTypes[]>([]);
   const scrollRef = useRef<null[] | HTMLDivElement[]>([]);
   const [stop, setStop] = useState(false);
   const [isChatLoading, setIsChatLoading] = useState(false);
@@ -79,7 +79,7 @@ export default function Chat() {
         }),
       })
         .then(async (response) => {
-          const reader = response.body!.getReader();
+          const reader = response.body?.getReader() ?? false;
           const decoder = new TextDecoder();
 
           // const readChunk: any = () => {
@@ -100,17 +100,19 @@ export default function Chat() {
           // };
 
           // return readChunk();
-          for (;;) {
-            const { value, done } = await reader.read();
-            if (done) {
-              break;
+          if (reader) {
+            for (;;) {
+              const { value, done } = await reader.read();
+              if (done) {
+                break;
+              }
+
+              const decodedChunk = decoder.decode(value, {
+                stream: !done,
+              });
+
+              console.log(JSON.parse(decodedChunk));
             }
-
-            const decodedChunk = decoder.decode(value, {
-              stream: !done,
-            });
-
-            console.log(JSON.parse(decodedChunk));
           }
         })
         .then(() => {
