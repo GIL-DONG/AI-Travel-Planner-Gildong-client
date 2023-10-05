@@ -7,6 +7,7 @@ export const API_URLS = {
   searchResidence: '/region/autocomplete',
   token: '/kakao/user_info/token',
   mainChat: '/chatbot/main',
+  detail: '/data-detail',
 };
 
 export const ROUTE_PATHS = {
@@ -15,4 +16,5 @@ export const ROUTE_PATHS = {
   auth: '/auth',
   signUp: '/signup',
   chat: '/chat',
+  detail: '/travel/detail/:id',
 };

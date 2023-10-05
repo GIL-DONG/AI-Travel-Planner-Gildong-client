@@ -6,6 +6,7 @@ import Auth from '@/pages/Auth';
 import SignIn from '@/pages/SignIn';
 import SignUp from '@/pages/SignUp';
 import Home from './pages/Home';
+import Detail from './pages/Detail';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path={ROUTE_PATHS.auth} element={<Auth />} />
           <Route path={ROUTE_PATHS.signUp} element={<SignUp />} />
           <Route path={ROUTE_PATHS.chat} element={<Chat />} />
+          <Route path={ROUTE_PATHS.detail} element={<Detail />} />
         </Routes>
       </main>
     </RecoilRoot>
