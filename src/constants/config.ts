@@ -5,6 +5,8 @@ export const API_URLS = {
   signUp: '/users/register',
   checkNickName: '/users/check-username',
   searchResidence: '/region/autocomplete',
+  token: '/kakao/user_info/token',
+  mainChat: '/chatbot/main',
 };
 
 export const ROUTE_PATHS = {
@@ -12,6 +14,5 @@ export const ROUTE_PATHS = {
   signIn: '/signin',
   auth: '/auth',
   signUp: '/signup',
+  chat: '/chat',
 };
-
-export const DEFAULT_ERROR_MESSAGE = '알 수 없는 오류가 발생했습니다.';

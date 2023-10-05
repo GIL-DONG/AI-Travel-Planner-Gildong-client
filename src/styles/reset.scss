@@ -14,6 +14,7 @@
   --light-gray-color: #d9d9d9;
   --white-color: #ffffff;
   --background-color: rgba(0, 123, 255, 0.2);
+  --chat-background-color: rgba(217, 217, 217, 0.2);
 
   --border-radius-sm: 0.25rem; /* 4px */
   --border-radius-md: 0.5rem; /* 8px */
@@ -30,140 +31,30 @@
   --font-size-xxxl: 2rem; /* 32px */
 }
 
-html,
-body,
-div,
-span,
-applet,
-object,
-iframe,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p,
-blockquote,
-pre,
-a,
-abbr,
-acronym,
-address,
-big,
-cite,
-code,
-del,
-dfn,
-em,
-img,
-ins,
-kbd,
-q,
-s,
-samp,
-small,
-strike,
-strong,
-sub,
-sup,
-tt,
-var,
-b,
-u,
-i,
-center,
-dl,
-dt,
-dd,
-ol,
-ul,
-li,
-fieldset,
-form,
-label,
-legend,
-table,
-caption,
-tbody,
-tfoot,
-thead,
-tr,
-th,
-td,
-article,
-aside,
-canvas,
-details,
-embed,
-figure,
-figcaption,
-footer,
-header,
-hgroup,
-menu,
-nav,
-output,
-ruby,
-section,
-summary,
-time,
-mark,
-audio,
-video {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font: inherit;
-  vertical-align: baseline;
-}
-/* HTML5 display-role reset for older browsers */
-article,
-aside,
-details,
-figcaption,
-figure,
-footer,
-header,
-hgroup,
-menu,
-nav,
 section {
   display: block;
 }
+
 body {
-  font-family: 'NanumSquareAcR';
-  line-height: 1;
+  line-height: 2;
 }
+
 a {
   color: var(--black-color);
   text-decoration: none;
 }
-ol,
+
 ul {
   list-style: none;
 }
-blockquote,
-q {
-  quotes: none;
-}
-blockquote:before,
-blockquote:after,
-q:before,
-q:after {
-  content: '';
-  content: none;
-}
-table {
-  border-collapse: collapse;
-  border-spacing: 0;
-}
+
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
   font-family: 'JSArirangHON-Regular';
 }
+
 html {
   display: flex;
   justify-content: center;
