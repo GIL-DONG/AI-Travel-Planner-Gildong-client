@@ -4,6 +4,7 @@ import { TbSend } from 'react-icons/tb';
 import Button from '@/components/Common/Button';
 import ChatLoading from '@/components/Chat/ChatLoading';
 import MarkDown from '@/components/Chat/MarkDown';
+import { API_URLS, BASE_URL } from '@/constants/config';
 import styles from './styles.module.scss';
 interface ChatTypes {
   question: string;
@@ -66,7 +67,7 @@ export default function Chat() {
       setQuestion(value);
       setValue('');
       setStop(false);
-      fetch('http://211.169.248.182:5040/chatbot/main', {
+      fetch(`${BASE_URL}${API_URLS.mainChat}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
