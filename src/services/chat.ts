@@ -1,6 +1,6 @@
-import { API_URLS } from '@constants/config';
 import { AxiosError } from 'axios';
-import { DEFAULT_ERROR_MESSAGE } from '@constants/error';
+import { API_URLS } from '@/constants/config';
+import { DEFAULT_ERROR_MESSAGE } from '@/constants/error';
 import apiClient from './apiClient';
 
 export const postChatAPI = async (data: ChatQuestionTypes) => {
