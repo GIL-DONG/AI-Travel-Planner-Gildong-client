@@ -13,7 +13,7 @@ interface ChatTypes {
 
 export default function Chat() {
   const [value, setValue] = useState('');
-  const [list] = useState<ChatTypes[]>([]);
+  const [list, setList] = useState<ChatTypes[]>([]);
   const scrollRef = useRef<null[] | HTMLDivElement[]>([]);
   const [stop, setStop] = useState(false);
   const [isChatLoading, setIsChatLoading] = useState(false);
@@ -36,93 +36,64 @@ export default function Chat() {
   };
 
   const handleSubmit = async () => {
-    // try {
-    //   setIsChatLoading(true);
-    //   setQuestion(value);
-    //   setValue('');
-    //   setStop(false);
-    //   const data: ChatQuestionTypes = {
-    //     session_id: '',
-    //     question: value,
-    //   };
-    //   const response = await postChatAPI(data);
-    //   setAnswer(response);
-    //   setList([
-    //     ...list,
-    //     {
-    //       question: value,
-    //       answer: response,
-    //     },
-    //   ]);
-    // } catch (error) {
-    //   console.error(error);
-    // } finally {
-    //   setIsChatLoading(false);
-    //   setQuestion('');
-    //   setAnswer('');
-    // }
-
-    const fetchSSE = () => {
-      setIsChatLoading(true);
-      setQuestion(value);
-      setValue('');
-      setStop(false);
-      fetch(`${BASE_URL}${API_URLS.mainChat}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        credentials: 'include',
-        body: JSON.stringify({
-          session_id: '',
-          question: value,
-        }),
-      })
-        .then(async (response) => {
-          const reader = response.body?.getReader() ?? false;
-          const decoder = new TextDecoder();
-
-          // const readChunk: any = () => {
-          //   return reader.read().then(appendChunks);
-          // };
-
-          // const appendChunks = (result: any) => {
-          //   const chunk = decoder.decode(result.value || new Uint8Array(), {
-          //     stream: !result.done,
-          //   });
-
-          //   const parseData = JSON.parse(chunk);
-          //   console.log(parseData);
-
-          //   if (!result.done) {
-          //     return readChunk();
-          //   }
-          // };
-
-          // return readChunk();
-          if (reader) {
-            for (;;) {
-              const { value, done } = await reader.read();
-              if (done) {
-                break;
-              }
-
-              const decodedChunk = decoder.decode(value, {
-                stream: !done,
-              });
-
-              console.log(JSON.parse(decodedChunk));
-            }
-          }
-        })
-        .then(() => {
-          setIsChatLoading(false);
-          setQuestion('');
-          setAnswer('');
-        })
-        .catch((error) => {
-          console.error(error);
+    const fetchSSE = async () => {
+      try {
+        setIsChatLoading(true);
+        setQuestion(value);
+        setValue('');
+        setStop(false);
+        const response = await fetch(`${BASE_URL}${API_URLS.mainChat}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          // credentials: 'include',
+          body: JSON.stringify({
+            session_id: '',
+            question: value,
+          }),
         });
+        const reader =
+          response.body?.pipeThrough(new TextDecoderStream()).getReader() ??
+          false;
+        if (reader) {
+          setIsChatLoading(false);
+          for (;;) {
+            const { value, done } = await reader.read();
+            if (done) break;
+            value
+              .split('}')
+              .map((el) => {
+                if (el) {
+                  sessionStorage.setItem(
+                    'session_id',
+                    JSON.parse(el + '}').session_id,
+                  );
+                  sessionStorage.setItem(
+                    'itinerary_id',
+                    JSON.parse(el + '}').itinerary_id,
+                  );
+                  return JSON.parse(el + '}').message;
+                } else {
+                  return '';
+                }
+              })
+              .forEach((el) => setAnswer((prev) => prev + el));
+          }
+        }
+        setList([
+          ...list,
+          {
+            question: value,
+            answer: answer,
+          },
+        ]);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setQuestion('');
+        setAnswer('');
+      }
     };
     fetchSSE();
   };
