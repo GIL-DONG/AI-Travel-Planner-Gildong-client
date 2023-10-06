@@ -4,6 +4,8 @@ import { useSetRecoilState } from 'recoil';
 import Loading from '@/components/Common/LoadingSpinner';
 import { getUserInfoAPI, postKakaoAPI } from '@/services/auth';
 import { idState, nameState } from '@/store/atom/signUpAtom';
+import { isLoginState, profileImageState } from '@/store/atom/userAtom';
+import parseToken from '@/utils/parseToken';
 import styles from './styles.module.scss';
 
 export default function Auth() {
@@ -11,6 +13,8 @@ export default function Auth() {
   const [isLoading, setIsLoading] = useState(false);
   const setName = useSetRecoilState(nameState);
   const setId = useSetRecoilState(idState);
+  const setIsLogin = useSetRecoilState(isLoginState);
+  const setProfileImage = useSetRecoilState(profileImageState);
 
   const getUserData = useCallback(async () => {
     try {
@@ -22,16 +26,22 @@ export default function Auth() {
         sessionStorage.setItem('kakao_token', token);
         if (data.message === 'User not registered. Please sign up first.') {
           sessionStorage.setItem('id', data.data.id);
-          if (!data.data.kakao_account.profile.is_default_image)
+          if (!data.data.kakao_account.profile.is_default_image) {
             sessionStorage.setItem(
               'profile_image',
               data.data.properties.profile_image,
             );
+            setProfileImage(data.data.properties.profile_image);
+          }
           setId(data.data.id);
           setName(data.data.properties.nickname);
           navigate('/signup');
         } else {
           localStorage.setItem('access_token', data.data.access_token);
+          const { user_name, user_image } = parseToken(data.data.access_token);
+          setName(user_name);
+          setProfileImage(user_image);
+          setIsLogin(true);
           navigate('/');
         }
       }

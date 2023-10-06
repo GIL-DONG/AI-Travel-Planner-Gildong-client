@@ -35,7 +35,7 @@ export const signUpStateSelector = selector({
     }
 
     return {
-      userID: id || sessionStorage.getItem('id'),
+      userID: id + '' || sessionStorage.getItem('id') + '',
       user_name: name,
       age_group: +ageGroup.slice(0, 2),
       gender: gender === '남자' ? '남' : '여',
@@ -43,7 +43,7 @@ export const signUpStateSelector = selector({
       residence: residence?.location,
       disability_status: disabilityStatus === '예' ? true : false,
       disability_type: disabilityStatus === '예' ? type : '',
-      user_photo: sessionStorage.getItem('profile_image') || '',
+      user_photo: sessionStorage.getItem('profile_image') || 'default',
     };
   },
 });
