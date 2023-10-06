@@ -7,7 +7,7 @@ const isLoginState = atom<boolean>({
 
 const profileImageState = atom<string>({
   key: 'profileImageState',
-  default: '',
+  default: sessionStorage.getItem('profile_image') + '' || '',
 });
 
 export { isLoginState, profileImageState };

@@ -26,6 +26,7 @@ export default function Auth() {
         sessionStorage.setItem('kakao_token', token);
         if (data.message === 'User not registered. Please sign up first.') {
           sessionStorage.setItem('id', data.data.id);
+          sessionStorage.setItem('name', data.data.properties.nickname);
           if (!data.data.kakao_account.profile.is_default_image) {
             sessionStorage.setItem(
               'profile_image',
@@ -39,6 +40,8 @@ export default function Auth() {
         } else {
           localStorage.setItem('access_token', data.data.access_token);
           const { user_name, user_image } = parseToken(data.data.access_token);
+          sessionStorage.setItem('name', user_name);
+          sessionStorage.setItem('profile_image', user_image);
           setName(user_name);
           setProfileImage(user_image);
           setIsLogin(true);
