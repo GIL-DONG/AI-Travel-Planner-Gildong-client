@@ -8,7 +8,7 @@ const idState = atom<string>({
 
 const nameState = atom<string>({
   key: 'nameState',
-  default: sessionStorage.getItem('profile_image') || '',
+  default: sessionStorage.getItem('name') || '',
 });
 
 const genderState = atom<string>({
