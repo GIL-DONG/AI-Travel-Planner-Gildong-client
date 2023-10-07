@@ -4,8 +4,12 @@ import { BsFillPersonFill } from 'react-icons/bs';
 import { AiFillHome, AiOutlineSchedule, AiFillWechat } from 'react-icons/ai';
 import { FiLogOut } from 'react-icons/fi';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { AiOutlineArrowRight } from 'react-icons/ai';
+import { useNavigate } from 'react-router-dom';
 import { nameState } from '@/store/atom/signUpAtom';
 import { isLoginState, profileImageState } from '@/store/atom/userAtom';
+import gildong from '@/assets/gildong_icon.png';
+import { ROUTE_PATHS } from '@/constants/config';
 import Button from '../Button';
 import styles from './styles.module.scss';
 
@@ -14,6 +18,7 @@ interface HeaderProps {
 }
 
 export default function Header({ children }: HeaderProps) {
+  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const name = useRecoilValue(nameState);
   const profileImage = useRecoilValue(profileImageState);
@@ -25,7 +30,7 @@ export default function Header({ children }: HeaderProps) {
       <div className={styles.container}>
         <div className={styles.menuWrapper}>
           <Button
-            size="sm"
+            size="md"
             icon={<AiOutlineMenu />}
             iconBtn={true}
             onClick={() => setIsOpen(true)}
@@ -40,25 +45,36 @@ export default function Header({ children }: HeaderProps) {
             onClick={(event) => event.stopPropagation()}
           >
             <ul className={styles.content}>
-              <li className={styles.profileWrapper}>
-                {isLogin ? (
-                  <>
-                    <div className={styles.profileImage}>
-                      {profileImage !== 'default' ? (
-                        <img src={profileImage} />
-                      ) : (
-                        <BsFillPersonFill />
-                      )}
-                    </div>
-                    <div className={styles.name}>{name}</div>
-                  </>
-                ) : null}
-              </li>
-              <li className={styles.nav}>
+              {isLogin ? (
+                <li className={styles.profileWrapper}>
+                  <div className={styles.profileImage}>
+                    {profileImage !== 'default' ? (
+                      <img src={profileImage} />
+                    ) : (
+                      <img src={gildong} />
+                    )}
+                  </div>
+                  <div className={styles.name}>{name} 님</div>
+                </li>
+              ) : (
+                <li
+                  className={styles.login}
+                  onClick={() => navigate(ROUTE_PATHS.signIn)}
+                >
+                  로그인 및 회원가입 <AiOutlineArrowRight />
+                </li>
+              )}
+              <li
+                className={styles.nav}
+                onClick={() => navigate(ROUTE_PATHS.home)}
+              >
                 <div className={styles.clicked} />
                 <AiFillHome /> <div className={styles.title}>홈</div>
               </li>
-              <li className={styles.nav}>
+              <li
+                className={styles.nav}
+                onClick={() => navigate(ROUTE_PATHS.chat)}
+              >
                 <div className={styles.clicked} />
                 <AiFillWechat />
                 <div className={styles.title}>AI 플래너</div>
@@ -71,7 +87,12 @@ export default function Header({ children }: HeaderProps) {
               <li className={styles.nav}>
                 <div className={styles.clicked} />
                 <BsFillPersonFill />
-                <div className={styles.title}>마이페이지</div>
+                <div
+                  className={styles.title}
+                  onClick={() => navigate(ROUTE_PATHS.myPage)}
+                >
+                  마이페이지
+                </div>
               </li>
             </ul>
             {isLogin ? (

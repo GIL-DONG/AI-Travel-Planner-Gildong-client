@@ -6,5 +6,5 @@ declare interface ChatQuestionTypes {
 declare interface ChatAnswerTypes {
   message: string | object;
   session_id: string;
-  itinerary_id: string;
+  itinerary_id?: string;
 }

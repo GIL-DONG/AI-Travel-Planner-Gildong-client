@@ -6,6 +6,7 @@ import { getUserInfoAPI, postKakaoAPI } from '@/services/auth';
 import { idState, nameState } from '@/store/atom/signUpAtom';
 import { isLoginState, profileImageState } from '@/store/atom/userAtom';
 import parseToken from '@/utils/parseToken';
+import { ROUTE_PATHS } from '@/constants/config';
 import styles from './styles.module.scss';
 
 export default function Auth() {
@@ -36,7 +37,7 @@ export default function Auth() {
           }
           setId(data.data.id);
           setName(data.data.properties.nickname);
-          navigate('/signup');
+          navigate(ROUTE_PATHS.signUp);
         } else {
           localStorage.setItem('access_token', data.data.access_token);
           const { user_name, user_image } = parseToken(data.data.access_token);
@@ -45,7 +46,7 @@ export default function Auth() {
           setName(user_name);
           setProfileImage(user_image);
           setIsLogin(true);
-          navigate('/');
+          navigate(ROUTE_PATHS.home);
         }
       }
     } catch (error) {
