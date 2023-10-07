@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { AiFillPlusCircle } from 'react-icons/ai';
+import { AiOutlinePlus } from 'react-icons/ai';
 import { TbSend } from 'react-icons/tb';
 import Button from '@/components/Common/Button';
 import ChatLoading from '@/components/Chat/ChatLoading';
@@ -158,8 +158,9 @@ export default function Chat() {
           <div className={styles.icon}>
             <Button
               size="sm"
-              color="primary"
-              icon={<AiFillPlusCircle />}
+              variant="default"
+              color="secondary"
+              icon={<AiOutlinePlus />}
               iconBtn={true}
             />
           </div>
