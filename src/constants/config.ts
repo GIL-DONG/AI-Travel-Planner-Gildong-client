@@ -17,4 +17,6 @@ export const ROUTE_PATHS = {
   signUp: '/signup',
   chat: '/chat',
   detail: '/travel/detail/:id',
+  myPage: '/mypage',
+  myInfomodify: '/mypage/modify',
 };
