@@ -77,7 +77,14 @@
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
+}
 
+.profileImage {
+  > img {
+    width: 6rem;
+    height: 6rem;
+    margin: 1rem 0;
+  }
   > svg {
     width: 6rem;
     height: 6rem;

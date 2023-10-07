@@ -3,6 +3,9 @@ import { ReactNode, useState } from 'react';
 import { BsFillPersonFill } from 'react-icons/bs';
 import { AiFillHome, AiOutlineSchedule, AiFillWechat } from 'react-icons/ai';
 import { FiLogOut } from 'react-icons/fi';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { nameState } from '@/store/atom/signUpAtom';
+import { isLoginState, profileImageState } from '@/store/atom/userAtom';
 import Button from '../Button';
 import styles from './styles.module.scss';
 
@@ -12,6 +15,11 @@ interface HeaderProps {
 
 export default function Header({ children }: HeaderProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const name = useRecoilValue(nameState);
+  const profileImage = useRecoilValue(profileImageState);
+  const isLogin = useRecoilValue(isLoginState);
+  const setIsLogin = useSetRecoilState(isLoginState);
+
   return (
     <>
       <div className={styles.container}>
@@ -33,8 +41,18 @@ export default function Header({ children }: HeaderProps) {
           >
             <ul className={styles.content}>
               <li className={styles.profileWrapper}>
-                <BsFillPersonFill />
-                <div className={styles.name}>닉네임</div>
+                {isLogin ? (
+                  <>
+                    <div className={styles.profileImage}>
+                      {profileImage !== 'default' ? (
+                        <img src={profileImage} />
+                      ) : (
+                        <BsFillPersonFill />
+                      )}
+                    </div>
+                    <div className={styles.name}>{name}</div>
+                  </>
+                ) : null}
               </li>
               <li className={styles.nav}>
                 <div className={styles.clicked} />
@@ -56,11 +74,21 @@ export default function Header({ children }: HeaderProps) {
                 <div className={styles.title}>마이페이지</div>
               </li>
             </ul>
-            <div className={styles.signout}>
-              <Button icon={<FiLogOut />} full={true}>
-                로그아웃
-              </Button>
-            </div>
+            {isLogin ? (
+              <div className={styles.signout}>
+                <Button
+                  icon={<FiLogOut />}
+                  full={true}
+                  onClick={() => {
+                    setIsLogin(false);
+                    localStorage.removeItem('access_token');
+                    setIsOpen(false);
+                  }}
+                >
+                  로그아웃
+                </Button>
+              </div>
+            ) : null}
           </div>
         </div>
       ) : null}
