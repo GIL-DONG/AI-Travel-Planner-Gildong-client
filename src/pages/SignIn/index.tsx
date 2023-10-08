@@ -1,6 +1,7 @@
 import gildong from '@/assets/gildong_3d_bg.png';
 import kakao from '@/assets/kakao.png';
 import { REDIRECT_URL, REST_API_KEY } from '@/constants/auth';
+import Header from '@/components/Common/Header';
 import styles from './styles.module.scss';
 
 export default function SignIn() {
@@ -11,20 +12,23 @@ export default function SignIn() {
   };
 
   return (
-    <div className={styles.pageWrapper}>
-      <div className={styles.contentWrapper}>
-        <title className={styles.titleWrapper}>
-          <div className={styles.text}>대화로 만들어가는 여행플래너</div>
-          <div className={styles.title}>AI Travel Planner 길동이</div>
-        </title>
-        <img src={gildong} className={styles.img} />
-        <button className={styles.btnWrapper} onClick={handleSignIn}>
-          <div className={styles.btn}>
-            <img src={kakao} />
-            <span>카카오 로그인</span>
-          </div>
-        </button>
+    <>
+      <Header color="wh" />
+      <div className={styles.pageWrapper}>
+        <div className={styles.contentWrapper}>
+          <title className={styles.titleWrapper}>
+            <div className={styles.text}>대화로 만들어가는 여행플래너</div>
+            <div className={styles.title}>AI Travel Planner 길동이</div>
+          </title>
+          <img src={gildong} className={styles.img} />
+          <button className={styles.btnWrapper} onClick={handleSignIn}>
+            <div className={styles.btn}>
+              <img src={kakao} />
+              <span>카카오 로그인</span>
+            </div>
+          </button>
+        </div>
       </div>
-    </div>
+    </>
   );
 }

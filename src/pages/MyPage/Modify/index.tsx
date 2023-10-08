@@ -1,4 +1,4 @@
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { useEffect, useState } from 'react';
 import { nameState } from '@/store/atom/signUpAtom';
 import { profileImageState } from '@/store/atom/userAtom';
@@ -12,10 +12,10 @@ import styles from './styles.module.scss';
 
 export default function Modify() {
   const name = useRecoilValue(nameState);
-  const [nickName, setNickName] = useState(name);
+  const setName = useSetRecoilState(nameState);
   const profileImage = useRecoilValue(profileImageState);
   const [nickNameValidation, setNickNameValidation] = useState(false);
-  const debouncedInputText = useDebounce(nickName);
+  const debouncedInputText = useDebounce(name);
 
   const checkNickName = async (value: string) => {
     const data = await postCheckNickNameAPI(value);
@@ -29,14 +29,14 @@ export default function Modify() {
   const nickNameHandler = async (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
-    setNickName(event.target.value);
+    setName(event.target.value);
   };
 
   useEffect(() => {
-    if (debouncedInputText && debouncedInputText !== name) {
+    if (debouncedInputText) {
       checkNickName(debouncedInputText);
     }
-  }, [debouncedInputText, name]);
+  }, [debouncedInputText]);
 
   return (
     <>
@@ -53,7 +53,7 @@ export default function Modify() {
         <div>
           <span>닉네임</span>
           <NickName
-            value={nickName}
+            value={name}
             onChange={nickNameHandler}
             validation={nickNameValidation}
           />

@@ -5,6 +5,7 @@ import Button from '@/components/Common/Button';
 import ChatLoading from '@/components/Chat/ChatLoading';
 import MarkDown from '@/components/Chat/MarkDown';
 import { API_URLS, BASE_URL } from '@/constants/config';
+import Header from '@/components/Common/Header';
 import styles from './styles.module.scss';
 interface ChatTypes {
   question: string;
@@ -116,72 +117,75 @@ export default function Chat() {
   }, [question]);
 
   return (
-    <div className={`${styles.pageWrapper} colorLayout`}>
-      <div className={styles.content}>
-        <div
-          className={styles.questionContainer}
-          ref={(el) => (scrollRef.current[1] = el)}
-          onWheel={handleWheel}
-        >
-          <div className={styles.questionBackground}>
-            <div ref={(el) => (scrollRef.current[2] = el)}>
-              {list?.map((el, index) => (
-                <div className={styles.question} key={index}>
-                  {el.question}
-                  <div className={styles.answer}>
-                    <MarkDown text={el.answer} />
+    <>
+      <Header />
+      <div className={`${styles.pageWrapper} colorLayout`}>
+        <div className={styles.content}>
+          <div
+            className={styles.questionContainer}
+            ref={(el) => (scrollRef.current[1] = el)}
+            onWheel={handleWheel}
+          >
+            <div className={styles.questionBackground}>
+              <div ref={(el) => (scrollRef.current[2] = el)}>
+                {list?.map((el, index) => (
+                  <div className={styles.question} key={index}>
+                    {el.question}
+                    <div className={styles.answer}>
+                      <MarkDown text={el.answer} />
+                    </div>
                   </div>
-                </div>
-              ))}
-              {question ? (
-                <div
-                  className={styles.question}
-                  ref={(el) => {
-                    scrollRef.current[0] = el;
-                  }}
-                >
-                  {question}
-                  <div className={styles.answer}>
-                    {isChatLoading ? (
-                      <ChatLoading />
-                    ) : (
-                      <MarkDown text={answer} />
-                    )}
+                ))}
+                {question ? (
+                  <div
+                    className={styles.question}
+                    ref={(el) => {
+                      scrollRef.current[0] = el;
+                    }}
+                  >
+                    {question}
+                    <div className={styles.answer}>
+                      {isChatLoading ? (
+                        <ChatLoading />
+                      ) : (
+                        <MarkDown text={answer} />
+                      )}
+                    </div>
                   </div>
-                </div>
-              ) : null}
+                ) : null}
+              </div>
+              {stop ? null : <div className={styles.margin}></div>}
             </div>
-            {stop ? null : <div className={styles.margin}></div>}
           </div>
-        </div>
-        <div className={styles.chat}>
-          <div className={styles.icon}>
-            <Button
-              size="sm"
-              variant="default"
-              color="secondary"
-              icon={<AiOutlinePlus />}
-              iconBtn={true}
+          <div className={styles.chat}>
+            <div className={styles.icon}>
+              <Button
+                size="sm"
+                variant="default"
+                color="secondary"
+                icon={<AiOutlinePlus />}
+                iconBtn={true}
+              />
+            </div>
+            <input
+              className={styles.input}
+              onChange={handleInput}
+              value={value}
+              onKeyDown={handleEnter}
             />
-          </div>
-          <input
-            className={styles.input}
-            onChange={handleInput}
-            value={value}
-            onKeyDown={handleEnter}
-          />
-          <div className={styles.send}>
-            <Button
-              size="sm"
-              color="white"
-              icon={<TbSend />}
-              iconBtn={true}
-              variant="primary"
-              onClick={handleSubmit}
-            />
+            <div className={styles.send}>
+              <Button
+                size="sm"
+                color="white"
+                icon={<TbSend />}
+                iconBtn={true}
+                variant="primary"
+                onClick={handleSubmit}
+              />
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
