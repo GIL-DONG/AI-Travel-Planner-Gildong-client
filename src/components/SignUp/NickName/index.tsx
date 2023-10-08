@@ -1,7 +1,5 @@
 import classNames from 'classnames';
-import { useRecoilValue } from 'recoil';
 import { VALIDATION_MESSAGE } from '@/constants/signUp';
-import { nameState } from '@/store/atom/signUpAtom';
 import styles from './styles.module.scss';
 
 interface NickNameProps {
@@ -15,7 +13,6 @@ export default function NickName({
   onChange,
   validation,
 }: NickNameProps) {
-  const name = useRecoilValue(nameState);
   const classNameValues = classNames(styles.message, {
     [styles.possible]: validation,
   });
@@ -29,7 +26,7 @@ export default function NickName({
         onChange={onChange}
       />
       <p className={classNameValues}>
-        {value && value !== name
+        {value
           ? validation
             ? VALIDATION_MESSAGE.possible
             : VALIDATION_MESSAGE.impossible

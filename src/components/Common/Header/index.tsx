@@ -6,6 +6,7 @@ import { FiLogOut } from 'react-icons/fi';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { AiOutlineArrowRight } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
+import classNames from 'classnames';
 import { nameState } from '@/store/atom/signUpAtom';
 import { isLoginState, profileImageState } from '@/store/atom/userAtom';
 import gildong from '@/assets/gildong_icon.png';
@@ -14,21 +15,36 @@ import Button from '../Button';
 import styles from './styles.module.scss';
 
 interface HeaderProps {
+  color?: 'bg' | 'wh';
   children?: ReactNode;
 }
 
-export default function Header({ children }: HeaderProps) {
+interface ColorTypes {
+  bg: string;
+  wh: string;
+}
+
+const COLORS: ColorTypes = {
+  bg: styles.bg,
+  wh: styles.wh,
+};
+
+export default function Header({ color = 'bg', children }: HeaderProps) {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const name = useRecoilValue(nameState);
   const profileImage = useRecoilValue(profileImageState);
   const isLogin = useRecoilValue(isLoginState);
   const setIsLogin = useSetRecoilState(isLoginState);
+  const classNameValues = classNames(
+    styles.menuWrapper,
+    COLORS[color as keyof ColorTypes],
+  );
 
   return (
     <>
       <div className={styles.container}>
-        <div className={styles.menuWrapper}>
+        <div className={classNameValues}>
           <Button
             size="md"
             icon={<AiOutlineMenu />}
@@ -84,15 +100,13 @@ export default function Header({ children }: HeaderProps) {
                 <AiOutlineSchedule />
                 <div className={styles.title}>여행일정</div>
               </li>
-              <li className={styles.nav}>
+              <li
+                className={styles.nav}
+                onClick={() => navigate(ROUTE_PATHS.myPage)}
+              >
                 <div className={styles.clicked} />
                 <BsFillPersonFill />
-                <div
-                  className={styles.title}
-                  onClick={() => navigate(ROUTE_PATHS.myPage)}
-                >
-                  마이페이지
-                </div>
+                <div className={styles.title}>마이페이지</div>
               </li>
             </ul>
             {isLogin ? (
