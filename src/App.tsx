@@ -34,7 +34,7 @@ function App() {
           <Route path={ROUTE_PATHS.chat} element={<Chat />} />
           <Route path={ROUTE_PATHS.detail} element={<Detail />} />
           <Route path={ROUTE_PATHS.myPage} element={<MyPage />} />
-          <Route path={ROUTE_PATHS.myInfomodify} element={<Modify />} />
+          <Route path={ROUTE_PATHS.updateUserInfo} element={<Modify />} />
         </Routes>
       </main>
     </>

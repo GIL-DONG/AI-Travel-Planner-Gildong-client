@@ -8,6 +8,8 @@ export const API_URLS = {
   token: '/kakao/user_info/token',
   mainChat: '/chatbot/main',
   detail: '/data-detail',
+  deleteUser: '/users/delete-userinfo',
+  updateUserInfo: `/users/update-userinfo`,
 };
 
 export const ROUTE_PATHS = {
@@ -18,5 +20,5 @@ export const ROUTE_PATHS = {
   chat: '/chat',
   detail: '/travel/detail/:id',
   myPage: '/mypage',
-  myInfomodify: '/mypage/modify',
+  updateUserInfo: '/mypage/update',
 };
