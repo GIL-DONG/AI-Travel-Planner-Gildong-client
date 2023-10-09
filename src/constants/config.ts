@@ -20,5 +20,5 @@ export const ROUTE_PATHS = {
   chat: '/chat',
   detail: '/travel/detail/:id',
   myPage: '/mypage',
-  updateUserInfo: '/mypage/modify',
+  updateUserInfo: '/mypage/update',
 };
