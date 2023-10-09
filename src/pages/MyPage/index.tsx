@@ -20,7 +20,7 @@ export default function MyPage() {
   const DeleteUserHandler = async () => {
     await deleteUserAPI();
     setIsLogin(false);
-    localStorage.getItem('access_token');
+    localStorage.removeItem('access_token');
     navigate(ROUTE_PATHS.home);
   };
 
