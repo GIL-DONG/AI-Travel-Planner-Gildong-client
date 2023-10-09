@@ -1,10 +1,12 @@
 import { AxiosError } from 'axios';
 import { DEFAULT_ERROR_MESSAGE } from '@/constants/error';
+import { API_URLS } from '@/constants/config';
+import { updateUserInfoType } from '@/types/user';
 import apiClient from './apiClient';
 
-export const DeleteUserAPI = async () => {
+export const deleteUserAPI = async () => {
   try {
-    const response = await apiClient.delete(`/users/delete-userinfo`);
+    const response = await apiClient.delete(API_URLS.deleteUser);
     return response.data;
   } catch (error) {
     const axiosError = error as AxiosError<ErrorResponse>;
@@ -13,11 +15,9 @@ export const DeleteUserAPI = async () => {
   }
 };
 
-export const PatchUserAPI = async (data: string) => {
+export const patchUserAPI = async (data: updateUserInfoType) => {
   try {
-    const response = await apiClient.patch(`/users/update-userinfo`, {
-      data,
-    });
+    const response = await apiClient.patch(API_URLS.updateUserInfo, data);
     return response.data;
   } catch (error) {
     const axiosError = error as AxiosError<ErrorResponse>;

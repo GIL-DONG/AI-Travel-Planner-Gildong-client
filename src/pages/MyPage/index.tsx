@@ -7,7 +7,7 @@ import { nameState } from '@/store/atom/signUpAtom';
 import { isLoginState, profileImageState } from '@/store/atom/userAtom';
 import gildong from '@/assets/gildong_icon.png';
 import Header from '@/components/Common/Header';
-import { DeleteUserAPI } from '@/services/user';
+import { deleteUserAPI } from '@/services/user';
 import { ROUTE_PATHS } from '@/constants/config';
 import styles from './styles.module.scss';
 
@@ -18,7 +18,7 @@ export default function MyPage() {
   const profileImage = useRecoilValue(profileImageState);
 
   const DeleteUserHandler = async () => {
-    await DeleteUserAPI();
+    await deleteUserAPI();
     setIsLogin(false);
     localStorage.getItem('access_token');
     navigate(ROUTE_PATHS.home);
@@ -40,7 +40,7 @@ export default function MyPage() {
           <div className={styles.contentWrapper}>
             <div
               className={styles.content}
-              onClick={() => navigate(ROUTE_PATHS.myInfomodify)}
+              onClick={() => navigate(ROUTE_PATHS.updateUserInfo)}
             >
               <BsFillPencilFill />
               회원정보 수정
