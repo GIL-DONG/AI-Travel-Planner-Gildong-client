@@ -17,6 +17,7 @@ import styles from './styles.module.scss';
 interface HeaderProps {
   back?: boolean;
   color?: 'bg' | 'wh';
+  signUp?: boolean;
   children?: ReactNode;
 }
 
@@ -30,7 +31,12 @@ const COLORS: ColorTypes = {
   wh: styles.wh,
 };
 
-export default function Header({ back, color = 'bg', children }: HeaderProps) {
+export default function Header({
+  back,
+  color = 'bg',
+  signUp,
+  children,
+}: HeaderProps) {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const name = useRecoilValue(nameState);
@@ -51,7 +57,13 @@ export default function Header({ back, color = 'bg', children }: HeaderProps) {
               size="md"
               icon={<AiOutlineLeft />}
               iconBtn={true}
-              onClick={() => navigate(-1)}
+              onClick={() => {
+                if (signUp) {
+                  navigate('/signin');
+                } else {
+                  navigate(-1);
+                }
+              }}
             />
           ) : (
             <Button

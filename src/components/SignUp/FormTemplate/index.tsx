@@ -18,7 +18,7 @@ export default function FormTemplate({
 }: FormTemplateProps) {
   return (
     <>
-      <Header color="wh" />
+      <Header color="wh" back={true} signUp={true} />
       <div className={styles.container}>
         <div className={styles.formWrapper}>
           <div className={styles.form}>
