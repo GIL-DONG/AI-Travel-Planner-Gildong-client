@@ -57,10 +57,11 @@ export default function Chat() {
         const reader =
           response.body?.pipeThrough(new TextDecoderStream()).getReader() ??
           false;
+        let str = '';
         if (reader) {
-          setIsChatLoading(false);
           for (;;) {
             const { value, done } = await reader.read();
+            setIsChatLoading(false);
             if (done) break;
             value
               .split('}')
@@ -79,14 +80,14 @@ export default function Chat() {
                   return '';
                 }
               })
-              .forEach((el) => setAnswer((prev) => prev + el));
+              .forEach((el) => setAnswer((str += el)));
           }
         }
         setList([
           ...list,
           {
             question: value,
-            answer: answer,
+            answer: str,
           },
         ]);
       } catch (error) {
@@ -115,6 +116,7 @@ export default function Chat() {
       block: 'start',
     });
   }, [question]);
+  console.log(scrollRef.current[0]);
 
   return (
     <>
@@ -156,32 +158,36 @@ export default function Chat() {
               </div>
               {stop ? null : <div className={styles.margin}></div>}
             </div>
-          </div>
-          <div className={styles.chat}>
-            <div className={styles.icon}>
-              <Button
-                size="sm"
-                variant="default"
-                color="secondary"
-                icon={<AiOutlinePlus />}
-                iconBtn={true}
-              />
-            </div>
-            <input
-              className={styles.input}
-              onChange={handleInput}
-              value={value}
-              onKeyDown={handleEnter}
-            />
-            <div className={styles.send}>
-              <Button
-                size="sm"
-                color="white"
-                icon={<TbSend />}
-                iconBtn={true}
-                variant="primary"
-                onClick={handleSubmit}
-              />
+            <div className={styles.chatContainer}>
+              <div className={styles.chatWrapper}>
+                <div className={styles.chat}>
+                  <div className={styles.icon}>
+                    <Button
+                      size="sm"
+                      variant="default"
+                      color="secondary"
+                      icon={<AiOutlinePlus />}
+                      iconBtn={true}
+                    />
+                  </div>
+                  <input
+                    className={styles.input}
+                    onChange={handleInput}
+                    value={value}
+                    onKeyDown={handleEnter}
+                  />
+                  <div className={styles.send}>
+                    <Button
+                      size="sm"
+                      color="white"
+                      icon={<TbSend />}
+                      iconBtn={true}
+                      variant="primary"
+                      onClick={handleSubmit}
+                    />
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
