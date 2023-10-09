@@ -40,7 +40,7 @@ export default function Detail() {
 
   return (
     <>
-      <Header />
+      <Header back={true} />
       <div className={`${styles.pageWrapper} colorLayout`}>
         <div className={styles.title}>{detailData.title}</div>
         {detailData.url ? (

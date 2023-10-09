@@ -4,7 +4,7 @@ import { BsFillPersonFill } from 'react-icons/bs';
 import { AiFillHome, AiOutlineSchedule, AiFillWechat } from 'react-icons/ai';
 import { FiLogOut } from 'react-icons/fi';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { AiOutlineArrowRight } from 'react-icons/ai';
+import { AiOutlineArrowRight, AiOutlineLeft } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
 import classNames from 'classnames';
 import { nameState } from '@/store/atom/signUpAtom';
@@ -15,6 +15,7 @@ import Button from '../Button';
 import styles from './styles.module.scss';
 
 interface HeaderProps {
+  back?: boolean;
   color?: 'bg' | 'wh';
   children?: ReactNode;
 }
@@ -29,7 +30,7 @@ const COLORS: ColorTypes = {
   wh: styles.wh,
 };
 
-export default function Header({ color = 'bg', children }: HeaderProps) {
+export default function Header({ back, color = 'bg', children }: HeaderProps) {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const name = useRecoilValue(nameState);
@@ -45,12 +46,21 @@ export default function Header({ color = 'bg', children }: HeaderProps) {
     <>
       <div className={styles.container}>
         <div className={classNameValues}>
-          <Button
-            size="md"
-            icon={<AiOutlineMenu />}
-            iconBtn={true}
-            onClick={() => setIsOpen(true)}
-          />
+          {back ? (
+            <Button
+              size="md"
+              icon={<AiOutlineLeft />}
+              iconBtn={true}
+              onClick={() => navigate(-1)}
+            />
+          ) : (
+            <Button
+              size="md"
+              icon={<AiOutlineMenu />}
+              iconBtn={true}
+              onClick={() => setIsOpen(true)}
+            />
+          )}
           <div className={styles.menu}>{children}</div>
         </div>
       </div>
