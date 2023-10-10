@@ -80,7 +80,9 @@ export default function Chat() {
                   return '';
                 }
               })
-              .forEach((el) => setAnswer((str += el)));
+              .forEach((el) =>
+                el !== 'completed' ? setAnswer((str += el)) : '',
+              );
           }
         }
         setList([
@@ -116,11 +118,10 @@ export default function Chat() {
       block: 'start',
     });
   }, [question]);
-  console.log(scrollRef.current[0]);
 
   return (
     <>
-      <Header />
+      <Header>AI Travel Planner 길동이</Header>
       <div className={`${styles.pageWrapper} colorLayout`}>
         <div className={styles.content}>
           <div
