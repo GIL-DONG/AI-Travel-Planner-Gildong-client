@@ -8,6 +8,10 @@ export const API_URLS = {
   token: '/kakao/user_info/token',
   mainChat: '/chatbot/main',
   detail: '/data-detail',
+  conversation: '/convo',
+  getItinerary: '/itinerary',
+  getItineraryDetail: '/itinerary/detail',
+  addItinerary: '/itinerary/registration',
   deleteUser: '/users/delete-userinfo',
   updateUserInfo: `/users/update-userinfo`,
 };
