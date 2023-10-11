@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { useState, useRef } from 'react';
 
 export default function SpeechToTextButton() {
@@ -73,18 +72,6 @@ export default function SpeechToTextButton() {
       downloadLink.download = fileName;
       downloadLink.click();
       audioChunks.current = [];
-      const data = await axios.post(
-        'http://211.169.248.182:5042/STT/uploads/',
-        {
-          in_files: audioFile,
-        },
-        {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        },
-      );
-      console.log(data);
     }
   };
 
