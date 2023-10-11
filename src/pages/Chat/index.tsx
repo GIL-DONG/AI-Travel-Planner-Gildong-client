@@ -7,6 +7,7 @@ import MarkDown from '@/components/Chat/MarkDown';
 import { API_URLS, BASE_URL } from '@/constants/config';
 import Header from '@/components/Common/Header';
 import styles from './styles.module.scss';
+
 interface ChatTypes {
   question: string;
   answer: string;
@@ -47,10 +48,14 @@ export default function Chat() {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
+            Authorization:
+              `Bearer ${localStorage.getItem('access_token')}` || '',
           },
           // credentials: 'include',
           body: JSON.stringify({
-            session_id: '',
+            session_id: sessionStorage.getItem('session_id')
+              ? sessionStorage.getItem('session_id') + ''
+              : '',
             question: value,
           }),
         });
@@ -62,27 +67,25 @@ export default function Chat() {
           for (;;) {
             const { value, done } = await reader.read();
             setIsChatLoading(false);
+
             if (done) break;
-            value
-              .split('}')
-              .map((el) => {
-                if (el) {
-                  sessionStorage.setItem(
-                    'session_id',
-                    JSON.parse(el + '}').session_id,
-                  );
-                  sessionStorage.setItem(
-                    'itinerary_id',
-                    JSON.parse(el + '}').itinerary_id,
-                  );
-                  return JSON.parse(el + '}').message;
-                } else {
-                  return '';
+            const regex = /{[^}]*}/g;
+            const matches = value.match(regex) || [];
+
+            if (matches) {
+              for (let i = 0; i < matches.length; i++) {
+                const data = JSON.parse(matches[i]);
+                if (data.session_id) {
+                  sessionStorage.setItem('session_id', data.session_id);
                 }
-              })
-              .forEach((el) =>
-                el !== 'completed' ? setAnswer((str += el)) : '',
-              );
+                if (data.itinerary_id) {
+                  sessionStorage.setItem('itinerary_id', data.itinerary_id);
+                }
+                if (data.message !== 'completed') {
+                  setAnswer((str += data.message));
+                }
+              }
+            }
           }
         }
         setList([
@@ -101,10 +104,6 @@ export default function Chat() {
     };
     fetchSSE();
   };
-
-  useEffect(() => {
-    console.log(answer);
-  }, [answer]);
 
   const handleEnter = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
