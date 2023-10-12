@@ -6,11 +6,14 @@ import ChatLoading from '@/components/Chat/ChatLoading';
 import MarkDown from '@/components/Chat/MarkDown';
 import { API_URLS, BASE_URL } from '@/constants/config';
 import Header from '@/components/Common/Header';
+import ImageUploadButton from '@/components/Chat/ImageUploadButton';
+import SpeechToTextButton from '@/components/Chat/SpeechToTextButton';
 import styles from './styles.module.scss';
 
 interface ChatTypes {
   question: string;
   answer: string;
+  itinerary: string;
 }
 
 export default function Chat() {
@@ -21,6 +24,8 @@ export default function Chat() {
   const [isChatLoading, setIsChatLoading] = useState(false);
   const [question, setQuestion] = useState('');
   const [answer, setAnswer] = useState('');
+  const [isOpen, setIsOpen] = useState(false);
+  const [isMicOn, setIsMicOn] = useState(false);
 
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
@@ -63,6 +68,7 @@ export default function Chat() {
           response.body?.pipeThrough(new TextDecoderStream()).getReader() ??
           false;
         let str = '';
+        let itinerary = '';
         if (reader) {
           for (;;) {
             const { value, done } = await reader.read();
@@ -80,6 +86,7 @@ export default function Chat() {
                 }
                 if (data.itinerary_id) {
                   sessionStorage.setItem('itinerary_id', data.itinerary_id);
+                  itinerary = data.itinerary_id;
                 }
                 if (data.message !== 'completed') {
                   setAnswer((str += data.message));
@@ -93,6 +100,7 @@ export default function Chat() {
           {
             question: value,
             answer: str,
+            itinerary: itinerary,
           },
         ]);
       } catch (error) {
@@ -118,10 +126,27 @@ export default function Chat() {
     });
   }, [question]);
 
+  useEffect(() => {
+    if (
+      scrollRef.current[1] &&
+      scrollRef.current[2] &&
+      scrollRef.current[1]?.scrollTop + scrollRef.current[1]?.clientHeight <
+        scrollRef.current[2]?.clientHeight
+    ) {
+      scrollRef.current[2]?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'end',
+      });
+    }
+  }, [answer]);
+
   return (
     <>
       <Header>AI Travel Planner 길동이</Header>
-      <div className={`${styles.pageWrapper} colorLayout`}>
+      <div
+        className={`${styles.pageWrapper} colorLayout`}
+        onClick={() => setIsOpen(false)}
+      >
         <div className={styles.content}>
           <div
             className={styles.questionContainer}
@@ -135,6 +160,13 @@ export default function Chat() {
                     {el.question}
                     <div className={styles.answer}>
                       <MarkDown text={el.answer} />
+                      {el.itinerary ? (
+                        <div className={styles.addButton}>
+                          <Button variant="primary" icon={<AiOutlinePlus />}>
+                            일정 추가
+                          </Button>
+                        </div>
+                      ) : null}
                     </div>
                   </div>
                 ))}
@@ -158,7 +190,10 @@ export default function Chat() {
               </div>
               {stop ? null : <div className={styles.margin}></div>}
             </div>
-            <div className={styles.chatContainer}>
+            <div
+              className={styles.chatContainer}
+              onClick={(event) => event.stopPropagation()}
+            >
               <div className={styles.chatWrapper}>
                 <div className={styles.chat}>
                   <div className={styles.icon}>
@@ -168,7 +203,13 @@ export default function Chat() {
                       color="secondary"
                       icon={<AiOutlinePlus />}
                       iconBtn={true}
+                      onClick={() => setIsOpen(true)}
                     />
+                    {isOpen ? (
+                      <div className={styles.button}>
+                        <ImageUploadButton />
+                      </div>
+                    ) : null}
                   </div>
                   <input
                     className={styles.input}
@@ -177,14 +218,22 @@ export default function Chat() {
                     onKeyDown={handleEnter}
                   />
                   <div className={styles.send}>
-                    <Button
-                      size="sm"
-                      color="white"
-                      icon={<TbSend />}
-                      iconBtn={true}
-                      variant="primary"
-                      onClick={handleSubmit}
-                    />
+                    {value ? (
+                      <Button
+                        size="sm"
+                        color="white"
+                        icon={<TbSend />}
+                        iconBtn={true}
+                        variant="primary"
+                        onClick={handleSubmit}
+                      />
+                    ) : (
+                      <SpeechToTextButton
+                        setValue={setValue}
+                        isMicOn={isMicOn}
+                        setIsMicOn={setIsMicOn}
+                      />
+                    )}
                   </div>
                 </div>
               </div>

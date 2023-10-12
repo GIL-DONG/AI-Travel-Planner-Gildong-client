@@ -36,7 +36,7 @@
 }
 
 .margin {
-  height: 45rem;
+  height: 50rem;
 }
 
 .question {
@@ -76,6 +76,7 @@
 }
 
 .chat {
+  position: relative;
   height: 3rem;
   display: flex;
   align-items: center;
@@ -102,6 +103,7 @@
 
 .icon {
   margin-left: 0.2rem;
+  z-index: 20;
 
   > button > svg {
     width: 1.5rem;
@@ -111,4 +113,18 @@
 
 .send {
   margin-right: 0.5rem;
+}
+
+.button {
+  position: absolute;
+  bottom: 3.5rem;
+  left: 0;
+  background-color: var(--white-color);
+  z-index: 20;
+}
+
+.addButton {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1rem;
 }
