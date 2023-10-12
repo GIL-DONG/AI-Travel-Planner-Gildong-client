@@ -1,11 +1,25 @@
-import { useState, useRef } from 'react';
+import axios from 'axios';
+import React, { useState, useRef, useEffect } from 'react';
+import { BsFillMicFill, BsFillMicMuteFill } from 'react-icons/bs';
+import Button from '@/components/Common/Button';
 
-export default function SpeechToTextButton() {
+interface SpeechToTextButtonType {
+  isMicOn: boolean;
+  setIsMicOn: React.Dispatch<React.SetStateAction<boolean>>;
+  setValue: React.Dispatch<React.SetStateAction<string>>;
+}
+
+export default function SpeechToTextButton({
+  isMicOn,
+  setIsMicOn,
+  setValue,
+}: SpeechToTextButtonType) {
   const [audioBlob, setAudioBlob] = useState<Blob | null>(null);
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const audioChunks = useRef<Blob[]>([]);
 
   const startRecording = () => {
+    setIsMicOn(true);
     navigator.mediaDevices
       .getUserMedia({ audio: true })
       .then((stream) => {
@@ -28,59 +42,99 @@ export default function SpeechToTextButton() {
       });
   };
 
+  function blobToFile(blob: Blob, fileName: string): File {
+    const file = new File([blob], fileName);
+    return file;
+  }
+
   const stopRecording = () => {
     if (
       mediaRecorderRef.current &&
       mediaRecorderRef.current.state === 'recording'
     ) {
       mediaRecorderRef.current.stop();
+      setIsMicOn(false);
     }
   };
 
-  function blobToFile(blob: Blob, fileName: string): File {
-    const file = new File([blob], fileName);
-    return file;
-  }
-  const date = new Date();
-  console.log(date);
-  const handleFileUpload = async () => {
-    if (audioBlob) {
-      const currentDate = new Date();
-      const fileExtension = 'wav';
-      const formattedDate = `${currentDate.getFullYear()}_${(
-        currentDate.getMonth() + 1
-      )
-        .toString()
-        .padStart(2, '0')}_${currentDate
-        .getDate()
-        .toString()
-        .padStart(2, '0')}`;
-      const formattedTime = `${currentDate
-        .getHours()
-        .toString()
-        .padStart(2, '0')}_${currentDate
-        .getMinutes()
-        .toString()
-        .padStart(2, '0')}_${currentDate
-        .getSeconds()
-        .toString()
-        .padStart(2, '0')}`;
-      const fileName = `audio_${formattedDate}_${formattedTime}.${fileExtension}`;
-      const audioFile = blobToFile(audioBlob, fileName);
-      const downloadLink = document.createElement('a');
-      downloadLink.href = URL.createObjectURL(audioBlob);
-      downloadLink.download = fileName;
-      downloadLink.click();
-      audioChunks.current = [];
-    }
-  };
+  useEffect(() => {
+    const FileUpload = async () => {
+      if (audioBlob) {
+        const currentDate = new Date();
+        const fileExtension = 'wav';
+        const formattedDate = `${currentDate.getFullYear()}_${(
+          currentDate.getMonth() + 1
+        )
+          .toString()
+          .padStart(2, '0')}_${currentDate
+          .getDate()
+          .toString()
+          .padStart(2, '0')}`;
+        const formattedTime = `${currentDate
+          .getHours()
+          .toString()
+          .padStart(2, '0')}_${currentDate
+          .getMinutes()
+          .toString()
+          .padStart(2, '0')}_${currentDate
+          .getSeconds()
+          .toString()
+          .padStart(2, '0')}`;
+        const fileName = `audio_${formattedDate}_${formattedTime}.${fileExtension}`;
+        const audioFile = blobToFile(audioBlob, fileName);
+        audioChunks.current = [];
+        const data = await axios.post(
+          `${import.meta.env.VITE_APP_API_URL}/STT/uploads/`,
+          {
+            in_files: audioFile,
+          },
+          {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+              Authorization:
+                `Bearer ${localStorage.getItem('access_token')}` || '',
+            },
+          },
+        );
+        if (data.data.transcripts[0]) {
+          const script = data.data.transcripts[0];
+          setValue(
+            script.slice(
+              script.indexOf(':') + 1,
+              script.indexOf('\nConfidence:'),
+            ),
+          );
+        }
+      }
+    };
+
+    FileUpload();
+  }, [audioBlob]);
 
   return (
-    <div>
-      <h1>오디오 녹음</h1>
-      <button onClick={startRecording}>녹음 시작</button>
-      <button onClick={stopRecording}>녹음 중지</button>
-      <button onClick={handleFileUpload}>녹음된 파일 업로드</button>
-    </div>
+    <>
+      {isMicOn ? (
+        <Button
+          size="sm"
+          variant="primary"
+          icon={<BsFillMicMuteFill />}
+          iconBtn={true}
+          onClick={stopRecording}
+        >
+          녹음 중지
+        </Button>
+      ) : (
+        <Button
+          icon={<BsFillMicFill />}
+          size="sm"
+          variant="lined"
+          color="primary"
+          iconBtn={true}
+          onClick={startRecording}
+        >
+          녹음 시작
+        </Button>
+      )}
+    </>
   );
 }
