@@ -1,6 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { AiOutlinePlus } from 'react-icons/ai';
 import { TbSend } from 'react-icons/tb';
+import { TbBeach } from 'react-icons/tb';
+import { FaWheelchair } from 'react-icons/fa';
+import { FaBlind } from 'react-icons/fa';
+import { ImFire } from 'react-icons/im';
+import { AiOutlineArrowRight } from 'react-icons/ai';
 import Button from '@/components/Common/Button';
 import ChatLoading from '@/components/Chat/ChatLoading';
 import MarkDown from '@/components/Chat/MarkDown';
@@ -8,6 +13,7 @@ import { API_URLS, BASE_URL } from '@/constants/config';
 import Header from '@/components/Common/Header';
 import ImageUploadButton from '@/components/Chat/ImageUploadButton';
 import SpeechToTextButton from '@/components/Chat/SpeechToTextButton';
+import gildong from '@/assets/gildong_3d.png';
 import styles from './styles.module.scss';
 
 interface ChatTypes {
@@ -16,7 +22,11 @@ interface ChatTypes {
   itinerary: string;
 }
 
-export default function Chat() {
+interface ChatProps {
+  home?: boolean;
+}
+
+export default function Chat({ home }: ChatProps) {
   const [value, setValue] = useState('');
   const [list, setList] = useState<ChatTypes[]>([]);
   const scrollRef = useRef<null[] | HTMLDivElement[]>([]);
@@ -42,75 +52,75 @@ export default function Chat() {
     }
   };
 
-  const handleSubmit = async () => {
-    const fetchSSE = async () => {
-      try {
-        setIsChatLoading(true);
-        setQuestion(value);
-        setValue('');
-        setStop(false);
-        const response = await fetch(`${BASE_URL}${API_URLS.mainChat}`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization:
-              `Bearer ${localStorage.getItem('access_token')}` || '',
-          },
-          // credentials: 'include',
-          body: JSON.stringify({
-            session_id: sessionStorage.getItem('session_id')
-              ? sessionStorage.getItem('session_id') + ''
-              : '',
-            question: value,
-          }),
-        });
-        const reader =
-          response.body?.pipeThrough(new TextDecoderStream()).getReader() ??
-          false;
-        let str = '';
-        let itinerary = '';
-        if (reader) {
-          for (;;) {
-            const { value, done } = await reader.read();
-            setIsChatLoading(false);
+  const fetchSSE = async (text?: string) => {
+    try {
+      setIsChatLoading(true);
+      setQuestion(value || text || '');
+      setValue('');
+      setStop(false);
+      const response = await fetch(`${BASE_URL}${API_URLS.mainChat}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('access_token')}` || '',
+        },
+        // credentials: 'include',
+        body: JSON.stringify({
+          session_id: sessionStorage.getItem('session_id')
+            ? sessionStorage.getItem('session_id') + ''
+            : '',
+          question: value || text || '',
+        }),
+      });
+      const reader =
+        response.body?.pipeThrough(new TextDecoderStream()).getReader() ??
+        false;
+      let str = '';
+      let itinerary = '';
+      if (reader) {
+        for (;;) {
+          const { value, done } = await reader.read();
+          setIsChatLoading(false);
 
-            if (done) break;
-            const regex = /{[^}]*}/g;
-            const matches = value.match(regex) || [];
+          if (done) break;
+          const regex = /{[^}]*}/g;
+          const matches = value.match(regex) || [];
 
-            if (matches) {
-              for (let i = 0; i < matches.length; i++) {
-                const data = JSON.parse(matches[i]);
-                if (data.session_id) {
-                  sessionStorage.setItem('session_id', data.session_id);
-                }
-                if (data.itinerary_id) {
-                  sessionStorage.setItem('itinerary_id', data.itinerary_id);
-                  itinerary = data.itinerary_id;
-                }
-                if (data.message !== 'completed') {
-                  setAnswer((str += data.message));
-                }
+          if (matches) {
+            for (let i = 0; i < matches.length; i++) {
+              const data = JSON.parse(matches[i]);
+              if (data.session_id) {
+                sessionStorage.setItem('session_id', data.session_id);
+              }
+              if (data.itinerary_id) {
+                sessionStorage.setItem('itinerary_id', data.itinerary_id);
+                itinerary = data.itinerary_id;
+              }
+              if (data.message !== 'completed') {
+                setAnswer((str += data.message));
               }
             }
           }
         }
-        setList([
-          ...list,
-          {
-            question: value,
-            answer: str,
-            itinerary: itinerary,
-          },
-        ]);
-      } catch (error) {
-        console.error(error);
-      } finally {
-        setQuestion('');
-        setAnswer('');
       }
-    };
-    fetchSSE();
+      setList([
+        ...list,
+        {
+          question: value || text || '',
+          answer: str,
+          itinerary: itinerary,
+        },
+      ]);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setQuestion('');
+      setAnswer('');
+    }
+  };
+
+  const handleSubmit = async () => {
+    await fetchSSE();
   };
 
   const handleEnter = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -153,50 +163,121 @@ export default function Chat() {
             ref={(el) => (scrollRef.current[1] = el)}
             onWheel={handleWheel}
           >
-            <div className={styles.questionBackground}>
-              <div ref={(el) => (scrollRef.current[2] = el)}>
-                {list?.map((el, index) => (
-                  <div className={styles.question} key={index}>
-                    {el.question}
-                    <div className={styles.answer}>
-                      <MarkDown text={el.answer} />
-                      {el.itinerary ? (
-                        <div className={styles.addButton}>
-                          <Button variant="primary" icon={<AiOutlinePlus />}>
-                            일정 추가
-                          </Button>
-                        </div>
-                      ) : null}
+            {question || list?.length !== 0 ? (
+              <div className={styles.questionBackground}>
+                <div ref={(el) => (scrollRef.current[2] = el)}>
+                  {list?.map((el, index) => (
+                    <div className={styles.question} key={index}>
+                      {el.question}
+                      <div className={styles.answer}>
+                        <MarkDown text={el.answer} />
+                        {el.itinerary ? (
+                          <div className={styles.addButton}>
+                            <Button variant="primary" icon={<AiOutlinePlus />}>
+                              일정 추가
+                            </Button>
+                          </div>
+                        ) : null}
+                      </div>
                     </div>
-                  </div>
-                ))}
-                {question ? (
-                  <div
-                    className={styles.question}
-                    ref={(el) => {
-                      scrollRef.current[0] = el;
-                    }}
-                  >
-                    {question}
-                    <div className={styles.answer}>
-                      {isChatLoading ? (
-                        <ChatLoading />
-                      ) : (
-                        <MarkDown text={answer} />
-                      )}
+                  ))}
+                  {question ? (
+                    <div
+                      className={styles.question}
+                      ref={(el) => {
+                        scrollRef.current[0] = el;
+                      }}
+                    >
+                      {question}
+                      <div className={styles.answer}>
+                        {isChatLoading ? (
+                          <ChatLoading />
+                        ) : (
+                          <MarkDown text={answer} />
+                        )}
+                      </div>
                     </div>
-                  </div>
-                ) : null}
+                  ) : null}
+                </div>
+                {stop ? null : <div className={styles.margin}></div>}
               </div>
-              {stop ? null : <div className={styles.margin}></div>}
-            </div>
-            <div
-              className={styles.chatContainer}
-              onClick={(event) => event.stopPropagation()}
-            >
+            ) : home ? (
+              <div className={styles.default}>
+                <div className={styles.title}>
+                  길동이에게 여행 일정을 맡겨보세요!
+                </div>
+                <img src={gildong} className={styles.img} />
+                <div className={styles.exampleWrapper}>
+                  <div
+                    className={styles.example}
+                    onClick={() =>
+                      fetchSSE('어디든 바다가 있는 곳으로 떠나고 싶어')
+                    }
+                  >
+                    <TbBeach />
+                    <span className={styles.text}>
+                      어디든 바다가 있는 곳으로 떠나고 싶어
+                    </span>
+                    <div className={styles.go}>
+                      <AiOutlineArrowRight />
+                    </div>
+                  </div>
+                  <div
+                    className={styles.example}
+                    onClick={() =>
+                      fetchSSE(
+                        '휠체어로 갈 수 있는 3박 4일 부산여행 일정을 추천해줘!',
+                      )
+                    }
+                  >
+                    <FaWheelchair />
+                    <span className={styles.text}>
+                      휠체어로 갈 수 있는 3박 4일 부산여행 일정을 추천해줘!
+                    </span>
+                    <div className={styles.go}>
+                      <AiOutlineArrowRight />
+                    </div>
+                  </div>
+                  <div
+                    className={styles.example}
+                    onClick={() =>
+                      fetchSSE(
+                        '시각장애인도 갈 수 있는 2박 3일 통영여행 일정을 추천해줘',
+                      )
+                    }
+                  >
+                    <FaBlind />
+                    <span className={styles.text}>
+                      시각장애인도 갈 수 있는 2박 3일 통영여행 일정을 추천해줘
+                    </span>
+                    <div className={styles.go}>
+                      <AiOutlineArrowRight />
+                    </div>
+                  </div>
+                  <div className={styles.example}>
+                    <ImFire />
+                    <span
+                      className={styles.text}
+                      onClick={() =>
+                        fetchSSE('요즘 사람들이 많이 가는 여행지로 추천해줘')
+                      }
+                    >
+                      요즘 사람들이 많이 가는 여행지로 추천해줘
+                    </span>
+                    <div className={styles.go}>
+                      <AiOutlineArrowRight />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ) : null}
+            <div className={styles.chatContainer}>
               <div className={styles.chatWrapper}>
                 <div className={styles.chat}>
-                  <div className={styles.icon}>
+                  <div
+                    className={styles.icon}
+                    onClick={(event) => event.stopPropagation()}
+                  >
                     <Button
                       size="sm"
                       variant="default"

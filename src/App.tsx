@@ -18,7 +18,7 @@ function App() {
     <>
       <main className="mainLayout">
         <Routes>
-          <Route path={ROUTE_PATHS.home} element={<Home />} />
+          <Route path={ROUTE_PATHS.home} element={<Chat home={true} />} />
           <Route
             path={ROUTE_PATHS.signIn}
             element={isLogin ? <Home /> : <SignIn />}
@@ -33,8 +33,14 @@ function App() {
           />
           <Route path={ROUTE_PATHS.chat} element={<Chat />} />
           <Route path={ROUTE_PATHS.detail} element={<Detail />} />
-          <Route path={ROUTE_PATHS.myPage} element={<MyPage />} />
-          <Route path={ROUTE_PATHS.updateUserInfo} element={<Modify />} />
+          <Route
+            path={ROUTE_PATHS.myPage}
+            element={isLogin ? <MyPage /> : <SignIn />}
+          />
+          <Route
+            path={ROUTE_PATHS.updateUserInfo}
+            element={isLogin ? <Modify /> : <SignIn />}
+          />
         </Routes>
       </main>
     </>
