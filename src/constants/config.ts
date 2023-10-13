@@ -9,9 +9,10 @@ export const API_URLS = {
   mainChat: '/chatbot/main',
   detail: '/data-detail',
   conversation: '/convo',
-  getItinerary: '/itinerary',
+  getAllItinerary: '/itinerary',
   getItineraryDetail: '/itinerary/detail',
   addItinerary: '/itinerary/registration',
+  calendar: '/itinerary/calendar',
   deleteUser: '/users/delete-userinfo',
   updateUserInfo: `/users/update-userinfo`,
 };
@@ -23,6 +24,8 @@ export const ROUTE_PATHS = {
   signUp: '/signup',
   chat: '/chat',
   detail: '/travel/detail/:id',
+  itinerary: '/travel/itinerary',
+  itineraryDetail: '/travel/itinerary/:id',
   myPage: '/mypage',
   updateUserInfo: '/mypage/update',
 };

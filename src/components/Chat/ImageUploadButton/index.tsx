@@ -12,7 +12,7 @@ export default function ImageUploadButton() {
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
     const imageLists = event.target.files || [];
-    console.log(imageLists[0]);
+
     const obj: DataType = {
       body: '비슷한 명소',
       in_files: imageLists[0],
@@ -33,9 +33,8 @@ export default function ImageUploadButton() {
   return (
     <>
       <label htmlFor="file" className={styles.label}>
-        <Button icon={<AiOutlineCamera />} color="secondary" size="lg">
-          사진 첨부
-        </Button>
+        <AiOutlineCamera />
+        사진 첨부
       </label>
       <input
         id="file"

@@ -56,7 +56,7 @@ export default function Detail() {
             </div>
           ) : null}
           <p className={styles.info}>
-            {detailData.overview.replaceAll('<br>', '')}{' '}
+            {detailData.overview.replaceAll('<br>', '')}
           </p>
           <ul className={styles.tabWrapper}>
             {tabArr.map((el, index) => (
