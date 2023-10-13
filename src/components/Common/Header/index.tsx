@@ -97,34 +97,52 @@ export default function Header({
               ) : (
                 <li
                   className={styles.login}
-                  onClick={() => navigate(ROUTE_PATHS.signIn)}
+                  onClick={() => {
+                    setIsOpen(false);
+                    navigate(ROUTE_PATHS.signIn);
+                  }}
                 >
                   로그인 및 회원가입 <AiOutlineArrowRight />
                 </li>
               )}
               <li
                 className={styles.nav}
-                onClick={() => navigate(ROUTE_PATHS.home)}
+                onClick={() => {
+                  setIsOpen(false);
+                  navigate(ROUTE_PATHS.home);
+                }}
               >
                 <div className={styles.clicked} />
                 <AiFillHome /> <div className={styles.title}>홈</div>
               </li>
               <li
                 className={styles.nav}
-                onClick={() => navigate(ROUTE_PATHS.chat)}
+                onClick={() => {
+                  setIsOpen(false);
+                  navigate(ROUTE_PATHS.chat);
+                }}
               >
                 <div className={styles.clicked} />
                 <AiFillWechat />
                 <div className={styles.title}>AI 플래너</div>
               </li>
-              <li className={styles.nav}>
+              <li
+                className={styles.nav}
+                onClick={() => {
+                  setIsOpen(false);
+                  navigate(ROUTE_PATHS.itinerary);
+                }}
+              >
                 <div className={styles.clicked} />
                 <AiOutlineSchedule />
                 <div className={styles.title}>여행일정</div>
               </li>
               <li
                 className={styles.nav}
-                onClick={() => navigate(ROUTE_PATHS.myPage)}
+                onClick={() => {
+                  setIsOpen(false);
+                  navigate(ROUTE_PATHS.myPage);
+                }}
               >
                 <div className={styles.clicked} />
                 <BsFillPersonFill />

@@ -14,6 +14,7 @@ import Header from '@/components/Common/Header';
 import ImageUploadButton from '@/components/Chat/ImageUploadButton';
 import SpeechToTextButton from '@/components/Chat/SpeechToTextButton';
 import gildong from '@/assets/gildong_3d.png';
+import AddItineraryButton from '@/components/Travel/AddItineraryButton';
 import styles from './styles.module.scss';
 
 interface ChatTypes {
@@ -175,9 +176,7 @@ export default function Chat({ home }: ChatProps) {
                         <MarkDown text={el.answer} />
                         {el.itinerary ? (
                           <div className={styles.addButton}>
-                            <Button variant="primary" icon={<AiOutlinePlus />}>
-                              일정 추가
-                            </Button>
+                            <AddItineraryButton id={el.itinerary} />;
                           </div>
                         ) : null}
                       </div>

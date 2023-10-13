@@ -10,3 +10,11 @@ export interface detailType {
   visual?: string;
   hearing?: string;
 }
+
+export interface itineraryTypes {
+  date_type: string;
+  destinations: string[];
+  itinerary_id: string;
+  session_id: string;
+  title: string;
+}
