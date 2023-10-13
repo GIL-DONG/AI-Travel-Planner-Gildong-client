@@ -19,7 +19,6 @@ export default function SpeechToTextButton({
   const audioChunks = useRef<Blob[]>([]);
 
   const startRecording = () => {
-    setIsMicOn(true);
     navigator.mediaDevices
       .getUserMedia({ audio: true })
       .then((stream) => {
@@ -36,6 +35,7 @@ export default function SpeechToTextButton({
           setAudioBlob(audioBlob);
         };
         mediaRecorderRef.current.start();
+        setIsMicOn(true);
       })
       .catch((error) => {
         console.error('Error accessing the microphone:', error);
