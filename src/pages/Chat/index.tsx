@@ -62,7 +62,9 @@ export default function Chat({ home }: ChatProps) {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${localStorage.getItem('access_token')}` || '',
+          Authorization: localStorage.getItem('access_token')
+            ? `Bearer ${localStorage.getItem('access_token')}`
+            : '',
         },
         // credentials: 'include',
         body: JSON.stringify({
