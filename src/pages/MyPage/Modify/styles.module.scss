@@ -38,9 +38,20 @@
   }
 }
 
-.btn {
-  width: 100%;
+.button {
+  width: 768px;
+  padding: 1rem;
+  height: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1rem;
+}
+
+.buttonWrapper {
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
 }

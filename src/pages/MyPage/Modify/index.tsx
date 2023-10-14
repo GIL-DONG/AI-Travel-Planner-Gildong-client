@@ -90,32 +90,34 @@ export default function Modify() {
             />
           </div>
         </div>
-        <div className={styles.btn}>
-          <Button
-            variant="lined"
-            color="secondary"
-            full={true}
-            size="lg"
-            onClick={() => navigate(ROUTE_PATHS.myPage)}
-          >
-            취소
-          </Button>
-          {(name && nickNameValidation) ||
-          (deleteImage && profileImage !== 'default') ? (
+        <div className={styles.buttonWrapper}>
+          <div className={styles.button}>
             <Button
-              type="submit"
-              variant="primary"
+              variant="lined"
+              color="secondary"
               full={true}
               size="lg"
-              onClick={submitHandler}
+              onClick={() => navigate(ROUTE_PATHS.myPage)}
             >
-              완료
+              취소
             </Button>
-          ) : (
-            <Button variant="disabled" full={true} size="lg">
-              완료
-            </Button>
-          )}
+            {(name && nickNameValidation) ||
+            (deleteImage && profileImage !== 'default') ? (
+              <Button
+                type="submit"
+                variant="primary"
+                full={true}
+                size="lg"
+                onClick={submitHandler}
+              >
+                완료
+              </Button>
+            ) : (
+              <Button variant="disabled" full={true} size="lg">
+                완료
+              </Button>
+            )}
+          </div>
         </div>
       </div>
     </>
