@@ -5,7 +5,6 @@ import { ROUTE_PATHS } from '@/constants/config';
 import Auth from '@/pages/Auth';
 import SignIn from '@/pages/SignIn';
 import SignUp from '@/pages/SignUp';
-import Home from './pages/Home';
 import Detail from './pages/Detail';
 import { isLoginState } from './store/atom/userAtom';
 import MyPage from './pages/MyPage';
@@ -23,15 +22,15 @@ function App() {
           <Route path={ROUTE_PATHS.home} element={<Chat home={true} />} />
           <Route
             path={ROUTE_PATHS.signIn}
-            element={isLogin ? <Home /> : <SignIn />}
+            element={isLogin ? <Chat home={true} /> : <SignIn />}
           />
           <Route
             path={ROUTE_PATHS.auth}
-            element={isLogin ? <Home /> : <Auth />}
+            element={isLogin ? <Chat home={true} /> : <Auth />}
           />
           <Route
             path={ROUTE_PATHS.signUp}
-            element={isLogin ? <Home /> : <SignUp />}
+            element={isLogin ? <Chat home={true} /> : <SignUp />}
           />
           <Route path={ROUTE_PATHS.chat} element={<Chat />} />
           <Route path={ROUTE_PATHS.detail} element={<Detail />} />
