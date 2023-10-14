@@ -92,7 +92,7 @@ export default function SpeechToTextButton({
             headers: {
               'Content-Type': 'multipart/form-data',
               Authorization:
-                `Bearer ${localStorage.getItem('access_token')}` || '',
+                `Bearer ${sessionStorage.getItem('access_token')}` || '',
             },
           },
         );

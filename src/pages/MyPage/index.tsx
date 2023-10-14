@@ -20,7 +20,7 @@ export default function MyPage() {
   const DeleteUserHandler = async () => {
     await deleteUserAPI();
     setIsLogin(false);
-    localStorage.removeItem('access_token');
+    sessionStorage.removeItem('access_token');
     navigate(ROUTE_PATHS.home);
   };
 
@@ -50,7 +50,7 @@ export default function MyPage() {
               className={styles.content}
               onClick={() => {
                 setIsLogin(false);
-                localStorage.removeItem('access_token');
+                sessionStorage.removeItem('access_token');
               }}
             >
               <FiLogOut />
