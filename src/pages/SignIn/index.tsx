@@ -1,14 +1,29 @@
+import { useEffect } from 'react';
 import gildong from '@/assets/gildong_3d_bg.png';
 import kakao from '@/assets/kakao.png';
-import { REDIRECT_URL, REST_API_KEY } from '@/constants/auth';
+import { JAVASCRIPT_KEY, REDIRECT_URL } from '@/constants/auth';
 import Header from '@/components/Common/Header';
 import styles from './styles.module.scss';
 
 export default function SignIn() {
-  const KAKAO_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URL}&response_type=code`;
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = 'https://t1.kakaocdn.net/kakao_js_sdk/2.4.0/kakao.min.js';
+    script.integrity =
+      'sha384-mXVrIX2T/Kszp6Z0aEWaA8Nm7J6/ZeWXbL8UpGRjKwWe56Srd/iyNmWMBhcItAjH';
+    script.crossOrigin = 'anonymous';
+    script.async = true;
+    script.onload = () => {
+      window.Kakao.init(JAVASCRIPT_KEY);
+    };
+    document.body.appendChild(script);
+  }, []);
 
-  const handleSignIn = () => {
-    window.location.href = KAKAO_URL;
+  const loginWithKakao = () => {
+    window.Kakao.Auth.authorize({
+      redirectUri: REDIRECT_URL,
+      scope: 'talk_calendar',
+    });
   };
 
   return (
@@ -21,7 +36,7 @@ export default function SignIn() {
             <div className={styles.title}>AI Travel Planner 길동이</div>
           </title>
           <img src={gildong} className={styles.img} />
-          <button className={styles.btnWrapper} onClick={handleSignIn}>
+          <button className={styles.btnWrapper} onClick={loginWithKakao}>
             <div className={styles.btn}>
               <img src={kakao} />
               <span>카카오 로그인</span>

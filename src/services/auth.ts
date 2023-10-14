@@ -37,16 +37,3 @@ export const getUserInfoAPI = async (token: string) => {
     return [];
   }
 };
-
-export const getAdditionalConsentAPI = async () => {
-  try {
-    const response = await axios.get(
-      `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URL}&response_type=code&scope=talk_calendar`,
-    );
-    return response.data;
-  } catch (error) {
-    const axiosError = error as AxiosError<ErrorResponse>;
-    alert(axiosError.response?.data.message || DEFAULT_ERROR_MESSAGE);
-    return [];
-  }
-};
