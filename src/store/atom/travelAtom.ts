@@ -26,6 +26,11 @@ const titileState = atom<string>({
   default: '',
 });
 
+const tabState = atom<string>({
+  key: 'tabState',
+  default: '',
+});
+
 const itineraryState = atom<itineraryTypes>({
   key: 'itineraryState',
   default: {
@@ -43,5 +48,6 @@ export {
   sessionIdState,
   destinationsState,
   titileState,
+  tabState,
   itineraryState,
 };

@@ -69,9 +69,7 @@ export default function Itineraries() {
                   </Button>
                 </div>
               </div>
-              <div onClick={(event) => event.stopPropagation()}>
-                <Destinations destinations={el.destinations} />
-              </div>
+              <Destinations destinations={el.destinations} />
             </div>
           ))}
         </div>
