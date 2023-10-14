@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { BiBot } from 'react-icons/bi';
-import { GoShare } from 'react-icons/go';
+import { PiWechatLogo } from 'react-icons/pi';
+import { IoIosShareAlt } from 'react-icons/io';
 import { useNavigate } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 import Header from '@/components/Common/Header';
@@ -61,10 +61,10 @@ export default function Itineraries() {
                 {el.title}
                 <div className={styles.button}>
                   <Button
-                    icon={<GoShare />}
+                    icon={<IoIosShareAlt />}
                     iconBtn={true}
                     size="md"
-                    color="secondary"
+                    color="black"
                     onClick={(event) => {
                       event.stopPropagation();
                       if (el.date_type === 'day_label') {
@@ -78,7 +78,7 @@ export default function Itineraries() {
                     공유
                   </Button>
                   <Button
-                    icon={<BiBot />}
+                    icon={<PiWechatLogo />}
                     iconBtn={true}
                     size="md"
                     color="primary"
