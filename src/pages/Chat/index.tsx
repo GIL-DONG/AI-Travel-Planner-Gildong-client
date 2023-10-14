@@ -6,10 +6,11 @@ import { FaWheelchair } from 'react-icons/fa';
 import { FaBlind } from 'react-icons/fa';
 import { ImFire } from 'react-icons/im';
 import { AiOutlineArrowRight } from 'react-icons/ai';
+import { useNavigate } from 'react-router-dom';
 import Button from '@/components/Common/Button';
 import ChatLoading from '@/components/Chat/ChatLoading';
 import MarkDown from '@/components/Chat/MarkDown';
-import { API_URLS, BASE_URL } from '@/constants/config';
+import { API_URLS, BASE_URL, ROUTE_PATHS } from '@/constants/config';
 import Header from '@/components/Common/Header';
 import ImageUploadButton from '@/components/Chat/ImageUploadButton';
 import SpeechToTextButton from '@/components/Chat/SpeechToTextButton';
@@ -28,6 +29,7 @@ interface ChatProps {
 }
 
 export default function Chat({ home }: ChatProps) {
+  const navigate = useNavigate();
   const [value, setValue] = useState('');
   const [list, setList] = useState<ChatTypes[]>([]);
   const scrollRef = useRef<null[] | HTMLDivElement[]>([]);
@@ -166,7 +168,7 @@ export default function Chat({ home }: ChatProps) {
             ref={(el) => (scrollRef.current[1] = el)}
             onWheel={handleWheel}
           >
-            {question || list?.length !== 0 ? (
+            {!home ? (
               <div className={styles.questionBackground}>
                 <div ref={(el) => (scrollRef.current[2] = el)}>
                   {list?.map((el, index) => (
@@ -202,7 +204,7 @@ export default function Chat({ home }: ChatProps) {
                 </div>
                 {stop ? null : <div className={styles.margin}></div>}
               </div>
-            ) : home ? (
+            ) : (
               <div className={styles.default}>
                 <div className={styles.title}>
                   길동이에게 여행 일정을 맡겨보세요!
@@ -211,9 +213,10 @@ export default function Chat({ home }: ChatProps) {
                 <div className={styles.exampleWrapper}>
                   <div
                     className={styles.example}
-                    onClick={() =>
-                      fetchSSE('어디든 바다가 있는 곳으로 떠나고 싶어')
-                    }
+                    onClick={() => {
+                      fetchSSE('어디든 바다가 있는 곳으로 떠나고 싶어');
+                      navigate(ROUTE_PATHS.chat);
+                    }}
                   >
                     <TbBeach />
                     <span className={styles.text}>
@@ -225,11 +228,12 @@ export default function Chat({ home }: ChatProps) {
                   </div>
                   <div
                     className={styles.example}
-                    onClick={() =>
+                    onClick={() => {
                       fetchSSE(
                         '휠체어로 갈 수 있는 3박 4일 부산여행 일정을 추천해줘!',
-                      )
-                    }
+                      );
+                      navigate(ROUTE_PATHS.chat);
+                    }}
                   >
                     <FaWheelchair />
                     <span className={styles.text}>
@@ -241,11 +245,12 @@ export default function Chat({ home }: ChatProps) {
                   </div>
                   <div
                     className={styles.example}
-                    onClick={() =>
+                    onClick={() => {
                       fetchSSE(
                         '시각장애인도 갈 수 있는 2박 3일 통영여행 일정을 추천해줘',
-                      )
-                    }
+                      );
+                      navigate(ROUTE_PATHS.chat);
+                    }}
                   >
                     <FaBlind />
                     <span className={styles.text}>
@@ -259,9 +264,10 @@ export default function Chat({ home }: ChatProps) {
                     <ImFire />
                     <span
                       className={styles.text}
-                      onClick={() =>
-                        fetchSSE('요즘 사람들이 많이 가는 여행지로 추천해줘')
-                      }
+                      onClick={() => {
+                        fetchSSE('요즘 사람들이 많이 가는 여행지로 추천해줘');
+                        navigate(ROUTE_PATHS.chat);
+                      }}
                     >
                       요즘 사람들이 많이 가는 여행지로 추천해줘
                     </span>
@@ -271,7 +277,7 @@ export default function Chat({ home }: ChatProps) {
                   </div>
                 </div>
               </div>
-            ) : null}
+            )}
             <div className={styles.chatContainer}>
               <div className={styles.chatWrapper}>
                 <div className={styles.chat}>
@@ -298,6 +304,7 @@ export default function Chat({ home }: ChatProps) {
                     onChange={handleInput}
                     value={value}
                     onKeyDown={handleEnter}
+                    placeholder="무엇이든 물어보세요!"
                   />
                   <div className={styles.send}>
                     {value ? (
