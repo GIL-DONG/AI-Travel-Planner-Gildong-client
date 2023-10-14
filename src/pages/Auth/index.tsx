@@ -39,7 +39,7 @@ export default function Auth() {
           setName(data.data.properties.nickname);
           navigate(ROUTE_PATHS.signUp);
         } else {
-          localStorage.setItem('access_token', data.data.access_token);
+          sessionStorage.setItem('access_token', data.data.access_token);
           const { user_name, user_image } = parseToken(data.data.access_token);
           sessionStorage.setItem('name', user_name);
           sessionStorage.setItem('profile_image', user_image);

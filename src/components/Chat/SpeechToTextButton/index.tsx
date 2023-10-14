@@ -2,17 +2,20 @@ import axios from 'axios';
 import React, { useState, useRef, useEffect } from 'react';
 import { BsFillMicFill, BsFillMicMuteFill } from 'react-icons/bs';
 import Button from '@/components/Common/Button';
+import { BASE_URL } from '@/constants/config';
 
 interface SpeechToTextButtonType {
   isMicOn: boolean;
   setIsMicOn: React.Dispatch<React.SetStateAction<boolean>>;
   setValue: React.Dispatch<React.SetStateAction<string>>;
+  setIsMicLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function SpeechToTextButton({
   isMicOn,
   setIsMicOn,
   setValue,
+  setIsMicLoading,
 }: SpeechToTextButtonType) {
   const [audioBlob, setAudioBlob] = useState<Blob | null>(null);
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
@@ -60,6 +63,7 @@ export default function SpeechToTextButton({
   useEffect(() => {
     const FileUpload = async () => {
       if (audioBlob) {
+        setIsMicLoading(true);
         const currentDate = new Date();
         const fileExtension = 'wav';
         const formattedDate = `${currentDate.getFullYear()}_${(
@@ -84,7 +88,7 @@ export default function SpeechToTextButton({
         const audioFile = blobToFile(audioBlob, fileName);
         audioChunks.current = [];
         const data = await axios.post(
-          `${import.meta.env.VITE_APP_API_URL}/STT/uploads/`,
+          `${BASE_URL}/STT/uploads/`,
           {
             in_files: audioFile,
           },
@@ -92,7 +96,7 @@ export default function SpeechToTextButton({
             headers: {
               'Content-Type': 'multipart/form-data',
               Authorization:
-                `Bearer ${localStorage.getItem('access_token')}` || '',
+                `Bearer ${sessionStorage.getItem('access_token')}` || '',
             },
           },
         );
@@ -105,6 +109,7 @@ export default function SpeechToTextButton({
             ),
           );
         }
+        setIsMicLoading(false);
       }
     };
 
@@ -116,7 +121,7 @@ export default function SpeechToTextButton({
       {isMicOn ? (
         <Button
           size="sm"
-          variant="primary"
+          variant="record"
           icon={<BsFillMicMuteFill />}
           iconBtn={true}
           onClick={stopRecording}
@@ -128,7 +133,7 @@ export default function SpeechToTextButton({
           icon={<BsFillMicFill />}
           size="sm"
           variant="lined"
-          color="primary"
+          color="secondary"
           iconBtn={true}
           onClick={startRecording}
         >

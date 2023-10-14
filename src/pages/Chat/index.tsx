@@ -1,5 +1,4 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { AiOutlinePlus } from 'react-icons/ai';
 import { TbSend } from 'react-icons/tb';
 import { TbBeach } from 'react-icons/tb';
 import { FaWheelchair } from 'react-icons/fa';
@@ -37,8 +36,8 @@ export default function Chat({ home }: ChatProps) {
   const [isChatLoading, setIsChatLoading] = useState(false);
   const [question, setQuestion] = useState('');
   const [answer, setAnswer] = useState('');
-  const [isOpen, setIsOpen] = useState(false);
   const [isMicOn, setIsMicOn] = useState(false);
+  const [isMicLoading, setIsMicLoading] = useState(false);
 
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
@@ -65,8 +64,8 @@ export default function Chat({ home }: ChatProps) {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: localStorage.getItem('access_token')
-            ? `Bearer ${localStorage.getItem('access_token')}`
+          Authorization: sessionStorage.getItem('access_token')
+            ? `Bearer ${sessionStorage.getItem('access_token')}`
             : '',
         },
         // credentials: 'include',
@@ -75,6 +74,7 @@ export default function Chat({ home }: ChatProps) {
             ? sessionStorage.getItem('session_id') + ''
             : '',
           question: value || text || '',
+          image_name: '',
         }),
       });
       const reader =
@@ -125,6 +125,7 @@ export default function Chat({ home }: ChatProps) {
   };
 
   const handleSubmit = async () => {
+    navigate(ROUTE_PATHS.chat);
     await fetchSSE();
   };
 
@@ -158,10 +159,7 @@ export default function Chat({ home }: ChatProps) {
   return (
     <>
       <Header>AI Travel Planner 길동이</Header>
-      <div
-        className={`${styles.pageWrapper} colorLayout`}
-        onClick={() => setIsOpen(false)}
-      >
+      <div className={`${styles.pageWrapper} colorLayout`}>
         <div className={styles.content}>
           <div
             className={styles.questionContainer}
@@ -178,7 +176,7 @@ export default function Chat({ home }: ChatProps) {
                         <MarkDown text={el.answer} />
                         {el.itinerary ? (
                           <div className={styles.addButton}>
-                            <AddItineraryButton id={el.itinerary} />;
+                            <AddItineraryButton id={el.itinerary} />
                           </div>
                         ) : null}
                       </div>
@@ -281,31 +279,28 @@ export default function Chat({ home }: ChatProps) {
             <div className={styles.chatContainer}>
               <div className={styles.chatWrapper}>
                 <div className={styles.chat}>
-                  <div
-                    className={styles.icon}
-                    onClick={(event) => event.stopPropagation()}
-                  >
-                    <Button
-                      size="sm"
-                      variant="default"
-                      color="secondary"
-                      icon={<AiOutlinePlus />}
-                      iconBtn={true}
-                      onClick={() => setIsOpen(true)}
-                    />
-                    {isOpen ? (
-                      <div className={styles.button}>
-                        <ImageUploadButton />
-                      </div>
-                    ) : null}
+                  <div className={styles.icon}>
+                    <ImageUploadButton />
                   </div>
-                  <input
-                    className={styles.input}
-                    onChange={handleInput}
-                    value={value}
-                    onKeyDown={handleEnter}
-                    placeholder="무엇이든 물어보세요!"
-                  />
+                  {isMicOn ? (
+                    <div className={styles.textWrapper}>
+                      <div className={styles.typingText}>
+                        듣고 있습니다. 마이크에 대고 계속 말해주세요!
+                      </div>
+                    </div>
+                  ) : isMicLoading ? (
+                    <div className={styles.textWrapper}>
+                      <ChatLoading />
+                    </div>
+                  ) : (
+                    <input
+                      className={styles.input}
+                      onChange={handleInput}
+                      value={value}
+                      onKeyDown={handleEnter}
+                      placeholder="무엇이든 물어보세요!"
+                    />
+                  )}
                   <div className={styles.send}>
                     {value ? (
                       <Button
@@ -321,6 +316,7 @@ export default function Chat({ home }: ChatProps) {
                         setValue={setValue}
                         isMicOn={isMicOn}
                         setIsMicOn={setIsMicOn}
+                        setIsMicLoading={setIsMicLoading}
                       />
                     )}
                   </div>

@@ -61,3 +61,25 @@
     height: 2rem;
   }
 }
+
+.modalContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: var(--font-size-lg);
+}
+
+.modalContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: var(--font-size-lg);
+}
+
+.modalButton {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}

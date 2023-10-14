@@ -68,14 +68,14 @@ export default function Itinerary() {
           <div className={styles.background}>
             {groupByDate[tab]?.map((el, index) => (
               <a
-                href={'http://localhost:5173/travel/detail/4933'}
+                href={el.url}
                 className={styles.descriptionContainer}
                 key={index}
               >
                 <div className={styles.description}>
                   <div className={styles.time}>
-                    <div>{el.start_time}</div>
-                    <div>{el.end_time}</div>
+                    <div>{el.start_time?.slice(0, -3)}</div>
+                    <div>{el.end_time?.slice(0, -3)}</div>
                   </div>
                   <div className={styles.right}>
                     <div className={styles.title}>{el.title}</div>

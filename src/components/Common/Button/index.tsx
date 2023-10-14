@@ -4,7 +4,14 @@ import classNames from 'classnames';
 import styles from './styles.module.scss';
 
 interface ButtonProps {
-  variant?: 'default' | 'primary' | 'secondary' | 'lined' | 'disabled' | 'pure';
+  variant?:
+    | 'default'
+    | 'primary'
+    | 'secondary'
+    | 'lined'
+    | 'disabled'
+    | 'pure'
+    | 'record';
   size?: 'sm' | 'md' | 'lg';
   color?: 'primary' | 'secondary' | 'black' | 'white';
   icon?: ReactNode;
@@ -37,6 +44,7 @@ interface VariantTypes {
   lined: string;
   disabled: string;
   pure: string;
+  record: string;
 }
 
 interface ColorTypes {
@@ -59,6 +67,7 @@ const VARIANTS: VariantTypes = {
   lined: styles.lined,
   disabled: styles.disabled,
   pure: styles.pure,
+  record: styles.record,
 };
 
 const COLORS: ColorTypes = {
