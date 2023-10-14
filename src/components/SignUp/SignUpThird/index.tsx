@@ -12,30 +12,32 @@ export default function SignUpThird() {
       <div>
         <SearchBar />
       </div>
-      <div className={styles.btn}>
-        <Button
-          variant="lined"
-          color="primary"
-          full={true}
-          size="lg"
-          onClick={() => setIndex(1)}
-        >
-          이전
-        </Button>
-        {residence ? (
+      <div className={styles.buttonWrapper}>
+        <div className={styles.button}>
           <Button
-            variant="primary"
+            variant="lined"
+            color="primary"
             full={true}
             size="lg"
-            onClick={() => setIndex(3)}
+            onClick={() => setIndex(1)}
           >
-            다음
+            이전
           </Button>
-        ) : (
-          <Button variant="disabled" full={true} size="lg">
-            다음
-          </Button>
-        )}
+          {residence ? (
+            <Button
+              variant="primary"
+              full={true}
+              size="lg"
+              onClick={() => setIndex(3)}
+            >
+              다음
+            </Button>
+          ) : (
+            <Button variant="disabled" full={true} size="lg">
+              다음
+            </Button>
+          )}
+        </div>
       </div>
     </div>
   );

@@ -43,31 +43,33 @@ export default function SignUpSecond() {
           </InputTemplate>
         ) : null}
       </div>
-      <div className={styles.btn}>
-        <Button
-          variant="lined"
-          color="primary"
-          full={true}
-          size="lg"
-          onClick={() => setIndex(0)}
-        >
-          이전
-        </Button>
-        {disabilityStatus === '아니오' ||
-        (disabilityStatus === '예' && disabilityType) ? (
+      <div className={styles.buttonWrapper}>
+        <div className={styles.button}>
           <Button
-            variant="primary"
+            variant="lined"
+            color="primary"
             full={true}
             size="lg"
-            onClick={() => setIndex(2)}
+            onClick={() => setIndex(0)}
           >
-            다음
+            이전
           </Button>
-        ) : (
-          <Button variant="disabled" full={true} size="lg">
-            다음
-          </Button>
-        )}
+          {disabilityStatus === '아니오' ||
+          (disabilityStatus === '예' && disabilityType) ? (
+            <Button
+              variant="primary"
+              full={true}
+              size="lg"
+              onClick={() => setIndex(2)}
+            >
+              다음
+            </Button>
+          ) : (
+            <Button variant="disabled" full={true} size="lg">
+              다음
+            </Button>
+          )}
+        </div>
       </div>
     </div>
   );

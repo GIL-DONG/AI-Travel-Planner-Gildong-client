@@ -36,31 +36,33 @@ export default function SignUpFourth() {
           setCheckedList={setPreferTravelStyle}
         />
       </div>
-      <div className={styles.btn}>
-        <Button
-          variant="lined"
-          color="primary"
-          full={true}
-          size="lg"
-          onClick={() => setIndex(2)}
-        >
-          이전
-        </Button>
-        {preferTravelStyle?.length === 0 ? (
-          <Button type="submit" variant="disabled" full={true} size="lg">
-            완료
-          </Button>
-        ) : (
+      <div className={styles.buttonWrapper}>
+        <div className={styles.button}>
           <Button
-            type="submit"
-            variant="primary"
+            variant="lined"
+            color="primary"
             full={true}
             size="lg"
-            onClick={submitHandler}
+            onClick={() => setIndex(2)}
           >
-            완료
+            이전
           </Button>
-        )}
+          {preferTravelStyle?.length === 0 ? (
+            <Button type="submit" variant="disabled" full={true} size="lg">
+              완료
+            </Button>
+          ) : (
+            <Button
+              type="submit"
+              variant="primary"
+              full={true}
+              size="lg"
+              onClick={submitHandler}
+            >
+              완료
+            </Button>
+          )}
+        </div>
       </div>
     </div>
   );
