@@ -1,3 +1,5 @@
+import { locationType } from './signUp';
+
 export interface detailType {
   title: string;
   overview: string;
@@ -17,4 +19,15 @@ export interface itineraryTypes {
   itinerary_id: string;
   session_id: string;
   title: string;
+}
+
+export interface itineraryScheduleTypes {
+  date: string;
+  date_type: string;
+  description: string;
+  end_time: string;
+  location: locationType;
+  start_time: string;
+  title: string;
+  url?: string;
 }
