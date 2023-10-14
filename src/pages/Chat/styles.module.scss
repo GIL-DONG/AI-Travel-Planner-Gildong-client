@@ -205,3 +205,22 @@
   flex-direction: column;
   align-items: center;
 }
+
+.textWrapper {
+  flex-grow: 1;
+}
+
+.typingText {
+  white-space: nowrap;
+  overflow: hidden;
+  animation: typing 2s steps(24) infinite;
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}

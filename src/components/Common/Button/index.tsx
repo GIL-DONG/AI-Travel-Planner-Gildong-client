@@ -4,9 +4,16 @@ import classNames from 'classnames';
 import styles from './styles.module.scss';
 
 interface ButtonProps {
-  variant?: 'default' | 'primary' | 'secondary' | 'lined' | 'disabled' | 'pure';
+  variant?:
+    | 'default'
+    | 'primary'
+    | 'secondary'
+    | 'lined'
+    | 'disabled'
+    | 'pure'
+    | 'record';
   size?: 'sm' | 'md' | 'lg';
-  color?: 'primary' | 'secondary' | 'black' | 'white';
+  color?: 'primary' | 'secondary' | 'black' | 'white' | 'gray';
   icon?: ReactNode;
   iconBtn?: boolean;
   full?: boolean;
@@ -37,6 +44,7 @@ interface VariantTypes {
   lined: string;
   disabled: string;
   pure: string;
+  record: string;
 }
 
 interface ColorTypes {
@@ -44,6 +52,7 @@ interface ColorTypes {
   secondary: string;
   black: string;
   white: string;
+  gray: string;
 }
 
 const SIZES: SizeTypes = {
@@ -59,6 +68,7 @@ const VARIANTS: VariantTypes = {
   lined: styles.lined,
   disabled: styles.disabled,
   pure: styles.pure,
+  record: styles.record,
 };
 
 const COLORS: ColorTypes = {
@@ -66,6 +76,7 @@ const COLORS: ColorTypes = {
   secondary: styles.text_secondary,
   black: styles.text_black,
   white: styles.text_white,
+  gray: styles.text_gray,
 };
 
 export default function Button({

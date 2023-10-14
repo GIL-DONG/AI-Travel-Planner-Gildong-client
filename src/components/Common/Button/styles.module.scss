@@ -69,6 +69,12 @@
     border-color: var(--white-color);
   }
 
+  &.record {
+    background-color: var(--gray-color);
+    border-color: var(--gray-color);
+    color: var(--white-color);
+  }
+
   &.text_primary {
     color: var(--main-color);
   }
@@ -83,6 +89,10 @@
 
   &.text_white {
     color: var(--white-color);
+  }
+
+  &.text_gray {
+    color: var(--gray-color);
   }
 
   &.is_full {
