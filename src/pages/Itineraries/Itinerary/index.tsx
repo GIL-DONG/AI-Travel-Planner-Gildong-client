@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import Header from '@/components/Common/Header';
 import { getItineraryDetailAPI } from '@/services/travel';
 import { itineraryScheduleTypes } from '@/types/travel';
 import groupObjectsByField from '@/utils/groupObjectsByField';
 import { tabState } from '@/store/atom/travelAtom';
-import { ROUTE_PATHS } from '@/constants/config';
 import styles from './styles.module.scss';
 
 interface itineraryDetailTypes {

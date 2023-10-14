@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { AiOutlineCamera } from 'react-icons/ai';
-import Button from '@/components/Common/Button';
 import styles from './styles.module.scss';
 interface DataType {
   body: string;
