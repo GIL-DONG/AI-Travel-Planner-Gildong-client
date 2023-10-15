@@ -82,6 +82,10 @@ export default function Itineraries() {
                     iconBtn={true}
                     size="md"
                     color="primary"
+                    onClick={(event) => {
+                      event.stopPropagation();
+                      navigate(`/chat/itinerary/${el.session_id}`);
+                    }}
                   >
                     챗봇
                   </Button>

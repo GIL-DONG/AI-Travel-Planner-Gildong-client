@@ -23,6 +23,7 @@ export const ROUTE_PATHS = {
   auth: '/auth',
   signUp: '/signup',
   chat: '/chat',
+  itineraryChat: '/chat/itinerary/:id',
   detail: '/travel/detail/:id',
   itinerary: '/travel/itinerary',
   itineraryDetail: '/travel/itinerary/:id',

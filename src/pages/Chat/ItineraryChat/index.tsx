@@ -1,22 +1,16 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { TbSend } from 'react-icons/tb';
-import { TbBeach } from 'react-icons/tb';
-import { FaWheelchair } from 'react-icons/fa';
-import { FaBlind } from 'react-icons/fa';
-import { ImFire } from 'react-icons/im';
-import { AiOutlineArrowRight } from 'react-icons/ai';
-import { useNavigate } from 'react-router-dom';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import Button from '@/components/Common/Button';
 import ChatLoading from '@/components/Chat/ChatLoading';
 import MarkDown from '@/components/Chat/MarkDown';
-import { API_URLS, BASE_URL, ROUTE_PATHS } from '@/constants/config';
+import { API_URLS, BASE_URL } from '@/constants/config';
 import Header from '@/components/Common/Header';
 import ImageUploadButton from '@/components/Chat/ImageUploadButton';
 import SpeechToTextButton from '@/components/Chat/SpeechToTextButton';
-import gildong from '@/assets/gildong_3d.png';
 import AddItineraryButton from '@/components/Travel/AddItineraryButton';
-import { imageState } from '@/store/atom/travelAtom';
+import { imageState, itineraryState } from '@/store/atom/travelAtom';
+import Destinations from '@/components/Travel/Destinations';
 import styles from './styles.module.scss';
 
 interface ChatTypes {
@@ -25,12 +19,7 @@ interface ChatTypes {
   itinerary: string;
 }
 
-interface ChatProps {
-  home?: boolean;
-}
-
-export default function Chat({ home }: ChatProps) {
-  const navigate = useNavigate();
+export default function ItineraryChat() {
   const [value, setValue] = useState('');
   const [list, setList] = useState<ChatTypes[]>([]);
   const scrollRef = useRef<null[] | HTMLDivElement[]>([]);
@@ -42,6 +31,7 @@ export default function Chat({ home }: ChatProps) {
   const [isMicLoading, setIsMicLoading] = useState(false);
   const image = useRecoilValue(imageState);
   const setImage = useSetRecoilState(imageState);
+  const itinerary = useRecoilValue(itineraryState);
 
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
@@ -130,7 +120,6 @@ export default function Chat({ home }: ChatProps) {
   };
 
   const handleSubmit = async () => {
-    navigate(ROUTE_PATHS.chat);
     await fetchSSE();
   };
 
@@ -163,7 +152,10 @@ export default function Chat({ home }: ChatProps) {
 
   return (
     <>
-      <Header>AI Travel Planner 길동이</Header>
+      <Header back={true}>{itinerary.title}</Header>
+      <div className={styles.destination}>
+        <Destinations destinations={itinerary.destinations} />
+      </div>
       <div className={`${styles.pageWrapper} colorLayout`}>
         <div className={styles.content}>
           <div
@@ -171,116 +163,41 @@ export default function Chat({ home }: ChatProps) {
             ref={(el) => (scrollRef.current[1] = el)}
             onWheel={handleWheel}
           >
-            {!home ? (
-              <div className={styles.questionBackground}>
-                <div ref={(el) => (scrollRef.current[2] = el)}>
-                  {list?.map((el, index) => (
-                    <div className={styles.question} key={index}>
-                      {el.question}
-                      <div className={styles.answer}>
-                        <MarkDown text={el.answer} />
-                        {el.itinerary ? (
-                          <div className={styles.addButton}>
-                            <AddItineraryButton id={el.itinerary} />
-                          </div>
-                        ) : null}
-                      </div>
+            <div className={styles.questionBackground}>
+              <div ref={(el) => (scrollRef.current[2] = el)}>
+                {list?.map((el, index) => (
+                  <div className={styles.question} key={index}>
+                    {el.question}
+                    <div className={styles.answer}>
+                      <MarkDown text={el.answer} />
+                      {el.itinerary ? (
+                        <div className={styles.addButton}>
+                          <AddItineraryButton id={el.itinerary} />
+                        </div>
+                      ) : null}
                     </div>
-                  ))}
-                  {question ? (
-                    <div
-                      className={styles.question}
-                      ref={(el) => {
-                        scrollRef.current[0] = el;
-                      }}
-                    >
-                      {question}
-                      <div className={styles.answer}>
-                        {isChatLoading ? (
-                          <ChatLoading />
-                        ) : (
-                          <MarkDown text={answer} />
-                        )}
-                      </div>
+                  </div>
+                ))}
+                {question ? (
+                  <div
+                    className={styles.question}
+                    ref={(el) => {
+                      scrollRef.current[0] = el;
+                    }}
+                  >
+                    {question}
+                    <div className={styles.answer}>
+                      {isChatLoading ? (
+                        <ChatLoading />
+                      ) : (
+                        <MarkDown text={answer} />
+                      )}
                     </div>
-                  ) : null}
-                </div>
-                {stop ? null : <div className={styles.margin}></div>}
+                  </div>
+                ) : null}
               </div>
-            ) : (
-              <div className={styles.default}>
-                <div className={styles.title}>
-                  길동이에게 여행 일정을 맡겨보세요!
-                </div>
-                <img src={gildong} className={styles.img} />
-                <div className={styles.exampleWrapper}>
-                  <div
-                    className={styles.example}
-                    onClick={() => {
-                      fetchSSE('어디든 바다가 있는 곳으로 떠나고 싶어');
-                      navigate(ROUTE_PATHS.chat);
-                    }}
-                  >
-                    <TbBeach />
-                    <span className={styles.text}>
-                      어디든 바다가 있는 곳으로 떠나고 싶어
-                    </span>
-                    <div className={styles.go}>
-                      <AiOutlineArrowRight />
-                    </div>
-                  </div>
-                  <div
-                    className={styles.example}
-                    onClick={() => {
-                      fetchSSE(
-                        '휠체어로 갈 수 있는 3박 4일 부산여행 일정을 추천해줘!',
-                      );
-                      navigate(ROUTE_PATHS.chat);
-                    }}
-                  >
-                    <FaWheelchair />
-                    <span className={styles.text}>
-                      휠체어로 갈 수 있는 3박 4일 부산여행 일정을 추천해줘!
-                    </span>
-                    <div className={styles.go}>
-                      <AiOutlineArrowRight />
-                    </div>
-                  </div>
-                  <div
-                    className={styles.example}
-                    onClick={() => {
-                      fetchSSE(
-                        '시각장애인도 갈 수 있는 2박 3일 통영여행 일정을 추천해줘',
-                      );
-                      navigate(ROUTE_PATHS.chat);
-                    }}
-                  >
-                    <FaBlind />
-                    <span className={styles.text}>
-                      시각장애인도 갈 수 있는 2박 3일 통영여행 일정을 추천해줘
-                    </span>
-                    <div className={styles.go}>
-                      <AiOutlineArrowRight />
-                    </div>
-                  </div>
-                  <div className={styles.example}>
-                    <ImFire />
-                    <span
-                      className={styles.text}
-                      onClick={() => {
-                        fetchSSE('요즘 사람들이 많이 가는 여행지로 추천해줘');
-                        navigate(ROUTE_PATHS.chat);
-                      }}
-                    >
-                      요즘 사람들이 많이 가는 여행지로 추천해줘
-                    </span>
-                    <div className={styles.go}>
-                      <AiOutlineArrowRight />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            )}
+              {stop ? null : <div className={styles.margin}></div>}
+            </div>
             <div className={styles.chatContainer}>
               <div className={styles.chatWrapper}>
                 <div className={styles.chat}>
