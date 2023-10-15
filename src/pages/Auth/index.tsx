@@ -26,14 +26,14 @@ export default function Auth() {
         const data = await getUserInfoAPI(token);
         sessionStorage.setItem('kakao_token', token);
         if (data.message === 'User not registered. Please sign up first.') {
-          sessionStorage.setItem('id', data.data.id);
-          sessionStorage.setItem('name', data.data.properties.nickname);
-          if (!data.data.kakao_account.profile.is_default_image) {
+          sessionStorage.setItem('id', data.data?.id);
+          sessionStorage.setItem('name', data.data.properties?.nickname);
+          if (!data.data.kakao_account?.profile.is_default_image) {
             sessionStorage.setItem(
               'profile_image',
               data.data.properties.profile_image,
             );
-            setProfileImage(data.data.properties.profile_image);
+            setProfileImage(data.data.properties?.profile_image);
           }
           setId(data.data.id);
           setName(data.data.properties.nickname);

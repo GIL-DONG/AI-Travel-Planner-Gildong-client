@@ -22,7 +22,7 @@ export default function SignIn() {
   const loginWithKakao = () => {
     window.Kakao.Auth.authorize({
       redirectUri: REDIRECT_URL,
-      scope: 'talk_calendar',
+      scope: 'talk_calendar,profile_nickname,profile_image',
     });
   };
 
