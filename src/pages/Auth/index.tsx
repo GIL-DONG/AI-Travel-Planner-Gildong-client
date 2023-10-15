@@ -38,11 +38,14 @@ export default function Auth() {
           setId(data.data.id);
           setName(data.data.properties.nickname);
           navigate(ROUTE_PATHS.signUp);
-        } else {
+        } else if (data.message === 'Logged in successfully') {
           sessionStorage.setItem('access_token', data.data.access_token);
-          const { user_name, user_image } = parseToken(data.data.access_token);
+          const { user_name, user_image, disability_status } = parseToken(
+            data.data.access_token,
+          );
           sessionStorage.setItem('name', user_name);
           sessionStorage.setItem('profile_image', user_image);
+          sessionStorage.setItem('disability_status', disability_status);
           setName(user_name);
           setProfileImage(user_image);
           setIsLogin(true);
