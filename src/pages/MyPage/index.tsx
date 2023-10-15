@@ -18,10 +18,12 @@ export default function MyPage() {
   const profileImage = useRecoilValue(profileImageState);
 
   const DeleteUserHandler = async () => {
-    await deleteUserAPI();
-    setIsLogin(false);
-    sessionStorage.removeItem('access_token');
-    navigate(ROUTE_PATHS.home);
+    const data = await deleteUserAPI();
+    if (data === 204) {
+      setIsLogin(false);
+      sessionStorage.removeItem('access_token');
+      navigate(ROUTE_PATHS.home);
+    }
   };
 
   return (
@@ -50,7 +52,7 @@ export default function MyPage() {
               className={styles.content}
               onClick={() => {
                 setIsLogin(false);
-                sessionStorage.removeItem('access_token');
+                sessionStorage.clear();
               }}
             >
               <FiLogOut />

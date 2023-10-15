@@ -20,6 +20,7 @@ export default function AddItineraryButton({ id }: AddItineraryButtonProps) {
 
   const onClickOpenModal = () => {
     setIsModalOpen(true);
+    sessionStorage.removeItem('session_id');
   };
 
   const onClickCloseModal = () => {

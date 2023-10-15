@@ -64,5 +64,20 @@
 }
 
 .tabContent {
+  display: flex;
+  flex-direction: column;
   margin-top: 1rem;
+}
+
+.iconWrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 0.2rem;
+
+  > svg {
+    width: 1.2rem;
+    height: 1.2rem;
+    margin-right: 0.5rem;
+  }
 }

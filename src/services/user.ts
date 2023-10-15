@@ -7,7 +7,7 @@ import apiClient from './apiClient';
 export const deleteUserAPI = async () => {
   try {
     const response = await apiClient.delete(API_URLS.deleteUser);
-    return response.data;
+    return response.status;
   } catch (error) {
     const axiosError = error as AxiosError<ErrorResponse>;
     alert(axiosError.response?.data.message || DEFAULT_ERROR_MESSAGE);

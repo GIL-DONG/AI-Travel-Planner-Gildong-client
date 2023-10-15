@@ -53,7 +53,6 @@ export default function Itineraries() {
               key={index}
               className={styles.wrapper}
               onClick={() => {
-                setItinerary(el);
                 navigate(`${ROUTE_PATHS.itinerary}/${el.itinerary_id}`);
               }}
             >
@@ -82,6 +81,11 @@ export default function Itineraries() {
                     iconBtn={true}
                     size="md"
                     color="primary"
+                    onClick={(event) => {
+                      event.stopPropagation();
+                      setItinerary(el);
+                      navigate(`/chat/itinerary/${el.session_id}`);
+                    }}
                   >
                     챗봇
                   </Button>
