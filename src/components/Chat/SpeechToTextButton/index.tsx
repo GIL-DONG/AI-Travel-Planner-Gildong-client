@@ -88,7 +88,7 @@ export default function SpeechToTextButton({
         const audioFile = blobToFile(audioBlob, fileName);
         audioChunks.current = [];
         const data = await axios.post(
-          `${BASE_URL}/STT/uploads/`,
+          `${BASE_URL}/STT`,
           {
             in_files: audioFile,
           },
