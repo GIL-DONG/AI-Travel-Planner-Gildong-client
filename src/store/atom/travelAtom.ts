@@ -1,5 +1,11 @@
 import { atom } from 'recoil';
+import { recoilPersist } from 'recoil-persist';
 import { itineraryTypes } from '@/types/travel';
+
+const { persistAtom } = recoilPersist({
+  key: 'selectedItinerary',
+  storage: sessionStorage,
+});
 
 const dateTypeState = atom<string>({
   key: 'dateTypeState',
@@ -36,6 +42,11 @@ const imageState = atom<string>({
   default: '',
 });
 
+const uploadImageState = atom<string>({
+  key: 'uploadImageState',
+  default: '',
+});
+
 const itineraryState = atom<itineraryTypes>({
   key: 'itineraryState',
   default: {
@@ -45,6 +56,7 @@ const itineraryState = atom<itineraryTypes>({
     session_id: '',
     title: '',
   },
+  effects_UNSTABLE: [persistAtom],
 });
 
 export {
@@ -55,5 +67,6 @@ export {
   titileState,
   tabState,
   imageState,
+  uploadImageState,
   itineraryState,
 };
