@@ -29,4 +29,14 @@
   td:nth-child(3) {
     width: 30%;
   }
+
+  a {
+    font-weight: 600;
+    color: var(--main-color);
+    cursor: pointer;
+  }
+
+  strong {
+    font-size: var(--font-size-xl);
+  }
 }
