@@ -1,7 +1,14 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { FaMapMarkerAlt } from 'react-icons/fa';
-import { BsFillTelephoneFill } from 'react-icons/bs';
+import { BsFillTelephoneFill, BsFillPersonFill } from 'react-icons/bs';
+import { AiFillCar, AiOutlineCheck, AiFillSound } from 'react-icons/ai';
+import { MdElevator } from 'react-icons/md';
+import { FaRestroom, FaDog } from 'react-icons/fa';
+import { GrBraille } from 'react-icons/gr';
+import { RiGuideFill } from 'react-icons/ri';
+import { MdOutlineOndemandVideo } from 'react-icons/md';
+import { BsFillSignpostSplitFill } from 'react-icons/bs';
 import { getTravelDetailAPI } from '@/services/travel';
 import { detailType } from '@/types/travel';
 import Header from '@/components/Common/Header';
@@ -43,37 +50,132 @@ export default function Detail() {
       <Header back={true} />
       <div className={`${styles.pageWrapper} colorLayout`}>
         <div className={styles.title}>{detailData.title}</div>
-        {detailData.url ? (
+        {detailData?.url ? (
           <img src={detailData.url} className={styles.img} />
         ) : null}
         <div className={styles.contentWrapper}>
-          <div className={styles.content}>
-            <FaMapMarkerAlt /> {detailData.addr}
-          </div>
-          {detailData.tel ? (
+          {detailData?.addr ? (
             <div className={styles.content}>
-              <BsFillTelephoneFill /> {detailData.tel}{' '}
+              <FaMapMarkerAlt /> {detailData.addr}
             </div>
           ) : null}
-          <p className={styles.info}>
-            {detailData.overview.replaceAll('<br>', '')}
-          </p>
-          <ul className={styles.tabWrapper}>
-            {tabArr.map((el, index) => (
-              <li
-                key={index}
-                className={
-                  index === currentTab
-                    ? `${styles.tab} ${styles.focused}`
-                    : styles.tab
-                }
-                onClick={() => setCurrentTab(index)}
-              >
-                {el.name}
-              </li>
-            ))}
-          </ul>
-          <p className={styles.tabContent}>{tabArr[currentTab].content}</p>
+          {detailData?.tel ? (
+            <div className={styles.content}>
+              <BsFillTelephoneFill /> {detailData.tel}
+            </div>
+          ) : null}
+          {detailData?.overview ? (
+            <p className={styles.info}>
+              {detailData.overview.replaceAll('<br>', '')}
+            </p>
+          ) : null}
+          {detailData?.visual && detailData?.physical && detailData?.hearing ? (
+            <>
+              <ul className={styles.tabWrapper}>
+                {tabArr.map((el, index) => (
+                  <li
+                    key={index}
+                    className={
+                      index === currentTab
+                        ? `${styles.tab} ${styles.focused}`
+                        : styles.tab
+                    }
+                    onClick={() => setCurrentTab(index)}
+                  >
+                    {el.name}
+                  </li>
+                ))}
+              </ul>
+              <div className={styles.tabContent}>
+                {tabArr[currentTab].content?.split('#').map((el, index) => {
+                  if (el.includes('주차')) {
+                    return (
+                      <div className={styles.iconWrapper} key={index}>
+                        <AiFillCar />
+                        {el}
+                      </div>
+                    );
+                  } else if (el.includes('점자')) {
+                    return (
+                      <div className={styles.iconWrapper} key={index}>
+                        <GrBraille />
+                        {el}
+                      </div>
+                    );
+                  } else if (el.includes('휠체어')) {
+                    return (
+                      <div className={styles.iconWrapper} key={index}>
+                        <AiFillCar />
+                        {el}
+                      </div>
+                    );
+                  } else if (el.includes('엘리베이터')) {
+                    return (
+                      <div className={styles.iconWrapper} key={index}>
+                        <MdElevator />
+                        {el}
+                      </div>
+                    );
+                  } else if (el.includes('화장실')) {
+                    return (
+                      <div className={styles.iconWrapper} key={index}>
+                        <FaRestroom />
+                        {el}
+                      </div>
+                    );
+                  } else if (el.includes('보조견')) {
+                    return (
+                      <div className={styles.iconWrapper} key={index}>
+                        <FaDog />
+                        {el}
+                      </div>
+                    );
+                  } else if (el.includes('음성')) {
+                    return (
+                      <div className={styles.iconWrapper} key={index}>
+                        <AiFillSound />
+                        {el}
+                      </div>
+                    );
+                  } else if (el.includes('안내요원')) {
+                    return (
+                      <div className={styles.iconWrapper} key={index}>
+                        <BsFillPersonFill />
+                        {el}
+                      </div>
+                    );
+                  } else if (el.includes('안내 시스템')) {
+                    return (
+                      <div className={styles.iconWrapper} key={index}>
+                        <RiGuideFill />
+                        {el}
+                      </div>
+                    );
+                  } else if (el.includes('표지')) {
+                    return (
+                      <div className={styles.iconWrapper} key={index}>
+                        <BsFillSignpostSplitFill />
+                        {el}
+                      </div>
+                    );
+                  } else if (el.includes('비디오')) {
+                    return (
+                      <div className={styles.iconWrapper} key={index}>
+                        <MdOutlineOndemandVideo />
+                        {el}
+                      </div>
+                    );
+                  } else {
+                    return (
+                      <div className={styles.iconWrapper} key={index}>
+                        <AiOutlineCheck /> {el}
+                      </div>
+                    );
+                  }
+                })}
+              </div>
+            </>
+          ) : null}
         </div>
       </div>
     </>
