@@ -156,7 +156,7 @@ export default function Header({
                   full={true}
                   onClick={() => {
                     setIsLogin(false);
-                    sessionStorage.removeItem('access_token');
+                    sessionStorage.clear();
                     setIsOpen(false);
                   }}
                 >

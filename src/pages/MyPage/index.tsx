@@ -52,7 +52,7 @@ export default function MyPage() {
               className={styles.content}
               onClick={() => {
                 setIsLogin(false);
-                sessionStorage.removeItem('access_token');
+                sessionStorage.clear();
               }}
             >
               <FiLogOut />
