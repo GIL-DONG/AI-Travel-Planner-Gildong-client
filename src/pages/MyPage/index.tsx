@@ -21,7 +21,7 @@ export default function MyPage() {
     const data = await deleteUserAPI();
     if (data === 204) {
       setIsLogin(false);
-      sessionStorage.removeItem('access_token');
+      sessionStorage.clear();
       navigate(ROUTE_PATHS.home);
     }
   };

@@ -26,7 +26,7 @@ export default function Itinerary() {
 
   const getItinerary = async () => {
     if (id) {
-      const data = await getItineraryDetailAPI(id + '');
+      const data = await getItineraryDetailAPI(id);
       if (data.data) {
         setItinerary(data.data);
         setGroupByDate(groupObjectsByField(data.data?.schedule || [], 'date'));
@@ -73,12 +73,19 @@ export default function Itinerary() {
                 key={index}
               >
                 <div className={styles.description}>
-                  <div className={styles.time}>
-                    <div>{el.start_time?.slice(0, -3)}</div>
-                    <div>{el.end_time?.slice(0, -3)}</div>
-                  </div>
+                  {el?.image_url ? (
+                    <div className={styles.img}>
+                      <img src={el.image_url} />
+                    </div>
+                  ) : null}
                   <div className={styles.right}>
                     <div className={styles.title}>{el.title}</div>
+                    <div className={styles.time}>
+                      {`${el.start_time?.slice(0, -3)} ~ ${el.end_time?.slice(
+                        0,
+                        -3,
+                      )}`}
+                    </div>
                     <div>{el.description}</div>
                   </div>
                 </div>

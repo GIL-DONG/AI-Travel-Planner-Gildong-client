@@ -17,7 +17,6 @@ import SpeechToTextButton from '@/components/Chat/SpeechToTextButton';
 import gildong from '@/assets/gildong_3d.png';
 import AddItineraryButton from '@/components/Travel/AddItineraryButton';
 import { imageState, uploadImageState } from '@/store/atom/travelAtom';
-import { mainChatState } from '@/store/atom/chatAtom';
 import styles from './styles.module.scss';
 interface ChatProps {
   home?: boolean;
@@ -25,10 +24,9 @@ interface ChatProps {
 
 export default function Chat({ home }: ChatProps) {
   const navigate = useNavigate();
-  const list = useRecoilValue(mainChatState);
   const uploadImage = useRecoilValue(uploadImageState);
   const setImage = useSetRecoilState(imageState);
-  const setList = useSetRecoilState(mainChatState);
+  const [list, setList] = useState<ChatTypes[]>([]);
   const [value, setValue] = useState('');
   const scrollRef = useRef<null[] | HTMLDivElement[]>([]);
   const [stop, setStop] = useState(false);
@@ -118,12 +116,12 @@ export default function Chat({ home }: ChatProps) {
           itinerary: itinerary,
         },
       ]);
-      setImage('');
     } catch (error) {
       console.error(error);
     } finally {
       setQuestion('');
       setAnswer('');
+      setImage('');
     }
   };
 

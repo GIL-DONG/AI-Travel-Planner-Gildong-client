@@ -30,10 +30,10 @@ export default function AddItineraryButton({ id }: AddItineraryButtonProps) {
 
   const confirmHandler = async () => {
     const data = await getAddItineraryAPI(id);
-    sessionStorage.removeItem('session_id');
-    setmainChatList([]);
-    if (data) {
+    if (data.message === 'Itinerary registered successfully.') {
       navigate(ROUTE_PATHS.itinerary);
+      sessionStorage.removeItem('session_id');
+      setmainChatList([]);
     }
   };
 

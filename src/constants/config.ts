@@ -7,6 +7,7 @@ export const API_URLS = {
   searchResidence: '/region/autocomplete',
   token: '/kakao/user_info/token',
   mainChat: '/chatbot/main',
+  itineraryChat: '/chatbot/member',
   detail: '/data-detail',
   conversation: '/convo',
   getAllItinerary: '/itinerary',
