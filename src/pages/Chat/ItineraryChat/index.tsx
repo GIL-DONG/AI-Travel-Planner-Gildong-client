@@ -10,7 +10,6 @@ import { API_URLS, BASE_URL } from '@/constants/config';
 import Header from '@/components/Common/Header';
 import ImageUploadButton from '@/components/Chat/ImageUploadButton';
 import SpeechToTextButton from '@/components/Chat/SpeechToTextButton';
-import AddItineraryButton from '@/components/Travel/AddItineraryButton';
 import {
   imageState,
   itineraryState,
@@ -48,6 +47,7 @@ export default function ItineraryChat() {
   const itinerary = useRecoilValue(itineraryState);
   const uploadImage = useRecoilValue(uploadImageState);
   const [isImageOpen, setIsImageOpen] = useState(false);
+  const [itineraryId, setItineraryId] = useState('');
 
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
@@ -70,7 +70,7 @@ export default function ItineraryChat() {
       setQuestion(value || text || '');
       setValue('');
       setStop(false);
-      const response = await fetch(`${BASE_URL}${API_URLS.mainChat}`, {
+      const response = await fetch(`${BASE_URL}${API_URLS.itineraryChat}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -89,7 +89,6 @@ export default function ItineraryChat() {
         response.body?.pipeThrough(new TextDecoderStream()).getReader() ??
         false;
       let str = '';
-      let itinerary = '';
       if (reader) {
         for (;;) {
           const { value, done } = await reader.read();
@@ -107,7 +106,7 @@ export default function ItineraryChat() {
               }
               if (data.itinerary_id) {
                 sessionStorage.setItem('itinerary_id', data.itinerary_id);
-                itinerary = data.itinerary_id;
+                setItineraryId(data.itinerary_id);
               }
               if (data.message !== 'completed') {
                 setAnswer((str += data.message));
@@ -121,15 +120,15 @@ export default function ItineraryChat() {
         {
           question: value || text || '',
           answer: str,
-          itinerary: itinerary,
+          itinerary: itineraryId,
         },
       ]);
-      setImage('');
     } catch (error) {
       console.error(error);
     } finally {
       setQuestion('');
       setAnswer('');
+      setImage('');
     }
   };
 
@@ -178,7 +177,28 @@ export default function ItineraryChat() {
 
   useEffect(() => {
     getItineraryChat();
-  }, [question]);
+  }, []);
+
+  // const UpdateItinerary = async () => {
+  //   if (itineraryId) {
+  //     const res = await getAddItineraryAPI(itineraryId);
+  //     if (res.message === 'Itinerary registered successfully.') {
+  //       const data = await getItineraryDetailAPI(itineraryId);
+  //       if (data?.data) {
+  //         const title = data.data?.title;
+  //         const list = data.data?.schedule?.map(
+  //           (el: itineraryScheduleTypes) => el.title,
+  //         );
+  //         console.log(title);
+  //         console.log(list);
+  //       }
+  //     }
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   UpdateItinerary();
+  // }, [itineraryId]);
 
   return (
     <>
@@ -205,11 +225,6 @@ export default function ItineraryChat() {
                     {el.question}
                     <div className={styles.answer}>
                       <MarkDown text={el.answer} />
-                      {el.itinerary ? (
-                        <div className={styles.addButton}>
-                          <AddItineraryButton id={el.itinerary} />
-                        </div>
-                      ) : null}
                     </div>
                   </div>
                 ))}

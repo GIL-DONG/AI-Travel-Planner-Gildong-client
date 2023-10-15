@@ -55,7 +55,8 @@
 .description {
   display: flex;
   flex-direction: row;
-  padding: 2rem;
+  align-items: center;
+  padding: 1.5rem;
 }
 
 .background {
@@ -66,11 +67,12 @@
   border-radius: 0 1rem 1rem 1rem;
 }
 
-.time {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+.img {
+  > img {
+    width: 6rem;
+    height: 6rem;
+    border-radius: var(--border-radius-md);
+  }
 }
 
 .right {
@@ -82,4 +84,10 @@
 .title {
   font-weight: 600;
   font-size: var(--font-size-xl);
+}
+
+.time {
+  margin: 0.4rem 0;
+  font-weight: 600;
+  color: var(--dark-gray-color);
 }

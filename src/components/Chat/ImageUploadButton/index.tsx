@@ -39,7 +39,7 @@ export default function ImageUploadButton({
     const obj: DataTypes = {
       in_files: file[0],
     };
-    const data = await axios.post(`${BASE_URL}/upload_images`, obj, {
+    const data = await axios.post(`${BASE_URL}/upload-images`, obj, {
       headers: {
         'Content-Type': 'multipart/form-data',
         Authorization: `Bearer ${sessionStorage.getItem('access_token')}` || '',

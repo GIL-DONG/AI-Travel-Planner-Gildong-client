@@ -3,7 +3,7 @@ import { recoilPersist } from 'recoil-persist';
 import { itineraryTypes } from '@/types/travel';
 
 const { persistAtom } = recoilPersist({
-  key: 'selectedItinerary',
+  key: 'itinerary',
   storage: sessionStorage,
 });
 

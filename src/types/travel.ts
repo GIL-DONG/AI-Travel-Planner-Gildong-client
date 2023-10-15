@@ -26,8 +26,9 @@ export interface itineraryScheduleTypes {
   date_type: string;
   description: string;
   end_time: string;
-  location: locationType;
+  location?: locationType;
   start_time: string;
   title: string;
   url?: string;
+  image_url?: string;
 }

@@ -40,12 +40,14 @@ export default function Auth() {
           navigate(ROUTE_PATHS.signUp);
         } else if (data.message === 'Logged in successfully') {
           sessionStorage.setItem('access_token', data.data.access_token);
-          const { user_name, user_image, disability_status } = parseToken(
-            data.data.access_token,
-          );
+          const { user_name, user_image, disability_status, disability_type } =
+            parseToken(data.data.access_token);
           sessionStorage.setItem('name', user_name);
           sessionStorage.setItem('profile_image', user_image);
           sessionStorage.setItem('disability_status', disability_status);
+          if (disability_status) {
+            sessionStorage.setItem('disability_type', disability_type);
+          }
           setName(user_name);
           setProfileImage(user_image);
           setIsLogin(true);

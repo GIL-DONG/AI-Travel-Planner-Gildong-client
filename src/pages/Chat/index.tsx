@@ -4,10 +4,9 @@ import { TbBeach } from 'react-icons/tb';
 import { FaWheelchair } from 'react-icons/fa';
 import { FaBlind } from 'react-icons/fa';
 import { ImFire } from 'react-icons/im';
-import { AiOutlineArrowRight } from 'react-icons/ai';
+import { AiOutlineArrowRight, AiFillCloseCircle } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { MdCancel } from 'react-icons/md';
 import Button from '@/components/Common/Button';
 import ChatLoading from '@/components/Chat/ChatLoading';
 import MarkDown from '@/components/Chat/MarkDown';
@@ -19,21 +18,16 @@ import gildong from '@/assets/gildong_3d.png';
 import AddItineraryButton from '@/components/Travel/AddItineraryButton';
 import { imageState, uploadImageState } from '@/store/atom/travelAtom';
 import styles from './styles.module.scss';
-
-interface ChatTypes {
-  question: string;
-  answer: string;
-  itinerary: string;
-}
-
 interface ChatProps {
   home?: boolean;
 }
 
 export default function Chat({ home }: ChatProps) {
   const navigate = useNavigate();
-  const [value, setValue] = useState('');
+  const uploadImage = useRecoilValue(uploadImageState);
+  const setImage = useSetRecoilState(imageState);
   const [list, setList] = useState<ChatTypes[]>([]);
+  const [value, setValue] = useState('');
   const scrollRef = useRef<null[] | HTMLDivElement[]>([]);
   const [stop, setStop] = useState(false);
   const [isChatLoading, setIsChatLoading] = useState(false);
@@ -42,8 +36,6 @@ export default function Chat({ home }: ChatProps) {
   const [isMicOn, setIsMicOn] = useState(false);
   const [isMicLoading, setIsMicLoading] = useState(false);
   const image = useRecoilValue(imageState);
-  const setImage = useSetRecoilState(imageState);
-  const uploadImage = useRecoilValue(uploadImageState);
   const [isImageOpen, setIsImageOpen] = useState(false);
 
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -124,12 +116,12 @@ export default function Chat({ home }: ChatProps) {
           itinerary: itinerary,
         },
       ]);
-      setImage('');
     } catch (error) {
       console.error(error);
     } finally {
       setQuestion('');
       setAnswer('');
+      setImage('');
     }
   };
 
@@ -304,7 +296,7 @@ export default function Chat({ home }: ChatProps) {
                         <img src={uploadImage} />
                         <span className={styles.cancel}>
                           <Button
-                            icon={<MdCancel />}
+                            icon={<AiFillCloseCircle />}
                             iconBtn={true}
                             color="black"
                             onClick={() => {

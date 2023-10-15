@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { AiOutlinePlus } from 'react-icons/ai';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { useNavigate } from 'react-router-dom';
 import Button from '@/components/Common/Button';
 import Modal from '@/components/Common/Modal';
 import { isLoginState } from '@/store/atom/userAtom';
 import { getAddItineraryAPI } from '@/services/travel';
 import { ROUTE_PATHS } from '@/constants/config';
+import { mainChatState } from '@/store/atom/chatAtom';
 import styles from './styles.module.scss';
 
 interface AddItineraryButtonProps {
@@ -17,10 +18,10 @@ export default function AddItineraryButton({ id }: AddItineraryButtonProps) {
   const navigate = useNavigate();
   const isLogin = useRecoilValue(isLoginState);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const setmainChatList = useSetRecoilState(mainChatState);
 
   const onClickOpenModal = () => {
     setIsModalOpen(true);
-    sessionStorage.removeItem('session_id');
   };
 
   const onClickCloseModal = () => {
@@ -29,9 +30,10 @@ export default function AddItineraryButton({ id }: AddItineraryButtonProps) {
 
   const confirmHandler = async () => {
     const data = await getAddItineraryAPI(id);
-    sessionStorage.setItem('session_id', '');
-    if (data) {
+    if (data.message === 'Itinerary registered successfully.') {
       navigate(ROUTE_PATHS.itinerary);
+      sessionStorage.removeItem('session_id');
+      setmainChatList([]);
     }
   };
 

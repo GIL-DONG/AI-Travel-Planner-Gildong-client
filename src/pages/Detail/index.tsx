@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { FaMapMarkerAlt } from 'react-icons/fa';
+import { FaMapMarkerAlt, FaWheelchair } from 'react-icons/fa';
 import { BsFillTelephoneFill, BsFillPersonFill } from 'react-icons/bs';
 import { AiFillCar, AiOutlineCheck, AiFillSound } from 'react-icons/ai';
 import { MdElevator } from 'react-icons/md';
@@ -105,7 +105,7 @@ export default function Detail() {
                   } else if (el.includes('휠체어')) {
                     return (
                       <div className={styles.iconWrapper} key={index}>
-                        <AiFillCar />
+                        <FaWheelchair />
                         {el}
                       </div>
                     );

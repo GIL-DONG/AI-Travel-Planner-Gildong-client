@@ -8,3 +8,8 @@ declare interface ChatAnswerTypes {
   session_id: string;
   itinerary_id?: string;
 }
+declare interface ChatTypes {
+  question: string;
+  answer: string;
+  itinerary: string;
+}
