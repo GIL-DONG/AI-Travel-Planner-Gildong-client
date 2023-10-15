@@ -1,6 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { TbSend } from 'react-icons/tb';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useParams } from 'react-router';
+import { MdCancel } from 'react-icons/md';
 import Button from '@/components/Common/Button';
 import ChatLoading from '@/components/Chat/ChatLoading';
 import MarkDown from '@/components/Chat/MarkDown';
@@ -9,17 +11,29 @@ import Header from '@/components/Common/Header';
 import ImageUploadButton from '@/components/Chat/ImageUploadButton';
 import SpeechToTextButton from '@/components/Chat/SpeechToTextButton';
 import AddItineraryButton from '@/components/Travel/AddItineraryButton';
-import { imageState, itineraryState } from '@/store/atom/travelAtom';
+import {
+  imageState,
+  itineraryState,
+  uploadImageState,
+} from '@/store/atom/travelAtom';
 import Destinations from '@/components/Travel/Destinations';
+import { getConversationAPI } from '@/services/travel';
 import styles from './styles.module.scss';
-
 interface ChatTypes {
   question: string;
   answer: string;
-  itinerary: string;
+  itinerary?: string;
+}
+
+interface ItineraryChatTypes {
+  formatted_ai_message: string;
+  timestamp: string;
+  turn_id: number;
+  user_message: string;
 }
 
 export default function ItineraryChat() {
+  const { id } = useParams();
   const [value, setValue] = useState('');
   const [list, setList] = useState<ChatTypes[]>([]);
   const scrollRef = useRef<null[] | HTMLDivElement[]>([]);
@@ -32,6 +46,8 @@ export default function ItineraryChat() {
   const image = useRecoilValue(imageState);
   const setImage = useSetRecoilState(imageState);
   const itinerary = useRecoilValue(itineraryState);
+  const uploadImage = useRecoilValue(uploadImageState);
+  const [isImageOpen, setIsImageOpen] = useState(false);
 
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
@@ -64,9 +80,7 @@ export default function ItineraryChat() {
         },
         // credentials: 'include',
         body: JSON.stringify({
-          session_id: sessionStorage.getItem('session_id')
-            ? sessionStorage.getItem('session_id') + ''
-            : '',
+          session_id: id || '',
           question: value || text || '',
           image_name: image || '',
         }),
@@ -150,6 +164,22 @@ export default function ItineraryChat() {
     }
   }, [answer]);
 
+  const getItineraryChat = async () => {
+    if (id) {
+      const data = await getConversationAPI(id);
+      if (data) {
+        const chatList = data.data.map((el: ItineraryChatTypes) => {
+          return { question: el.user_message, answer: el.formatted_ai_message };
+        });
+        setList(chatList);
+      }
+    }
+  };
+
+  useEffect(() => {
+    getItineraryChat();
+  }, [question]);
+
   return (
     <>
       <Header back={true}>{itinerary.title}</Header>
@@ -167,6 +197,11 @@ export default function ItineraryChat() {
               <div ref={(el) => (scrollRef.current[2] = el)}>
                 {list?.map((el, index) => (
                   <div className={styles.question} key={index}>
+                    {uploadImage ? (
+                      <div className={styles.uploadImage}>
+                        <img src={uploadImage} />
+                      </div>
+                    ) : null}
                     {el.question}
                     <div className={styles.answer}>
                       <MarkDown text={el.answer} />
@@ -185,6 +220,11 @@ export default function ItineraryChat() {
                       scrollRef.current[0] = el;
                     }}
                   >
+                    {uploadImage ? (
+                      <div className={styles.uploadImage}>
+                        <img src={uploadImage} />
+                      </div>
+                    ) : null}
                     {question}
                     <div className={styles.answer}>
                       {isChatLoading ? (
@@ -201,8 +241,27 @@ export default function ItineraryChat() {
             <div className={styles.chatContainer}>
               <div className={styles.chatWrapper}>
                 <div className={styles.chat}>
+                  {isImageOpen ? (
+                    <div className={styles.imageContainer}>
+                      <div className={styles.uploadImage}>
+                        <img src={uploadImage} />
+                        <span className={styles.cancel}>
+                          <Button
+                            icon={<MdCancel />}
+                            iconBtn={true}
+                            color="black"
+                            onClick={() => {
+                              setIsImageOpen(false);
+                            }}
+                          >
+                            취소
+                          </Button>
+                        </span>
+                      </div>
+                    </div>
+                  ) : null}
                   <div className={styles.icon}>
-                    <ImageUploadButton />
+                    <ImageUploadButton setIsImageOpen={setIsImageOpen} />
                   </div>
                   {isMicOn ? (
                     <div className={styles.textWrapper}>

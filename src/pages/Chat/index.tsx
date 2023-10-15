@@ -7,6 +7,7 @@ import { ImFire } from 'react-icons/im';
 import { AiOutlineArrowRight } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { MdCancel } from 'react-icons/md';
 import Button from '@/components/Common/Button';
 import ChatLoading from '@/components/Chat/ChatLoading';
 import MarkDown from '@/components/Chat/MarkDown';
@@ -16,7 +17,7 @@ import ImageUploadButton from '@/components/Chat/ImageUploadButton';
 import SpeechToTextButton from '@/components/Chat/SpeechToTextButton';
 import gildong from '@/assets/gildong_3d.png';
 import AddItineraryButton from '@/components/Travel/AddItineraryButton';
-import { imageState } from '@/store/atom/travelAtom';
+import { imageState, uploadImageState } from '@/store/atom/travelAtom';
 import styles from './styles.module.scss';
 
 interface ChatTypes {
@@ -42,6 +43,8 @@ export default function Chat({ home }: ChatProps) {
   const [isMicLoading, setIsMicLoading] = useState(false);
   const image = useRecoilValue(imageState);
   const setImage = useSetRecoilState(imageState);
+  const uploadImage = useRecoilValue(uploadImageState);
+  const [isImageOpen, setIsImageOpen] = useState(false);
 
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
@@ -64,6 +67,7 @@ export default function Chat({ home }: ChatProps) {
       setQuestion(value || text || '');
       setValue('');
       setStop(false);
+      setIsImageOpen(false);
       const response = await fetch(`${BASE_URL}${API_URLS.mainChat}`, {
         method: 'POST',
         headers: {
@@ -176,6 +180,11 @@ export default function Chat({ home }: ChatProps) {
                 <div ref={(el) => (scrollRef.current[2] = el)}>
                   {list?.map((el, index) => (
                     <div className={styles.question} key={index}>
+                      {uploadImage ? (
+                        <div className={styles.uploadImage}>
+                          <img src={uploadImage} />
+                        </div>
+                      ) : null}
                       {el.question}
                       <div className={styles.answer}>
                         <MarkDown text={el.answer} />
@@ -194,6 +203,11 @@ export default function Chat({ home }: ChatProps) {
                         scrollRef.current[0] = el;
                       }}
                     >
+                      {uploadImage ? (
+                        <div className={styles.uploadImage}>
+                          <img src={uploadImage} />
+                        </div>
+                      ) : null}
                       {question}
                       <div className={styles.answer}>
                         {isChatLoading ? (
@@ -284,8 +298,27 @@ export default function Chat({ home }: ChatProps) {
             <div className={styles.chatContainer}>
               <div className={styles.chatWrapper}>
                 <div className={styles.chat}>
+                  {isImageOpen ? (
+                    <div className={styles.imageContainer}>
+                      <div className={styles.uploadImage}>
+                        <img src={uploadImage} />
+                        <span className={styles.cancel}>
+                          <Button
+                            icon={<MdCancel />}
+                            iconBtn={true}
+                            color="black"
+                            onClick={() => {
+                              setIsImageOpen(false);
+                            }}
+                          >
+                            취소
+                          </Button>
+                        </span>
+                      </div>
+                    </div>
+                  ) : null}
                   <div className={styles.icon}>
-                    <ImageUploadButton />
+                    <ImageUploadButton setIsImageOpen={setIsImageOpen} />
                   </div>
                   {isMicOn ? (
                     <div className={styles.textWrapper}>
@@ -307,7 +340,7 @@ export default function Chat({ home }: ChatProps) {
                     />
                   )}
                   <div className={styles.send}>
-                    {value ? (
+                    {value || isImageOpen ? (
                       <Button
                         size="sm"
                         color="white"

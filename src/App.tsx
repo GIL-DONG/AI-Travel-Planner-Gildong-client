@@ -11,6 +11,7 @@ import MyPage from './pages/MyPage';
 import Modify from './pages/MyPage/Modify';
 import Itineraries from './pages/Itineraries';
 import Itinerary from './pages/Itineraries/Itinerary';
+import ItineraryChat from './pages/Chat/ItineraryChat';
 
 function App() {
   const isLogin = useRecoilValue(isLoginState);
@@ -39,6 +40,7 @@ function App() {
             element={isLogin ? <Itineraries /> : <SignIn />}
           />
           <Route path={ROUTE_PATHS.itineraryDetail} element={<Itinerary />} />
+          <Route path={ROUTE_PATHS.itineraryChat} element={<ItineraryChat />} />
           <Route
             path={ROUTE_PATHS.myPage}
             element={isLogin ? <MyPage /> : <SignIn />}

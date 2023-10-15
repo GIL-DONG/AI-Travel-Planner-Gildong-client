@@ -2,25 +2,42 @@ import axios from 'axios';
 import { AiOutlineCamera } from 'react-icons/ai';
 import { useNavigate } from 'react-router';
 import { useSetRecoilState } from 'recoil';
+import React, { SetStateAction } from 'react';
 import { BASE_URL, ROUTE_PATHS } from '@/constants/config';
-import { imageState } from '@/store/atom/travelAtom';
+import { imageState, uploadImageState } from '@/store/atom/travelAtom';
 import styles from './styles.module.scss';
-interface DataType {
+interface DataTypes {
   in_files: File;
 }
 
-export default function ImageUploadButton() {
+interface ImageUploadButtonProps {
+  setIsImageOpen: React.Dispatch<SetStateAction<boolean>>;
+}
+
+export default function ImageUploadButton({
+  setIsImageOpen,
+}: ImageUploadButtonProps) {
   const navigate = useNavigate();
   const setImage = useSetRecoilState(imageState);
+  const setUploadImage = useSetRecoilState(uploadImageState);
 
   const onClickUploadImageHandler = async (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
     navigate(ROUTE_PATHS.chat);
-    const imageLists = event.target.files || [];
+    const file = event.target.files || [];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const imageDataUrl = e.target?.result;
+        setUploadImage(imageDataUrl as string);
+      };
+      reader.readAsDataURL(file[0]);
+      setIsImageOpen(true);
+    }
 
-    const obj: DataType = {
-      in_files: imageLists[0],
+    const obj: DataTypes = {
+      in_files: file[0],
     };
     const data = await axios.post(`${BASE_URL}/upload_images`, obj, {
       headers: {
