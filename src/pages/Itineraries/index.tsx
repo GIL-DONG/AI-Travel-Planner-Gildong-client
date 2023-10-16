@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { PiWechatLogo } from 'react-icons/pi';
-import { IoIosShareAlt } from 'react-icons/io';
 import { useNavigate } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
+import { LiaCalendarCheckSolid } from 'react-icons/lia';
 import Header from '@/components/Common/Header';
 import { getAllItineraryAPI, getCalendarAPI } from '@/services/travel';
 import { itineraryTypes } from '@/types/travel';
@@ -60,7 +60,7 @@ export default function Itineraries() {
                 {el.title}
                 <div className={styles.button}>
                   <Button
-                    icon={<IoIosShareAlt />}
+                    icon={<LiaCalendarCheckSolid />}
                     iconBtn={true}
                     size="md"
                     color="black"
