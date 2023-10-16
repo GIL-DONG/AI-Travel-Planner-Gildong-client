@@ -15,7 +15,7 @@ export interface detailType {
 
 export interface itineraryTypes {
   date_type: string;
-  destinations: string[];
+  destinations: destinationsTypes[];
   itinerary_id: string;
   session_id: string;
   title: string;
@@ -31,4 +31,11 @@ export interface itineraryScheduleTypes {
   title: string;
   url?: string;
   image_url?: string;
+}
+
+export interface destinationsTypes {
+  hearing?: boolean;
+  physical?: boolean;
+  title: string;
+  visual?: boolean;
 }
