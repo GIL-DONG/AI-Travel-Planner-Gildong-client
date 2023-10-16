@@ -26,7 +26,6 @@ export default function Itineraries() {
 
   const getAllItinerary = async () => {
     const data = await getAllItineraryAPI();
-
     if (data.data) {
       setList(data.data);
     }

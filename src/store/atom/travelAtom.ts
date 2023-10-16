@@ -1,6 +1,6 @@
 import { atom } from 'recoil';
 import { recoilPersist } from 'recoil-persist';
-import { itineraryTypes } from '@/types/travel';
+import { destinationsTypes, itineraryTypes } from '@/types/travel';
 
 const { persistAtom } = recoilPersist({
   key: 'itinerary',
@@ -22,7 +22,7 @@ const sessionIdState = atom<string>({
   default: '',
 });
 
-const destinationsState = atom<string[]>({
+const destinationsState = atom<destinationsTypes[]>({
   key: 'destinationsState',
   default: [],
 });

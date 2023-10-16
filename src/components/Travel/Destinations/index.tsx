@@ -1,8 +1,9 @@
 import useMouseDrag from '@/hooks/useMouseDrag';
+import { destinationsTypes } from '@/types/travel';
 import styles from './styles.module.scss';
 
 interface DestinationsProps {
-  destinations: string[];
+  destinations?: destinationsTypes[];
 }
 export default function Destinations({ destinations }: DestinationsProps) {
   const { scrollRef, isDrag, onDragStart, onDragEnd, onThrottleDragMove } =
@@ -16,7 +17,7 @@ export default function Destinations({ destinations }: DestinationsProps) {
       onMouseMove={isDrag ? onThrottleDragMove : undefined}
       ref={(e) => (scrollRef.current = e)}
     >
-      {destinations.map((el, index) => (
+      {destinations?.map((el, index) => (
         <div className={styles.content} key={index}>
           <div className={styles.circleWrapper}>
             <div
@@ -26,7 +27,17 @@ export default function Destinations({ destinations }: DestinationsProps) {
                   : styles.first
               }
             ></div>
-            <div className={styles.second}></div>
+            {sessionStorage.getItem('disability_type') &&
+            ((sessionStorage.getItem('disability_type') + '' === 'hearing' &&
+              el.hearing) ||
+              (sessionStorage.getItem('disability_type') + '' === 'visual' &&
+                el.visual) ||
+              (sessionStorage.getItem('disability_type') + '' === 'physical' &&
+                el.physical)) ? (
+              <div className={styles.point} />
+            ) : (
+              <div className={styles.second} />
+            )}
             <div
               className={
                 index === destinations?.length - 1
@@ -35,7 +46,7 @@ export default function Destinations({ destinations }: DestinationsProps) {
               }
             ></div>
           </div>
-          <div className={styles.destination}>{el}</div>
+          <div className={styles.destination}>{el.title}</div>
         </div>
       ))}
     </div>

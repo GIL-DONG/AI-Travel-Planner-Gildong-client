@@ -56,6 +56,13 @@
   }
 }
 
+.point {
+  width: 1rem;
+  flex-grow: 0;
+  border-radius: var(--border-radius-lg);
+  background-color: var(--green-color);
+}
+
 .destination {
   font-size: var(--font-size-sm);
   padding: 0.2rem;

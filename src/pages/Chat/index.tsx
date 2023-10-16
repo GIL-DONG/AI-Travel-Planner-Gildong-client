@@ -239,14 +239,14 @@ export default function Chat({ home }: ChatProps) {
                     className={styles.example}
                     onClick={() => {
                       fetchSSE(
-                        '휠체어로 갈 수 있는 3박 4일 부산여행 일정을 추천해줘!',
+                        '휠체어로 갈 수 있는 2박 3일 부산여행 일정을 추천해줘!',
                       );
                       navigate(ROUTE_PATHS.chat);
                     }}
                   >
                     <FaWheelchair />
                     <span className={styles.text}>
-                      휠체어로 갈 수 있는 3박 4일 부산여행 일정을 추천해줘!
+                      휠체어로 갈 수 있는 2박 3일 부산여행 일정을 추천해줘!
                     </span>
                     <div className={styles.go}>
                       <AiOutlineArrowRight />
@@ -256,14 +256,14 @@ export default function Chat({ home }: ChatProps) {
                     className={styles.example}
                     onClick={() => {
                       fetchSSE(
-                        '시각장애인도 갈 수 있는 2박 3일 통영여행 일정을 추천해줘',
+                        '시각장애인도 갈 수 있는 1박 2일 통영여행 일정을 추천해줘',
                       );
                       navigate(ROUTE_PATHS.chat);
                     }}
                   >
                     <FaBlind />
                     <span className={styles.text}>
-                      시각장애인도 갈 수 있는 2박 3일 통영여행 일정을 추천해줘
+                      시각장애인도 갈 수 있는 1박 2일 통영여행 일정을 추천해줘
                     </span>
                     <div className={styles.go}>
                       <AiOutlineArrowRight />

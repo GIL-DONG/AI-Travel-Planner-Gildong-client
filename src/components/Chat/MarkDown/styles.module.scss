@@ -33,10 +33,19 @@
   a {
     font-weight: 600;
     color: var(--main-color);
+    margin: 0.2rem;
     cursor: pointer;
   }
 
   strong {
     font-size: var(--font-size-xl);
+  }
+
+  ol {
+    list-style: none;
+  }
+
+  ul {
+    list-style: none;
   }
 }
