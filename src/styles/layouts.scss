@@ -1,0 +1,13 @@
+.mainLayout {
+  display: flex;
+  width: 768px;
+  min-height: 100vh;
+
+  @include mobile {
+    width: 100vw;
+  }
+}
+
+.colorLayout {
+  background-color: var(--background-color);
+}

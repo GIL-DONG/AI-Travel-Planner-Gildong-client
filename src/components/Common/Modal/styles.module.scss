@@ -1,0 +1,126 @@
+.modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 99;
+  background-color: rgba(0, 0, 0, 0.6);
+
+  &__opened {
+    display: flex;
+    align-items: center;
+    animation: modal__bg_opened 0.1s;
+  }
+
+  &__closed {
+    animation: modal__bg_closed 0.1s;
+  }
+}
+
+.modal_section {
+  width: 100%;
+  max-width: 21.5rem;
+  margin: 0 auto;
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
+
+  &__default {
+    background: var(--white-color);
+  }
+  &__primary {
+    background: var(--main-color);
+  }
+
+  &__opened {
+    animation: modal__opened 0.1s;
+  }
+
+  &__closed {
+    animation: modal__closed 0.1s;
+  }
+}
+
+.modal_header {
+  height: 3.5rem;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  padding: 1rem 3rem 1rem 3rem;
+  color: var(--black-color);
+
+  &__button {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    font-size: var(--font-size-xl);
+    font-weight: 700;
+    text-align: center;
+    color: var(--black-color);
+    background-color: transparent;
+    border: 0;
+  }
+}
+
+.modal_main {
+  max-height: 51.5rem;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding: 1rem;
+  border-top: 1px solid var(--gray);
+  color: var(--black-color);
+
+  &::-webkit-scrollbar {
+    width: 6px;
+    margin-right: 5rem;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.6);
+    border-radius: var(--border-radius-xl);
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: transparent;
+    border-radius: var(--border-radius-xl);
+    box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.2);
+  }
+}
+
+@keyframes modal__opened {
+  from {
+    opacity: 0;
+    margin-top: -50px;
+  }
+  to {
+    opacity: 1;
+    margin-top: 0;
+  }
+}
+@keyframes modal_bg__opened {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modal__closed {
+  from {
+    margin-bottom: 0px;
+  }
+  to {
+    margin-bottom: -50px;
+  }
+}
+@keyframes modal_bg__closed {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}

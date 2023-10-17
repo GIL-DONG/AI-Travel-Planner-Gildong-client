@@ -1,0 +1,18 @@
+.label {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  color: var(--gray-color);
+  padding: 0.5rem;
+  cursor: pointer;
+
+  > svg {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+}
+
+.input {
+  display: none;
+}

@@ -1,0 +1,13 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: var(--font-size-lg);
+}
+
+.button {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem 0.4rem;
+  margin-top: 2rem;
+}

@@ -1,0 +1,51 @@
+.markdown {
+  > table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 1rem auto;
+    border: 1px solid var(--light-gray-color);
+    background-color: var(--white-color);
+  }
+
+  th,
+  td {
+    padding: 0.5rem;
+    text-align: left;
+    border-bottom: 1px solid var(--light-gray-color);
+    text-align: center;
+  }
+
+  th:nth-child(1),
+  td:nth-child(1) {
+    width: 10%;
+  }
+
+  th:nth-child(2),
+  td:nth-child(2) {
+    width: 10%;
+  }
+
+  th:nth-child(3),
+  td:nth-child(3) {
+    width: 30%;
+  }
+
+  a {
+    font-weight: 600;
+    color: var(--main-color);
+    margin: 0.2rem;
+    cursor: pointer;
+  }
+
+  strong {
+    font-size: var(--font-size-xl);
+  }
+
+  ol {
+    list-style: none;
+  }
+
+  ul {
+    list-style: none;
+  }
+}

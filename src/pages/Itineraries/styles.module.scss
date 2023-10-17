@@ -1,0 +1,85 @@
+.pageWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 4.5rem 1rem 1rem 1rem;
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+    margin-right: 5rem;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.4);
+    border-radius: 10px;
+  }
+}
+
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: var(--border-radius-lg);
+  background-color: var(--white-color);
+  box-shadow:
+    0px 0px 1px rgba(50, 50, 50, 0.05),
+    0px 2px 4px rgba(50, 50, 50, 0.1);
+  cursor: pointer;
+
+  &:hover {
+    box-shadow: 0 0 0 2px var(--main-color) inset;
+  }
+}
+
+.title {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-left: 0.5rem;
+  font-weight: 600;
+  font-size: var(--font-size-xl);
+}
+
+.button {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  > button > svg {
+    width: 2rem;
+    height: 2rem;
+  }
+}
+
+.modalContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: var(--font-size-lg);
+}
+
+.modalContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: var(--font-size-lg);
+}
+
+.modalButton {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
