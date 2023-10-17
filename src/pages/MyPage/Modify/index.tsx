@@ -1,8 +1,7 @@
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { nameState } from '@/store/atom/signUpAtom';
-import { profileImageState } from '@/store/atom/userAtom';
+import { userProfileImageState } from '@/store/atom/userAtom';
 import gildong from '@/assets/gildong_icon.png';
 import Header from '@/components/Common/Header';
 import useDebounce from '@/hooks/useDebounce';
@@ -12,13 +11,15 @@ import Button from '@/components/Common/Button';
 import { patchUserAPI } from '@/services/user';
 import { updateUserInfoType } from '@/types/user';
 import { ROUTE_PATHS } from '@/constants/config';
+import { nameState } from '@/store/atom/signUpAtom';
 import styles from './styles.module.scss';
 
 export default function Modify() {
   const navigate = useNavigate();
   const name = useRecoilValue(nameState);
   const setName = useSetRecoilState(nameState);
-  const profileImage = useRecoilValue(profileImageState);
+  const profileImage = useRecoilValue(userProfileImageState);
+  const setProfileImage = useSetRecoilState(userProfileImageState);
   const [nickNameValidation, setNickNameValidation] = useState(false);
   const [deleteImage, setDeleteImage] = useState(false);
   const debouncedInputText = useDebounce(name);
@@ -51,8 +52,8 @@ export default function Modify() {
         await patchUserAPI(obj);
       }
     } finally {
-      sessionStorage.setItem('name', name);
-      sessionStorage.setItem('profile_image', 'default');
+      setName(name);
+      setProfileImage('default');
       navigate(ROUTE_PATHS.myPage);
     }
   };

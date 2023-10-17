@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { PiWechatLogo } from 'react-icons/pi';
 import { useNavigate } from 'react-router-dom';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { LiaCalendarCheckSolid } from 'react-icons/lia';
 import Header from '@/components/Common/Header';
 import { getAllItineraryAPI, getCalendarAPI } from '@/services/travel';
@@ -11,6 +11,7 @@ import { ROUTE_PATHS } from '@/constants/config';
 import Destinations from '@/components/Travel/Destinations';
 import { itineraryState } from '@/store/atom/travelAtom';
 import Modal from '@/components/Common/Modal';
+import { kakaoTokenState } from '@/store/atom/userAtom';
 import styles from './styles.module.scss';
 
 export default function Itineraries() {
@@ -19,6 +20,7 @@ export default function Itineraries() {
   const [list, setList] = useState<itineraryTypes[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [failed, setFailed] = useState(false);
+  const kakaoToken = useRecoilValue(kakaoTokenState);
 
   const onClickCloseModal = () => {
     setIsModalOpen(false);
@@ -32,11 +34,13 @@ export default function Itineraries() {
   };
 
   const sharingHandler = async (id: string) => {
-    const token = sessionStorage.getItem('kakao_token') + '' || '';
-    const data = await getCalendarAPI(id, token);
-    if (data.message === 'successful') {
-      setFailed(false);
-      setIsModalOpen(true);
+    const token = kakaoToken;
+    if (token) {
+      const data = await getCalendarAPI(id, token);
+      if (data.message === 'successful') {
+        setFailed(false);
+        setIsModalOpen(true);
+      }
     }
   };
 

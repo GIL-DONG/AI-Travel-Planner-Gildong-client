@@ -1,11 +1,14 @@
+import { useRecoilValue } from 'recoil';
 import useMouseDrag from '@/hooks/useMouseDrag';
 import { destinationsTypes } from '@/types/travel';
+import { userDisabilityTypeState } from '@/store/atom/userAtom';
 import styles from './styles.module.scss';
 
 interface DestinationsProps {
   destinations?: destinationsTypes[];
 }
 export default function Destinations({ destinations }: DestinationsProps) {
+  const disabilityType = useRecoilValue(userDisabilityTypeState);
   const { scrollRef, isDrag, onDragStart, onDragEnd, onThrottleDragMove } =
     useMouseDrag();
   return (
@@ -27,13 +30,10 @@ export default function Destinations({ destinations }: DestinationsProps) {
                   : styles.first
               }
             ></div>
-            {sessionStorage.getItem('disability_type') &&
-            ((sessionStorage.getItem('disability_type') + '' === 'hearing' &&
-              el.hearing) ||
-              (sessionStorage.getItem('disability_type') + '' === 'visual' &&
-                el.visual) ||
-              (sessionStorage.getItem('disability_type') + '' === 'physical' &&
-                el.physical)) ? (
+            {disabilityType &&
+            ((disabilityType + '' === 'hearing' && el.hearing) ||
+              (disabilityType + '' === 'visual' && el.visual) ||
+              (disabilityType + '' === 'physical' && el.physical)) ? (
               <div className={styles.point} />
             ) : (
               <div className={styles.second} />

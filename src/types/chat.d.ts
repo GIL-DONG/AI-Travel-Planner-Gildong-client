@@ -13,3 +13,10 @@ declare interface ChatTypes {
   answer: string;
   itinerary: string;
 }
+
+declare interface ItineraryChatTypes {
+  formatted_ai_message: string;
+  timestamp: string;
+  turn_id: number;
+  user_message: string;
+}

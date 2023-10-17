@@ -24,13 +24,6 @@ interface ChatTypes {
   itinerary?: string;
 }
 
-interface ItineraryChatTypes {
-  formatted_ai_message: string;
-  timestamp: string;
-  turn_id: number;
-  user_message: string;
-}
-
 export default function ItineraryChat() {
   const { id } = useParams();
   const [value, setValue] = useState('');
@@ -47,7 +40,6 @@ export default function ItineraryChat() {
   const itinerary = useRecoilValue(itineraryState);
   const uploadImage = useRecoilValue(uploadImageState);
   const [isImageOpen, setIsImageOpen] = useState(false);
-  const [itineraryId, setItineraryId] = useState('');
 
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
@@ -89,6 +81,7 @@ export default function ItineraryChat() {
         response.body?.pipeThrough(new TextDecoderStream()).getReader() ??
         false;
       let str = '';
+      let itineraryId = '';
       if (reader) {
         for (;;) {
           const { value, done } = await reader.read();
@@ -101,12 +94,8 @@ export default function ItineraryChat() {
           if (matches) {
             for (let i = 0; i < matches.length; i++) {
               const data = JSON.parse(matches[i]);
-              if (data.session_id) {
-                sessionStorage.setItem('session_id', data.session_id);
-              }
               if (data.itinerary_id) {
-                sessionStorage.setItem('itinerary_id', data.itinerary_id);
-                setItineraryId(data.itinerary_id);
+                itineraryId = data.itinerary_id;
               }
               if (data.message !== 'completed') {
                 setAnswer((str += data.message));

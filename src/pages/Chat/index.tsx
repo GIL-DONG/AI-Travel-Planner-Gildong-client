@@ -17,6 +17,7 @@ import SpeechToTextButton from '@/components/Chat/SpeechToTextButton';
 import gildong from '@/assets/gildong_3d.png';
 import AddItineraryButton from '@/components/Travel/AddItineraryButton';
 import { imageState, uploadImageState } from '@/store/atom/travelAtom';
+import { sessionIdState } from '@/store/atom/chatAtom';
 import styles from './styles.module.scss';
 interface ChatProps {
   home?: boolean;
@@ -26,6 +27,8 @@ export default function Chat({ home }: ChatProps) {
   const navigate = useNavigate();
   const uploadImage = useRecoilValue(uploadImageState);
   const setImage = useSetRecoilState(imageState);
+  const sessionId = useRecoilValue(sessionIdState);
+  const setSessionId = useSetRecoilState(sessionIdState);
   const [list, setList] = useState<ChatTypes[]>([]);
   const [value, setValue] = useState('');
   const scrollRef = useRef<null[] | HTMLDivElement[]>([]);
@@ -70,9 +73,7 @@ export default function Chat({ home }: ChatProps) {
         },
         // credentials: 'include',
         body: JSON.stringify({
-          session_id: sessionStorage.getItem('session_id')
-            ? sessionStorage.getItem('session_id') + ''
-            : '',
+          session_id: sessionId,
           question: value || text || '',
           image_name: image || '',
         }),
@@ -81,7 +82,7 @@ export default function Chat({ home }: ChatProps) {
         response.body?.pipeThrough(new TextDecoderStream()).getReader() ??
         false;
       let str = '';
-      let itinerary = '';
+      let itineraryId = '';
       if (reader) {
         for (;;) {
           const { value, done } = await reader.read();
@@ -95,11 +96,10 @@ export default function Chat({ home }: ChatProps) {
             for (let i = 0; i < matches.length; i++) {
               const data = JSON.parse(matches[i]);
               if (data.session_id) {
-                sessionStorage.setItem('session_id', data.session_id);
+                setSessionId(data.session_id);
               }
               if (data.itinerary_id) {
-                sessionStorage.setItem('itinerary_id', data.itinerary_id);
-                itinerary = data.itinerary_id;
+                itineraryId = data.itinerary_id;
               }
               if (data.message !== 'completed') {
                 setAnswer((str += data.message));
@@ -113,7 +113,7 @@ export default function Chat({ home }: ChatProps) {
         {
           question: value || text || '',
           answer: str,
-          itinerary: itinerary,
+          itinerary: itineraryId,
         },
       ]);
     } catch (error) {

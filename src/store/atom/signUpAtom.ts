@@ -1,48 +1,56 @@
 import { atom } from 'recoil';
+import { recoilPersist } from 'recoil-persist';
 import { residenceType } from '@/types/signUp';
 
+const { persistAtom } = recoilPersist({
+  key: 'user',
+  storage: sessionStorage,
+});
+
 const idState = atom<string>({
-  key: 'idState',
+  key: 'id',
   default: '',
+  effects_UNSTABLE: [persistAtom],
 });
 
 const nameState = atom<string>({
-  key: 'nameState',
-  default: sessionStorage.getItem('name') || '',
+  key: 'name',
+  default: '',
+  effects_UNSTABLE: [persistAtom],
 });
 
 const genderState = atom<string>({
-  key: 'genderState',
+  key: 'gender',
   default: '',
 });
 
 const ageGroupState = atom<string>({
-  key: 'ageGroupState',
+  key: 'ageGroup',
   default: '',
 });
 
 const disabilityStatusState = atom<string>({
-  key: 'disabilityStatusState',
+  key: 'disabilityStatus',
   default: '',
 });
 
 const disabilityTypeState = atom<string>({
-  key: 'disabilityTypeState',
+  key: 'disabilityType',
   default: '',
 });
 
 const preferTravelStyleState = atom<string[]>({
-  key: 'preferTravelStyleState',
+  key: 'preferTravelStyle',
   default: [],
 });
 
 const residenceState = atom<residenceType | null>({
-  key: 'residenceState',
+  key: 'residence',
   default: null,
 });
 
 const indexState = atom<number>({
-  key: 'indexState',
+  key: 'index',
   default: 0,
 });
 
