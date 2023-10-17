@@ -34,8 +34,13 @@ export interface itineraryScheduleTypes {
 }
 
 export interface destinationsTypes {
+  title: string;
   hearing?: boolean;
   physical?: boolean;
-  title: string;
   visual?: boolean;
+}
+
+export interface theTopTypes {
+  title: string;
+  destinations: destinationsTypes[];
 }

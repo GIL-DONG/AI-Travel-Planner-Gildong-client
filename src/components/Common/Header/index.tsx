@@ -8,7 +8,7 @@ import { AiOutlineArrowRight, AiOutlineLeft } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
 import classNames from 'classnames';
 import { nameState } from '@/store/atom/signUpAtom';
-import { isLoginState, profileImageState } from '@/store/atom/userAtom';
+import { isLoginState, userProfileImageState } from '@/store/atom/userAtom';
 import gildong from '@/assets/gildong_icon.png';
 import { ROUTE_PATHS } from '@/constants/config';
 import Button from '../Button';
@@ -40,7 +40,7 @@ export default function Header({
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const name = useRecoilValue(nameState);
-  const profileImage = useRecoilValue(profileImageState);
+  const profileImage = useRecoilValue(userProfileImageState);
   const isLogin = useRecoilValue(isLoginState);
   const setIsLogin = useSetRecoilState(isLoginState);
   const classNameValues = classNames(

@@ -6,10 +6,16 @@ const { persistAtom } = recoilPersist({
   storage: sessionStorage,
 });
 
-const mainChatState = atom<ChatTypes[]>({
-  key: 'mainChatState',
-  default: [],
+const sessionIdState = atom<string>({
+  key: 'sessionId',
+  default: '',
   effects_UNSTABLE: [persistAtom],
 });
 
-export { mainChatState };
+const itineraryIdState = atom<string>({
+  key: 'itineraryId',
+  default: '',
+  effects_UNSTABLE: [persistAtom],
+});
+
+export { sessionIdState, itineraryIdState };

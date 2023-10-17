@@ -4,7 +4,13 @@ import { useSetRecoilState } from 'recoil';
 import Loading from '@/components/Common/LoadingSpinner';
 import { getUserInfoAPI, postKakaoAPI } from '@/services/auth';
 import { idState, nameState } from '@/store/atom/signUpAtom';
-import { isLoginState, profileImageState } from '@/store/atom/userAtom';
+import {
+  isLoginState,
+  kakaoTokenState,
+  userDisabilityStatusState,
+  userDisabilityTypeState,
+  userProfileImageState,
+} from '@/store/atom/userAtom';
 import parseToken from '@/utils/parseToken';
 import { ROUTE_PATHS } from '@/constants/config';
 import styles from './styles.module.scss';
@@ -12,10 +18,13 @@ import styles from './styles.module.scss';
 export default function Auth() {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
-  const setName = useSetRecoilState(nameState);
+  const setUserName = useSetRecoilState(nameState);
   const setId = useSetRecoilState(idState);
   const setIsLogin = useSetRecoilState(isLoginState);
-  const setProfileImage = useSetRecoilState(profileImageState);
+  const setProfileImage = useSetRecoilState(userProfileImageState);
+  const setKakaoTokenState = useSetRecoilState(kakaoTokenState);
+  const setUserDisabilityStatus = useSetRecoilState(userDisabilityStatusState);
+  const setUserDisabilityType = useSetRecoilState(userDisabilityTypeState);
 
   const getUserData = useCallback(async () => {
     try {
@@ -24,33 +33,27 @@ export default function Auth() {
       if (code) {
         const token = await postKakaoAPI(code);
         const data = await getUserInfoAPI(token);
-        sessionStorage.setItem('kakao_token', token);
+        setKakaoTokenState(token);
         if (data.message === 'User not registered. Please sign up first.') {
-          sessionStorage.setItem('id', data.data?.id);
-          sessionStorage.setItem('name', data.data.properties?.nickname);
-          if (!data.data.kakao_account?.profile.is_default_image) {
-            sessionStorage.setItem(
-              'profile_image',
-              data.data.properties.profile_image,
-            );
-            setProfileImage(data.data.properties?.profile_image);
-          }
           setId(data.data.id);
-          setName(data.data.properties.nickname);
+          setUserName(data.data.properties?.nickname);
+          if (!data.data.kakao_account?.profile.is_default_image) {
+            setProfileImage(data.data.properties?.profile_image);
+          } else if (data.data.kakao_account?.profile.is_default_image) {
+            setProfileImage('default');
+          }
           navigate(ROUTE_PATHS.signUp);
         } else if (data.message === 'Logged in successfully') {
           sessionStorage.setItem('access_token', data.data.access_token);
           const { user_name, user_image, disability_status, disability_type } =
             parseToken(data.data.access_token);
-          sessionStorage.setItem('name', user_name);
-          sessionStorage.setItem('profile_image', user_image);
-          sessionStorage.setItem('disability_status', disability_status);
-          if (disability_status) {
-            sessionStorage.setItem('disability_type', disability_type);
-          }
-          setName(user_name);
-          setProfileImage(user_image);
           setIsLogin(true);
+          setUserName(user_name);
+          setProfileImage(user_image);
+          setUserDisabilityStatus(disability_status);
+          if (disability_status) {
+            setUserDisabilityType(disability_type);
+          }
           navigate(ROUTE_PATHS.home);
         }
       }

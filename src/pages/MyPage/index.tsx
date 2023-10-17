@@ -3,19 +3,19 @@ import { BsFillPencilFill } from 'react-icons/bs';
 import { FiLogOut } from 'react-icons/fi';
 import { AiOutlineRight } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
-import { nameState } from '@/store/atom/signUpAtom';
-import { isLoginState, profileImageState } from '@/store/atom/userAtom';
+import { isLoginState, userProfileImageState } from '@/store/atom/userAtom';
 import gildong from '@/assets/gildong_icon.png';
 import Header from '@/components/Common/Header';
 import { deleteUserAPI } from '@/services/user';
 import { ROUTE_PATHS } from '@/constants/config';
+import { nameState } from '@/store/atom/signUpAtom';
 import styles from './styles.module.scss';
 
 export default function MyPage() {
   const navigate = useNavigate();
   const setIsLogin = useSetRecoilState(isLoginState);
   const name = useRecoilValue(nameState);
-  const profileImage = useRecoilValue(profileImageState);
+  const profileImage = useRecoilValue(userProfileImageState);
 
   const DeleteUserHandler = async () => {
     const data = await deleteUserAPI();

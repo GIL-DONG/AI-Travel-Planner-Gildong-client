@@ -7,7 +7,7 @@ import Modal from '@/components/Common/Modal';
 import { isLoginState } from '@/store/atom/userAtom';
 import { getAddItineraryAPI } from '@/services/travel';
 import { ROUTE_PATHS } from '@/constants/config';
-import { mainChatState } from '@/store/atom/chatAtom';
+import { sessionIdState } from '@/store/atom/chatAtom';
 import styles from './styles.module.scss';
 
 interface AddItineraryButtonProps {
@@ -18,7 +18,7 @@ export default function AddItineraryButton({ id }: AddItineraryButtonProps) {
   const navigate = useNavigate();
   const isLogin = useRecoilValue(isLoginState);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const setmainChatList = useSetRecoilState(mainChatState);
+  const setSessionId = useSetRecoilState(sessionIdState);
 
   const onClickOpenModal = () => {
     setIsModalOpen(true);
@@ -32,8 +32,7 @@ export default function AddItineraryButton({ id }: AddItineraryButtonProps) {
     const data = await getAddItineraryAPI(id);
     if (data.message === 'Itinerary registered successfully.') {
       navigate(ROUTE_PATHS.itinerary);
-      sessionStorage.removeItem('session_id');
-      setmainChatList([]);
+      setSessionId('');
     }
   };
 
