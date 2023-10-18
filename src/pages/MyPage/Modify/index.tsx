@@ -75,12 +75,14 @@ export default function Modify() {
             ) : (
               <img src={gildong} />
             )}
-            <span
-              className={styles.delete}
-              onClick={() => setDeleteImage(!deleteImage)}
-            >
-              프로필 사진 삭제
-            </span>
+            {profileImage === 'default' ? null : (
+              <span
+                className={styles.delete}
+                onClick={() => setDeleteImage(!deleteImage)}
+              >
+                프로필 사진 삭제
+              </span>
+            )}
           </div>
           <div>
             <span>닉네임</span>
