@@ -34,4 +34,5 @@ export const ROUTE_PATHS = {
   itineraryDetail: '/travel/itinerary/:id',
   myPage: '/mypage',
   updateUserInfo: '/mypage/update',
+  error: '/*',
 };
