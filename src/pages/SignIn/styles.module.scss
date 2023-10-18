@@ -37,6 +37,26 @@
   border-radius: var(--border-radius-lg);
 }
 
+.testInput {
+  width: 11.5rem;
+  height: 2rem;
+  border-radius: var(--border-radius-sm);
+  border: 1px solid var(--black-color);
+  margin: 0.3rem 0.3rem 0.5rem 0.5rem;
+  padding-left: 0.3rem;
+  font-size: 1rem;
+}
+
+.test {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  > label {
+    font-weight: 600;
+  }
+}
+
 .btnWrapper {
   width: 22rem;
   border: none;

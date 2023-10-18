@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useState, useRef, useEffect } from 'react';
 import { BsFillMicFill, BsFillMicMuteFill } from 'react-icons/bs';
 import Button from '@/components/Common/Button';
-import { BASE_URL } from '@/constants/config';
+import { API_URLS, BASE_URL } from '@/constants/config';
 
 interface SpeechToTextButtonType {
   isMicOn: boolean;
@@ -88,7 +88,7 @@ export default function SpeechToTextButton({
         const audioFile = blobToFile(audioBlob, fileName);
         audioChunks.current = [];
         const data = await axios.post(
-          `${BASE_URL}/STT`,
+          `${BASE_URL}${API_URLS.stt}`,
           {
             in_files: audioFile,
           },

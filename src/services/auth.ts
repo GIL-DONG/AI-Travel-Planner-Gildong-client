@@ -37,3 +37,16 @@ export const getUserInfoAPI = async (token: string) => {
     return [];
   }
 };
+
+export const getTestIdAPI = async (id: string) => {
+  try {
+    const response = await apiClient.get(
+      `${API_URLS.loginTestId}?user_id=${id}`,
+    );
+    return response.data;
+  } catch (error) {
+    const axiosError = error as AxiosError<ErrorResponse>;
+    alert(axiosError.response?.data.message || DEFAULT_ERROR_MESSAGE);
+    return [];
+  }
+};

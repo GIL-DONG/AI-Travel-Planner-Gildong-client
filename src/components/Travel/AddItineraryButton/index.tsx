@@ -5,9 +5,10 @@ import { useNavigate } from 'react-router-dom';
 import Button from '@/components/Common/Button';
 import Modal from '@/components/Common/Modal';
 import { isLoginState } from '@/store/atom/userAtom';
-import { getAddItineraryAPI } from '@/services/travel';
-import { ROUTE_PATHS } from '@/constants/config';
-import { sessionIdState } from '@/store/atom/chatAtom';
+import { getAddItineraryAPI, getItineraryDetailAPI } from '@/services/travel';
+import { itineraryIdState, sessionIdState } from '@/store/atom/chatAtom';
+import { itineraryScheduleTypes } from '@/types/travel';
+import { theTopState } from '@/store/atom/travelAtom';
 import styles from './styles.module.scss';
 
 interface AddItineraryButtonProps {
@@ -18,7 +19,10 @@ export default function AddItineraryButton({ id }: AddItineraryButtonProps) {
   const navigate = useNavigate();
   const isLogin = useRecoilValue(isLoginState);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const sessionId = useRecoilValue(sessionIdState);
   const setSessionId = useSetRecoilState(sessionIdState);
+  const setTheTop = useSetRecoilState(theTopState);
+  const setItineraryId = useSetRecoilState(itineraryIdState);
 
   const onClickOpenModal = () => {
     setIsModalOpen(true);
@@ -31,8 +35,18 @@ export default function AddItineraryButton({ id }: AddItineraryButtonProps) {
   const confirmHandler = async () => {
     const data = await getAddItineraryAPI(id);
     if (data.message === 'Itinerary registered successfully.') {
-      navigate(ROUTE_PATHS.itinerary);
-      setSessionId('');
+      const res = await getItineraryDetailAPI(id);
+      if (res) {
+        setTheTop({
+          title: res.data?.title,
+          destinations: res.data?.schedule.map((el: itineraryScheduleTypes) => {
+            return { title: el.title };
+          }),
+        });
+        setItineraryId('');
+        navigate(`/chat/itinerary/${sessionId}`);
+        setSessionId('');
+      }
     }
   };
 

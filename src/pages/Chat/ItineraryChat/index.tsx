@@ -12,11 +12,17 @@ import ImageUploadButton from '@/components/Chat/ImageUploadButton';
 import SpeechToTextButton from '@/components/Chat/SpeechToTextButton';
 import {
   imageState,
-  itineraryState,
+  theTopState,
   uploadImageState,
 } from '@/store/atom/travelAtom';
 import Destinations from '@/components/Travel/Destinations';
-import { getConversationAPI } from '@/services/travel';
+import {
+  getAddItineraryAPI,
+  getConversationAPI,
+  getItineraryDetailAPI,
+} from '@/services/travel';
+import { itineraryScheduleTypes } from '@/types/travel';
+import { itineraryIdState } from '@/store/atom/chatAtom';
 import styles from './styles.module.scss';
 interface ChatTypes {
   question: string;
@@ -37,7 +43,10 @@ export default function ItineraryChat() {
   const [isMicLoading, setIsMicLoading] = useState(false);
   const image = useRecoilValue(imageState);
   const setImage = useSetRecoilState(imageState);
-  const itinerary = useRecoilValue(itineraryState);
+  const theTop = useRecoilValue(theTopState);
+  const setTheTop = useSetRecoilState(theTopState);
+  const itineraryId = useRecoilValue(itineraryIdState);
+  const setItineraryId = useSetRecoilState(itineraryIdState);
   const uploadImage = useRecoilValue(uploadImageState);
   const [isImageOpen, setIsImageOpen] = useState(false);
 
@@ -81,12 +90,11 @@ export default function ItineraryChat() {
         response.body?.pipeThrough(new TextDecoderStream()).getReader() ??
         false;
       let str = '';
-      let itineraryId = '';
       if (reader) {
         for (;;) {
           const { value, done } = await reader.read();
           setIsChatLoading(false);
-
+          console.log(value);
           if (done) break;
           const regex = /{[^}]*}/g;
           const matches = value.match(regex) || [];
@@ -95,7 +103,7 @@ export default function ItineraryChat() {
             for (let i = 0; i < matches.length; i++) {
               const data = JSON.parse(matches[i]);
               if (data.itinerary_id) {
-                itineraryId = data.itinerary_id;
+                setItineraryId(data.itinerary_id);
               }
               if (data.message !== 'completed') {
                 setAnswer((str += data.message));
@@ -156,44 +164,41 @@ export default function ItineraryChat() {
     if (id) {
       const data = await getConversationAPI(id);
       if (data) {
+        console.log(data);
         const chatList = data.data.map((el: ItineraryChatTypes) => {
           return { question: el.user_message, answer: el.formatted_ai_message };
         });
         setList(chatList);
+        if (itineraryId) {
+          const data = await getAddItineraryAPI(itineraryId);
+          if (data.message === 'Itinerary registered successfully.') {
+            const res = await getItineraryDetailAPI(itineraryId);
+            if (res) {
+              setTheTop({
+                title: res.data?.title,
+                destinations: res.data?.schedule.map(
+                  (el: itineraryScheduleTypes) => {
+                    return { title: el.title };
+                  },
+                ),
+              });
+              setItineraryId('');
+            }
+          }
+        }
       }
     }
   };
 
   useEffect(() => {
     getItineraryChat();
-  }, []);
-
-  // const UpdateItinerary = async () => {
-  //   if (itineraryId) {
-  //     const res = await getAddItineraryAPI(itineraryId);
-  //     if (res.message === 'Itinerary registered successfully.') {
-  //       const data = await getItineraryDetailAPI(itineraryId);
-  //       if (data?.data) {
-  //         const title = data.data?.title;
-  //         const list = data.data?.schedule?.map(
-  //           (el: itineraryScheduleTypes) => el.title,
-  //         );
-  //         console.log(title);
-  //         console.log(list);
-  //       }
-  //     }
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   UpdateItinerary();
-  // }, [itineraryId]);
+  }, [itineraryId]);
 
   return (
     <>
-      <Header back={true}>{itinerary.title}</Header>
+      <Header back={true}>{theTop.title}</Header>
       <div className={styles.destination}>
-        <Destinations destinations={itinerary.destinations} />
+        <Destinations destinations={theTop.destinations} />
       </div>
       <div className={`${styles.pageWrapper} colorLayout`}>
         <div className={styles.content}>
@@ -224,9 +229,9 @@ export default function ItineraryChat() {
                       scrollRef.current[0] = el;
                     }}
                   >
-                    {uploadImage ? (
+                    {image ? (
                       <div className={styles.uploadImage}>
-                        <img src={uploadImage} />
+                        <img src={`${BASE_URL}${API_URLS.viewImage}${image}`} />
                       </div>
                     ) : null}
                     {question}
@@ -248,7 +253,13 @@ export default function ItineraryChat() {
                   {isImageOpen ? (
                     <div className={styles.imageContainer}>
                       <div className={styles.uploadImage}>
-                        <img src={uploadImage} />
+                        {image ? (
+                          <div className={styles.uploadImage}>
+                            <img
+                              src={`${BASE_URL}${API_URLS.viewImage}${image}`}
+                            />
+                          </div>
+                        ) : null}
                         <span className={styles.cancel}>
                           <Button
                             icon={<MdCancel />}

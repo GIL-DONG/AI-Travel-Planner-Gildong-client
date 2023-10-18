@@ -11,6 +11,7 @@ import { nameState } from '@/store/atom/signUpAtom';
 import { isLoginState, userProfileImageState } from '@/store/atom/userAtom';
 import gildong from '@/assets/gildong_icon.png';
 import { ROUTE_PATHS } from '@/constants/config';
+import { mainChatListState, sessionIdState } from '@/store/atom/chatAtom';
 import Button from '../Button';
 import styles from './styles.module.scss';
 
@@ -43,6 +44,8 @@ export default function Header({
   const profileImage = useRecoilValue(userProfileImageState);
   const isLogin = useRecoilValue(isLoginState);
   const setIsLogin = useSetRecoilState(isLoginState);
+  const setSessionId = useSetRecoilState(sessionIdState);
+  const setMainChatList = useSetRecoilState(mainChatListState);
   const classNameValues = classNames(
     styles.menuWrapper,
     COLORS[color as keyof ColorTypes],
@@ -109,6 +112,8 @@ export default function Header({
                 className={styles.nav}
                 onClick={() => {
                   setIsOpen(false);
+                  setMainChatList([]);
+                  setSessionId('');
                   navigate(ROUTE_PATHS.home);
                 }}
               >

@@ -11,7 +11,8 @@ declare interface ChatAnswerTypes {
 declare interface ChatTypes {
   question: string;
   answer: string;
-  itinerary: string;
+  itinerary_id?: string;
+  image_name?: string;
 }
 
 declare interface ItineraryChatTypes {

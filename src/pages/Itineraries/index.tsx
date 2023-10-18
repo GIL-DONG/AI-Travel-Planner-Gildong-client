@@ -9,14 +9,14 @@ import { itineraryTypes } from '@/types/travel';
 import Button from '@/components/Common/Button';
 import { ROUTE_PATHS } from '@/constants/config';
 import Destinations from '@/components/Travel/Destinations';
-import { itineraryState } from '@/store/atom/travelAtom';
+import { theTopState } from '@/store/atom/travelAtom';
 import Modal from '@/components/Common/Modal';
 import { kakaoTokenState } from '@/store/atom/userAtom';
 import styles from './styles.module.scss';
 
 export default function Itineraries() {
   const navigate = useNavigate();
-  const setItinerary = useSetRecoilState(itineraryState);
+  const setTheTop = useSetRecoilState(theTopState);
   const [list, setList] = useState<itineraryTypes[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [failed, setFailed] = useState(false);
@@ -28,6 +28,7 @@ export default function Itineraries() {
 
   const getAllItinerary = async () => {
     const data = await getAllItineraryAPI();
+
     if (data.data) {
       setList(data.data);
     }
@@ -60,8 +61,8 @@ export default function Itineraries() {
                 navigate(`${ROUTE_PATHS.itinerary}/${el.itinerary_id}`);
               }}
             >
-              <div className={styles.title}>
-                {el.title}
+              <div className={styles.titleWrapper}>
+                <div className={styles.title}>{el.title}</div>
                 <div className={styles.button}>
                   <Button
                     icon={<LiaCalendarCheckSolid />}
@@ -70,7 +71,7 @@ export default function Itineraries() {
                     color="black"
                     onClick={(event) => {
                       event.stopPropagation();
-                      if (el.date_type === 'day_label') {
+                      if (el.date_type === 'day_label' || !kakaoToken) {
                         setFailed(true);
                         setIsModalOpen(true);
                       } else {
@@ -87,7 +88,10 @@ export default function Itineraries() {
                     color="primary"
                     onClick={(event) => {
                       event.stopPropagation();
-                      setItinerary(el);
+                      setTheTop({
+                        title: el.title,
+                        destinations: el.destinations,
+                      });
                       navigate(`/chat/itinerary/${el.session_id}`);
                     }}
                   >
@@ -105,7 +109,11 @@ export default function Itineraries() {
               onClickCloseModal={onClickCloseModal}
             >
               <div className={styles.modalContainer}>
-                {failed ? (
+                {!kakaoToken ? (
+                  <span>
+                    test용 ID로 로그인시 카카오 캘린더를 이용하실 수 없습니다.
+                  </span>
+                ) : failed ? (
                   <div className={styles.modalContent}>
                     챗봇과의 대화를 통해 <br /> 정확한 여행시작일을 정해주세요!
                   </div>

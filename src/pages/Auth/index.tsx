@@ -18,7 +18,7 @@ import styles from './styles.module.scss';
 export default function Auth() {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
-  const setUserName = useSetRecoilState(nameState);
+  const setName = useSetRecoilState(nameState);
   const setId = useSetRecoilState(idState);
   const setIsLogin = useSetRecoilState(isLoginState);
   const setProfileImage = useSetRecoilState(userProfileImageState);
@@ -36,7 +36,7 @@ export default function Auth() {
         setKakaoTokenState(token);
         if (data.message === 'User not registered. Please sign up first.') {
           setId(data.data.id);
-          setUserName(data.data.properties?.nickname);
+          setName(data.data.properties?.nickname);
           if (!data.data.kakao_account?.profile.is_default_image) {
             setProfileImage(data.data.properties?.profile_image);
           } else if (data.data.kakao_account?.profile.is_default_image) {
@@ -48,7 +48,7 @@ export default function Auth() {
           const { user_name, user_image, disability_status, disability_type } =
             parseToken(data.data.access_token);
           setIsLogin(true);
-          setUserName(user_name);
+          setName(user_name);
           setProfileImage(user_image);
           setUserDisabilityStatus(disability_status);
           if (disability_status) {
