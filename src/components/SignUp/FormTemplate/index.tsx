@@ -19,7 +19,7 @@ export default function FormTemplate({
   return (
     <>
       {page === 'first' ? (
-        <Header color="wh" back={true} signUp={true} />
+        <Header color="wh" back={true} page="signUp" />
       ) : null}
       <div className={styles.container}>
         <div className={styles.formWrapper}>

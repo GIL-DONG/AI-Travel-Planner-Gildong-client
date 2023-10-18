@@ -196,7 +196,9 @@ export default function ItineraryChat() {
 
   return (
     <>
-      <Header back={true}>{theTop.title}</Header>
+      <Header back={true} page="itineraryChat">
+        {theTop.title}
+      </Header>
       <div className={styles.destination}>
         <Destinations destinations={theTop.destinations} />
       </div>

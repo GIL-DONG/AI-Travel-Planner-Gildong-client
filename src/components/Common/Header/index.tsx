@@ -18,7 +18,7 @@ import styles from './styles.module.scss';
 interface HeaderProps {
   back?: boolean;
   color?: 'bg' | 'wh';
-  signUp?: boolean;
+  page?: string;
   children?: ReactNode;
 }
 
@@ -35,7 +35,7 @@ const COLORS: ColorTypes = {
 export default function Header({
   back,
   color = 'bg',
-  signUp,
+  page,
   children,
 }: HeaderProps) {
   const navigate = useNavigate();
@@ -61,8 +61,10 @@ export default function Header({
               icon={<AiOutlineLeft />}
               iconBtn={true}
               onClick={() => {
-                if (signUp) {
-                  navigate('/signin');
+                if (page === 'signUp') {
+                  navigate(ROUTE_PATHS.signIn);
+                } else if (page === 'itineraryChat') {
+                  navigate(ROUTE_PATHS.itinerary);
                 } else {
                   navigate(-1);
                 }
