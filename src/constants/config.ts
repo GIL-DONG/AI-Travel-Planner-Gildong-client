@@ -2,6 +2,7 @@ export const BASE_URL = import.meta.env.VITE_APP_BASE_URL;
 
 export const API_URLS = {
   login: '/login',
+  loginTestId: '/login_test',
   signUp: '/users/register',
   checkNickName: '/users/check-username',
   searchResidence: '/region/autocomplete',
@@ -10,6 +11,9 @@ export const API_URLS = {
   itineraryChat: '/chatbot/member',
   detail: '/data-detail',
   conversation: '/convo',
+  uploadImage: '/upload_images',
+  viewImage: '/view-image/',
+  stt: '/STT',
   getAllItinerary: '/itinerary',
   getItineraryDetail: '/itinerary/detail',
   addItinerary: '/itinerary/registration',

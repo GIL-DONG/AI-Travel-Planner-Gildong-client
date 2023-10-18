@@ -16,8 +16,8 @@ import ImageUploadButton from '@/components/Chat/ImageUploadButton';
 import SpeechToTextButton from '@/components/Chat/SpeechToTextButton';
 import gildong from '@/assets/gildong_3d.png';
 import AddItineraryButton from '@/components/Travel/AddItineraryButton';
-import { imageState, uploadImageState } from '@/store/atom/travelAtom';
-import { sessionIdState } from '@/store/atom/chatAtom';
+import { imageState } from '@/store/atom/travelAtom';
+import { mainChatListState, sessionIdState } from '@/store/atom/chatAtom';
 import styles from './styles.module.scss';
 interface ChatProps {
   home?: boolean;
@@ -25,11 +25,11 @@ interface ChatProps {
 
 export default function Chat({ home }: ChatProps) {
   const navigate = useNavigate();
-  const uploadImage = useRecoilValue(uploadImageState);
   const setImage = useSetRecoilState(imageState);
   const sessionId = useRecoilValue(sessionIdState);
   const setSessionId = useSetRecoilState(sessionIdState);
-  const [list, setList] = useState<ChatTypes[]>([]);
+  const list = useRecoilValue(mainChatListState);
+  const setList = useSetRecoilState(mainChatListState);
   const [value, setValue] = useState('');
   const scrollRef = useRef<null[] | HTMLDivElement[]>([]);
   const [stop, setStop] = useState(false);
@@ -113,7 +113,8 @@ export default function Chat({ home }: ChatProps) {
         {
           question: value || text || '',
           answer: str,
-          itinerary: itineraryId,
+          itinerary_id: itineraryId,
+          image_name: image,
         },
       ]);
     } catch (error) {
@@ -171,18 +172,26 @@ export default function Chat({ home }: ChatProps) {
               <div className={styles.questionBackground}>
                 <div ref={(el) => (scrollRef.current[2] = el)}>
                   {list?.map((el, index) => (
-                    <div className={styles.question} key={index}>
-                      {uploadImage ? (
+                    <div
+                      className={styles.question}
+                      key={index}
+                      ref={(el) => {
+                        scrollRef.current[0] = el;
+                      }}
+                    >
+                      {el.image_name ? (
                         <div className={styles.uploadImage}>
-                          <img src={uploadImage} />
+                          <img
+                            src={`${BASE_URL}${API_URLS.viewImage}${el.image_name}`}
+                          />
                         </div>
                       ) : null}
                       {el.question}
                       <div className={styles.answer}>
                         <MarkDown text={el.answer} />
-                        {el.itinerary ? (
+                        {el.itinerary_id ? (
                           <div className={styles.addButton}>
-                            <AddItineraryButton id={el.itinerary} />
+                            <AddItineraryButton id={el.itinerary_id} />
                           </div>
                         ) : null}
                       </div>
@@ -195,9 +204,11 @@ export default function Chat({ home }: ChatProps) {
                         scrollRef.current[0] = el;
                       }}
                     >
-                      {uploadImage ? (
+                      {image ? (
                         <div className={styles.uploadImage}>
-                          <img src={uploadImage} />
+                          <img
+                            src={`${BASE_URL}${API_URLS.viewImage}${image}`}
+                          />
                         </div>
                       ) : null}
                       {question}
@@ -293,7 +304,13 @@ export default function Chat({ home }: ChatProps) {
                   {isImageOpen ? (
                     <div className={styles.imageContainer}>
                       <div className={styles.uploadImage}>
-                        <img src={uploadImage} />
+                        {image ? (
+                          <div className={styles.uploadImage}>
+                            <img
+                              src={`${BASE_URL}${API_URLS.viewImage}${image}`}
+                            />
+                          </div>
+                        ) : null}
                         <span className={styles.cancel}>
                           <Button
                             icon={<AiFillCloseCircle />}
