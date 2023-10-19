@@ -6,7 +6,7 @@ import styles from './styles.module.scss';
 interface FormTemplateProps {
   page: string;
   title: string;
-  text: string | ReactNode;
+  text?: string;
   children?: ReactNode;
 }
 
@@ -29,9 +29,9 @@ export default function FormTemplate({
             </div>
             <div>
               <div className={styles.title}>{title}</div>
-              <div className={styles.text}>{text}</div>
+              {text ? <div className={styles.text}>{text}</div> : null}
             </div>
-            <div className={styles.content}>{children}</div>
+            <div className={text ? `${styles.content}` : ''}>{children}</div>
           </div>
         </div>
       </div>
