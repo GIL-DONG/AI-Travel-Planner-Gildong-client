@@ -57,7 +57,7 @@ export default function Chat({ home }: ChatProps) {
     }
   };
 
-  const fetchSSE = async (text?: string) => {
+  const fetchSSE = async (text?: string, imageUrl?: string) => {
     try {
       setIsChatLoading(true);
       setQuestion(value || text || '');
@@ -76,7 +76,7 @@ export default function Chat({ home }: ChatProps) {
         body: JSON.stringify({
           session_id: sessionId,
           question: value || text || '',
-          image_name: image || '',
+          image_name: imageUrl || image || '',
         }),
       });
       const reader =
@@ -118,12 +118,12 @@ export default function Chat({ home }: ChatProps) {
           image_name: image,
         },
       ]);
+      setImage('');
     } catch (error) {
       console.error(error);
     } finally {
       setQuestion('');
       setAnswer('');
-      setImage('');
     }
   };
 
@@ -282,8 +282,10 @@ export default function Chat({ home }: ChatProps) {
                   <div
                     className={styles.example}
                     onClick={() => {
+                      setImage('20231020003408_바다사진.jpg');
                       fetchSSE(
                         '내가 보내준 이미지와 비슷한 분위기의 여행지를 알려줄래?',
+                        '20231020003408_바다사진.jpg',
                       );
                       navigate(ROUTE_PATHS.chat);
                     }}

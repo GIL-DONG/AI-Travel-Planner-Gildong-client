@@ -73,9 +73,12 @@
   flex-direction: row;
   align-items: center;
 
-  > button > svg {
-    width: 2rem;
-    height: 2rem;
+  > button {
+    margin-left: 0.5rem;
+    > svg {
+      width: 2rem;
+      height: 2rem;
+    }
   }
 }
 
@@ -99,4 +102,12 @@
   display: flex;
   justify-content: center;
   margin-top: 1rem;
+}
+
+.top {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
 }
