@@ -1,7 +1,7 @@
 import { useState, useCallback, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
-import Loading from '@/components/Common/LoadingSpinner';
+
 import { getUserInfoAPI, postKakaoAPI } from '@/services/auth';
 import { idState, nameState } from '@/store/atom/signUpAtom';
 import {
@@ -13,6 +13,7 @@ import {
 } from '@/store/atom/userAtom';
 import parseToken from '@/utils/parseToken';
 import { ROUTE_PATHS } from '@/constants/config';
+import LoadingSpinner from '@/components/Common/LoadingSpinner';
 import styles from './styles.module.scss';
 
 export default function Auth() {
@@ -69,6 +70,8 @@ export default function Auth() {
   }, []);
 
   return (
-    <div className={styles.pageWrapper}>{isLoading ? <Loading /> : <></>}</div>
+    <div className={styles.pageWrapper}>
+      {isLoading ? <LoadingSpinner /> : <></>}
+    </div>
   );
 }

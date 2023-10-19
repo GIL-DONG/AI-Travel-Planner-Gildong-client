@@ -23,6 +23,7 @@ import {
 } from '@/services/travel';
 import { itineraryScheduleTypes } from '@/types/travel';
 import { itineraryIdState } from '@/store/atom/chatAtom';
+import LoadingSpinner from '@/components/Common/LoadingSpinner';
 import styles from './styles.module.scss';
 interface ChatTypes {
   question: string;
@@ -49,6 +50,7 @@ export default function ItineraryChat() {
   const setItineraryId = useSetRecoilState(itineraryIdState);
   const uploadImage = useRecoilValue(uploadImageState);
   const [isImageOpen, setIsImageOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
@@ -162,6 +164,7 @@ export default function ItineraryChat() {
 
   const getItineraryChat = async () => {
     if (id) {
+      setIsLoading(true);
       const data = await getConversationAPI(id);
       if (data) {
         console.log(data);
@@ -169,6 +172,7 @@ export default function ItineraryChat() {
           return { question: el.user_message, answer: el.formatted_ai_message };
         });
         setList(chatList);
+        setIsLoading(false);
         if (itineraryId) {
           const data = await getAddItineraryAPI(itineraryId);
           if (data.message === 'Itinerary registered successfully.') {
@@ -204,127 +208,133 @@ export default function ItineraryChat() {
         <Destinations destinations={theTop.destinations} />
       </div>
       <div className={`${styles.pageWrapper} colorLayout`}>
-        <div className={styles.content}>
-          <div
-            className={styles.questionContainer}
-            ref={(el) => (scrollRef.current[1] = el)}
-            onWheel={handleWheel}
-          >
-            <div className={styles.questionBackground}>
-              <div ref={(el) => (scrollRef.current[2] = el)}>
-                {list?.map((el, index) => (
-                  <div className={styles.question} key={index}>
-                    {uploadImage ? (
-                      <div className={styles.uploadImage}>
-                        <img src={uploadImage} />
+        {isLoading ? (
+          <LoadingSpinner />
+        ) : (
+          <div className={styles.content}>
+            <div
+              className={styles.questionContainer}
+              ref={(el) => (scrollRef.current[1] = el)}
+              onWheel={handleWheel}
+            >
+              <div className={styles.questionBackground}>
+                <div ref={(el) => (scrollRef.current[2] = el)}>
+                  {list?.map((el, index) => (
+                    <div className={styles.question} key={index}>
+                      {uploadImage ? (
+                        <div className={styles.uploadImage}>
+                          <img src={uploadImage} />
+                        </div>
+                      ) : null}
+                      {el.question}
+                      <div className={styles.answer}>
+                        <MarkDown text={el.answer} />
                       </div>
-                    ) : null}
-                    {el.question}
-                    <div className={styles.answer}>
-                      <MarkDown text={el.answer} />
                     </div>
-                  </div>
-                ))}
-                {question || (image && !isImageOpen) ? (
-                  <div
-                    className={styles.question}
-                    ref={(el) => {
-                      scrollRef.current[0] = el;
-                    }}
-                  >
-                    {image ? (
-                      <div className={styles.uploadImage}>
-                        <img src={`${BASE_URL}${API_URLS.viewImage}${image}`} />
-                      </div>
-                    ) : null}
-                    {question}
-                    <div className={styles.answer}>
-                      {isChatLoading ? (
-                        <ChatLoading />
-                      ) : (
-                        <MarkDown text={answer} />
-                      )}
-                    </div>
-                  </div>
-                ) : null}
-              </div>
-              {stop ? null : <div className={styles.margin}></div>}
-            </div>
-            <div className={styles.chatContainer}>
-              <div className={styles.chatWrapper}>
-                <div className={styles.chat}>
-                  {isImageOpen ? (
-                    <div className={styles.imageContainer}>
-                      <div className={styles.uploadImage}>
-                        {image ? (
-                          <div className={styles.uploadImage}>
-                            <img
-                              src={`${BASE_URL}${API_URLS.viewImage}${image}`}
-                            />
-                          </div>
-                        ) : null}
-                        <span className={styles.cancel}>
-                          <Button
-                            icon={<MdCancel />}
-                            iconBtn={true}
-                            color="black"
-                            onClick={() => {
-                              setImage('');
-                              setIsImageOpen(false);
-                            }}
-                          >
-                            취소
-                          </Button>
-                        </span>
+                  ))}
+                  {question || (image && !isImageOpen) ? (
+                    <div
+                      className={styles.question}
+                      ref={(el) => {
+                        scrollRef.current[0] = el;
+                      }}
+                    >
+                      {image ? (
+                        <div className={styles.uploadImage}>
+                          <img
+                            src={`${BASE_URL}${API_URLS.viewImage}${image}`}
+                          />
+                        </div>
+                      ) : null}
+                      {question}
+                      <div className={styles.answer}>
+                        {isChatLoading ? (
+                          <ChatLoading />
+                        ) : (
+                          <MarkDown text={answer} />
+                        )}
                       </div>
                     </div>
                   ) : null}
-                  <div className={styles.icon}>
-                    <ImageUploadButton setIsImageOpen={setIsImageOpen} />
-                  </div>
-                  {isMicOn ? (
-                    <div className={styles.textWrapper}>
-                      <div className={styles.typingText}>
-                        듣고 있습니다. 마이크에 대고 계속 말해주세요!
+                </div>
+                {stop ? null : <div className={styles.margin}></div>}
+              </div>
+              <div className={styles.chatContainer}>
+                <div className={styles.chatWrapper}>
+                  <div className={styles.chat}>
+                    {isImageOpen ? (
+                      <div className={styles.imageContainer}>
+                        <div className={styles.uploadImage}>
+                          {image ? (
+                            <div className={styles.uploadImage}>
+                              <img
+                                src={`${BASE_URL}${API_URLS.viewImage}${image}`}
+                              />
+                            </div>
+                          ) : null}
+                          <span className={styles.cancel}>
+                            <Button
+                              icon={<MdCancel />}
+                              iconBtn={true}
+                              color="black"
+                              onClick={() => {
+                                setImage('');
+                                setIsImageOpen(false);
+                              }}
+                            >
+                              취소
+                            </Button>
+                          </span>
+                        </div>
                       </div>
+                    ) : null}
+                    <div className={styles.icon}>
+                      <ImageUploadButton setIsImageOpen={setIsImageOpen} />
                     </div>
-                  ) : isMicLoading ? (
-                    <div className={styles.textWrapper}>
-                      <ChatLoading />
-                    </div>
-                  ) : (
-                    <input
-                      className={styles.input}
-                      onChange={handleInput}
-                      value={value}
-                      onKeyDown={handleEnter}
-                      placeholder="무엇이든 물어보세요!"
-                    />
-                  )}
-                  <div className={styles.send}>
-                    {value ? (
-                      <Button
-                        size="sm"
-                        color="white"
-                        icon={<TbSend />}
-                        iconBtn={true}
-                        variant="primary"
-                        onClick={handleSubmit}
-                      />
+                    {isMicOn ? (
+                      <div className={styles.textWrapper}>
+                        <div className={styles.typingText}>
+                          듣고 있습니다. 마이크에 대고 계속 말해주세요!
+                        </div>
+                      </div>
+                    ) : isMicLoading ? (
+                      <div className={styles.textWrapper}>
+                        <ChatLoading />
+                      </div>
                     ) : (
-                      <SpeechToTextButton
-                        setValue={setValue}
-                        isMicOn={isMicOn}
-                        setIsMicOn={setIsMicOn}
-                        setIsMicLoading={setIsMicLoading}
+                      <input
+                        className={styles.input}
+                        onChange={handleInput}
+                        value={value}
+                        onKeyDown={handleEnter}
+                        placeholder="무엇이든 물어보세요!"
                       />
                     )}
+                    <div className={styles.send}>
+                      {value ? (
+                        <Button
+                          size="sm"
+                          color="white"
+                          icon={<TbSend />}
+                          iconBtn={true}
+                          variant="primary"
+                          onClick={handleSubmit}
+                        />
+                      ) : (
+                        <SpeechToTextButton
+                          setValue={setValue}
+                          isMicOn={isMicOn}
+                          setIsMicOn={setIsMicOn}
+                          setIsMicLoading={setIsMicLoading}
+                        />
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
     </>
   );

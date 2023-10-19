@@ -72,7 +72,10 @@ export const getCalendarAPI = async (id: string, token: string) => {
     return response.data;
   } catch (error) {
     const axiosError = error as AxiosError<ErrorResponse>;
-    alert(axiosError.response?.data.message || DEFAULT_ERROR_MESSAGE);
+    alert(
+      axiosError.response?.data.message ||
+        '카카오톡 캘린더를 이용할 수 없습니다.',
+    );
     return [];
   }
 };
