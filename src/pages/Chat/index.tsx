@@ -1,10 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { TbSend } from 'react-icons/tb';
-import { TbBeach } from 'react-icons/tb';
-import { FaWheelchair } from 'react-icons/fa';
-import { FaBlind } from 'react-icons/fa';
-import { ImFire } from 'react-icons/im';
-import { AiOutlineArrowRight, AiFillCloseCircle } from 'react-icons/ai';
+import { AiFillCloseCircle } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import Button from '@/components/Common/Button';
