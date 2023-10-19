@@ -12,7 +12,6 @@ const list = [
   {
     page: 'first',
     title: '길동이 개인정보 수집 동의',
-    text: '',
     chidren: <ConsentInfo />,
   },
   {
