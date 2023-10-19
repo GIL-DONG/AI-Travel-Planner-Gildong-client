@@ -18,7 +18,12 @@ import gildong from '@/assets/gildong_3d.png';
 import AddItineraryButton from '@/components/Travel/AddItineraryButton';
 import { imageState } from '@/store/atom/travelAtom';
 import { mainChatListState, sessionIdState } from '@/store/atom/chatAtom';
+import beach from '@/assets/beach.png';
+import blindperson from '@/assets/blindperson.png';
+import mountain from '@/assets/mountain.png';
+import wheelchair from '@/assets/wheelchair.png';
 import styles from './styles.module.scss';
+
 interface ChatProps {
   home?: boolean;
 }
@@ -234,65 +239,64 @@ export default function Chat({ home }: ChatProps) {
                   <div
                     className={styles.example}
                     onClick={() => {
-                      fetchSSE('어디든 바다가 있는 곳으로 떠나고 싶어');
+                      fetchSSE('서울 근처에 등산하기 좋은 장소 추천해줄래?');
                       navigate(ROUTE_PATHS.chat);
                     }}
                   >
-                    <TbBeach />
                     <span className={styles.text}>
-                      어디든 바다가 있는 곳으로 떠나고 싶어
+                      서울 근처에 등산하기 좋은 장소 추천해줄래?
                     </span>
-                    <div className={styles.go}>
-                      <AiOutlineArrowRight />
+                    <div className={styles.homeImage}>
+                      <img src={mountain} />
                     </div>
                   </div>
                   <div
                     className={styles.example}
                     onClick={() => {
                       fetchSSE(
-                        '휠체어로 갈 수 있는 2박 3일 부산여행 일정을 추천해줘!',
+                        '부산에서 휠체어 이용이 편리한 2박 3일 여행코스를 알려줄래?',
                       );
                       navigate(ROUTE_PATHS.chat);
                     }}
                   >
-                    <FaWheelchair />
                     <span className={styles.text}>
-                      휠체어로 갈 수 있는 2박 3일 부산여행 일정을 추천해줘!
+                      부산에서 휠체어 이용이 편리한 2박 3일 여행코스를 알려줄래?
                     </span>
-                    <div className={styles.go}>
-                      <AiOutlineArrowRight />
+                    <div className={styles.homeImage}>
+                      <img src={wheelchair} />
                     </div>
                   </div>
                   <div
                     className={styles.example}
                     onClick={() => {
                       fetchSSE(
-                        '시각장애인도 갈 수 있는 1박 2일 통영여행 일정을 추천해줘',
+                        ' 통영에서 시각장애인도 편하게 여행할 수 있는 1박 2일 코스 추천해줄 수 있을까?',
                       );
                       navigate(ROUTE_PATHS.chat);
                     }}
                   >
-                    <FaBlind />
                     <span className={styles.text}>
-                      시각장애인도 갈 수 있는 1박 2일 통영여행 일정을 추천해줘
+                      통영에서 시각장애인도 편하게 여행할 수 있는 1박 2일 코스
+                      추천해줄 수 있을까?
                     </span>
-                    <div className={styles.go}>
-                      <AiOutlineArrowRight />
+                    <div className={styles.homeImage}>
+                      <img src={blindperson} />
                     </div>
                   </div>
-                  <div className={styles.example}>
-                    <ImFire />
-                    <span
-                      className={styles.text}
-                      onClick={() => {
-                        fetchSSE('요즘 사람들이 많이 가는 여행지로 추천해줘');
-                        navigate(ROUTE_PATHS.chat);
-                      }}
-                    >
-                      요즘 사람들이 많이 가는 여행지로 추천해줘
+                  <div
+                    className={styles.example}
+                    onClick={() => {
+                      fetchSSE(
+                        '내가 보내준 이미지와 비슷한 분위기의 여행지를 알려줄래?',
+                      );
+                      navigate(ROUTE_PATHS.chat);
+                    }}
+                  >
+                    <span className={styles.text}>
+                      내가 보내준 이미지와 비슷한 분위기의 여행지를 알려줄래?
                     </span>
-                    <div className={styles.go}>
-                      <AiOutlineArrowRight />
+                    <div className={styles.homeImage}>
+                      <img src={beach} />
                     </div>
                   </div>
                 </div>

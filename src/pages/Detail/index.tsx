@@ -38,12 +38,11 @@ export default function Detail() {
 
   const getTravelDetail = async (id: string) => {
     setIsLoading(true);
-
     const data = await getTravelDetailAPI(id);
     if (data) {
       setDetailData(data.data);
+      setIsLoading(false);
     }
-    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -57,7 +56,9 @@ export default function Detail() {
       <Header back={true} />
       <div className={`${styles.pageWrapper} colorLayout`}>
         {isLoading ? (
-          <LoadingSpinner />
+          <div className={styles.loading}>
+            <LoadingSpinner />
+          </div>
         ) : (
           <>
             <div className={styles.title}>{detailData.title}</div>

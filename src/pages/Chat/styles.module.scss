@@ -256,3 +256,13 @@
     width: 100%;
   }
 }
+
+.homeImage {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  > img {
+    width: 5rem;
+    height: 5rem;
+  }
+}
