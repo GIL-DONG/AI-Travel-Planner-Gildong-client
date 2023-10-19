@@ -97,7 +97,9 @@ export default function Header({
                       <img src={gildong} />
                     )}
                   </div>
-                  <div className={styles.name}>{name} 님</div>
+                  <div className={styles.name}>
+                    <strong>{name}</strong> 님
+                  </div>
                 </li>
               ) : (
                 <li

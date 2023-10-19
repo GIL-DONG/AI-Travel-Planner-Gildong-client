@@ -49,6 +49,11 @@ const residenceState = atom<residenceType | null>({
   default: null,
 });
 
+const consentState = atom<boolean>({
+  key: 'consent',
+  default: false,
+});
+
 const indexState = atom<number>({
   key: 'index',
   default: 0,
@@ -63,5 +68,6 @@ export {
   disabilityTypeState,
   preferTravelStyleState,
   residenceState,
+  consentState,
   indexState,
 };

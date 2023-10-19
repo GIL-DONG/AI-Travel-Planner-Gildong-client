@@ -12,7 +12,7 @@ export default function Error() {
         <div className={styles.container}>
           <div className={styles.titleContainer}>
             <span className={styles.title}>4</span>
-            <img src={gildong} className={styles.img} />{' '}
+            <img src={gildong} className={styles.img} />
             <span className={styles.title}>4</span>
           </div>
           <span className={styles.text}>

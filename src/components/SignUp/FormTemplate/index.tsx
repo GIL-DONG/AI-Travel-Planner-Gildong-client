@@ -6,7 +6,7 @@ import styles from './styles.module.scss';
 interface FormTemplateProps {
   page: string;
   title: string;
-  text: string;
+  text: string | ReactNode;
   children?: ReactNode;
 }
 

@@ -18,6 +18,9 @@ export default function MyPage() {
   const profileImage = useRecoilValue(userProfileImageState);
 
   const DeleteUserHandler = async () => {
+    if (!confirm('정말 탈퇴하시겠습니까?')) {
+      return;
+    }
     const data = await deleteUserAPI();
     if (data === 204) {
       setIsLogin(false);
@@ -36,7 +39,9 @@ export default function MyPage() {
           ) : (
             <img src={gildong} />
           )}
-          <div className={styles.name}>{name} 님</div>
+          <div className={styles.name}>
+            <strong>{name}</strong> 님
+          </div>
         </div>
         <div className={styles.container}>
           <div className={styles.contentWrapper}>

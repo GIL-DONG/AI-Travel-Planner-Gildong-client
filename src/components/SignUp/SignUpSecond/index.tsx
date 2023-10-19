@@ -50,7 +50,7 @@ export default function SignUpSecond() {
             color="primary"
             full={true}
             size="lg"
-            onClick={() => setIndex(0)}
+            onClick={() => setIndex(1)}
           >
             이전
           </Button>
@@ -60,12 +60,12 @@ export default function SignUpSecond() {
               variant="primary"
               full={true}
               size="lg"
-              onClick={() => setIndex(2)}
+              onClick={() => setIndex(3)}
             >
               다음
             </Button>
           ) : (
-            <Button variant="disabled" full={true} size="lg">
+            <Button variant="disabled" full={true} size="lg" disabled={true}>
               다음
             </Button>
           )}
