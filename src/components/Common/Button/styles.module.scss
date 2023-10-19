@@ -91,6 +91,10 @@
     color: var(--white-color);
   }
 
+  &.text_delete {
+    color: var(--red-color);
+  }
+
   &.is_full {
     width: 100%;
   }

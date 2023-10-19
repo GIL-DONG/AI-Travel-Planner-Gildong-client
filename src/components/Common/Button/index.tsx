@@ -13,7 +13,7 @@ interface ButtonProps {
     | 'pure'
     | 'record';
   size?: 'sm' | 'md' | 'lg';
-  color?: 'primary' | 'secondary' | 'black' | 'white';
+  color?: 'primary' | 'secondary' | 'black' | 'white' | 'delete';
   icon?: ReactNode;
   iconBtn?: boolean;
   full?: boolean;
@@ -52,6 +52,7 @@ interface ColorTypes {
   secondary: string;
   black: string;
   white: string;
+  delete: string;
 }
 
 const SIZES: SizeTypes = {
@@ -75,6 +76,7 @@ const COLORS: ColorTypes = {
   secondary: styles.text_secondary,
   black: styles.text_black,
   white: styles.text_white,
+  delete: styles.text_delete,
 };
 
 export default function Button({

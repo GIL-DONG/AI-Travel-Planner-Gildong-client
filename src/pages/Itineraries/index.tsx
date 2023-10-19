@@ -3,6 +3,7 @@ import { PiWechatLogo } from 'react-icons/pi';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { LiaCalendarCheckSolid } from 'react-icons/lia';
+import { MdDeleteForever } from 'react-icons/md';
 import Header from '@/components/Common/Header';
 import { getAllItineraryAPI, getCalendarAPI } from '@/services/travel';
 import { itineraryTypes } from '@/types/travel';
@@ -69,16 +70,15 @@ export default function Itineraries() {
                   navigate(`${ROUTE_PATHS.itinerary}/${el.itinerary_id}`);
                 }}
               >
-                <div className={styles.time}>
-                  {el.timestamp.slice(0, el.timestamp.indexOf('T'))}
-                </div>
-                <div className={styles.titleWrapper}>
-                  <div className={styles.title}>{el.title}</div>
+                <div className={styles.top}>
+                  <div className={styles.time}>
+                    {el.timestamp.slice(0, el.timestamp.indexOf('T'))}
+                  </div>
                   <div className={styles.button}>
                     <Button
                       icon={<LiaCalendarCheckSolid />}
                       iconBtn={true}
-                      size="md"
+                      size="sm"
                       color="black"
                       onClick={(event) => {
                         event.stopPropagation();
@@ -95,7 +95,7 @@ export default function Itineraries() {
                     <Button
                       icon={<PiWechatLogo />}
                       iconBtn={true}
-                      size="md"
+                      size="sm"
                       color="primary"
                       onClick={(event) => {
                         event.stopPropagation();
@@ -108,7 +108,21 @@ export default function Itineraries() {
                     >
                       챗봇
                     </Button>
+                    <Button
+                      icon={<MdDeleteForever />}
+                      iconBtn={true}
+                      size="sm"
+                      color="delete"
+                      onClick={(event) => {
+                        event.stopPropagation();
+                      }}
+                    >
+                      삭제
+                    </Button>
                   </div>
+                </div>
+                <div className={styles.titleWrapper}>
+                  <div className={styles.title}>{el.title}</div>
                 </div>
                 <Destinations destinations={el.destinations} />
               </div>
