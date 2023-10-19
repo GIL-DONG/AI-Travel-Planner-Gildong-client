@@ -28,7 +28,6 @@ export default function Itineraries() {
 
   const getAllItinerary = async () => {
     const data = await getAllItineraryAPI();
-
     if (data.data) {
       setList(data.data);
     }
@@ -61,6 +60,9 @@ export default function Itineraries() {
                 navigate(`${ROUTE_PATHS.itinerary}/${el.itinerary_id}`);
               }}
             >
+              <div className={styles.time}>
+                {el.timestamp.slice(0, el.timestamp.indexOf('T'))}
+              </div>
               <div className={styles.titleWrapper}>
                 <div className={styles.title}>{el.title}</div>
                 <div className={styles.button}>

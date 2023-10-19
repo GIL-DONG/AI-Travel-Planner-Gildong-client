@@ -6,9 +6,14 @@ import Button from '@/components/Common/Button';
 import Modal from '@/components/Common/Modal';
 import { isLoginState } from '@/store/atom/userAtom';
 import { getAddItineraryAPI, getItineraryDetailAPI } from '@/services/travel';
-import { itineraryIdState, sessionIdState } from '@/store/atom/chatAtom';
+import {
+  itineraryIdState,
+  mainChatListState,
+  sessionIdState,
+} from '@/store/atom/chatAtom';
 import { itineraryScheduleTypes } from '@/types/travel';
 import { theTopState } from '@/store/atom/travelAtom';
+import { ROUTE_PATHS } from '@/constants/config';
 import styles from './styles.module.scss';
 
 interface AddItineraryButtonProps {
@@ -23,6 +28,7 @@ export default function AddItineraryButton({ id }: AddItineraryButtonProps) {
   const setSessionId = useSetRecoilState(sessionIdState);
   const setTheTop = useSetRecoilState(theTopState);
   const setItineraryId = useSetRecoilState(itineraryIdState);
+  const setMainChatList = useSetRecoilState(mainChatListState);
 
   const onClickOpenModal = () => {
     setIsModalOpen(true);
@@ -44,8 +50,9 @@ export default function AddItineraryButton({ id }: AddItineraryButtonProps) {
           }),
         });
         setItineraryId('');
-        navigate(`/chat/itinerary/${sessionId}`);
         setSessionId('');
+        setMainChatList([]);
+        navigate(`/chat/itinerary/${sessionId}`);
       }
     }
   };
@@ -105,7 +112,7 @@ export default function AddItineraryButton({ id }: AddItineraryButtonProps) {
                 if (isLogin) {
                   confirmHandler();
                 } else {
-                  navigate('/signin');
+                  navigate(ROUTE_PATHS.signIn);
                 }
               }}
             >

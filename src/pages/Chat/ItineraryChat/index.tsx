@@ -94,7 +94,7 @@ export default function ItineraryChat() {
         for (;;) {
           const { value, done } = await reader.read();
           setIsChatLoading(false);
-          console.log(value);
+
           if (done) break;
           const regex = /{[^}]*}/g;
           const matches = value.match(regex) || [];
@@ -173,6 +173,7 @@ export default function ItineraryChat() {
           const data = await getAddItineraryAPI(itineraryId);
           if (data.message === 'Itinerary registered successfully.') {
             const res = await getItineraryDetailAPI(itineraryId);
+            console.log(res);
             if (res) {
               setTheTop({
                 title: res.data?.title,
@@ -224,7 +225,7 @@ export default function ItineraryChat() {
                     </div>
                   </div>
                 ))}
-                {question ? (
+                {question || (image && !isImageOpen) ? (
                   <div
                     className={styles.question}
                     ref={(el) => {
@@ -268,6 +269,7 @@ export default function ItineraryChat() {
                             iconBtn={true}
                             color="black"
                             onClick={() => {
+                              setImage('');
                               setIsImageOpen(false);
                             }}
                           >
