@@ -40,7 +40,12 @@
   }
 }
 
-.title {
+.time {
+  padding-left: 0.5rem;
+  color: var(--gray-color);
+}
+
+.titleWrapper {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -49,6 +54,12 @@
   padding-left: 0.5rem;
   font-weight: 600;
   font-size: var(--font-size-xl);
+}
+
+.title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .button {

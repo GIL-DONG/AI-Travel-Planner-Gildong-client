@@ -19,7 +19,7 @@ export default function SignUpThird() {
             color="primary"
             full={true}
             size="lg"
-            onClick={() => setIndex(1)}
+            onClick={() => setIndex(2)}
           >
             이전
           </Button>
@@ -28,12 +28,12 @@ export default function SignUpThird() {
               variant="primary"
               full={true}
               size="lg"
-              onClick={() => setIndex(3)}
+              onClick={() => setIndex(4)}
             >
               다음
             </Button>
           ) : (
-            <Button variant="disabled" full={true} size="lg">
+            <Button variant="disabled" full={true} size="lg" disabled={true}>
               다음
             </Button>
           )}

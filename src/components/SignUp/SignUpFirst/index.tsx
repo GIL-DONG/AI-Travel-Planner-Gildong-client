@@ -76,17 +76,26 @@ export default function SignUpFirst() {
       </div>
       <div className={styles.buttonWrapper}>
         <div className={styles.button}>
+          <Button
+            variant="lined"
+            color="primary"
+            full={true}
+            size="lg"
+            onClick={() => setIndex(0)}
+          >
+            이전
+          </Button>
           {nickNameValidation && gender && ageGroup ? (
             <Button
               variant="primary"
               full={true}
               size="lg"
-              onClick={() => setIndex(1)}
+              onClick={() => setIndex(2)}
             >
               다음
             </Button>
           ) : (
-            <Button variant="disabled" full={true} size="lg">
+            <Button variant="disabled" full={true} size="lg" disabled={true}>
               다음
             </Button>
           )}

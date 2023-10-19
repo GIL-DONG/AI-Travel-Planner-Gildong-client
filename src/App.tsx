@@ -12,6 +12,7 @@ import Modify from './pages/MyPage/Modify';
 import Itineraries from './pages/Itineraries';
 import Itinerary from './pages/Itineraries/Itinerary';
 import ItineraryChat from './pages/Chat/ItineraryChat';
+import Error from './pages/Error';
 
 function App() {
   const isLogin = useRecoilValue(isLoginState);
@@ -49,6 +50,7 @@ function App() {
             path={ROUTE_PATHS.updateUserInfo}
             element={isLogin ? <Modify /> : <SignIn />}
           />
+          <Route path={ROUTE_PATHS.error} element={<Error />} />
         </Routes>
       </main>
     </>

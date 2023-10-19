@@ -6,7 +6,7 @@ import styles from './styles.module.scss';
 interface FormTemplateProps {
   page: string;
   title: string;
-  text: string;
+  text: string | ReactNode;
   children?: ReactNode;
 }
 
@@ -19,7 +19,7 @@ export default function FormTemplate({
   return (
     <>
       {page === 'first' ? (
-        <Header color="wh" back={true} signUp={true} />
+        <Header color="wh" back={true} page="signUp" />
       ) : null}
       <div className={styles.container}>
         <div className={styles.formWrapper}>

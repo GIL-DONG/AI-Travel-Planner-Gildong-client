@@ -19,6 +19,7 @@ export interface itineraryTypes {
   itinerary_id: string;
   session_id: string;
   title: string;
+  timestamp: string;
 }
 
 export interface itineraryScheduleTypes {

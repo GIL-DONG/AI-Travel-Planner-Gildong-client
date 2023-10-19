@@ -43,12 +43,18 @@ export default function SignUpFourth() {
             color="primary"
             full={true}
             size="lg"
-            onClick={() => setIndex(2)}
+            onClick={() => setIndex(3)}
           >
             이전
           </Button>
           {preferTravelStyle?.length === 0 ? (
-            <Button type="submit" variant="disabled" full={true} size="lg">
+            <Button
+              type="submit"
+              variant="disabled"
+              full={true}
+              size="lg"
+              disabled={true}
+            >
               완료
             </Button>
           ) : (

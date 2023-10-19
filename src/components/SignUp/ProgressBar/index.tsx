@@ -9,6 +9,7 @@ interface PageTypes {
   second: string;
   third: string;
   fourth: string;
+  fifth: string;
 }
 
 const PAGES: PageTypes = {
@@ -16,6 +17,7 @@ const PAGES: PageTypes = {
   second: styles.second,
   third: styles.third,
   fourth: styles.fourth,
+  fifth: styles.fifth,
 };
 
 export default function ProgressBar({ page }: ProgressBarProps) {

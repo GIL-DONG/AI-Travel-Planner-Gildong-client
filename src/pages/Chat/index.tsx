@@ -25,6 +25,7 @@ interface ChatProps {
 
 export default function Chat({ home }: ChatProps) {
   const navigate = useNavigate();
+  const image = useRecoilValue(imageState);
   const setImage = useSetRecoilState(imageState);
   const sessionId = useRecoilValue(sessionIdState);
   const setSessionId = useSetRecoilState(sessionIdState);
@@ -38,7 +39,6 @@ export default function Chat({ home }: ChatProps) {
   const [answer, setAnswer] = useState('');
   const [isMicOn, setIsMicOn] = useState(false);
   const [isMicLoading, setIsMicLoading] = useState(false);
-  const image = useRecoilValue(imageState);
   const [isImageOpen, setIsImageOpen] = useState(false);
 
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -197,7 +197,7 @@ export default function Chat({ home }: ChatProps) {
                       </div>
                     </div>
                   ))}
-                  {question ? (
+                  {question || (image && !isImageOpen) ? (
                     <div
                       className={styles.question}
                       ref={(el) => {
@@ -317,6 +317,7 @@ export default function Chat({ home }: ChatProps) {
                             iconBtn={true}
                             color="black"
                             onClick={() => {
+                              setImage('');
                               setIsImageOpen(false);
                             }}
                           >

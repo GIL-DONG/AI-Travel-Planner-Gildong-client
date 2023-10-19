@@ -38,10 +38,12 @@
 }
 
 .text {
+  display: flex;
+  flex-direction: column;
   font-size: 1rem;
 
   @include mobile {
-    font-size: 0.85rem;
+    font-size: 1rem;
   }
 }
 
