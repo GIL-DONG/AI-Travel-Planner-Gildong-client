@@ -42,7 +42,7 @@ export default function ImageUploadButton({
       });
       if (data) {
         const url = data.data.fileUrls[0];
-        setImage(url);
+        setImage(url.slice(url.lastIndexOf('/') + 1));
       }
     }
   };
