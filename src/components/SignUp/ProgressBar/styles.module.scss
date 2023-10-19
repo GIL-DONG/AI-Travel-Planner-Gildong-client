@@ -13,19 +13,19 @@
   border-radius: var(--border-radius-lg);
 
   &.first {
-    width: calc(3 * 0.2rem);
+    width: 0rem;
   }
 
   &.second {
-    width: calc(3 * 0.4rem);
+    width: calc(3 * 0.25rem);
   }
 
   &.third {
-    width: calc(3 * 0.6rem);
+    width: calc(3 * 0.5rem);
   }
 
   &.fourth {
-    width: calc(3 * 0.8rem);
+    width: calc(3 * 0.75rem);
   }
 
   &.fifth {
