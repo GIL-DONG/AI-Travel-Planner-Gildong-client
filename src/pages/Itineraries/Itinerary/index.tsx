@@ -56,7 +56,9 @@ export default function Itinerary() {
       <Header back={true}>{itinerary?.title}</Header>
       <div className={`${styles.pageWrapper} colorLayout`}>
         {isLoading ? (
-          <LoadingSpinner />
+          <div className={styles.loading}>
+            <LoadingSpinner />
+          </div>
         ) : (
           <div className={styles.container}>
             <div className={styles.tabWrapper}>
