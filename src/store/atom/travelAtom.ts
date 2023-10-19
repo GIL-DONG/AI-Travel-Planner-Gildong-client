@@ -39,6 +39,7 @@ const itineraryState = atom<itineraryTypes>({
     itinerary_id: '',
     session_id: '',
     title: '',
+    timestamp: '',
   },
   effects_UNSTABLE: [persistAtom],
 });
