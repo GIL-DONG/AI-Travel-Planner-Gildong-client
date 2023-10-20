@@ -160,7 +160,7 @@ export default function ItineraryChat() {
         block: 'end',
       });
     }
-  }, [answer]);
+  }, [answer, list]);
 
   const getItineraryChat = async () => {
     if (id) {

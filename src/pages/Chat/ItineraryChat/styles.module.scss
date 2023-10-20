@@ -6,11 +6,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0rem 1rem 4rem 1rem;
+  padding: 0rem 1rem 14rem 1rem;
 }
 
 .content {
   margin-top: 19.5rem;
+  scroll-margin-top: 19.5rem;
+  scroll-margin-bottom: 9rem;
   width: 100%;
   height: 100%;
   display: flex;
@@ -39,7 +41,7 @@
 }
 
 .margin {
-  height: 50rem;
+  height: 55rem;
 }
 
 .question {

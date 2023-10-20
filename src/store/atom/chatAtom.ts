@@ -18,10 +18,16 @@ const itineraryIdState = atom<string>({
   effects_UNSTABLE: [persistAtom],
 });
 
+const pageState = atom<string>({
+  key: 'page',
+  default: '',
+  effects_UNSTABLE: [persistAtom],
+});
+
 const mainChatListState = atom<ChatTypes[]>({
   key: 'mainChatList',
   default: [],
   effects_UNSTABLE: [persistAtom],
 });
 
-export { sessionIdState, itineraryIdState, mainChatListState };
+export { sessionIdState, itineraryIdState, pageState, mainChatListState };
