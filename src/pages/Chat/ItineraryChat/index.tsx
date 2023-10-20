@@ -2,7 +2,6 @@ import React, { useState, useRef, useEffect } from 'react';
 import { TbSend } from 'react-icons/tb';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { useParams } from 'react-router';
-import { MdCancel } from 'react-icons/md';
 import Button from '@/components/Common/Button';
 import ChatLoading from '@/components/Chat/ChatLoading';
 import MarkDown from '@/components/Chat/MarkDown';
@@ -20,6 +19,7 @@ import {
 import { itineraryScheduleTypes } from '@/types/travel';
 import { itineraryIdState } from '@/store/atom/chatAtom';
 import LoadingSpinner from '@/components/Common/LoadingSpinner';
+import remove from '@/assets/remove.png';
 import styles from './styles.module.scss';
 
 export default function ItineraryChat() {
@@ -271,17 +271,13 @@ export default function ItineraryChat() {
                             </div>
                           ) : null}
                           <span className={styles.cancel}>
-                            <Button
-                              icon={<MdCancel />}
-                              iconBtn={true}
-                              color="black"
+                            <img
+                              src={remove}
                               onClick={() => {
                                 setImage('');
                                 setIsImageOpen(false);
                               }}
-                            >
-                              취소
-                            </Button>
+                            />
                           </span>
                         </div>
                       </div>
