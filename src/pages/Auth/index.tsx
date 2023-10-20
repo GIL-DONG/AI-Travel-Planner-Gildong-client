@@ -1,7 +1,6 @@
 import { useState, useCallback, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-
 import { getUserInfoAPI, postKakaoAPI } from '@/services/auth';
 import { idState, nameState } from '@/store/atom/signUpAtom';
 import {
@@ -48,7 +47,7 @@ export default function Auth() {
           }
           navigate(ROUTE_PATHS.signUp);
         } else if (data.message === 'Logged in successfully') {
-          sessionStorage.setItem('access_token', data.data.access_token);
+          localStorage.setItem('access_token', data.data.access_token);
           const { user_name, user_image, disability_status, disability_type } =
             parseToken(data.data.access_token);
           setIsLogin(true);
@@ -61,7 +60,7 @@ export default function Auth() {
           if (page) {
             navigate(page);
             setPage('');
-          } else if (!page) {
+          } else {
             navigate(ROUTE_PATHS.home);
           }
         }

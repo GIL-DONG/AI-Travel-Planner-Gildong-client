@@ -174,6 +174,7 @@ export default function Header({
                   full={true}
                   onClick={() => {
                     setIsLogin(false);
+                    localStorage.clear();
                     sessionStorage.clear();
                     setIsOpen(false);
                   }}

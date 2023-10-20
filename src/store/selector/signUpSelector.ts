@@ -10,6 +10,7 @@ import {
   preferTravelStyleState,
   residenceState,
 } from '../atom/signUpAtom';
+import { userProfileImageState } from '../atom/userAtom';
 
 export const signUpStateSelector = selector({
   key: 'signUpState',
@@ -22,6 +23,7 @@ export const signUpStateSelector = selector({
     const disabilityType = get(disabilityTypeState);
     const preferTravelStyle = get(preferTravelStyleState);
     const residence = get(residenceState);
+    const profileImage = get(userProfileImageState);
 
     let type = '';
     if (disabilityType === '시각장애') {
@@ -35,7 +37,7 @@ export const signUpStateSelector = selector({
     }
 
     return {
-      userID: id + '' || sessionStorage.getItem('id') + '',
+      userID: id + '' || '',
       user_name: name,
       age_group: +ageGroup.slice(0, 2),
       gender: gender === '남자' ? '남' : '여',
@@ -43,7 +45,7 @@ export const signUpStateSelector = selector({
       residence: residence?.location,
       disability_status: disabilityStatus === '예' ? true : false,
       disability_type: disabilityStatus === '예' ? type : '',
-      user_photo: sessionStorage.getItem('profile_image') || 'default',
+      user_photo: profileImage || 'default',
     };
   },
 });

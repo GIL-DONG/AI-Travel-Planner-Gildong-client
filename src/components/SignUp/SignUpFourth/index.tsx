@@ -20,7 +20,7 @@ export default function SignUpFourth() {
   const submitHandler = async () => {
     const data = await postSignUpAPI(signUpState);
     if (data) {
-      sessionStorage.setItem('access_token', data.access_token);
+      localStorage.setItem('access_token', data.access_token);
       setIsLogin(true);
       navigate(-1);
     }

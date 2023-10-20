@@ -21,6 +21,7 @@ export const API_URLS = {
   calendar: '/itinerary/calendar',
   deleteUser: '/users/delete-userinfo',
   updateUserInfo: `/users/update-userinfo`,
+  refreshAccessToken: '/refresh-access-token',
 };
 
 export const ROUTE_PATHS = {

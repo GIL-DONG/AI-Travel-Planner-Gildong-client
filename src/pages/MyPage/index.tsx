@@ -24,6 +24,7 @@ export default function MyPage() {
     const data = await deleteUserAPI();
     if (data === 204) {
       setIsLogin(false);
+      localStorage.clear();
       sessionStorage.clear();
       navigate(ROUTE_PATHS.home);
     }
@@ -57,6 +58,7 @@ export default function MyPage() {
               className={styles.content}
               onClick={() => {
                 setIsLogin(false);
+                localStorage.clear();
                 sessionStorage.clear();
               }}
             >
