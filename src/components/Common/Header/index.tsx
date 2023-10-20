@@ -11,7 +11,11 @@ import { nameState } from '@/store/atom/signUpAtom';
 import { isLoginState, userProfileImageState } from '@/store/atom/userAtom';
 import gildong from '@/assets/gildong_icon.png';
 import { ROUTE_PATHS } from '@/constants/config';
-import { mainChatListState, sessionIdState } from '@/store/atom/chatAtom';
+import {
+  mainChatListState,
+  pageState,
+  sessionIdState,
+} from '@/store/atom/chatAtom';
 import Button from '../Button';
 import styles from './styles.module.scss';
 
@@ -46,6 +50,7 @@ export default function Header({
   const setIsLogin = useSetRecoilState(isLoginState);
   const setSessionId = useSetRecoilState(sessionIdState);
   const setMainChatList = useSetRecoilState(mainChatListState);
+  const setPage = useSetRecoilState(pageState);
   const classNameValues = classNames(
     styles.menuWrapper,
     COLORS[color as keyof ColorTypes],
@@ -115,6 +120,7 @@ export default function Header({
               <li
                 className={styles.nav}
                 onClick={() => {
+                  setPage(ROUTE_PATHS.home);
                   setIsOpen(false);
                   setMainChatList([]);
                   setSessionId('');
@@ -127,6 +133,7 @@ export default function Header({
               <li
                 className={styles.nav}
                 onClick={() => {
+                  setPage(ROUTE_PATHS.chat);
                   setIsOpen(false);
                   navigate(ROUTE_PATHS.chat);
                 }}
@@ -138,6 +145,7 @@ export default function Header({
               <li
                 className={styles.nav}
                 onClick={() => {
+                  setPage(ROUTE_PATHS.itinerary);
                   setIsOpen(false);
                   navigate(ROUTE_PATHS.itinerary);
                 }}
@@ -149,6 +157,7 @@ export default function Header({
               <li
                 className={styles.nav}
                 onClick={() => {
+                  setPage(ROUTE_PATHS.myPage);
                   setIsOpen(false);
                   navigate(ROUTE_PATHS.myPage);
                 }}

@@ -13,7 +13,11 @@ import SpeechToTextButton from '@/components/Chat/SpeechToTextButton';
 import gildong from '@/assets/gildong_3d.png';
 import AddItineraryButton from '@/components/Travel/AddItineraryButton';
 import { imageState } from '@/store/atom/travelAtom';
-import { mainChatListState, sessionIdState } from '@/store/atom/chatAtom';
+import {
+  mainChatListState,
+  pageState,
+  sessionIdState,
+} from '@/store/atom/chatAtom';
 import beach from '@/assets/beach.png';
 import blindperson from '@/assets/blindperson.png';
 import mountain from '@/assets/mountain.png';
@@ -41,6 +45,7 @@ export default function Chat({ home }: ChatProps) {
   const [isMicOn, setIsMicOn] = useState(false);
   const [isMicLoading, setIsMicLoading] = useState(false);
   const [isImageOpen, setIsImageOpen] = useState(false);
+  const setPage = useSetRecoilState(pageState);
 
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
@@ -115,7 +120,7 @@ export default function Chat({ home }: ChatProps) {
           question: value || text || '',
           answer: str,
           itinerary_id: itineraryId,
-          image_name: image,
+          image_name: imageUrl || image || '',
         },
       ]);
       setImage('');
@@ -128,6 +133,7 @@ export default function Chat({ home }: ChatProps) {
   };
 
   const handleSubmit = async () => {
+    setPage(ROUTE_PATHS.chat);
     navigate(ROUTE_PATHS.chat);
     await fetchSSE();
   };
@@ -157,7 +163,7 @@ export default function Chat({ home }: ChatProps) {
         block: 'end',
       });
     }
-  }, [answer]);
+  }, [answer, list]);
 
   return (
     <>

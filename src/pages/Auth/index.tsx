@@ -1,6 +1,6 @@
 import { useState, useCallback, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 
 import { getUserInfoAPI, postKakaoAPI } from '@/services/auth';
 import { idState, nameState } from '@/store/atom/signUpAtom';
@@ -14,6 +14,7 @@ import {
 import parseToken from '@/utils/parseToken';
 import { ROUTE_PATHS } from '@/constants/config';
 import LoadingSpinner from '@/components/Common/LoadingSpinner';
+import { pageState } from '@/store/atom/chatAtom';
 import styles from './styles.module.scss';
 
 export default function Auth() {
@@ -26,6 +27,8 @@ export default function Auth() {
   const setKakaoTokenState = useSetRecoilState(kakaoTokenState);
   const setUserDisabilityStatus = useSetRecoilState(userDisabilityStatusState);
   const setUserDisabilityType = useSetRecoilState(userDisabilityTypeState);
+  const page = useRecoilValue(pageState);
+  const setPage = useSetRecoilState(pageState);
 
   const getUserData = useCallback(async () => {
     try {
@@ -55,7 +58,12 @@ export default function Auth() {
           if (disability_status) {
             setUserDisabilityType(disability_type);
           }
-          navigate(ROUTE_PATHS.home);
+          if (page) {
+            navigate(page);
+            setPage('');
+          } else if (!page) {
+            navigate(ROUTE_PATHS.home);
+          }
         }
       }
     } catch (error) {

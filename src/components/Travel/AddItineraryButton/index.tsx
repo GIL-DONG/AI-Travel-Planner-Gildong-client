@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { AiOutlinePlus } from 'react-icons/ai';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { useNavigate } from 'react-router-dom';
+import { AiOutlineCheck } from 'react-icons/ai';
+import { BiSolidPlane } from 'react-icons/bi';
 import Button from '@/components/Common/Button';
 import Modal from '@/components/Common/Modal';
 import { isLoginState } from '@/store/atom/userAtom';
@@ -73,28 +75,52 @@ export default function AddItineraryButton({ id }: AddItineraryButtonProps) {
       >
         <div className={styles.container}>
           {isLogin ? (
-            <span>
-              일정을 등록하고 '여행 일정 챗봇'에서 더욱 다양한 기능으로 함께
-              즐거운 여행을 만들어봐요! ✈ <br />
-              ❤ 여행지의 실시간 날씨가 궁금하다구요? 바로 알려드릴게요! <br />
-              ❤ 다른 여행자들의 후기를 찾아보고 싶다면? 내가 도와줄게요! <br />
-              ❤ 일정에 변동이 생겼다면? 언제든지 수정 도와드릴게요! <br />
+            <div>
+              일정을 등록하고 <strong>'여행 일정 챗봇'</strong>에서 더욱 다양한
+              기능으로 함께 즐거운 여행을 만들어봐요! <BiSolidPlane /> <br />
               <br />
-              일정을 등록하시겠습니까?
-            </span>
+              <div className={styles.margin}>
+                <AiOutlineCheck /> 여행지의 <strong>실시간 날씨</strong>가
+                궁금하다구요? 바로 알려드릴게요!
+              </div>
+              <div className={styles.margin}>
+                <AiOutlineCheck /> 다른 <strong>여행자들의 후기</strong>를
+                찾아보고 싶다면? 내가 도와줄게요!
+              </div>
+              <div className={styles.margin}>
+                <AiOutlineCheck /> 일정에 <strong>변동</strong>이 생겼다면?
+                언제든지 <strong>수정</strong>
+                도와드릴게요!
+              </div>
+              <br />
+              <div className={styles.center}>
+                일정을&nbsp;<strong>등록</strong>하시겠습니까?
+              </div>
+            </div>
           ) : (
-            <span>
-              회원이 되면 '길동이'와 함께 더 다양한 모험을 즐길 수 있답니다! ✈
-              <br />
-              ❤ 여행지의 실시간 날씨? 바로 알려드려요!
-              <br />
-              ❤ 궁금한 여행지 후기? 내가 찾아줄게요!
-              <br />
-              ❤ 일정 수정이 필요하다구요? 언제든지 도와드릴게요!
+            <div>
+              회원이 되면 <strong>'길동이'</strong>와 함께 더 다양한 모험을 즐길
+              수 있답니다! <BiSolidPlane />
               <br />
               <br />
-              로그인 또는 회원가입을 하시겠습니까?
-            </span>
+              <div className={styles.margin}>
+                <AiOutlineCheck /> 여행지의 <strong>실시간 날씨</strong>? 바로
+                알려드려요!
+              </div>
+              <div className={styles.margin}>
+                <AiOutlineCheck /> 궁금한 <strong>여행지 후기?</strong> 내가
+                찾아줄게요!
+              </div>
+              <div className={styles.margin}>
+                <AiOutlineCheck /> <strong>일정 수정</strong>이 필요하다구요?
+                언제든지 도와드릴게요!
+              </div>
+              <br />
+              <div className={styles.center}>
+                <strong>로그인</strong>&nbsp; 또는&nbsp;
+                <strong>회원가입</strong>을 하시겠습니까?
+              </div>
+            </div>
           )}
           <div className={styles.button}>
             <Button
