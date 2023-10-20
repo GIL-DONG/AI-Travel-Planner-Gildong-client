@@ -14,10 +14,12 @@ import { itineraryTypes } from '@/types/travel';
 import Button from '@/components/Common/Button';
 import { ROUTE_PATHS } from '@/constants/config';
 import Destinations from '@/components/Travel/Destinations';
-import { theTopState } from '@/store/atom/travelAtom';
+import { itineraryState, theTopState } from '@/store/atom/travelAtom';
 import Modal from '@/components/Common/Modal';
 import { kakaoTokenState } from '@/store/atom/userAtom';
 import LoadingSpinner from '@/components/Common/LoadingSpinner';
+import ModalBottom from '@/components/Common/Modal/Bottom';
+import menu from '@/assets/menu.png';
 import styles from './styles.module.scss';
 
 export default function Itineraries() {
@@ -30,6 +32,9 @@ export default function Itineraries() {
   const kakaoToken = useRecoilValue(kakaoTokenState);
   const [isLoading, setIsLoading] = useState(false);
   const [itineraryId, setItineraryId] = useState('');
+  const [isButtonModalOpen, setIsButtonModalOpen] = useState(false);
+  const itinerary = useRecoilValue(itineraryState);
+  const setItinerary = useSetRecoilState(itineraryState);
 
   const onClickCloseModal = () => {
     setIsModalOpen(false);
@@ -80,54 +85,14 @@ export default function Itineraries() {
                   <div className={styles.time}>
                     {el.timestamp.slice(0, el.timestamp.indexOf('T'))}
                   </div>
-                  <div className={styles.button}>
-                    <Button
-                      icon={<LiaCalendarCheckSolid />}
-                      iconBtn={true}
-                      size="sm"
-                      color="black"
-                      onClick={(event) => {
-                        event.stopPropagation();
-                        if (el.date_type === 'day_label' || !kakaoToken) {
-                          setFailed(true);
-                          setIsModalOpen(true);
-                        } else {
-                          sharingHandler(el.itinerary_id);
-                        }
-                      }}
-                    >
-                      공유
-                    </Button>
-                    <Button
-                      icon={<PiWechatLogo />}
-                      iconBtn={true}
-                      size="sm"
-                      color="primary"
-                      onClick={(event) => {
-                        event.stopPropagation();
-                        setTheTop({
-                          title: el.title,
-                          destinations: el.destinations,
-                        });
-                        navigate(`/chat/itinerary/${el.session_id}`);
-                      }}
-                    >
-                      챗봇
-                    </Button>
-                    <Button
-                      icon={<MdDeleteForever />}
-                      iconBtn={true}
-                      size="sm"
-                      color="delete"
-                      onClick={async (event) => {
-                        event.stopPropagation();
-                        setItineraryId(el.itinerary_id);
-                        setIsDeleteModalOpen(true);
-                      }}
-                    >
-                      삭제
-                    </Button>
-                  </div>
+                  <img
+                    src={menu}
+                    onClick={(event) => {
+                      event.stopPropagation();
+                      setItinerary(el);
+                      setIsButtonModalOpen(true);
+                    }}
+                  />
                 </div>
                 <div className={styles.titleWrapper}>
                   <div className={styles.title}>{el.title}</div>
@@ -203,6 +168,74 @@ export default function Itineraries() {
                 </div>
               </div>
             </Modal>
+            <ModalBottom
+              headerText="AI Travel Planner 길동이"
+              isModalOpen={isButtonModalOpen}
+              onClickCloseModal={() => {
+                setIsButtonModalOpen(false);
+              }}
+            >
+              <div className={styles.button}>
+                <div
+                  className={styles.btn}
+                  onClick={() => {
+                    if (itinerary.date_type === 'day_label' || !kakaoToken) {
+                      setFailed(true);
+                      setIsModalOpen(true);
+                    } else {
+                      sharingHandler(itinerary.itinerary_id);
+                    }
+                  }}
+                >
+                  <Button
+                    icon={<LiaCalendarCheckSolid />}
+                    iconBtn={true}
+                    size="sm"
+                    color="black"
+                  >
+                    공유
+                  </Button>
+                  카카오톡캘린더
+                </div>
+                <div
+                  className={styles.btn}
+                  onClick={() => {
+                    setTheTop({
+                      title: itinerary.title,
+                      destinations: itinerary.destinations,
+                    });
+                    navigate(`/chat/itinerary/${itinerary.session_id}`);
+                  }}
+                >
+                  <Button
+                    icon={<PiWechatLogo />}
+                    iconBtn={true}
+                    size="sm"
+                    color="primary"
+                  >
+                    챗봇
+                  </Button>
+                  여행일정챗봇
+                </div>
+                <div
+                  className={styles.btn}
+                  onClick={() => {
+                    setItineraryId(itinerary.itinerary_id);
+                    setIsDeleteModalOpen(true);
+                  }}
+                >
+                  <Button
+                    icon={<MdDeleteForever />}
+                    iconBtn={true}
+                    size="sm"
+                    color="delete"
+                  >
+                    삭제
+                  </Button>
+                  일정삭제
+                </div>
+              </div>
+            </ModalBottom>
           </div>
         )}
       </div>

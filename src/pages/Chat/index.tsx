@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { TbSend } from 'react-icons/tb';
-import { AiFillCloseCircle } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import Button from '@/components/Common/Button';
@@ -18,12 +17,12 @@ import {
   pageState,
   sessionIdState,
 } from '@/store/atom/chatAtom';
+import remove from '@/assets/remove.png';
 import beach from '@/assets/beach.png';
 import blindperson from '@/assets/blindperson.png';
 import mountain from '@/assets/mountain.png';
 import wheelchair from '@/assets/wheelchair.png';
 import styles from './styles.module.scss';
-
 interface ChatProps {
   home?: boolean;
 }
@@ -321,17 +320,13 @@ export default function Chat({ home }: ChatProps) {
                           </div>
                         ) : null}
                         <span className={styles.cancel}>
-                          <Button
-                            icon={<AiFillCloseCircle />}
-                            iconBtn={true}
-                            color="black"
+                          <img
+                            src={remove}
                             onClick={() => {
                               setImage('');
                               setIsImageOpen(false);
                             }}
-                          >
-                            취소
-                          </Button>
+                          />
                         </span>
                       </div>
                     </div>

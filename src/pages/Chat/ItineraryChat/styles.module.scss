@@ -118,8 +118,13 @@
 
 .cancel {
   position: absolute;
-  bottom: 4.9rem;
-  left: 4rem;
+  bottom: 5.6rem;
+  left: 5.3rem;
+
+  > img {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
 }
 
 .input {

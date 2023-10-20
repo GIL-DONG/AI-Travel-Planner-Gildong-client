@@ -30,15 +30,26 @@ export default function ImageUploadButton({
       const obj: DataTypes = {
         in_files: file[0],
       };
-      const data = await axios.post(`${BASE_URL}${API_URLS.uploadImage}`, obj, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          Authorization: `Bearer ${localStorage.getItem('access_token')}` || '',
-        },
-      });
-      if (data) {
-        const url = data.data.fileUrls[0];
-        setImage(url.slice(url.lastIndexOf('/') + 1));
+      try {
+        const data = await axios.post(
+          `${BASE_URL}${API_URLS.uploadImage}`,
+          obj,
+          {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+              Authorization:
+                `Bearer ${localStorage.getItem('access_token')}` || '',
+            },
+          },
+        );
+        if (data) {
+          const url = data.data.fileUrls[0];
+          setImage(url.slice(url.lastIndexOf('/') + 1));
+        }
+      } catch (error) {
+        setIsImageOpen(false);
+        setImage('');
+        alert('용량이 큽니다');
       }
     }
   };
