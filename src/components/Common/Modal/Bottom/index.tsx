@@ -56,7 +56,6 @@ export default function ModalBottom({
           ? `${styles.modal} ${styles.modal__opened}`
           : `${styles.modal} ${styles.closed}`
       }
-      onClick={onClickCloseModal}
     >
       <div className={styles.modal_container}>
         <section

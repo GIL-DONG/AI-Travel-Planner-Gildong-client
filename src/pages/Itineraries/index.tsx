@@ -179,6 +179,7 @@ export default function Itineraries() {
                 <div
                   className={styles.btn}
                   onClick={() => {
+                    setIsButtonModalOpen(false);
                     if (itinerary.date_type === 'day_label' || !kakaoToken) {
                       setFailed(true);
                       setIsModalOpen(true);
@@ -200,6 +201,7 @@ export default function Itineraries() {
                 <div
                   className={styles.btn}
                   onClick={() => {
+                    setIsButtonModalOpen(false);
                     setTheTop({
                       title: itinerary.title,
                       destinations: itinerary.destinations,
@@ -220,6 +222,7 @@ export default function Itineraries() {
                 <div
                   className={styles.btn}
                   onClick={() => {
+                    setIsButtonModalOpen(false);
                     setItineraryId(itinerary.itinerary_id);
                     setIsDeleteModalOpen(true);
                   }}
