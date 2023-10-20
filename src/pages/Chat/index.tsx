@@ -134,6 +134,7 @@ export default function Chat({ home }: ChatProps) {
 
   const handleSubmit = async () => {
     setPage(ROUTE_PATHS.chat);
+    setIsImageOpen(false);
     navigate(ROUTE_PATHS.chat);
     await fetchSSE();
   };
