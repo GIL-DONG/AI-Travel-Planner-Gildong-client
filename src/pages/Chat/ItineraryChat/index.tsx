@@ -158,7 +158,7 @@ export default function ItineraryChat() {
     if (id) {
       setIsLoading(true);
       const data = await getConversationAPI(id);
-      console.log(data);
+
       if (data) {
         const chatList = data.data.map((el: ItineraryChatTypes) => {
           return {
