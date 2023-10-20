@@ -27,6 +27,19 @@ export const getAddItineraryAPI = async (id: string) => {
   }
 };
 
+export const deleteItineraryAPI = async (id: string) => {
+  try {
+    const response = await apiClient.delete(
+      `${API_URLS.deleteItinerary}?itinerary_id=${id}`,
+    );
+    return response.status;
+  } catch (error) {
+    const axiosError = error as AxiosError<ErrorResponse>;
+    alert(axiosError.response?.data.message || DEFAULT_ERROR_MESSAGE);
+    return [];
+  }
+};
+
 export const getAllItineraryAPI = async () => {
   try {
     const response = await apiClient.get(`${API_URLS.getAllItinerary}`);

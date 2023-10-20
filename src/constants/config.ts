@@ -15,6 +15,7 @@ export const API_URLS = {
   viewImage: '/view-image/',
   stt: '/STT',
   getAllItinerary: '/itinerary',
+  deleteItinerary: '/itinerary/deletion',
   getItineraryDetail: '/itinerary/detail',
   addItinerary: '/itinerary/registration',
   calendar: '/itinerary/calendar',

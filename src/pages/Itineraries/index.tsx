@@ -5,7 +5,11 @@ import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { LiaCalendarCheckSolid } from 'react-icons/lia';
 import { MdDeleteForever } from 'react-icons/md';
 import Header from '@/components/Common/Header';
-import { getAllItineraryAPI, getCalendarAPI } from '@/services/travel';
+import {
+  deleteItineraryAPI,
+  getAllItineraryAPI,
+  getCalendarAPI,
+} from '@/services/travel';
 import { itineraryTypes } from '@/types/travel';
 import Button from '@/components/Common/Button';
 import { ROUTE_PATHS } from '@/constants/config';
@@ -21,9 +25,11 @@ export default function Itineraries() {
   const setTheTop = useSetRecoilState(theTopState);
   const [list, setList] = useState<itineraryTypes[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [failed, setFailed] = useState(false);
   const kakaoToken = useRecoilValue(kakaoTokenState);
   const [isLoading, setIsLoading] = useState(false);
+  const [itineraryId, setItineraryId] = useState('');
 
   const onClickCloseModal = () => {
     setIsModalOpen(false);
@@ -113,8 +119,10 @@ export default function Itineraries() {
                       iconBtn={true}
                       size="sm"
                       color="delete"
-                      onClick={(event) => {
+                      onClick={async (event) => {
                         event.stopPropagation();
+                        setItineraryId(el.itinerary_id);
+                        setIsDeleteModalOpen(true);
                       }}
                     >
                       삭제
@@ -127,40 +135,74 @@ export default function Itineraries() {
                 <Destinations destinations={el.destinations} />
               </div>
             ))}
-            {isModalOpen ? (
-              <Modal
-                headerText="AI Travel Planner 길동이"
-                isModalOpen={isModalOpen}
-                onClickCloseModal={onClickCloseModal}
-              >
-                <div className={styles.modalContainer}>
-                  {!kakaoToken ? (
-                    <span>
-                      test용 ID로 로그인시 카카오 캘린더를 이용하실 수 없습니다.
-                    </span>
-                  ) : failed ? (
-                    <div className={styles.modalContent}>
-                      챗봇과의 대화를 통해 <br /> 정확한 여행시작일을
-                      정해주세요!
-                    </div>
-                  ) : (
-                    <span>
-                      카카오 캘린더에서 저장된 일정을 <br /> 확인하실 수
-                      있습니다.
-                    </span>
-                  )}
-                  <div className={styles.modalButton}>
-                    <Button
-                      variant="secondary"
-                      size="lg"
-                      onClick={onClickCloseModal}
-                    >
-                      확인
-                    </Button>
-                  </div>
+            <Modal
+              headerText="AI Travel Planner 길동이"
+              isModalOpen={isDeleteModalOpen}
+              onClickCloseModal={() => {
+                setIsDeleteModalOpen(false);
+              }}
+            >
+              <div className={styles.modalContainer}>
+                <span>삭제하시겠습니까?</span>
+                <div className={styles.deleteButton}>
+                  <Button
+                    variant="lined"
+                    color="secondary"
+                    size="lg"
+                    onClick={() => {
+                      setIsDeleteModalOpen(false);
+                    }}
+                  >
+                    취소
+                  </Button>
+                  <Button
+                    variant="secondary"
+                    size="lg"
+                    onClick={async () => {
+                      if (itineraryId) {
+                        const data = await deleteItineraryAPI(itineraryId);
+                        if (data === 200) {
+                          getAllItinerary();
+                          setIsDeleteModalOpen(false);
+                        }
+                      }
+                    }}
+                  >
+                    확인
+                  </Button>
                 </div>
-              </Modal>
-            ) : null}
+              </div>
+            </Modal>
+            <Modal
+              headerText="AI Travel Planner 길동이"
+              isModalOpen={isModalOpen}
+              onClickCloseModal={onClickCloseModal}
+            >
+              <div className={styles.modalContainer}>
+                {!kakaoToken ? (
+                  <span>
+                    test용 ID로 로그인시 카카오 캘린더를 이용하실 수 없습니다.
+                  </span>
+                ) : failed ? (
+                  <div className={styles.modalContent}>
+                    챗봇과의 대화를 통해 <br /> 정확한 여행시작일을 정해주세요!
+                  </div>
+                ) : (
+                  <span>
+                    카카오 캘린더에서 저장된 일정을 <br /> 확인하실 수 있습니다.
+                  </span>
+                )}
+                <div className={styles.modalButton}>
+                  <Button
+                    variant="secondary"
+                    size="lg"
+                    onClick={onClickCloseModal}
+                  >
+                    확인
+                  </Button>
+                </div>
+              </div>
+            </Modal>
           </div>
         )}
       </div>
