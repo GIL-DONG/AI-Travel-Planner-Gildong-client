@@ -50,3 +50,8 @@ export const getTestIdAPI = async (id: string) => {
     return [];
   }
 };
+
+export const postRefreshTokenAPI = async () => {
+  const response = await apiClient.post(API_URLS.refreshAccessToken);
+  return response.data;
+};

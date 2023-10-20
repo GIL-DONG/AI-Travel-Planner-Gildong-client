@@ -10,11 +10,7 @@ import { API_URLS, BASE_URL } from '@/constants/config';
 import Header from '@/components/Common/Header';
 import ImageUploadButton from '@/components/Chat/ImageUploadButton';
 import SpeechToTextButton from '@/components/Chat/SpeechToTextButton';
-import {
-  imageState,
-  theTopState,
-  uploadImageState,
-} from '@/store/atom/travelAtom';
+import { imageState, theTopState } from '@/store/atom/travelAtom';
 import Destinations from '@/components/Travel/Destinations';
 import {
   getAddItineraryAPI,
@@ -25,11 +21,6 @@ import { itineraryScheduleTypes } from '@/types/travel';
 import { itineraryIdState } from '@/store/atom/chatAtom';
 import LoadingSpinner from '@/components/Common/LoadingSpinner';
 import styles from './styles.module.scss';
-interface ChatTypes {
-  question: string;
-  answer: string;
-  itinerary?: string;
-}
 
 export default function ItineraryChat() {
   const { id } = useParams();
@@ -48,7 +39,6 @@ export default function ItineraryChat() {
   const setTheTop = useSetRecoilState(theTopState);
   const itineraryId = useRecoilValue(itineraryIdState);
   const setItineraryId = useSetRecoilState(itineraryIdState);
-  const uploadImage = useRecoilValue(uploadImageState);
   const [isImageOpen, setIsImageOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -77,8 +67,8 @@ export default function ItineraryChat() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: sessionStorage.getItem('access_token')
-            ? `Bearer ${sessionStorage.getItem('access_token')}`
+          Authorization: localStorage.getItem('access_token')
+            ? `Bearer ${localStorage.getItem('access_token')}`
             : '',
         },
         // credentials: 'include',
@@ -119,7 +109,8 @@ export default function ItineraryChat() {
         {
           question: value || text || '',
           answer: str,
-          itinerary: itineraryId,
+          itinerary_id: itineraryId,
+          image_name: image,
         },
       ]);
     } catch (error) {
@@ -132,6 +123,7 @@ export default function ItineraryChat() {
   };
 
   const handleSubmit = async () => {
+    setIsImageOpen(false);
     await fetchSSE();
   };
 
@@ -166,10 +158,14 @@ export default function ItineraryChat() {
     if (id) {
       setIsLoading(true);
       const data = await getConversationAPI(id);
+
       if (data) {
-        console.log(data);
         const chatList = data.data.map((el: ItineraryChatTypes) => {
-          return { question: el.user_message, answer: el.formatted_ai_message };
+          return {
+            question: el.user_message,
+            answer: el.formatted_ai_message,
+            image_name: el.image_name,
+          };
         });
         setList(chatList);
         setIsLoading(false);
@@ -221,9 +217,11 @@ export default function ItineraryChat() {
                 <div ref={(el) => (scrollRef.current[2] = el)}>
                   {list?.map((el, index) => (
                     <div className={styles.question} key={index}>
-                      {uploadImage ? (
+                      {el.image_name ? (
                         <div className={styles.uploadImage}>
-                          <img src={uploadImage} />
+                          <img
+                            src={`${BASE_URL}${API_URLS.viewImage}${el.image_name}`}
+                          />
                         </div>
                       ) : null}
                       {el.question}

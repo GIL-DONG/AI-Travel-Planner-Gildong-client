@@ -52,7 +52,7 @@ export default function SignIn() {
     if (data.message === 'User not registered. Please sign up first.') {
       alert('등록된 아이디가 아닙니다.');
     } else if (data.message === 'Logged in successfully') {
-      sessionStorage.setItem('access_token', data.data.access_token);
+      localStorage.setItem('access_token', data.data.access_token);
       const { user_name, user_image, disability_status, disability_type } =
         parseToken(data.data.access_token);
       setIsLogin(true);

@@ -14,7 +14,7 @@ const kakaoTokenState = atom<string>({
 
 const isLoginState = atom<boolean>({
   key: 'isLogin',
-  default: sessionStorage.getItem('access_token') ? true : false,
+  default: localStorage.getItem('access_token') ? true : false,
 });
 
 const userProfileImageState = atom<string>({

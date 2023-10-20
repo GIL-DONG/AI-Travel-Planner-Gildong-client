@@ -73,8 +73,8 @@ export default function Chat({ home }: ChatProps) {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: sessionStorage.getItem('access_token')
-            ? `Bearer ${sessionStorage.getItem('access_token')}`
+          Authorization: localStorage.getItem('access_token')
+            ? `Bearer ${localStorage.getItem('access_token')}`
             : '',
         },
         // credentials: 'include',
@@ -134,6 +134,7 @@ export default function Chat({ home }: ChatProps) {
 
   const handleSubmit = async () => {
     setPage(ROUTE_PATHS.chat);
+    setIsImageOpen(false);
     navigate(ROUTE_PATHS.chat);
     await fetchSSE();
   };

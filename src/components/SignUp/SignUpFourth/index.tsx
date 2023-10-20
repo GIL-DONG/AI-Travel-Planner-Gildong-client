@@ -7,6 +7,7 @@ import Button from '@/components/Common/Button';
 import { signUpStateSelector } from '@/store/selector/signUpSelector';
 import { postSignUpAPI } from '@/services/signUp';
 import { isLoginState } from '@/store/atom/userAtom';
+import { ROUTE_PATHS } from '@/constants/config';
 import styles from './styles.module.scss';
 
 export default function SignUpFourth() {
@@ -20,9 +21,9 @@ export default function SignUpFourth() {
   const submitHandler = async () => {
     const data = await postSignUpAPI(signUpState);
     if (data) {
-      sessionStorage.setItem('access_token', data.access_token);
+      localStorage.setItem('access_token', data.access_token);
       setIsLogin(true);
-      navigate(-1);
+      navigate(ROUTE_PATHS.home);
     }
   };
 

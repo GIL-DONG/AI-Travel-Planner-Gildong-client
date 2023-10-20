@@ -17,6 +17,7 @@ declare interface ChatTypes {
 
 declare interface ItineraryChatTypes {
   formatted_ai_message: string;
+  image_name: string;
   timestamp: string;
   turn_id: number;
   user_message: string;
