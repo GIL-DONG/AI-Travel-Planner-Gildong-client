@@ -1,0 +1,31 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: var(--font-size-lg);
+
+  svg {
+    padding-top: 0.2rem;
+  }
+}
+
+.button {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem 0.4rem;
+  margin-top: 2rem;
+}
+
+.top {
+  display: flex;
+  align-items: center;
+}
+
+.margin {
+  margin-bottom: 0.5rem;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+}

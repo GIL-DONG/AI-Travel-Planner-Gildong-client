@@ -1,0 +1,70 @@
+@import './media.scss';
+@import './layouts.scss';
+@import './fonts.scss';
+
+:root {
+  --main-color: #007bff;
+  --black-color: #191919;
+  --teal-color: #17a2b8;
+  --green-color: #28a745;
+  --yellow-color: #ffc107;
+  --red-color: #e26262;
+  --dark-gray-color: #343a40;
+  --gray-color: #6c757d;
+  --light-gray-color: #d9d9d9;
+  --white-color: #ffffff;
+  --background-color: #e6f2ff;
+  --chat-background-color: rgba(217, 217, 217, 0.2);
+
+  --border-radius-sm: 0.25rem; /* 4px */
+  --border-radius-md: 0.5rem; /* 8px */
+  --border-radius-lg: 1rem; /* 16px */
+  --border-radius-xl: 2rem; /* 32px */
+
+  --font-size-xxs: 0.625rem; /* 10px */
+  --font-size-xs: 0.75rem; /* 12px */
+  --font-size-sm: 0.875rem; /* 14px */
+  --font-size-md: 1rem; /* 16px */
+  --font-size-lg: 1.125rem; /* 18px */
+  --font-size-xl: 1.25rem; /* 20px */
+  --font-size-xxl: 1.5rem; /* 24px */
+  --font-size-xxxl: 2rem; /* 32px */
+}
+
+button {
+  color: var(--black-color);
+  cursor: pointer;
+}
+
+section {
+  display: block;
+}
+
+a {
+  color: var(--black-color);
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: 'SUITE-Regular';
+}
+
+html {
+  display: flex;
+  justify-content: center;
+  font-size: var(--font-size-sm);
+  color: var(--black-color);
+  @include tablet {
+    font-size: var(--font-size-md);
+  }
+  @include desktop {
+    font-size: var(--font-size-lg);
+  }
+}
