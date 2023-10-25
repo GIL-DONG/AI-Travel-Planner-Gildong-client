@@ -1,12 +1,17 @@
 <div align="center">
-  <img src="https://github.com/GIL-DONG/gil-dong-project-client/assets/96197310/823746fa-dcc8-4085-a546-44e24544e38e" width="100px" height="100px"/>
   <h2>🏖 한국관광공사와 kakao가 함께하는 
  2023 관광데이터 활용 공모전 출품작</h2>
+
+ <br/>
+
+  <img src="https://github.com/GIL-DONG/gil-dong-project-client/assets/96197310/823746fa-dcc8-4085-a546-44e24544e38e" width="100px" height="100px"/>
+
+  <br/>
 
 </div>
   
 - 서비스 명 : **AI Travel Planner 길동이**
-- 서비스 목표 : 모든 사용자의 취향과 요구를 반영하여 안전하고 편리한 여행 경험을 보장하며, 장애 여부와 상관없이 모두가 여행의 즐거움을 누릴 수 있도록 하는 것
+- 서비스 목표 : 모든 사용자의 취향과 요구를 반영하여 안전하고 편리한 여행 경험을 보장하며, 장애 여부와 상관없이 모두가 여행의 즐거움을 누릴 수 있도록 대화를 통해 여행 일정을 계획해주는 서비스
 - 서비스 대상 : **전국민** [ + 장애인 (시각, 청각, 지체) ]
 
 - 주요 기능 :
@@ -57,11 +62,11 @@
 
 |                                                                     회원가입                                                                      |                                                                   회원정보 수정                                                                   |                                                                     일정 추가                                                                     |                                                                     일정 삭제                                                                     |
 | :-----------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------------: |
-| <img src="https://github.com/GIL-DONG/gil-dong-project-client/assets/96197310/54bce9ff-56ac-4413-92b9-9b8664ccf57a" width="150px" height="200px"> | <img src="https://github.com/GIL-DONG/gil-dong-project-client/assets/96197310/9bd589a2-311a-421e-ad3c-2a03547afca6" width="150px" height="200px"> | <img src="https://github.com/GIL-DONG/gil-dong-project-client/assets/96197310/df857d68-f216-4e8e-a624-0b1788ec08a1" width="150px" height="200px"> | <img src="https://github.com/GIL-DONG/gil-dong-project-client/assets/96197310/0b877378-8ffb-4334-9b25-ffd992c144aa" width="150px" height="200px"> |
+| <img src="https://github.com/GIL-DONG/gil-dong-project-client/assets/96197310/bae00e0e-1cb9-4736-b2c9-0d1ec1b2fba5" width="150px" height="200px"> | <img src="https://github.com/GIL-DONG/gil-dong-project-client/assets/96197310/a4025fd7-129f-4313-9214-1bb559f14098" width="150px" height="200px"> | <img src="https://github.com/GIL-DONG/gil-dong-project-client/assets/96197310/df857d68-f216-4e8e-a624-0b1788ec08a1" width="150px" height="200px"> | <img src="https://github.com/GIL-DONG/gil-dong-project-client/assets/96197310/6d5eb6ac-cdbe-4143-92a2-ff27688b579b" width="150px" height="200px"> |
 
 |                                                                     일정 상세                                                                     |                                                                     사진 첨부                                                                     |                                                                     음성 인식                                                                     |                                                                   카카오 캘린더                                                                   |
 | :-----------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------------: |
-| <img src="https://github.com/GIL-DONG/gil-dong-project-client/assets/96197310/43181279-f2e6-433e-8810-57995ebb8341" width="150px" height="200px"> | <img src="https://github.com/GIL-DONG/gil-dong-project-client/assets/96197310/9f032db4-0031-47ec-8497-828fb00326ba" width="150px" height="200px"> | <img src="https://github.com/GIL-DONG/gil-dong-project-client/assets/96197310/1fe7a1a8-6db1-4fe5-b926-f09be3219517" width="150px" height="200px"> | <img src="https://github.com/GIL-DONG/gil-dong-project-client/assets/96197310/9c892f34-56b8-41a2-9bd0-a08a2b8f9d41" width="150px" height="200px"> |
+| <img src="https://github.com/GIL-DONG/gil-dong-project-client/assets/96197310/442cb415-2529-48bc-aeef-d667695b3452" width="150px" height="200px"> | <img src="https://github.com/GIL-DONG/gil-dong-project-client/assets/96197310/9f032db4-0031-47ec-8497-828fb00326ba" width="150px" height="200px"> | <img src="https://github.com/GIL-DONG/gil-dong-project-client/assets/96197310/e0bdfc10-2ccf-4e7f-aa53-a42340a4050b" width="150px" height="200px"> | <img src="https://github.com/GIL-DONG/gil-dong-project-client/assets/96197310/9c892f34-56b8-41a2-9bd0-a08a2b8f9d41" width="150px" height="200px"> |
 
 <br />
 
