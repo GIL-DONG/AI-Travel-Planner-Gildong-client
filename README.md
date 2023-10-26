@@ -35,7 +35,7 @@
 - [Role](#role)
 - [Page](#page)
 - [Tech Stack](#tech-stack)
-- [Deployment](#Deployment)
+- [Deployment](#deployment)
 - [Git](#git)
 
 <br />
@@ -46,7 +46,7 @@
 
 |                             Front-end                             |                                           Back-end                                            |                                           Back-end                                            |                                           Back-end                                            |
 | :---------------------------------------------------------------: | :-------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------: |
-| <img src="https://avatars.githubusercontent.com/u/96197310?v=4" > | <img src="https://avatars.githubusercontent.com/u/72532377?v=4" width="200px" height="200px"> | <img src="https://avatars.githubusercontent.com/u/86283443?v=4" width="200px" height="200px"> | <img src="https://avatars.githubusercontent.com/u/97862180?v=4" width="200px" height="200px"> |
+| <img src="https://avatars.githubusercontent.com/u/96197310?v=4" width="200px" height="200px"> | <img src="https://avatars.githubusercontent.com/u/72532377?v=4" width="200px" height="200px"> | <img src="https://avatars.githubusercontent.com/u/86283443?v=4" width="200px" height="200px"> | <img src="https://avatars.githubusercontent.com/u/97862180?v=4" width="200px" height="200px"> |
 |     [강명주<br/>(@myungju030)](https://github.com/myungju030)     |                  [홍민지<br/>(@ella-hong22)](https://github.com/ella-hong22)                  |                      [이원석<br/>(@leewaay)](https://github.com/leewaay)                      |                  [이준엽<br/>(@Makeitshort)](https://github.com/Makeitshort)                  |
 |                          프론트엔드 개발                          |                                     기획 총괄, 챗봇 개발                                      |                                  백엔드 개발 총괄, 챗봇 개발                                  |                              데이터베이스 관리, 이미지 검색 개발                              |
 
@@ -58,7 +58,7 @@
 
 |                                                      일정 등록                                                       |                                                  카카오 캘린더 연동                                                  |                                                      일정 상세                                                       |                                                      일정 삭제                                                       |
 | :------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------: |
-| <img src="https://github.com/GIL-DONG/gil-dong-project-client/assets/96197310/df857d68-f216-4e8e-a624-0b1788ec08a1"> | <img src="https://github.com/GIL-DONG/gil-dong-project-client/assets/96197310/9c892f34-56b8-41a2-9bd0-a08a2b8f9d41"> | <img src="https://github.com/GIL-DONG/gil-dong-project-client/assets/96197310/442cb415-2529-48bc-aeef-d667695b3452"> | <img src="https://github.com/GIL-DONG/gil-dong-project-client/assets/96197310/6d5eb6ac-cdbe-4143-92a2-ff27688b579b"> |
+| <img src="https://github.com/GIL-DONG/gil-dong-project-client/assets/96197310/df857d68-f216-4e8e-a624-0b1788ec08a1"> | <img src="https://github.com/GIL-DONG/gil-dong-project-client/assets/96197310/32ba1377-0ed5-4bd2-b815-d84ed5fd4cf6"> | <img src="https://github.com/GIL-DONG/gil-dong-project-client/assets/96197310/442cb415-2529-48bc-aeef-d667695b3452"> | <img src="https://github.com/GIL-DONG/gil-dong-project-client/assets/96197310/6d5eb6ac-cdbe-4143-92a2-ff27688b579b"> |
 
 |                                                     이미지 검색                                                      |                                                      음성 인식                                                       |                                                 로그인 및 회원 가입                                                  |                                                    회원정보 수정                                                     |
 | :------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------: |
