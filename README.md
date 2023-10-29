@@ -10,11 +10,13 @@
 
 </div>
   
-- 서비스 명 : **AI Travel Planner 길동이**
-- 서비스 소개 : 장애 여부와 상관없이 모두가 여행의 즐거움을 누릴 수 있도록 모든 사용자의 취향과 요구를 반영하여 여행 일정을 세워주는 서비스
-- 서비스 대상 : **전국민** [ + 장애인 (시각, 청각, 지체) ]
+- 서비스 명 : **AI Travel Planner 길동이** <br/> 
+"**길동이**"은 길잡다 + 동무의 조합으로 여행의 장벽을 허무는 AI 챗봇 서비스로 단순히 목적지를 알려주는 것이 아닌, 사용자의 여행 경험을 풍부하게 만들어주는 필요한 모든 정보(배리어 프리)를 제공하는 여행 전문 AI 챗봇 입니다.
+
+- 서비스 소개 : 관광약자에게 여행 기회 확대를 위한 '**정보 접근이 쉽고**', 배리어 프리가 적용된 '**여행지 추천이 가능한**' 한 챗봇입니다. 모든 사람이 여행을 즐길 수 있는 권리를 실현하기 위해 AI 기술을 활용합니다. 사용자의 취향, 필요성에 따라 Tour API 데이터 기반으로 맞춤형 여행지, 음식점, 숙소를 추천하며, 장애인 사용자의 경우에는 추가적인 편의와 안전 요소를 고려한 정보를 제공합니다.
 
 - 주요 기능 :
+
   - 여행 챗봇
     - 국내 여행 추천
     - 여행지 정보 제공
@@ -23,11 +25,15 @@
     - 실시간 날씨 정보 및 여행지 후기 검색
   - 여행 일정 카카오 캘린더 연동 기능
   - 음성 서비스 제공
+
 - 사용 데이터 :
+
   - 한국관광공사 TourAPI
   - 공공데이터 포털
-  - google search API / kakao open API
-- 배포 링크 : https://gildong.site
+  - google search API
+  - kakao open API
+
+- 배포 링크 : [AI Trevel Planner 길동이](https://gildong.site)
   <br />
 
 ## Contents
@@ -44,11 +50,11 @@
 
 <div align="center">
 
-|                             Front-end                             |                                           Back-end                                            |                                           Back-end                                            |                                           Back-end                                            |
-| :---------------------------------------------------------------: | :-------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------: |
+|                                           Front-end                                           |                                           Back-end                                            |                                           Back-end                                            |                                           Back-end                                            |
+| :-------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------: |
 | <img src="https://avatars.githubusercontent.com/u/96197310?v=4" width="200px" height="200px"> | <img src="https://avatars.githubusercontent.com/u/72532377?v=4" width="200px" height="200px"> | <img src="https://avatars.githubusercontent.com/u/86283443?v=4" width="200px" height="200px"> | <img src="https://avatars.githubusercontent.com/u/97862180?v=4" width="200px" height="200px"> |
-|     [강명주<br/>(@myungju030)](https://github.com/myungju030)     |                  [홍민지<br/>(@ella-hong22)](https://github.com/ella-hong22)                  |                      [이원석<br/>(@leewaay)](https://github.com/leewaay)                      |                  [이준엽<br/>(@Makeitshort)](https://github.com/Makeitshort)                  |
-|                          프론트엔드 개발                          |                                     기획 총괄, 챗봇 개발                                      |                                  백엔드 개발 총괄, 챗봇 개발                                  |                              데이터베이스 관리, 이미지 검색 개발                              |
+|                   [강명주<br/>(@myungju030)](https://github.com/myungju030)                   |                  [홍민지<br/>(@ella-hong22)](https://github.com/ella-hong22)                  |                      [이원석<br/>(@leewaay)](https://github.com/leewaay)                      |                  [이준엽<br/>(@Makeitshort)](https://github.com/Makeitshort)                  |
+|                                        프론트엔드 개발                                        |                              프로젝트 기획 및 관리, AI 챗봇 개발                              |                                백엔드 개발 총괄, AI 챗봇 개발                                 |                                DB관리, 이미지 검색 서비스 개발                                |
 
 </div>
 <br/>
@@ -74,7 +80,7 @@
 |     Area     |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       Tech Stack                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | :----------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
 | **Frontend** | <img src="https://img.shields.io/badge/TypeScript-3178C6.svg?style=for-the-badge&logo=TypeScript&logoColor=black"> <img src="https://img.shields.io/badge/-vite-FFD22A?style=for-the-badge&logo=vite&logoColor=white"> <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black"> <img src="https://img.shields.io/badge/Axios-5A29E4.svg?&style=for-the-badge&logo=axios&logoColor=white"> <img src="https://img.shields.io/badge/React Router-CA4245.svg?&style=for-the-badge&logo=reactrouter&logoColor=white"> <img src="https://img.shields.io/badge/RECOIL-3578E5?&style=for-the-badge&logo=recoil&logoColor=white"> <img src="https://img.shields.io/badge/Sass-CC6699?&style=for-the-badge&logo=Sass&logoColor=white"> <img src="https://img.shields.io/badge/reactIcons-e91e63?&style=for-the-badge&logoColor=white"> <img src="https://img.shields.io/badge/ESLINT-4B32C3?&style=for-the-badge&logo=ESLint&logoColor=white"> <img src="https://img.shields.io/badge/PRETTIER-F7B93E?&style=for-the-badge&logo=Prettier&logoColor=white"> <img src="https://img.shields.io/badge/husky-285f77?&style=for-the-badge&logoColor=white"> <img src="https://img.shields.io/badge/lintStaged-4daad4?&style=for-the-badge&logoColor=white"> |
-| **Backend**  |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           <img src="https://img.shields.io/badge/python-3776AB.svg?style=for-the-badge&logo=python&logoColor=white"> <img src="https://img.shields.io/badge/elasticsearch-005571.svg?style=for-the-badge&logo=elasticsearch&logoColor=white">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| **Backend**  |                                                                                                                                                                                                                                                                                                           <img src="https://img.shields.io/badge/python-3776AB.svg?style=for-the-badge&logo=python&logoColor=white"> <img src="https://img.shields.io/badge/fastapi-009688.svg?style=for-the-badge&logo=fastapi&logoColor=black"> <img src="https://img.shields.io/badge/openai gpt-412991.svg?style=for-the-badge&logo=openai&logoColor=black"> <img src="https://img.shields.io/badge/sllm finetuning-412991?&style=for-the-badge&logoColor=white"> <img src="https://img.shields.io/badge/imagebind-4daad4?&style=for-the-badge&logoColor=white"> <img src="https://img.shields.io/badge/elasticsearch-005571.svg?style=for-the-badge&logo=elasticsearch&logoColor=white">                                                                                                                                                                                                                                                                                                           |
 |   **Tool**   |                                                                                                                                                                                                                                                                                                                                                                                                                      <img src="https://img.shields.io/badge/notion-000000.svg?style=for-the-badge&logo=notion&logoColor=white"> <img src="https://img.shields.io/badge/figma-F24E1E.svg?style=for-the-badge&logo=figma&logoColor=white"> <img src="https://img.shields.io/badge/postman-FF6C37.svg?style=for-the-badge&logo=postman&logoColor=white"> <img src="https://img.shields.io/badge/discord-5865F2.svg?style=for-the-badge&logo=discord&logoColor=white">                                                                                                                                                                                                                                                                                                                                                                                                                      |
 
 </div>
