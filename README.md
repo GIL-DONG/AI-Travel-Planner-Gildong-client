@@ -1,6 +1,8 @@
 <div align="center">
-  <h2> 한국관광공사와 kakao가 함께하는 
- 2023 관광데이터 활용 공모전 우수상 수상작 🏆</h2>
+
+**한국관광공사와 kakao가 함께하는**
+
+ <h2> 2023 관광데이터 활용 공모전 우수상 수상작 🏆</h2>
 
  <br/>
 
@@ -45,8 +47,8 @@
 - [Deploy](#deploy)
 - [Git](#git)
 
-  <br />
-  <br />
+<br />
+<br />
 
 ## Role
 
@@ -74,7 +76,7 @@
 | <img src="https://github.com/GIL-DONG/gil-dong-project-client/assets/96197310/9f032db4-0031-47ec-8497-828fb00326ba"> | <img src="https://github.com/GIL-DONG/gil-dong-project-client/assets/96197310/e0bdfc10-2ccf-4e7f-aa53-a42340a4050b"> | <img src="https://github.com/GIL-DONG/gil-dong-project-client/assets/96197310/bae00e0e-1cb9-4736-b2c9-0d1ec1b2fba5"> | <img src="https://github.com/GIL-DONG/gil-dong-project-client/assets/96197310/a4025fd7-129f-4313-9214-1bb559f14098"> |
 
 <br />
-<br/>
+<br />
 
 ## Tech Stack
 
