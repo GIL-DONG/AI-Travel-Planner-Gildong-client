@@ -76,7 +76,6 @@ export default function Chat({ home }: ChatProps) {
             ? `Bearer ${localStorage.getItem('access_token')}`
             : '',
         },
-        // credentials: 'include',
         body: JSON.stringify({
           session_id: sessionId,
           question: value || text || '',

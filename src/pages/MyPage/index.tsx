@@ -22,7 +22,7 @@ export default function MyPage() {
       return;
     }
     const data = await deleteUserAPI();
-    if (data === 204) {
+    if (data.status === 204) {
       setIsLogin(false);
       localStorage.clear();
       sessionStorage.clear();

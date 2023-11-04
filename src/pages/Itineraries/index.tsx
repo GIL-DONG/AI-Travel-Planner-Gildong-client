@@ -126,7 +126,7 @@ export default function Itineraries() {
                     onClick={async () => {
                       if (itineraryId) {
                         const data = await deleteItineraryAPI(itineraryId);
-                        if (data === 200) {
+                        if (data.status === 200) {
                           getAllItinerary();
                           setIsDeleteModalOpen(false);
                         }
