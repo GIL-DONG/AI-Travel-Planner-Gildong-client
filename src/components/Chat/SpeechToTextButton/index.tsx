@@ -85,6 +85,10 @@ export default function SpeechToTextButton({
           .padStart(2, '0')}`;
         const fileName = `audio_${formattedDate}_${formattedTime}.${fileExtension}`;
         const audioFile = blobToFile(audioBlob, fileName);
+        const downloadLink = document.createElement('a');
+        downloadLink.href = URL.createObjectURL(audioBlob);
+        downloadLink.download = fileName;
+        downloadLink.click();
         audioChunks.current = [];
         const formData = new FormData();
         formData.append('in_files', audioFile);
