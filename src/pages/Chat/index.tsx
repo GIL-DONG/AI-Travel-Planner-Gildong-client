@@ -19,7 +19,7 @@ import {
 } from '@/store/atom/chatAtom';
 import remove from '@/assets/remove.png';
 import beach from '@/assets/beach.png';
-import blindperson from '@/assets/blindperson.png';
+import blindPerson from '@/assets/blind_person.png';
 import mountain from '@/assets/mountain.png';
 import wheelchair from '@/assets/wheelchair.png';
 import styles from './styles.module.scss';
@@ -281,7 +281,7 @@ export default function Chat({ home }: ChatProps) {
                       추천해줄 수 있을까?
                     </span>
                     <div className={styles.homeImage}>
-                      <img src={blindperson} />
+                      <img src={blindPerson} />
                     </div>
                   </div>
                   <div
