@@ -71,7 +71,6 @@ export default function ItineraryChat() {
             ? `Bearer ${localStorage.getItem('access_token')}`
             : '',
         },
-        // credentials: 'include',
         body: JSON.stringify({
           session_id: id || '',
           question: value || text || '',

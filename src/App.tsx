@@ -22,7 +22,6 @@ import Error from './pages/Error';
 import parseToken from './utils/parseToken';
 import { nameState } from './store/atom/signUpAtom';
 import { postRefreshTokenAPI } from './services/auth';
-import Test from './pages/Test';
 
 function App() {
   const navigate = useNavigate();
@@ -106,7 +105,6 @@ function App() {
             path={ROUTE_PATHS.updateUserInfo}
             element={isLogin ? <Modify /> : <SignIn />}
           />
-          <Route path={'/test'} element={<Test />} />
           <Route path={ROUTE_PATHS.error} element={<Error />} />
         </Routes>
       </main>
