@@ -1,8 +1,7 @@
-import axios from 'axios';
 import React, { useState, useRef, useEffect } from 'react';
 import { BsFillMicFill, BsFillMicMuteFill } from 'react-icons/bs';
 import Button from '@/components/Common/Button';
-import { API_URLS, BASE_URL } from '@/constants/config';
+import { postSTTAPI } from '@/services/chat';
 
 interface SpeechToTextButtonType {
   isMicOn: boolean;
@@ -86,21 +85,15 @@ export default function SpeechToTextButton({
           .padStart(2, '0')}`;
         const fileName = `audio_${formattedDate}_${formattedTime}.${fileExtension}`;
         const audioFile = blobToFile(audioBlob, fileName);
+        const downloadLink = document.createElement('a');
+        downloadLink.href = URL.createObjectURL(audioBlob);
+        downloadLink.download = fileName;
+        downloadLink.click();
         audioChunks.current = [];
-        const data = await axios.post(
-          `${BASE_URL}${API_URLS.stt}`,
-          {
-            in_files: audioFile,
-          },
-          {
-            headers: {
-              'Content-Type': 'multipart/form-data',
-              Authorization:
-                `Bearer ${localStorage.getItem('access_token')}` || '',
-            },
-          },
-        );
-        if (data.data.transcripts[0]) {
+        const formData = new FormData();
+        formData.append('in_files', audioFile);
+        const data = await postSTTAPI(formData);
+        if (data.transcripts[0]) {
           const script = data.data.transcripts[0];
           setValue(
             script.slice(

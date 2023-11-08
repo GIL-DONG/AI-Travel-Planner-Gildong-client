@@ -1,7 +1,8 @@
 import { useState, useCallback, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { getUserInfoAPI, postKakaoAPI } from '@/services/auth';
+import axios from 'axios';
+import { getUserInfoAPI } from '@/services/auth';
 import { idState, nameState } from '@/store/atom/signUpAtom';
 import {
   isLoginState,
@@ -14,6 +15,7 @@ import parseToken from '@/utils/parseToken';
 import { ROUTE_PATHS } from '@/constants/config';
 import LoadingSpinner from '@/components/Common/LoadingSpinner';
 import { pageState } from '@/store/atom/chatAtom';
+import { REDIRECT_URL, REST_API_KEY } from '@/constants/auth';
 import styles from './styles.module.scss';
 
 export default function Auth() {
@@ -23,7 +25,7 @@ export default function Auth() {
   const setId = useSetRecoilState(idState);
   const setIsLogin = useSetRecoilState(isLoginState);
   const setProfileImage = useSetRecoilState(userProfileImageState);
-  const setKakaoTokenState = useSetRecoilState(kakaoTokenState);
+  const setKakaoToken = useSetRecoilState(kakaoTokenState);
   const setUserDisabilityStatus = useSetRecoilState(userDisabilityStatusState);
   const setUserDisabilityType = useSetRecoilState(userDisabilityTypeState);
   const page = useRecoilValue(pageState);
@@ -34,9 +36,21 @@ export default function Auth() {
       setIsLoading(true);
       const code = new URL(window.location.href).searchParams.get('code');
       if (code) {
-        const token = await postKakaoAPI(code);
+        const response = await axios.post(
+          'https://kauth.kakao.com/oauth/token',
+          {
+            grant_type: 'authorization_code',
+            client_id: REST_API_KEY,
+            redirect_uri: REDIRECT_URL,
+            code: code,
+          },
+          {
+            headers: { 'Content-Type': `application/x-www-form-urlencoded` },
+          },
+        );
+        const token = response.data?.access_token;
         const data = await getUserInfoAPI(token);
-        setKakaoTokenState(token);
+        setKakaoToken(token);
         if (data.message === 'User not registered. Please sign up first.') {
           setId(data.data.id);
           setName(data.data.properties?.nickname);

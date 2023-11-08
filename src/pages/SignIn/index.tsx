@@ -1,32 +1,11 @@
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useSetRecoilState } from 'recoil';
+import { useEffect } from 'react';
 import gildong from '@/assets/gildong_3d_bg.png';
 import kakao from '@/assets/kakao.png';
 import { JAVASCRIPT_KEY, REDIRECT_URL } from '@/constants/auth';
 import Header from '@/components/Common/Header';
-import Button from '@/components/Common/Button';
-import { getTestIdAPI } from '@/services/auth';
-import parseToken from '@/utils/parseToken';
-import { ROUTE_PATHS } from '@/constants/config';
-import { nameState } from '@/store/atom/signUpAtom';
-import {
-  isLoginState,
-  userDisabilityStatusState,
-  userDisabilityTypeState,
-  userProfileImageState,
-} from '@/store/atom/userAtom';
 import styles from './styles.module.scss';
 
 export default function SignIn() {
-  const navigate = useNavigate();
-  const [id, setId] = useState('');
-  const setName = useSetRecoilState(nameState);
-  const setIsLogin = useSetRecoilState(isLoginState);
-  const setProfileImage = useSetRecoilState(userProfileImageState);
-  const setUserDisabilityStatus = useSetRecoilState(userDisabilityStatusState);
-  const setUserDisabilityType = useSetRecoilState(userDisabilityTypeState);
-
   useEffect(() => {
     const script = document.createElement('script');
     script.src = 'https://t1.kakaocdn.net/kakao_js_sdk/2.4.0/kakao.min.js';
@@ -47,25 +26,6 @@ export default function SignIn() {
     }).then((error: any) => console.log(error.json()));
   };
 
-  const submitHandler = async () => {
-    const data = await getTestIdAPI(id);
-    if (data.message === 'User not registered. Please sign up first.') {
-      alert('등록된 아이디가 아닙니다.');
-    } else if (data.message === 'Logged in successfully') {
-      localStorage.setItem('access_token', data.data.access_token);
-      const { user_name, user_image, disability_status, disability_type } =
-        parseToken(data.data.access_token);
-      setIsLogin(true);
-      setName(user_name);
-      setProfileImage(user_image);
-      setUserDisabilityStatus(disability_status);
-      if (disability_status) {
-        setUserDisabilityType(disability_type);
-      }
-      navigate(ROUTE_PATHS.home);
-    }
-  };
-
   return (
     <>
       <Header color="wh" />
@@ -76,18 +36,6 @@ export default function SignIn() {
             <div className={styles.title}>AI Travel Planner 길동이</div>
           </title>
           <img src={gildong} className={styles.img} />
-          <div className={styles.test}>
-            <label htmlFor="test">test ID</label>
-            <input
-              id="test"
-              value={id}
-              onChange={(event) => setId(event.target.value)}
-              className={styles.testInput}
-            />
-            <Button variant="primary" onClick={submitHandler}>
-              확인
-            </Button>
-          </div>
           <button className={styles.btnWrapper} onClick={loginWithKakao}>
             <div className={styles.btn}>
               <img src={kakao} />
