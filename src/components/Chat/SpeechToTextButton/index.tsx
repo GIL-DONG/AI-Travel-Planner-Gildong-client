@@ -35,12 +35,13 @@ export default function SpeechToTextButton({
             type: 'audio/wav',
           });
           setAudioBlob(audioBlob);
+          setIsMicOn(false);
         };
         mediaRecorderRef.current.start();
         setIsMicOn(true);
       })
       .catch((error) => {
-        console.error('Error accessing the microphone:', error);
+        alert(error);
       });
   };
 
@@ -93,8 +94,8 @@ export default function SpeechToTextButton({
         const formData = new FormData();
         formData.append('in_files', audioFile);
         const data = await postSTTAPI(formData);
-        if (data.transcripts[0]) {
-          const script = data.data.transcripts[0];
+        if (data) {
+          const script = data.transcripts[0];
           setValue(
             script.slice(
               script.indexOf(':') + 1,
