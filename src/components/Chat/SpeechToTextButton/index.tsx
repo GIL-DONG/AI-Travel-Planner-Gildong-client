@@ -32,7 +32,7 @@ export default function SpeechToTextButton({
         };
         mediaRecorderRef.current.onstop = () => {
           const audioBlob = new Blob(audioChunks.current, {
-            type: 'audio/mp4',
+            type: 'video/mp4',
           });
           setAudioBlob(audioBlob);
           setIsMicOn(false);
