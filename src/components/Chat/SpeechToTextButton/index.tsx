@@ -32,7 +32,7 @@ export default function SpeechToTextButton({
         };
         mediaRecorderRef.current.onstop = () => {
           const audioBlob = new Blob(audioChunks.current, {
-            type: 'video/mp4',
+            type: 'audio/mp4',
           });
           setAudioBlob(audioBlob);
           setIsMicOn(false);
@@ -94,14 +94,18 @@ export default function SpeechToTextButton({
         const formData = new FormData();
         formData.append('in_files', audioFile);
         const data = await postSTTAPI(formData);
-        if (data) {
-          const script = data.transcripts[0];
-          setValue(
-            script.slice(
-              script.indexOf(':') + 1,
-              script.indexOf('\nConfidence:'),
-            ),
-          );
+        try {
+          if (data) {
+            const script = data.transcripts[0];
+            setValue(
+              script.slice(
+                script.indexOf(':') + 1,
+                script.indexOf('\nConfidence:'),
+              ),
+            );
+          }
+        } catch {
+          (error: any) => console.error(error);
         }
         setIsMicLoading(false);
       }
