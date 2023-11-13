@@ -32,7 +32,7 @@ export default function SpeechToTextButton({
         };
         mediaRecorderRef.current.onstop = () => {
           const audioBlob = new Blob(audioChunks.current, {
-            type: 'audio/webm',
+            type: 'audio/mp4',
           });
           setAudioBlob(audioBlob);
           setIsMicOn(false);
@@ -65,7 +65,7 @@ export default function SpeechToTextButton({
       if (audioBlob) {
         setIsMicLoading(true);
         const currentDate = new Date();
-        const fileExtension = 'webm';
+        const fileExtension = 'mp4';
         const formattedDate = `${currentDate.getFullYear()}_${(
           currentDate.getMonth() + 1
         )
