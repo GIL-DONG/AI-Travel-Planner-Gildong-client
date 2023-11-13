@@ -3,7 +3,15 @@ import { BsFillMicFill, BsFillMicMuteFill } from 'react-icons/bs';
 import Button from '@/components/Common/Button';
 import { postSTTAPI } from '@/services/chat';
 
-interface SpeechToTextButtonType {
+interface StateTypes {
+  settings: {
+    browser: {
+      name: 'android' | 'ios' | 'chrome' | 'safari';
+      audioType: 'webm' | 'mp4';
+    };
+  };
+}
+interface SpeechToTextButtonProps {
   isMicOn: boolean;
   setIsMicOn: React.Dispatch<React.SetStateAction<boolean>>;
   setValue: React.Dispatch<React.SetStateAction<string>>;
@@ -15,10 +23,36 @@ export default function SpeechToTextButton({
   setIsMicOn,
   setValue,
   setIsMicLoading,
-}: SpeechToTextButtonType) {
+}: SpeechToTextButtonProps) {
   const [audioBlob, setAudioBlob] = useState<Blob | null>(null);
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const audioChunks = useRef<Blob[]>([]);
+  const [state, setState] = useState<StateTypes | undefined>();
+
+  useEffect(() => {
+    if (/Android/i.test(navigator.userAgent)) {
+      setState({
+        ...state,
+        settings: { browser: { name: 'android', audioType: 'webm' } },
+      });
+    } else if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+      setState({
+        ...state,
+        settings: { browser: { name: 'ios', audioType: 'mp4' } },
+      });
+    } else if (navigator.userAgent.indexOf('Chrome') > -1) {
+      setState({
+        ...state,
+        settings: { browser: { name: 'chrome', audioType: 'webm' } },
+      });
+    } else if (navigator.userAgent.indexOf('Safari') > -1) {
+      setState({
+        ...state,
+        settings: { browser: { name: 'safari', audioType: 'mp4' } },
+      });
+    }
+    console.log(state);
+  }, []);
 
   const startRecording = () => {
     navigator.mediaDevices
@@ -32,7 +66,7 @@ export default function SpeechToTextButton({
         };
         mediaRecorderRef.current.onstop = () => {
           const audioBlob = new Blob(audioChunks.current, {
-            type: 'audio/mp4',
+            type: `audio/${state?.settings.browser.audioType}`,
           });
           setAudioBlob(audioBlob);
           setIsMicOn(false);
@@ -65,7 +99,7 @@ export default function SpeechToTextButton({
       if (audioBlob) {
         setIsMicLoading(true);
         const currentDate = new Date();
-        const fileExtension = 'mp4';
+        const fileExtension = state?.settings.browser.audioType;
         const formattedDate = `${currentDate.getFullYear()}_${(
           currentDate.getMonth() + 1
         )
@@ -86,10 +120,6 @@ export default function SpeechToTextButton({
           .padStart(2, '0')}`;
         const fileName = `audio_${formattedDate}_${formattedTime}.${fileExtension}`;
         const audioFile = blobToFile(audioBlob, fileName);
-        const downloadLink = document.createElement('a');
-        downloadLink.href = URL.createObjectURL(audioBlob);
-        downloadLink.download = fileName;
-        downloadLink.click();
         audioChunks.current = [];
         const formData = new FormData();
         formData.append('in_files', audioFile);
