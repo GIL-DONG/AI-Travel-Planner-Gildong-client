@@ -6,7 +6,7 @@ import { postSTTAPI } from '@/services/chat';
 interface StateTypes {
   settings: {
     browser: {
-      name: 'android' | 'ios' | 'chrome' | 'safari';
+      name: 'android' | 'ios' | 'chrome' | 'safari' | 'else';
       audioType: 'webm' | 'mp4';
     };
   };
@@ -50,8 +50,12 @@ export default function SpeechToTextButton({
         ...state,
         settings: { browser: { name: 'safari', audioType: 'mp4' } },
       });
+    } else {
+      setState({
+        ...state,
+        settings: { browser: { name: 'else', audioType: 'webm' } },
+      });
     }
-    console.log(state);
   }, []);
 
   const startRecording = () => {
