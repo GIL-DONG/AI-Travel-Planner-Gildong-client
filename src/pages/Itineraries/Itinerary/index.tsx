@@ -54,7 +54,7 @@ export default function Itinerary() {
   return (
     <>
       <Header back={true}>{itinerary?.title}</Header>
-      <div className={`${styles.pageWrapper} colorLayout`}>
+      <div className={styles.pageWrapper}>
         {isLoading ? (
           <div className={styles.loading}>
             <LoadingSpinner />

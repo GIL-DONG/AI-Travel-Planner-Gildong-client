@@ -8,7 +8,7 @@ export default function Error() {
   const navigate = useNavigate();
   return (
     <>
-      <div className={`${styles.pageWrapper} colorLayout`}>
+      <div className={styles.pageWrapper}>
         <div className={styles.container}>
           <div className={styles.titleContainer}>
             <span className={styles.title}>4</span>

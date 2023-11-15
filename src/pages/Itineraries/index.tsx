@@ -66,7 +66,7 @@ export default function Itineraries() {
   return (
     <>
       <Header>여행 일정</Header>
-      <div className={`${styles.pageWrapper} colorLayout`}>
+      <div className={styles.pageWrapper}>
         {isLoading ? (
           <div className={styles.loading}>
             <LoadingSpinner />

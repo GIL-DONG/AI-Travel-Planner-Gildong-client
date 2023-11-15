@@ -167,7 +167,7 @@ export default function Chat({ home }: ChatProps) {
   return (
     <>
       <Header>AI Travel Planner 길동이</Header>
-      <div className={`${styles.pageWrapper} colorLayout`}>
+      <div className={styles.pageWrapper}>
         <div className={styles.content}>
           <div
             className={styles.questionContainer}

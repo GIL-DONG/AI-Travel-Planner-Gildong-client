@@ -67,7 +67,7 @@ export default function Modify() {
   return (
     <>
       <Header back={true}>회원 수정</Header>
-      <div className={`${styles.pageWrapper} colorLayout`}>
+      <div className={styles.pageWrapper}>
         <div className={styles.content}>
           <div className={styles.profileWrapper}>
             {profileImage !== 'default' && deleteImage === false ? (

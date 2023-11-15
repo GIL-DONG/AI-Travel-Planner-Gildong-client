@@ -33,7 +33,7 @@ export default function MyPage() {
   return (
     <>
       <Header>마이 페이지</Header>
-      <div className={`${styles.pageWrapper} colorLayout`}>
+      <div className={styles.pageWrapper}>
         <div className={styles.profileWrapper}>
           {profileImage !== 'default' ? (
             <img src={profileImage} />

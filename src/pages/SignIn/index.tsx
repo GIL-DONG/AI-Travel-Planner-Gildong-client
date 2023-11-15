@@ -28,7 +28,7 @@ export default function SignIn() {
 
   return (
     <>
-      <Header color="wh" />
+      <Header />
       <div className={styles.pageWrapper}>
         <div className={styles.contentWrapper}>
           <title className={styles.titleWrapper}>

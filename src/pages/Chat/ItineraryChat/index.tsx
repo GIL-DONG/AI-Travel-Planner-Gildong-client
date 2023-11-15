@@ -202,7 +202,7 @@ export default function ItineraryChat() {
       <div className={styles.destination}>
         <Destinations destinations={theTop.destinations} />
       </div>
-      <div className={`${styles.pageWrapper} colorLayout`}>
+      <div className={styles.pageWrapper}>
         {isLoading ? (
           <LoadingSpinner />
         ) : (

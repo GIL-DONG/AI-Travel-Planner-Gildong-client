@@ -54,7 +54,7 @@ export default function Detail() {
   return (
     <>
       <Header back={true} />
-      <div className={`${styles.pageWrapper} colorLayout`}>
+      <div className={styles.pageWrapper}>
         {isLoading ? (
           <div className={styles.loading}>
             <LoadingSpinner />
