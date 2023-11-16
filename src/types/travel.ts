@@ -1,6 +1,6 @@
-import { locationTypes } from './signUp';
+import { LocationTypes } from './signUp';
 
-export interface detailTypes {
+export interface TravelDetailsTypes {
   title: string;
   overview: string;
   contenttypeid: string;
@@ -13,35 +13,35 @@ export interface detailTypes {
   hearing?: string;
 }
 
-export interface itineraryTypes {
+export interface ItineraryTypes {
   date_type: string;
-  destinations: destinationsTypes[];
+  destinations: DestinationsTypes[];
   itinerary_id: string;
   session_id: string;
   title: string;
   timestamp: string;
 }
 
-export interface itineraryScheduleTypes {
+export interface ItineraryScheduleTypes {
   date: string;
   date_type: string;
   description: string;
   end_time: string;
-  location?: locationTypes;
+  location?: LocationTypes;
   start_time: string;
   title: string;
   url?: string;
   image_url?: string;
 }
 
-export interface destinationsTypes {
+export interface DestinationsTypes {
   title: string;
   hearing?: boolean;
   physical?: boolean;
   visual?: boolean;
 }
 
-export interface theTopTypes {
+export interface TheTopTypes {
   title: string;
-  destinations: destinationsTypes[];
+  destinations: DestinationsTypes[];
 }

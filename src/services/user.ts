@@ -1,5 +1,5 @@
 import { API_URLS } from '@/constants/config';
-import { modifyUserInfoTypes } from '@/types/user';
+import { ModifyUserInfoTypes } from '@/types/user';
 import apiClient from './apiClient';
 
 export const deleteUserAPI = async () => {
@@ -7,7 +7,7 @@ export const deleteUserAPI = async () => {
   return response;
 };
 
-export const patchUserAPI = async (data: modifyUserInfoTypes) => {
+export const patchModifyUserInfoAPI = async (data: ModifyUserInfoTypes) => {
   const response = await apiClient.patch(API_URLS.modifyUserInfo, data);
   return response.data;
 };

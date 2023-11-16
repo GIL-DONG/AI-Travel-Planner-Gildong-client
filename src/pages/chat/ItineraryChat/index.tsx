@@ -11,11 +11,11 @@ import ImageUploadButton from '@/components/chat/ImageUploadButton';
 import { imageState, theTopState } from '@/store/atom/travelAtom';
 import Destinations from '@/components/travel/Destinations';
 import {
-  getAddItineraryAPI,
-  getConversationAPI,
-  getItineraryDetailAPI,
+  getRegisterItineraryAPI,
+  getPrevioustConversationAPI,
+  getItineraryDetailsAPI,
 } from '@/services/travel';
-import { itineraryScheduleTypes } from '@/types/travel';
+import { ItineraryScheduleTypes } from '@/types/travel';
 import { itineraryIdState } from '@/store/atom/chatAtom';
 import LoadingSpinner from '@/components/common/LoadingSpinner';
 import remove from '@/assets/remove.png';
@@ -164,7 +164,7 @@ export default function ItineraryChat() {
   const getItineraryChat = async () => {
     if (id) {
       setIsLoading(true);
-      const data = await getConversationAPI(id);
+      const data = await getPrevioustConversationAPI(id);
 
       if (data) {
         const chatList = data.data.map((el: ItineraryChatTypes) => {
@@ -177,15 +177,15 @@ export default function ItineraryChat() {
         setList(chatList);
         setIsLoading(false);
         if (itineraryId) {
-          const data = await getAddItineraryAPI(itineraryId);
+          const data = await getRegisterItineraryAPI(itineraryId);
           if (data.message === 'Itinerary registered successfully.') {
-            const res = await getItineraryDetailAPI(itineraryId);
+            const res = await getItineraryDetailsAPI(itineraryId);
             console.log(res);
             if (res) {
               setTheTop({
                 title: res.data?.title,
                 destinations: res.data?.schedule.map(
-                  (el: itineraryScheduleTypes) => {
+                  (el: ItineraryScheduleTypes) => {
                     return { title: el.title };
                   },
                 ),

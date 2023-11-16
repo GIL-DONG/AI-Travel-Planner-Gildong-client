@@ -10,7 +10,7 @@ import { RiGuideFill } from 'react-icons/ri';
 import { MdOutlineOndemandVideo } from 'react-icons/md';
 import { BsFillSignpostSplitFill } from 'react-icons/bs';
 import { getTravelDetailAPI } from '@/services/travel';
-import { detailTypes } from '@/types/travel';
+import { TravelDetailsTypes } from '@/types/travel';
 import LoadingSpinner from '@/components/common/LoadingSpinner';
 import useStatus from '@/hooks/useStatus';
 import styles from './styles.module.scss';
@@ -18,7 +18,7 @@ import styles from './styles.module.scss';
 export default function TravelDetails() {
   const { id } = useParams();
   const [currentTab, setCurrentTab] = useState(0);
-  const [detailData, setDetailData] = useState<detailTypes>({
+  const [detailData, setDetailData] = useState<TravelDetailsTypes>({
     title: '',
     overview: '',
     contenttypeid: '',

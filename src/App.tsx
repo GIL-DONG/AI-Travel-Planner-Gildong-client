@@ -10,7 +10,7 @@ import {
 } from '@/store/atom/userAtom';
 import parseToken from './utils/parseToken';
 import { nameState } from './store/atom/signUpAtom';
-import { postRefreshTokenAPI } from './services/auth';
+import { postRenewAccessTokenAPI } from './services/auth';
 import AppRouter from './routes/Router';
 
 function App() {
@@ -25,7 +25,7 @@ function App() {
   );
 
   const refreshToken = async () => {
-    const data = await postRefreshTokenAPI();
+    const data = await postRenewAccessTokenAPI();
     if (data.message === 'successfully!') {
       setAccessToken(data.access_token);
       localStorage.setItem('access_token', data.access_token);

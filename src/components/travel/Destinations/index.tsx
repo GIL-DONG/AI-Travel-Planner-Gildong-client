@@ -1,11 +1,11 @@
 import { useRecoilValue } from 'recoil';
 import useMouseDrag from '@/hooks/useMouseDrag';
-import { destinationsTypes } from '@/types/travel';
+import { DestinationsTypes } from '@/types/travel';
 import { userDisabilityTypeState } from '@/store/atom/userAtom';
 import styles from './styles.module.scss';
 
 interface DestinationsProps {
-  destinations?: destinationsTypes[];
+  destinations?: DestinationsTypes[];
 }
 export default function Destinations({ destinations }: DestinationsProps) {
   const disabilityType = useRecoilValue(userDisabilityTypeState);

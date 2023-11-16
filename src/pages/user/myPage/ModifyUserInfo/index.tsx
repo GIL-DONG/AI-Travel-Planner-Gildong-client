@@ -7,8 +7,8 @@ import useDebounce from '@/hooks/useDebounce';
 import { postCheckNickNameAPI } from '@/services/signUp';
 import NickName from '@/components/signUp/NickName';
 import Button from '@/components/common/Button';
-import { patchUserAPI } from '@/services/user';
-import { modifyUserInfoTypes } from '@/types/user';
+import { patchModifyUserInfoAPI } from '@/services/user';
+import { ModifyUserInfoTypes } from '@/types/user';
 import { ROUTE_PATHS } from '@/constants/config';
 import { nameState } from '@/store/atom/signUpAtom';
 import useStatus from '@/hooks/useStatus';
@@ -41,7 +41,7 @@ export default function ModifyUserInfo() {
   };
 
   const submitHandler = async () => {
-    const obj: modifyUserInfoTypes = {};
+    const obj: ModifyUserInfoTypes = {};
     if (name && nickNameValidation) {
       obj.user_name = name;
     }
@@ -50,7 +50,7 @@ export default function ModifyUserInfo() {
     }
     try {
       if (obj.user_name || obj.user_photo) {
-        await patchUserAPI(obj);
+        await patchModifyUserInfoAPI(obj);
       }
     } finally {
       setName(name);

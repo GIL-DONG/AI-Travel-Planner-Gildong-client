@@ -11,6 +11,7 @@ import {
   indexState,
 } from '@/store/atom/signUpAtom';
 import Button from '@/components/common/Button';
+import useStatus from '@/hooks/useStatus';
 import InputTemplate from '../InputTemplate';
 import styles from './styles.module.scss';
 
@@ -20,6 +21,7 @@ export default function SignUpSecond() {
   const setDisabilityStatus = useSetRecoilState(disabilityStatusState);
   const setDisabilityType = useSetRecoilState(disabilityTypeState);
   const setIndex = useSetRecoilState(indexState);
+  useStatus('', '');
 
   return (
     <div className={styles.container}>

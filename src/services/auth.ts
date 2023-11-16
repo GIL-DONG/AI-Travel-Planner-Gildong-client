@@ -7,7 +7,7 @@ export const getUserInfoAPI = async (token: string) => {
   return response.data;
 };
 
-export const postRefreshTokenAPI = async () => {
+export const postRenewAccessTokenAPI = async () => {
   const response = await apiClient.post(API_URLS.renewAccessToken);
   return response.data;
 };

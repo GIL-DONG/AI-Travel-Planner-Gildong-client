@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 import { DEFAULT_NEXT_PAGE, DEFAULT_PAGE, LIMIT } from '@/constants/signUp';
 import { getSearchResidenceAPI } from '@/services/signUp';
-import { residenceTypes } from '@/types/signUp';
+import { ResidenceTypes } from '@/types/signUp';
 
 export default function useSearch(inputText: string) {
   const [isSearching, setIsSearching] = useState(false);
   const [hasNextPage, setHasNextPage] = useState(false);
   const [nextPage, setNextPage] = useState(DEFAULT_NEXT_PAGE);
-  const [residenceList, setResidenceList] = useState<residenceTypes[]>([]);
+  const [residenceList, setResidenceList] = useState<ResidenceTypes[]>([]);
 
   const getMoreItem = async () => {
     if (!hasNextPage) return;

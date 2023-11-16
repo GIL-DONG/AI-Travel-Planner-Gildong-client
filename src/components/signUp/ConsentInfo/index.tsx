@@ -2,12 +2,14 @@ import { useRecoilValue, useSetRecoilState } from 'recoil';
 import Button from '@/components/common/Button';
 import { consentState, indexState } from '@/store/atom/signUpAtom';
 import Checkbox from '@/components/common/Checkboxes/Checkbox';
+import useStatus from '@/hooks/useStatus';
 import styles from './styles.module.scss';
 
 export default function ConsentInfo() {
   const setIndex = useSetRecoilState(indexState);
   const consent = useRecoilValue(consentState);
   const setConsent = useSetRecoilState(consentState);
+  useStatus('signUp', '');
 
   return (
     <div className={styles.container}>

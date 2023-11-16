@@ -1,6 +1,6 @@
 import { atom } from 'recoil';
 import { recoilPersist } from 'recoil-persist';
-import { residenceTypes } from '@/types/signUp';
+import { ResidenceTypes } from '@/types/signUp';
 
 const { persistAtom } = recoilPersist({
   key: 'user',
@@ -44,7 +44,7 @@ const preferTravelStyleState = atom<string[]>({
   default: [],
 });
 
-const residenceState = atom<residenceTypes | null>({
+const residenceState = atom<ResidenceTypes | null>({
   key: 'residence',
   default: null,
 });

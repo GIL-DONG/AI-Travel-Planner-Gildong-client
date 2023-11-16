@@ -25,11 +25,11 @@ import voiceLoading from '@/assets/loading_voice.gif';
 import useRecording from '@/hooks/useRecording';
 import useStatus from '@/hooks/useStatus';
 import styles from './styles.module.scss';
-interface ChatProps {
+interface MainChatProps {
   home?: boolean;
 }
 
-export default function MainChat({ home }: ChatProps) {
+export default function MainChat({ home }: MainChatProps) {
   const navigate = useNavigate();
   const image = useRecoilValue(imageState);
   const setImage = useSetRecoilState(imageState);

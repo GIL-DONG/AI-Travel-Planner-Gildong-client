@@ -6,10 +6,10 @@ import { LiaCalendarCheckSolid } from 'react-icons/lia';
 import { MdDeleteForever } from 'react-icons/md';
 import {
   deleteItineraryAPI,
-  getAllItineraryAPI,
-  getCalendarAPI,
+  getItineraryListAPI,
+  getKaKaoCalendarAPI,
 } from '@/services/travel';
-import { itineraryTypes } from '@/types/travel';
+import { ItineraryTypes } from '@/types/travel';
 import Button from '@/components/common/Button';
 import { ROUTE_PATHS } from '@/constants/config';
 import Destinations from '@/components/travel/Destinations';
@@ -25,7 +25,7 @@ import styles from './styles.module.scss';
 export default function ItineraryList() {
   const navigate = useNavigate();
   const setTheTop = useSetRecoilState(theTopState);
-  const [list, setList] = useState<itineraryTypes[]>([]);
+  const [list, setList] = useState<ItineraryTypes[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [failed, setFailed] = useState(false);
@@ -41,9 +41,9 @@ export default function ItineraryList() {
     setIsModalOpen(false);
   };
 
-  const getAllItinerary = async () => {
+  const getItineraryList = async () => {
     setIsLoading(true);
-    const data = await getAllItineraryAPI();
+    const data = await getItineraryListAPI();
     if (data.data) {
       setList(data.data);
       setIsLoading(false);
@@ -53,7 +53,7 @@ export default function ItineraryList() {
   const sharingHandler = async (id: string) => {
     const token = kakaoToken;
     if (token) {
-      const data = await getCalendarAPI(id, token);
+      const data = await getKaKaoCalendarAPI(id, token);
       if (data.message === 'successful') {
         setFailed(false);
         setIsModalOpen(true);
@@ -62,7 +62,7 @@ export default function ItineraryList() {
   };
 
   useEffect(() => {
-    getAllItinerary();
+    getItineraryList();
   }, []);
 
   return (
@@ -78,6 +78,10 @@ export default function ItineraryList() {
               key={index}
               className={styles.wrapper}
               onClick={() => {
+                setTheTop({
+                  title: el.title,
+                  destinations: el.destinations,
+                });
                 navigate(`${ROUTE_PATHS.itineraryList}/${el.itinerary_id}`);
               }}
             >
@@ -127,7 +131,7 @@ export default function ItineraryList() {
                     if (itineraryId) {
                       const data = await deleteItineraryAPI(itineraryId);
                       if (data.status === 200) {
-                        getAllItinerary();
+                        getItineraryList();
                         setIsDeleteModalOpen(false);
                       }
                     }

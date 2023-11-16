@@ -7,13 +7,16 @@ import { BiSolidPlane } from 'react-icons/bi';
 import Button from '@/components/common/Button';
 import Modal from '@/components/common/Modal';
 import { isLoginState } from '@/store/atom/userAtom';
-import { getAddItineraryAPI, getItineraryDetailAPI } from '@/services/travel';
+import {
+  getRegisterItineraryAPI,
+  getItineraryDetailsAPI,
+} from '@/services/travel';
 import {
   itineraryIdState,
   mainChatListState,
   sessionIdState,
 } from '@/store/atom/chatAtom';
-import { itineraryScheduleTypes } from '@/types/travel';
+import { ItineraryScheduleTypes } from '@/types/travel';
 import { theTopState } from '@/store/atom/travelAtom';
 import { ROUTE_PATHS } from '@/constants/config';
 import styles from './styles.module.scss';
@@ -41,13 +44,13 @@ export default function AddItineraryButton({ id }: AddItineraryButtonProps) {
   };
 
   const confirmHandler = async () => {
-    const data = await getAddItineraryAPI(id);
+    const data = await getRegisterItineraryAPI(id);
     if (data.message === 'Itinerary registered successfully.') {
-      const res = await getItineraryDetailAPI(id);
+      const res = await getItineraryDetailsAPI(id);
       if (res) {
         setTheTop({
           title: res.data?.title,
-          destinations: res.data?.schedule.map((el: itineraryScheduleTypes) => {
+          destinations: res.data?.schedule.map((el: ItineraryScheduleTypes) => {
             return { title: el.title };
           }),
         });

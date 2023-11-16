@@ -1,13 +1,13 @@
 import { SetStateAction } from 'react';
 import { AiOutlineEllipsis } from 'react-icons/ai';
-import { residenceTypes } from '@/types/signUp';
+import { ResidenceTypes } from '@/types/signUp';
 import useIntersectionObserver from '@/hooks/useIntersectonObserver';
 import LoadingSpinner from '@/components/common/LoadingSpinner';
 import SearchItem from './SearchItem';
 import styles from './styles.module.scss';
 
 interface SearchItemsProps {
-  residenceList: residenceTypes[];
+  residenceList: ResidenceTypes[];
   isSearching: boolean;
   hasNextPage: boolean;
   keyword: string;

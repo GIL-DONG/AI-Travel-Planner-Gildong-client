@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { postSTTAPI } from '@/services/chat';
+import { postSpeechToTextAPI } from '@/services/chat';
 
 interface BrowserTypes {
   settings: {
@@ -114,7 +114,7 @@ export default function useRecording(
       audioChunks.current = [];
       const formData = new FormData();
       formData.append('in_files', audioFile);
-      const data = await postSTTAPI(formData);
+      const data = await postSpeechToTextAPI(formData);
       try {
         if (data) {
           const script = data.transcripts[0];

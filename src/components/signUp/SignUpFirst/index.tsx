@@ -11,6 +11,7 @@ import { AGEGROUP_LIST, GENDER_LIST } from '@/constants/signUp';
 import { postCheckNickNameAPI } from '@/services/signUp';
 import Button from '@/components/common/Button';
 import useDebounce from '@/hooks/useDebounce';
+import useStatus from '@/hooks/useStatus';
 import InputTemplate from '../InputTemplate';
 import NickName from '../NickName';
 import styles from './styles.module.scss';
@@ -25,6 +26,7 @@ export default function SignUpFirst() {
   const [nickNameValidation, setNickNameValidation] = useState(false);
   const setIndex = useSetRecoilState(indexState);
   const debouncedInputText = useDebounce(name);
+  useStatus('', '');
 
   const checkNickName = async (value: string) => {
     const data = await postCheckNickNameAPI(value);

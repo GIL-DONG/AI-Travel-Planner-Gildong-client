@@ -6,19 +6,19 @@ export interface SignUpTypes {
   disability_status: boolean;
   disability_type: string;
   prefer_travel: string[];
-  residence: locationTypes | undefined;
+  residence: LocationTypes | undefined;
   user_photo: string;
 }
 
-export interface residenceTypes {
+export interface ResidenceTypes {
   id: number;
   word: string;
   city: string;
   district: string;
-  location: locationTypes;
+  location: LocationTypes;
 }
 
-export interface locationTypes {
+export interface LocationTypes {
   lat: number;
   lon: number;
 }

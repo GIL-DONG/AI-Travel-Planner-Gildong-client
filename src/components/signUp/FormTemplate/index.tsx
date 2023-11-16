@@ -1,5 +1,4 @@
 import { ReactNode } from 'react';
-import useStatus from '@/hooks/useStatus';
 import ProgressBar from '../ProgressBar';
 import styles from './styles.module.scss';
 
@@ -16,11 +15,6 @@ export default function FormTemplate({
   text,
   children,
 }: FormTemplateProps) {
-  const { setHeaderStatus } = useStatus('signUp', '');
-
-  if (page !== 'first') {
-    setHeaderStatus({ pageName: '', title: '' });
-  }
   return (
     <div className={styles.container}>
       <div className={styles.formWrapper}>

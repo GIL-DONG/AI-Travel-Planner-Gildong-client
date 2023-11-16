@@ -1,38 +1,31 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { getItineraryDetailAPI } from '@/services/travel';
-import { itineraryScheduleTypes } from '@/types/travel';
+import { getItineraryDetailsAPI } from '@/services/travel';
+import { ItineraryScheduleTypes } from '@/types/travel';
 import groupObjectsByField from '@/utils/groupObjectsByField';
-import { tabState } from '@/store/atom/travelAtom';
+import { tabState, theTopState } from '@/store/atom/travelAtom';
 import LoadingSpinner from '@/components/common/LoadingSpinner';
 import useStatus from '@/hooks/useStatus';
 import styles from './styles.module.scss';
-
-interface itineraryDetailTypes {
-  schedule: itineraryScheduleTypes[];
-  title: string;
-  uuid: string;
-}
 
 export default function ItineraryDetails() {
   const { id } = useParams();
   const tab = useRecoilValue(tabState);
   const setTab = useSetRecoilState(tabState);
-  const [itinerary, setItinerary] = useState<itineraryDetailTypes>();
   const [dateList, setDateList] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [groupByDate, setGroupByDate] = useState<
-    Record<string, itineraryScheduleTypes[]>
+    Record<string, ItineraryScheduleTypes[]>
   >({});
-  useStatus('itineraryDetails', itinerary?.title);
+  const theTop = useRecoilValue(theTopState);
+  useStatus('itineraryDetails', theTop?.title);
 
   const getItinerary = async () => {
     if (id) {
       setIsLoading(true);
-      const data = await getItineraryDetailAPI(id);
+      const data = await getItineraryDetailsAPI(id);
       if (data.data) {
-        setItinerary(data.data);
         setGroupByDate(groupObjectsByField(data.data?.schedule || [], 'date'));
         setIsLoading(false);
       }

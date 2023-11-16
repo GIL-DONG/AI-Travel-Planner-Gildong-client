@@ -6,8 +6,9 @@ export default function useStatus(pageName: string, title: string | undefined) {
   const setHeaderStatus = useSetRecoilState(headerStatusState);
 
   useEffect(() => {
-    setHeaderStatus({ pageName: pageName, title: title });
+    setHeaderStatus({
+      pageName: pageName,
+      title: title,
+    });
   }, []);
-
-  return { setHeaderStatus };
 }

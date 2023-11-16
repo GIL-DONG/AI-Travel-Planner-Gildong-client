@@ -2,10 +2,12 @@ import { useRecoilValue, useSetRecoilState } from 'recoil';
 import SearchBar from '@/components/signUp/SearchBar';
 import Button from '@/components/common/Button';
 import { indexState, residenceState } from '@/store/atom/signUpAtom';
+import useStatus from '@/hooks/useStatus';
 import styles from './styles.module.scss';
 export default function SignUpThird() {
   const residence = useRecoilValue(residenceState);
   const setIndex = useSetRecoilState(indexState);
+  useStatus('', '');
 
   return (
     <div className={styles.container}>
