@@ -2,13 +2,13 @@ import React, { useState, useRef, useEffect } from 'react';
 import { TbSend } from 'react-icons/tb';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { useParams } from 'react-router';
+import { BsFillMicFill } from 'react-icons/bs';
 import Button from '@/components/Common/Button';
 import ChatLoading from '@/components/Chat/ChatLoading';
 import MarkDown from '@/components/Chat/MarkDown';
 import { API_URLS, BASE_URL } from '@/constants/config';
 import Header from '@/components/Common/Header';
 import ImageUploadButton from '@/components/Chat/ImageUploadButton';
-import SpeechToTextButton from '@/components/Chat/SpeechToTextButton';
 import { imageState, theTopState } from '@/store/atom/travelAtom';
 import Destinations from '@/components/Travel/Destinations';
 import {
@@ -20,6 +20,8 @@ import { itineraryScheduleTypes } from '@/types/travel';
 import { itineraryIdState } from '@/store/atom/chatAtom';
 import LoadingSpinner from '@/components/Common/LoadingSpinner';
 import remove from '@/assets/remove.png';
+import voiceLoading from '@/assets/loading_voice.gif';
+import useRecording from '@/hooks/useRecording';
 import styles from './styles.module.scss';
 
 export default function ItineraryChat() {
@@ -31,8 +33,6 @@ export default function ItineraryChat() {
   const [isChatLoading, setIsChatLoading] = useState(false);
   const [question, setQuestion] = useState('');
   const [answer, setAnswer] = useState('');
-  const [isMicOn, setIsMicOn] = useState(false);
-  const [isMicLoading, setIsMicLoading] = useState(false);
   const image = useRecoilValue(imageState);
   const setImage = useSetRecoilState(imageState);
   const theTop = useRecoilValue(theTopState);
@@ -41,6 +41,13 @@ export default function ItineraryChat() {
   const setItineraryId = useSetRecoilState(itineraryIdState);
   const [isImageOpen, setIsImageOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const {
+    isRecording,
+    isSTTLoading,
+    isRecordingStarting,
+    startRecording,
+    stopRecording,
+  } = useRecording(setValue);
 
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
@@ -281,30 +288,34 @@ export default function ItineraryChat() {
                         </div>
                       </div>
                     ) : null}
+                    {isRecording ? (
+                      <div className={styles.voiceContainer}>
+                        <div className={styles.voice}>
+                          듣고 있습니다.
+                          <div className={styles.pulse} onClick={stopRecording}>
+                            <div className={styles.rectangle} />
+                          </div>
+                        </div>
+                      </div>
+                    ) : isSTTLoading ? (
+                      <div className={styles.voiceContainer}>
+                        <div className={styles.voice}>
+                          <img src={voiceLoading} />
+                        </div>
+                      </div>
+                    ) : null}
                     <div className={styles.icon}>
                       <ImageUploadButton setIsImageOpen={setIsImageOpen} />
                     </div>
-                    {isMicOn ? (
-                      <div className={styles.textWrapper}>
-                        <div className={styles.typingText}>
-                          듣고 있습니다. 마이크에 대고 계속 말해주세요!
-                        </div>
-                      </div>
-                    ) : isMicLoading ? (
-                      <div className={styles.textWrapper}>
-                        <ChatLoading />
-                      </div>
-                    ) : (
-                      <input
-                        className={styles.input}
-                        onChange={handleInput}
-                        value={value}
-                        onKeyDown={handleEnter}
-                        placeholder="무엇이든 물어보세요!"
-                      />
-                    )}
+                    <input
+                      className={styles.input}
+                      onChange={handleInput}
+                      value={value}
+                      onKeyDown={handleEnter}
+                      placeholder="무엇이든 물어보세요!"
+                    />
                     <div className={styles.send}>
-                      {value ? (
+                      {value || isImageOpen ? (
                         <Button
                           size="sm"
                           color="white"
@@ -313,14 +324,17 @@ export default function ItineraryChat() {
                           variant="primary"
                           onClick={handleSubmit}
                         />
-                      ) : (
-                        <SpeechToTextButton
-                          setValue={setValue}
-                          isMicOn={isMicOn}
-                          setIsMicOn={setIsMicOn}
-                          setIsMicLoading={setIsMicLoading}
-                        />
-                      )}
+                      ) : !isRecordingStarting ? (
+                        <Button
+                          icon={<BsFillMicFill />}
+                          size="sm"
+                          color="secondary"
+                          iconBtn={true}
+                          onClick={startRecording}
+                        >
+                          녹음 시작
+                        </Button>
+                      ) : null}
                     </div>
                   </div>
                 </div>
