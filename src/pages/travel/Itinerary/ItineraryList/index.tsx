@@ -79,7 +79,7 @@ export default function ItineraryList() {
                 key={index}
                 className={styles.wrapper}
                 onClick={() => {
-                  navigate(`${ROUTE_PATHS.itinerary}/${el.itinerary_id}`);
+                  navigate(`${ROUTE_PATHS.itineraryList}/${el.itinerary_id}`);
                 }}
               >
                 <div className={styles.top}>

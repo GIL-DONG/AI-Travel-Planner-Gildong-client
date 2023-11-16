@@ -138,9 +138,9 @@ export default function MainChat({ home }: ChatProps) {
   };
 
   const handleSubmit = async () => {
-    setPage(ROUTE_PATHS.chat);
+    setPage(ROUTE_PATHS.mainChat);
     setIsImageOpen(false);
-    navigate(ROUTE_PATHS.chat);
+    navigate(ROUTE_PATHS.mainChat);
     await fetchSSE();
   };
 
@@ -248,7 +248,7 @@ export default function MainChat({ home }: ChatProps) {
                     className={styles.example}
                     onClick={() => {
                       fetchSSE('서울 근처에 등산하기 좋은 장소 추천해줄래?');
-                      navigate(ROUTE_PATHS.chat);
+                      navigate(ROUTE_PATHS.mainChat);
                     }}
                   >
                     <span className={styles.text}>
@@ -264,7 +264,7 @@ export default function MainChat({ home }: ChatProps) {
                       fetchSSE(
                         '부산에서 휠체어 이용이 편리한 2박 3일 여행코스를 알려줄래?',
                       );
-                      navigate(ROUTE_PATHS.chat);
+                      navigate(ROUTE_PATHS.mainChat);
                     }}
                   >
                     <span className={styles.text}>
@@ -280,7 +280,7 @@ export default function MainChat({ home }: ChatProps) {
                       fetchSSE(
                         ' 통영에서 시각장애인도 편하게 여행할 수 있는 1박 2일 코스 추천해줄 수 있을까?',
                       );
-                      navigate(ROUTE_PATHS.chat);
+                      navigate(ROUTE_PATHS.mainChat);
                     }}
                   >
                     <span className={styles.text}>
@@ -299,7 +299,7 @@ export default function MainChat({ home }: ChatProps) {
                         '내가 보내준 이미지와 비슷한 분위기의 여행지를 알려줄래?',
                         '20231020003408_바다사진.jpg',
                       );
-                      navigate(ROUTE_PATHS.chat);
+                      navigate(ROUTE_PATHS.mainChat);
                     }}
                   >
                     <span className={styles.text}>

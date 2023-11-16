@@ -50,7 +50,7 @@ export default function Header({ back, page, children }: HeaderProps) {
                 if (page === 'signUp') {
                   navigate(ROUTE_PATHS.signIn);
                 } else if (page === 'itineraryChat') {
-                  navigate(ROUTE_PATHS.itinerary);
+                  navigate(ROUTE_PATHS.itineraryList);
                 } else {
                   navigate(-1);
                 }
@@ -114,9 +114,9 @@ export default function Header({ back, page, children }: HeaderProps) {
               <li
                 className={styles.nav}
                 onClick={() => {
-                  setPage(ROUTE_PATHS.chat);
+                  setPage(ROUTE_PATHS.mainChat);
                   setIsOpen(false);
-                  navigate(ROUTE_PATHS.chat);
+                  navigate(ROUTE_PATHS.mainChat);
                 }}
               >
                 <div className={styles.clicked} />
@@ -126,9 +126,9 @@ export default function Header({ back, page, children }: HeaderProps) {
               <li
                 className={styles.nav}
                 onClick={() => {
-                  setPage(ROUTE_PATHS.itinerary);
+                  setPage(ROUTE_PATHS.itineraryList);
                   setIsOpen(false);
-                  navigate(ROUTE_PATHS.itinerary);
+                  navigate(ROUTE_PATHS.itineraryList);
                 }}
               >
                 <div className={styles.clicked} />

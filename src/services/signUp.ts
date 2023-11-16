@@ -4,7 +4,7 @@ import { LIMIT } from '@/constants/signUp';
 import apiClient from './apiClient';
 
 export const postSignUpAPI = async (formData: SignUpType) => {
-  const response = await apiClient.post(API_URLS.signUp, formData);
+  const response = await apiClient.post(API_URLS.registerUser, formData);
   return response.data;
 };
 

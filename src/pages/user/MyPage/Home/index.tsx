@@ -48,7 +48,7 @@ export default function MyPage() {
           <div className={styles.contentWrapper}>
             <div
               className={styles.content}
-              onClick={() => navigate(ROUTE_PATHS.updateUserInfo)}
+              onClick={() => navigate(ROUTE_PATHS.modifyUserInfo)}
             >
               <BsFillPencilFill />
               회원정보 수정

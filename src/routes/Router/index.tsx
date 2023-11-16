@@ -42,14 +42,17 @@ export default function AppRouter() {
           path={ROUTE_PATHS.signUp}
           element={isLogin ? <MainChatPage home={true} /> : <SignUpPage />}
         />
-        <Route path={ROUTE_PATHS.chat} element={<MainChatPage />} />
-        <Route path={ROUTE_PATHS.detail} element={<TravelDetailsPage />} />
+        <Route path={ROUTE_PATHS.mainChat} element={<MainChatPage />} />
         <Route
-          path={ROUTE_PATHS.itinerary}
+          path={ROUTE_PATHS.travelDetails}
+          element={<TravelDetailsPage />}
+        />
+        <Route
+          path={ROUTE_PATHS.itineraryList}
           element={isLogin ? <ItineraryListPage /> : <SignInPage />}
         />
         <Route
-          path={ROUTE_PATHS.itineraryDetail}
+          path={ROUTE_PATHS.itineraryDetails}
           element={<ItineraryDetailsPage />}
         />
         <Route
@@ -61,7 +64,7 @@ export default function AppRouter() {
           element={isLogin ? <MyPage /> : <SignInPage />}
         />
         <Route
-          path={ROUTE_PATHS.updateUserInfo}
+          path={ROUTE_PATHS.modifyUserInfo}
           element={isLogin ? <ModifyUserInfoPage /> : <SignInPage />}
         />
         <Route path={ROUTE_PATHS.error} element={<ErrorPage />} />
