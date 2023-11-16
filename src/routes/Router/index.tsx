@@ -2,29 +2,29 @@ import { Suspense, lazy } from 'react';
 import { useRecoilValue } from 'recoil';
 import { Route, Routes } from 'react-router-dom';
 import { isLoginState } from '@/store/atom/userAtom';
-import Loading from '@/components/Common/Loading';
+import Loading from '@/components/common/Loading';
 import { ROUTE_PATHS } from '@/constants/config';
 
 export default function AppRouter() {
   const isLogin = useRecoilValue(isLoginState);
 
-  const MainChatPage = lazy(() => import('@/pages/Chat/MainChat'));
-  const ItineraryChatPage = lazy(() => import('@/pages/Chat/ItineraryChat'));
-  const SignInPage = lazy(() => import('@/pages/User/SignIn'));
-  const AuthPage = lazy(() => import('@/pages/User/Auth'));
-  const SignUpPage = lazy(() => import('@/pages/User/SignUp'));
-  const TravelDetailsPage = lazy(() => import('@/pages/Travel/TravelDetails'));
+  const MainChatPage = lazy(() => import('@/pages/chat/MainChat'));
+  const ItineraryChatPage = lazy(() => import('@/pages/chat/ItineraryChat'));
+  const SignInPage = lazy(() => import('@/pages/user/SignIn'));
+  const AuthPage = lazy(() => import('@/pages/user/Auth'));
+  const SignUpPage = lazy(() => import('@/pages/user/SignUp'));
+  const TravelDetailsPage = lazy(() => import('@/pages/travel/TravelDetails'));
   const ItineraryListPage = lazy(
-    () => import('@/pages/Travel/Itinerary/ItineraryList'),
+    () => import('@/pages/travel/Itinerary/ItineraryList'),
   );
   const ItineraryDetailsPage = lazy(
-    () => import('@/pages/Travel/Itinerary/ItineraryDetails'),
+    () => import('@/pages/travel/Itinerary/ItineraryDetails'),
   );
-  const MyPage = lazy(() => import('@/pages/User/MyPage/Home'));
+  const MyPage = lazy(() => import('@/pages/user/MyPage/Home'));
   const ModifyUserInfoPage = lazy(
-    () => import('@/pages/User/MyPage/ModifyUserInfo'),
+    () => import('@/pages/user/MyPage/ModifyUserInfo'),
   );
-  const ErrorPage = lazy(() => import('@/pages/Error'));
+  const ErrorPage = lazy(() => import('@/pages/error/NotFound'));
 
   return (
     <Suspense fallback={<Loading />}>
