@@ -1,6 +1,6 @@
-import { locationType } from './signUp';
+import { locationTypes } from './signUp';
 
-export interface detailType {
+export interface detailTypes {
   title: string;
   overview: string;
   contenttypeid: string;
@@ -27,7 +27,7 @@ export interface itineraryScheduleTypes {
   date_type: string;
   description: string;
   end_time: string;
-  location?: locationType;
+  location?: locationTypes;
   start_time: string;
   title: string;
   url?: string;

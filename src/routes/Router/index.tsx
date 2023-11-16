@@ -4,6 +4,7 @@ import { Route, Routes } from 'react-router-dom';
 import { isLoginState } from '@/store/atom/userAtom';
 import Loading from '@/components/common/Loading';
 import { ROUTE_PATHS } from '@/constants/config';
+import Header from '@/components/common/Header';
 
 export default function AppRouter() {
   const isLogin = useRecoilValue(isLoginState);
@@ -15,60 +16,66 @@ export default function AppRouter() {
   const SignUpPage = lazy(() => import('@/pages/user/SignUp'));
   const TravelDetailsPage = lazy(() => import('@/pages/travel/TravelDetails'));
   const ItineraryListPage = lazy(
-    () => import('@/pages/travel/Itinerary/ItineraryList'),
+    () => import('@/pages/travel/itinerary/ItineraryList'),
   );
   const ItineraryDetailsPage = lazy(
-    () => import('@/pages/travel/Itinerary/ItineraryDetails'),
+    () => import('@/pages/travel/itinerary/ItineraryDetails'),
   );
-  const MyPage = lazy(() => import('@/pages/user/MyPage/Home'));
+  const MyPage = lazy(() => import('@/pages/user/myPage/Home'));
   const ModifyUserInfoPage = lazy(
-    () => import('@/pages/user/MyPage/ModifyUserInfo'),
+    () => import('@/pages/user/myPage/ModifyUserInfo'),
   );
   const ErrorPage = lazy(() => import('@/pages/error/NotFound'));
 
   return (
-    <Suspense fallback={<Loading />}>
-      <Routes>
-        <Route path={ROUTE_PATHS.home} element={<MainChatPage home={true} />} />
-        <Route
-          path={ROUTE_PATHS.signIn}
-          element={isLogin ? <MainChatPage home={true} /> : <SignInPage />}
-        />
-        <Route
-          path={ROUTE_PATHS.auth}
-          element={isLogin ? <MainChatPage home={true} /> : <AuthPage />}
-        />
-        <Route
-          path={ROUTE_PATHS.signUp}
-          element={isLogin ? <MainChatPage home={true} /> : <SignUpPage />}
-        />
-        <Route path={ROUTE_PATHS.mainChat} element={<MainChatPage />} />
-        <Route
-          path={ROUTE_PATHS.travelDetails}
-          element={<TravelDetailsPage />}
-        />
-        <Route
-          path={ROUTE_PATHS.itineraryList}
-          element={isLogin ? <ItineraryListPage /> : <SignInPage />}
-        />
-        <Route
-          path={ROUTE_PATHS.itineraryDetails}
-          element={<ItineraryDetailsPage />}
-        />
-        <Route
-          path={ROUTE_PATHS.itineraryChat}
-          element={<ItineraryChatPage />}
-        />
-        <Route
-          path={ROUTE_PATHS.myPage}
-          element={isLogin ? <MyPage /> : <SignInPage />}
-        />
-        <Route
-          path={ROUTE_PATHS.modifyUserInfo}
-          element={isLogin ? <ModifyUserInfoPage /> : <SignInPage />}
-        />
-        <Route path={ROUTE_PATHS.error} element={<ErrorPage />} />
-      </Routes>
-    </Suspense>
+    <>
+      <Header />
+      <Suspense fallback={<Loading />}>
+        <Routes>
+          <Route
+            path={ROUTE_PATHS.home}
+            element={<MainChatPage home={true} />}
+          />
+          <Route
+            path={ROUTE_PATHS.signIn}
+            element={isLogin ? <MainChatPage home={true} /> : <SignInPage />}
+          />
+          <Route
+            path={ROUTE_PATHS.auth}
+            element={isLogin ? <MainChatPage home={true} /> : <AuthPage />}
+          />
+          <Route
+            path={ROUTE_PATHS.signUp}
+            element={isLogin ? <MainChatPage home={true} /> : <SignUpPage />}
+          />
+          <Route path={ROUTE_PATHS.mainChat} element={<MainChatPage />} />
+          <Route
+            path={ROUTE_PATHS.travelDetails}
+            element={<TravelDetailsPage />}
+          />
+          <Route
+            path={ROUTE_PATHS.itineraryList}
+            element={isLogin ? <ItineraryListPage /> : <SignInPage />}
+          />
+          <Route
+            path={ROUTE_PATHS.itineraryDetails}
+            element={<ItineraryDetailsPage />}
+          />
+          <Route
+            path={ROUTE_PATHS.itineraryChat}
+            element={<ItineraryChatPage />}
+          />
+          <Route
+            path={ROUTE_PATHS.myPage}
+            element={isLogin ? <MyPage /> : <SignInPage />}
+          />
+          <Route
+            path={ROUTE_PATHS.modifyUserInfo}
+            element={isLogin ? <ModifyUserInfoPage /> : <SignInPage />}
+          />
+          <Route path={ROUTE_PATHS.error} element={<ErrorPage />} />
+        </Routes>
+      </Suspense>
+    </>
   );
 }

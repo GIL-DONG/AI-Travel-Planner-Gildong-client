@@ -7,7 +7,6 @@ import Button from '@/components/common/Button';
 import ChatLoading from '@/components/chat/ChatLoading';
 import MarkDown from '@/components/chat/MarkDown';
 import { API_URLS, BASE_URL } from '@/constants/config';
-import Header from '@/components/common/Header';
 import ImageUploadButton from '@/components/chat/ImageUploadButton';
 import { imageState, theTopState } from '@/store/atom/travelAtom';
 import Destinations from '@/components/travel/Destinations';
@@ -22,6 +21,7 @@ import LoadingSpinner from '@/components/common/LoadingSpinner';
 import remove from '@/assets/remove.png';
 import voiceLoading from '@/assets/loading_voice.gif';
 import useRecording from '@/hooks/useRecording';
+import useStatus from '@/hooks/useStatus';
 import styles from './styles.module.scss';
 
 export default function ItineraryChat() {
@@ -48,6 +48,7 @@ export default function ItineraryChat() {
     startRecording,
     stopRecording,
   } = useRecording(setValue);
+  useStatus('itineraryChat', theTop.title);
 
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
@@ -203,9 +204,6 @@ export default function ItineraryChat() {
 
   return (
     <>
-      <Header back={true} page="itineraryChat">
-        {theTop.title}
-      </Header>
       <div className={styles.destination}>
         <Destinations destinations={theTop.destinations} />
       </div>

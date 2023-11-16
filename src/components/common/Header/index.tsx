@@ -1,5 +1,5 @@
 import { AiOutlineMenu } from 'react-icons/ai';
-import { ReactNode, useState } from 'react';
+import { useState } from 'react';
 import { AiOutlineHome } from 'react-icons/ai';
 import { PiWechatLogo } from 'react-icons/pi';
 import { LiaCalendarCheckSolid } from 'react-icons/lia';
@@ -17,16 +17,11 @@ import {
   pageState,
   sessionIdState,
 } from '@/store/atom/chatAtom';
+import { headerStatusState } from '@/store/atom/globalAtom';
 import Button from '../Button';
 import styles from './styles.module.scss';
 
-interface HeaderProps {
-  back?: boolean;
-  page?: string;
-  children?: ReactNode;
-}
-
-export default function Header({ back, page, children }: HeaderProps) {
+export default function Header() {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const name = useRecoilValue(nameState);
@@ -36,20 +31,28 @@ export default function Header({ back, page, children }: HeaderProps) {
   const setSessionId = useSetRecoilState(sessionIdState);
   const setMainChatList = useSetRecoilState(mainChatListState);
   const setPage = useSetRecoilState(pageState);
+  const headerStatus = useRecoilValue(headerStatusState);
+
+  if (headerStatus.pageName === '' && headerStatus.title === '') {
+    return;
+  }
 
   return (
     <>
-      <div className={styles.container}>
-        <div className={styles.menuWrapper}>
-          {back ? (
+      <header className={styles.container}>
+        <section className={styles.menuWrapper}>
+          {headerStatus?.pageName === 'signUp' ||
+          headerStatus?.pageName === 'itineraryChat' ||
+          headerStatus.pageName === 'travelDetails' ||
+          headerStatus?.pageName === 'itineraryDetails' ? (
             <Button
               size="md"
               icon={<AiOutlineLeft />}
               iconBtn={true}
               onClick={() => {
-                if (page === 'signUp') {
+                if (headerStatus?.pageName === 'signUp') {
                   navigate(ROUTE_PATHS.signIn);
-                } else if (page === 'itineraryChat') {
+                } else if (headerStatus?.pageName === 'itineraryChat') {
                   navigate(ROUTE_PATHS.itineraryList);
                 } else {
                   navigate(-1);
@@ -64,12 +67,15 @@ export default function Header({ back, page, children }: HeaderProps) {
               onClick={() => setIsOpen(true)}
             />
           )}
-          <div className={styles.menu}>{children}</div>
-        </div>
-      </div>
+          <div className={styles.menu}>{headerStatus?.title}</div>
+        </section>
+      </header>
       {isOpen ? (
-        <div className={styles.navbarWrapper} onClick={() => setIsOpen(false)}>
-          <div
+        <section
+          className={styles.navbarWrapper}
+          onClick={() => setIsOpen(false)}
+        >
+          <nav
             className={styles.navbar}
             onClick={(event) => event.stopPropagation()}
           >
@@ -164,8 +170,8 @@ export default function Header({ back, page, children }: HeaderProps) {
                 </Button>
               </div>
             ) : null}
-          </div>
-        </div>
+          </nav>
+        </section>
       ) : null}
     </>
   );

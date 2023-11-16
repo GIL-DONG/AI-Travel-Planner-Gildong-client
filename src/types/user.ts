@@ -1,4 +1,4 @@
-export interface updateUserInfoType {
+export interface modifyUserInfoTypes {
   user_name?: string;
   user_photo?: string;
 }

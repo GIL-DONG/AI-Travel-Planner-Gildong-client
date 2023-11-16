@@ -11,12 +11,12 @@ interface ModalProps {
   children: ReactNode;
 }
 
-interface VariantType {
+interface VariantTypes {
   default: string;
   primary: string;
 }
 
-const VARIANTS: VariantType = {
+const VARIANTS: VariantTypes = {
   default: styles.modal_section__default,
   primary: styles.modal_section__primary,
 };
@@ -60,7 +60,7 @@ export default function ModalBottom({
       <div className={styles.modal_container}>
         <section
           className={classNames(
-            VARIANTS[variant as keyof VariantType],
+            VARIANTS[variant as keyof VariantTypes],
             isModalOpen
               ? `${styles.modal_section} ${styles.modal_section__opened}`
               : `${styles.modal_section} ${styles.modal_section__closed}`,

@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import Header from '@/components/common/Header';
+import useStatus from '@/hooks/useStatus';
 import ProgressBar from '../ProgressBar';
 import styles from './styles.module.scss';
 
@@ -16,23 +16,25 @@ export default function FormTemplate({
   text,
   children,
 }: FormTemplateProps) {
+  const { setHeaderStatus } = useStatus('signUp', '');
+
+  if (page !== 'first') {
+    setHeaderStatus({ pageName: '', title: '' });
+  }
   return (
-    <>
-      {page === 'first' ? <Header back={true} page="signUp" /> : null}
-      <div className={styles.container}>
-        <div className={styles.formWrapper}>
-          <div className={styles.form}>
-            <div className={styles.progressBar}>
-              {page === 'first' ? null : <ProgressBar page={page} />}
-            </div>
-            <div>
-              <div className={styles.title}>{title}</div>
-              {text ? <div className={styles.text}>{text}</div> : null}
-            </div>
-            <div className={text ? `${styles.content}` : ''}>{children}</div>
+    <div className={styles.container}>
+      <div className={styles.formWrapper}>
+        <div className={styles.form}>
+          <div className={styles.progressBar}>
+            {page === 'first' ? null : <ProgressBar page={page} />}
           </div>
+          <div>
+            <div className={styles.title}>{title}</div>
+            {text ? <div className={styles.text}>{text}</div> : null}
+          </div>
+          <div className={text ? `${styles.content}` : ''}>{children}</div>
         </div>
       </div>
-    </>
+    </div>
   );
 }

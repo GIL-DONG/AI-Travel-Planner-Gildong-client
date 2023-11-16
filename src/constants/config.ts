@@ -18,7 +18,7 @@ export const API_URLS = {
   itineraryDetails: '/itinerary/detail',
   deleteItinerary: '/itinerary/deletion',
   deleteUser: '/users/delete-userinfo',
-  updateUserInfo: `/users/update-userinfo`,
+  modifyUserInfo: `/users/update-userinfo`,
   renewAccessToken: '/refresh-access-token',
 };
 

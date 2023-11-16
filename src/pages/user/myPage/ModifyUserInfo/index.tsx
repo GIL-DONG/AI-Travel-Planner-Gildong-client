@@ -3,15 +3,15 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { userProfileImageState } from '@/store/atom/userAtom';
 import gildong from '@/assets/gildong_icon.png';
-import Header from '@/components/common/Header';
 import useDebounce from '@/hooks/useDebounce';
 import { postCheckNickNameAPI } from '@/services/signUp';
 import NickName from '@/components/signUp/NickName';
 import Button from '@/components/common/Button';
 import { patchUserAPI } from '@/services/user';
-import { updateUserInfoType } from '@/types/user';
+import { modifyUserInfoTypes } from '@/types/user';
 import { ROUTE_PATHS } from '@/constants/config';
 import { nameState } from '@/store/atom/signUpAtom';
+import useStatus from '@/hooks/useStatus';
 import styles from './styles.module.scss';
 
 export default function ModifyUserInfo() {
@@ -23,6 +23,7 @@ export default function ModifyUserInfo() {
   const [nickNameValidation, setNickNameValidation] = useState(false);
   const [deleteImage, setDeleteImage] = useState(false);
   const debouncedInputText = useDebounce(name);
+  useStatus('modifyUserInfo', '회원정보 수정');
 
   const checkNickName = async (value: string) => {
     const data = await postCheckNickNameAPI(value);
@@ -40,7 +41,7 @@ export default function ModifyUserInfo() {
   };
 
   const submitHandler = async () => {
-    const obj: updateUserInfoType = {};
+    const obj: modifyUserInfoTypes = {};
     if (name && nickNameValidation) {
       obj.user_name = name;
     }
@@ -65,64 +66,61 @@ export default function ModifyUserInfo() {
   }, [debouncedInputText]);
 
   return (
-    <>
-      <Header back={true}>회원 수정</Header>
-      <div className={styles.pageWrapper}>
-        <div className={styles.content}>
-          <div className={styles.profileWrapper}>
-            {profileImage !== 'default' && deleteImage === false ? (
-              <img src={profileImage} />
-            ) : (
-              <img src={gildong} />
-            )}
-            {profileImage === 'default' ? null : (
-              <span
-                className={styles.delete}
-                onClick={() => setDeleteImage(!deleteImage)}
-              >
-                프로필 사진 삭제
-              </span>
-            )}
-          </div>
-          <div>
-            <span>닉네임</span>
-            <NickName
-              value={name}
-              onChange={nickNameHandler}
-              validation={nickNameValidation}
-            />
-          </div>
-        </div>
-        <div className={styles.buttonWrapper}>
-          <div className={styles.button}>
-            <Button
-              variant="lined"
-              color="secondary"
-              full={true}
-              size="lg"
-              onClick={() => navigate(ROUTE_PATHS.myPage)}
+    <div className={styles.pageWrapper}>
+      <div className={styles.content}>
+        <div className={styles.profileWrapper}>
+          {profileImage !== 'default' && deleteImage === false ? (
+            <img src={profileImage} />
+          ) : (
+            <img src={gildong} />
+          )}
+          {profileImage === 'default' ? null : (
+            <span
+              className={styles.delete}
+              onClick={() => setDeleteImage(!deleteImage)}
             >
-              취소
-            </Button>
-            {(name && nickNameValidation) ||
-            (deleteImage && profileImage !== 'default') ? (
-              <Button
-                type="submit"
-                variant="primary"
-                full={true}
-                size="lg"
-                onClick={submitHandler}
-              >
-                완료
-              </Button>
-            ) : (
-              <Button variant="disabled" full={true} size="lg">
-                완료
-              </Button>
-            )}
-          </div>
+              프로필 사진 삭제
+            </span>
+          )}
+        </div>
+        <div>
+          <span>닉네임</span>
+          <NickName
+            value={name}
+            onChange={nickNameHandler}
+            validation={nickNameValidation}
+          />
         </div>
       </div>
-    </>
+      <div className={styles.buttonWrapper}>
+        <div className={styles.button}>
+          <Button
+            variant="lined"
+            color="secondary"
+            full={true}
+            size="lg"
+            onClick={() => navigate(ROUTE_PATHS.myPage)}
+          >
+            취소
+          </Button>
+          {(name && nickNameValidation) ||
+          (deleteImage && profileImage !== 'default') ? (
+            <Button
+              type="submit"
+              variant="primary"
+              full={true}
+              size="lg"
+              onClick={submitHandler}
+            >
+              완료
+            </Button>
+          ) : (
+            <Button variant="disabled" full={true} size="lg">
+              완료
+            </Button>
+          )}
+        </div>
+      </div>
+    </div>
   );
 }

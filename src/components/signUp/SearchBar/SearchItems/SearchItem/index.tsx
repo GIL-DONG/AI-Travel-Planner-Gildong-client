@@ -2,12 +2,12 @@ import { BiSearch } from 'react-icons/bi';
 import { SetStateAction } from 'react';
 import { useSetRecoilState } from 'recoil';
 import { residenceState } from '@/store/atom/signUpAtom';
-import { residenceType } from '@/types/signUp';
+import { residenceTypes } from '@/types/signUp';
 import splitTextWithKeyword from '@/utils/splitTextWithKeyword';
 import styles from './styles.module.scss';
 
 interface SearchItemProps {
-  residence: residenceType;
+  residence: residenceTypes;
   keyword: string;
   setInputText: React.Dispatch<SetStateAction<string>>;
 }
