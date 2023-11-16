@@ -3,7 +3,11 @@ import { DEFAULT_NEXT_PAGE, DEFAULT_PAGE, LIMIT } from '@/constants/signUp';
 import { getSearchResidenceAPI } from '@/services/signUp';
 import { residenceType } from '@/types/signUp';
 
-const useSearch = (inputText: string) => {
+interface inputTextProps {
+  inputText: string;
+}
+
+export default function useSearch({ inputText }: inputTextProps) {
   const [isSearching, setIsSearching] = useState(false);
   const [hasNextPage, setHasNextPage] = useState(false);
   const [nextPage, setNextPage] = useState(DEFAULT_NEXT_PAGE);
@@ -68,6 +72,4 @@ const useSearch = (inputText: string) => {
     hasNextPage,
     getMoreItem,
   };
-};
-
-export default useSearch;
+}

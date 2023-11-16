@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react';
 
-type ReturnType = {
+interface ReturnTypes {
   isModalOpen: boolean;
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setTarget: React.Dispatch<
     React.SetStateAction<HTMLElement | null | undefined>
   >;
-};
+}
 
-const useToggleModal = (): ReturnType => {
+export default function useToggleModal(): ReturnTypes {
   const [target, setTarget] = useState<HTMLElement | null | undefined>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -26,6 +26,4 @@ const useToggleModal = (): ReturnType => {
   }, [target, isModalOpen]);
 
   return { isModalOpen, setIsModalOpen, setTarget };
-};
-
-export default useToggleModal;
+}
