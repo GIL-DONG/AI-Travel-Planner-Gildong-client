@@ -8,40 +8,50 @@ import { ROUTE_PATHS } from '@/constants/config';
 export default function AppRouter() {
   const isLogin = useRecoilValue(isLoginState);
 
-  const ChatPage = lazy(() => import('@/pages/Chat'));
-  const SignInPage = lazy(() => import('@/pages/SignIn'));
-  const AuthPage = lazy(() => import('@/pages/Auth'));
-  const SignUpPage = lazy(() => import('@/pages/SignUp'));
-  const DetailPage = lazy(() => import('@/pages/Detail'));
-  const ItinerariesPage = lazy(() => import('@/pages/Itineraries'));
-  const ItineraryPage = lazy(() => import('@/pages/Itineraries/Itinerary'));
+  const MainChatPage = lazy(() => import('@/pages/Chat/MainChat'));
   const ItineraryChatPage = lazy(() => import('@/pages/Chat/ItineraryChat'));
-  const MyPage = lazy(() => import('@/pages/MyPage'));
-  const ModifyPage = lazy(() => import('@/pages/MyPage/Modify'));
+  const SignInPage = lazy(() => import('@/pages/User/SignIn'));
+  const AuthPage = lazy(() => import('@/pages/User/Auth'));
+  const SignUpPage = lazy(() => import('@/pages/User/SignUp'));
+  const TravelDetailsPage = lazy(() => import('@/pages/Travel/TravelDetails'));
+  const ItineraryListPage = lazy(
+    () => import('@/pages/Travel/Itinerary/ItineraryList'),
+  );
+  const ItineraryDetailsPage = lazy(
+    () => import('@/pages/Travel/Itinerary/ItineraryDetails'),
+  );
+  const MyPage = lazy(() => import('@/pages/User/MyPage/Home'));
+  const ModifyUserInfoPage = lazy(
+    () => import('@/pages/User/MyPage/ModifyUserInfo'),
+  );
   const ErrorPage = lazy(() => import('@/pages/Error'));
+
   return (
     <Suspense fallback={<Loading />}>
       <Routes>
-        <Route path={ROUTE_PATHS.home} element={<ChatPage home={true} />} />
+        <Route path={ROUTE_PATHS.home} element={<MainChatPage home={true} />} />
         <Route
           path={ROUTE_PATHS.signIn}
-          element={isLogin ? <ChatPage home={true} /> : <SignInPage />}
+          element={isLogin ? <MainChatPage home={true} /> : <SignInPage />}
         />
         <Route
           path={ROUTE_PATHS.auth}
-          element={isLogin ? <ChatPage home={true} /> : <AuthPage />}
+          element={isLogin ? <MainChatPage home={true} /> : <AuthPage />}
         />
         <Route
           path={ROUTE_PATHS.signUp}
-          element={isLogin ? <ChatPage home={true} /> : <SignUpPage />}
+          element={isLogin ? <MainChatPage home={true} /> : <SignUpPage />}
         />
-        <Route path={ROUTE_PATHS.chat} element={<ChatPage />} />
-        <Route path={ROUTE_PATHS.detail} element={<DetailPage />} />
+        <Route path={ROUTE_PATHS.chat} element={<MainChatPage />} />
+        <Route path={ROUTE_PATHS.detail} element={<TravelDetailsPage />} />
         <Route
           path={ROUTE_PATHS.itinerary}
-          element={isLogin ? <ItinerariesPage /> : <SignInPage />}
+          element={isLogin ? <ItineraryListPage /> : <SignInPage />}
         />
-        <Route path={ROUTE_PATHS.itineraryDetail} element={<ItineraryPage />} />
+        <Route
+          path={ROUTE_PATHS.itineraryDetail}
+          element={<ItineraryDetailsPage />}
+        />
         <Route
           path={ROUTE_PATHS.itineraryChat}
           element={<ItineraryChatPage />}
@@ -52,7 +62,7 @@ export default function AppRouter() {
         />
         <Route
           path={ROUTE_PATHS.updateUserInfo}
-          element={isLogin ? <ModifyPage /> : <SignInPage />}
+          element={isLogin ? <ModifyUserInfoPage /> : <SignInPage />}
         />
         <Route path={ROUTE_PATHS.error} element={<ErrorPage />} />
       </Routes>

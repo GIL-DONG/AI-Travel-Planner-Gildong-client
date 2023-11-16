@@ -6,6 +6,7 @@ import styles from './styles.module.scss';
 
 export default function Error() {
   const navigate = useNavigate();
+
   return (
     <>
       <div className={styles.pageWrapper}>

@@ -3,7 +3,7 @@ import { SetStateAction } from 'react';
 import { useSetRecoilState } from 'recoil';
 import { residenceState } from '@/store/atom/signUpAtom';
 import { residenceType } from '@/types/signUp';
-import { splitTextWithKeyword } from '@/utils/splitTextWithKeyword';
+import splitTextWithKeyword from '@/utils/splitTextWithKeyword';
 import styles from './styles.module.scss';
 
 interface SearchItemProps {

@@ -1,4 +1,4 @@
-const parseToken = (token: string) => {
+export default function parseToken(token: string) {
   const base64Url = token.split('.')[1];
   const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
   const jsonPayload = decodeURIComponent(
@@ -11,6 +11,4 @@ const parseToken = (token: string) => {
   );
 
   return JSON.parse(jsonPayload);
-};
-
-export default parseToken;
+}

@@ -22,7 +22,7 @@ import ModalBottom from '@/components/Common/Modal/Bottom';
 import menu from '@/assets/menu.png';
 import styles from './styles.module.scss';
 
-export default function Itineraries() {
+export default function ItineraryList() {
   const navigate = useNavigate();
   const setTheTop = useSetRecoilState(theTopState);
   const [list, setList] = useState<itineraryTypes[]>([]);
@@ -63,6 +63,7 @@ export default function Itineraries() {
   useEffect(() => {
     getAllItinerary();
   }, []);
+
   return (
     <>
       <Header>여행 일정</Header>

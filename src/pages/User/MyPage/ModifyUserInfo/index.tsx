@@ -14,7 +14,7 @@ import { ROUTE_PATHS } from '@/constants/config';
 import { nameState } from '@/store/atom/signUpAtom';
 import styles from './styles.module.scss';
 
-export default function Modify() {
+export default function ModifyUserInfo() {
   const navigate = useNavigate();
   const name = useRecoilValue(nameState);
   const setName = useSetRecoilState(nameState);

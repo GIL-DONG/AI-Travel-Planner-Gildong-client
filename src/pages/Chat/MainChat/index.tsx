@@ -29,7 +29,7 @@ interface ChatProps {
   home?: boolean;
 }
 
-export default function Chat({ home }: ChatProps) {
+export default function MainChat({ home }: ChatProps) {
   const navigate = useNavigate();
   const image = useRecoilValue(imageState);
   const setImage = useSetRecoilState(imageState);

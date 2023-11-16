@@ -14,7 +14,8 @@ import { detailType } from '@/types/travel';
 import Header from '@/components/Common/Header';
 import LoadingSpinner from '@/components/Common/LoadingSpinner';
 import styles from './styles.module.scss';
-export default function Detail() {
+
+export default function TravelDetails() {
   const { id } = useParams();
   const [currentTab, setCurrentTab] = useState(0);
   const [detailData, setDetailData] = useState<detailType>({

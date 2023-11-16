@@ -15,7 +15,7 @@ interface itineraryDetailTypes {
   uuid: string;
 }
 
-export default function Itinerary() {
+export default function ItineraryDetails() {
   const { id } = useParams();
   const tab = useRecoilValue(tabState);
   const setTab = useSetRecoilState(tabState);

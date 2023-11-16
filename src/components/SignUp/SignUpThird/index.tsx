@@ -1,5 +1,5 @@
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import SearchBar from '@/components/Common/SearchBar';
+import SearchBar from '@/components/SignUp/SearchBar';
 import Button from '@/components/Common/Button';
 import { indexState, residenceState } from '@/store/atom/signUpAtom';
 import styles from './styles.module.scss';
