@@ -25,7 +25,9 @@ interface AddItineraryButtonProps {
   id: string;
 }
 
-export default function AddItineraryButton({ id }: AddItineraryButtonProps) {
+export default function RegisterItineraryButton({
+  id,
+}: AddItineraryButtonProps) {
   const navigate = useNavigate();
   const isLogin = useRecoilValue(isLoginState);
   const [isModalOpen, setIsModalOpen] = useState(false);
