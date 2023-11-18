@@ -1,9 +1,13 @@
 import { useRef, useEffect } from 'react';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useNavigate } from 'react-router-dom';
 import useStatus from '@/hooks/useStatus';
 import useFetchStreamData from '@/hooks/useFetchStreamData';
 import ExampleQuestionBox from '@/components/chat/ExampleQuestionBox';
 import ChatBar from '@/components/chat/ChatBar';
 import ChatRoomBox from '@/components/chat/ChatRoomBox';
+import { mainChatListState, pageState } from '@/store/atom/chatAtom';
+import { ROUTE_PATHS } from '@/constants/config';
 import styles from './styles.module.scss';
 
 interface MainChatProps {
@@ -11,7 +15,11 @@ interface MainChatProps {
 }
 
 export default function MainChat({ home }: MainChatProps) {
+  const navigate = useNavigate();
   const scrollRef = useRef<null[] | HTMLDivElement[]>([]);
+  const mainChatList = useRecoilValue(mainChatListState);
+  const setMainChatList = useSetRecoilState(mainChatListState);
+  const setPage = useSetRecoilState(pageState);
   useStatus('mainChat', 'AI Travel Planner 길동이');
   const {
     chatList,
@@ -22,7 +30,18 @@ export default function MainChat({ home }: MainChatProps) {
     isOpenImage,
     setIsOpenImage,
     fetchStreamData,
-  } = useFetchStreamData();
+  } = useFetchStreamData(mainChatList, setMainChatList);
+
+  const submitHandler = async () => {
+    setPage(ROUTE_PATHS.mainChat);
+    setIsOpenImage(false);
+    navigate(ROUTE_PATHS.mainChat);
+    await fetchStreamData();
+  };
+
+  const refHandler = (el: HTMLDivElement | null, number: number) => {
+    scrollRef.current[number] = el;
+  };
 
   const wheelHandler = () => {
     if (
@@ -34,17 +53,6 @@ export default function MainChat({ home }: MainChatProps) {
       setIsStopedScroll(true);
     }
   };
-
-  const refHandler = (el: HTMLDivElement | null, number: number) => {
-    scrollRef.current[number] = el;
-  };
-
-  useEffect(() => {
-    scrollRef.current[0]?.scrollIntoView({
-      behavior: 'smooth',
-      block: 'start',
-    });
-  }, [question]);
 
   useEffect(() => {
     if (
@@ -58,6 +66,10 @@ export default function MainChat({ home }: MainChatProps) {
         block: 'end',
       });
     }
+    scrollRef.current[0]?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+    });
   }, [chatList]);
 
   return (
@@ -82,7 +94,7 @@ export default function MainChat({ home }: MainChatProps) {
             setQuestion={setQuestion}
             isOpenImage={isOpenImage}
             setIsOpenImage={setIsOpenImage}
-            fetchStreamData={fetchStreamData}
+            submitHandler={submitHandler}
           />
         </div>
       </div>

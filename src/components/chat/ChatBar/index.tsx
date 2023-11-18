@@ -1,9 +1,5 @@
 import React, { SetStateAction } from 'react';
-import { useSetRecoilState } from 'recoil';
-import { useNavigate } from 'react-router-dom';
-import { ROUTE_PATHS } from '@/constants/config';
 import useRecording from '@/hooks/useRecording';
-import { pageState } from '@/store/atom/chatAtom';
 import ImageUploadButton from '../ImageUploadButton';
 import SpeechToTextBox from '../SpeechToTextBox';
 import ImagePreviewBox from '../ImagePreviewBox';
@@ -15,7 +11,7 @@ interface ChatBarProps {
   isOpenImage: boolean;
   setQuestion: React.Dispatch<SetStateAction<string>>;
   setIsOpenImage: React.Dispatch<SetStateAction<boolean>>;
-  fetchStreamData: (text?: string, imageUrl?: string) => void;
+  submitHandler: () => void;
 }
 
 export default function ChatBar({
@@ -23,10 +19,8 @@ export default function ChatBar({
   setQuestion,
   isOpenImage,
   setIsOpenImage,
-  fetchStreamData,
+  submitHandler,
 }: ChatBarProps) {
-  const navigate = useNavigate();
-  const setPage = useSetRecoilState(pageState);
   const {
     isRecording,
     isSTTLoading,
@@ -37,13 +31,6 @@ export default function ChatBar({
 
   const inputHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setQuestion(event.target.value);
-  };
-
-  const submitHandler = async () => {
-    setPage(ROUTE_PATHS.mainChat);
-    setIsOpenImage(false);
-    navigate(ROUTE_PATHS.mainChat);
-    await fetchStreamData();
   };
 
   const enterHandler = (event: React.KeyboardEvent<HTMLInputElement>) => {
