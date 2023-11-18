@@ -16,10 +16,10 @@ import Destinations from '@/components/travel/Destinations';
 import { itineraryState, theTopState } from '@/store/atom/travelAtom';
 import Modal from '@/components/common/Modal';
 import { kakaoTokenState } from '@/store/atom/userAtom';
-import LoadingSpinner from '@/components/common/LoadingSpinner';
 import ModalBottom from '@/components/common/Modal/Bottom';
 import menu from '@/assets/menu.png';
 import useStatus from '@/hooks/useStatus';
+import Loading from '@/components/common/Loading';
 import styles from './styles.module.scss';
 
 export default function ItineraryList() {
@@ -68,9 +68,7 @@ export default function ItineraryList() {
   return (
     <div className={styles.pageWrapper}>
       {isLoading ? (
-        <div className={styles.loading}>
-          <LoadingSpinner />
-        </div>
+        <Loading />
       ) : (
         <div className={styles.container}>
           {list.map((el, index) => (

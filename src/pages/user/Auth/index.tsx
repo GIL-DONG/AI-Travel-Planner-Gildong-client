@@ -13,9 +13,9 @@ import {
 } from '@/store/atom/userAtom';
 import parseToken from '@/utils/parseToken';
 import { ROUTE_PATHS } from '@/constants/config';
-import LoadingSpinner from '@/components/common/LoadingSpinner';
 import { pageState } from '@/store/atom/chatAtom';
 import { REDIRECT_URL, REST_API_KEY } from '@/constants/auth';
+import Loading from '@/components/common/Loading';
 import styles from './styles.module.scss';
 
 export default function Auth() {
@@ -90,9 +90,5 @@ export default function Auth() {
     getUserData();
   }, []);
 
-  return (
-    <div className={styles.pageWrapper}>
-      {isLoading ? <LoadingSpinner /> : <></>}
-    </div>
-  );
+  return <div className={styles.pageWrapper}>{isLoading && <Loading />}</div>;
 }

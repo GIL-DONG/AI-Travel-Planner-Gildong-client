@@ -5,8 +5,8 @@ import { getItineraryDetailsAPI } from '@/services/travel';
 import { ItineraryScheduleTypes } from '@/types/travel';
 import groupObjectsByField from '@/utils/groupObjectsByField';
 import { tabState, theTopState } from '@/store/atom/travelAtom';
-import LoadingSpinner from '@/components/common/LoadingSpinner';
 import useStatus from '@/hooks/useStatus';
+import Loading from '@/components/common/Loading';
 import styles from './styles.module.scss';
 
 export default function ItineraryDetails() {
@@ -48,9 +48,7 @@ export default function ItineraryDetails() {
   return (
     <div className={styles.pageWrapper}>
       {isLoading ? (
-        <div className={styles.loading}>
-          <LoadingSpinner />
-        </div>
+        <Loading />
       ) : (
         <div className={styles.container}>
           <div className={styles.tabWrapper}>

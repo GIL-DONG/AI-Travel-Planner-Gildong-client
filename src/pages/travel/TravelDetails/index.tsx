@@ -11,8 +11,8 @@ import { MdOutlineOndemandVideo } from 'react-icons/md';
 import { BsFillSignpostSplitFill } from 'react-icons/bs';
 import { getTravelDetailAPI } from '@/services/travel';
 import { TravelDetailsTypes } from '@/types/travel';
-import LoadingSpinner from '@/components/common/LoadingSpinner';
 import useStatus from '@/hooks/useStatus';
+import Loading from '@/components/common/Loading';
 import styles from './styles.module.scss';
 
 export default function TravelDetails() {
@@ -56,9 +56,7 @@ export default function TravelDetails() {
   return (
     <div className={styles.pageWrapper}>
       {isLoading ? (
-        <div className={styles.loading}>
-          <LoadingSpinner />
-        </div>
+        <Loading />
       ) : (
         <>
           <div className={styles.title}>{detailData.title}</div>
