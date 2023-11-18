@@ -74,11 +74,11 @@ export default function ItineraryDetails() {
                 key={index}
               >
                 <div className={styles.description}>
-                  {el?.image_url ? (
+                  {el?.image_url && (
                     <div className={styles.img}>
                       <img src={el.image_url} />
                     </div>
-                  ) : null}
+                  )}
                   <div className={styles.right}>
                     <div className={styles.title}>{el.title}</div>
                     <div className={styles.time}>

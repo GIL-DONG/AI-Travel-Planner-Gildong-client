@@ -34,7 +34,7 @@ export default function SignUpSecond() {
             radioButtonlist={DISABILITY_STATUS_LIST}
           />
         </InputTemplate>
-        {disabilityStatus === '예' ? (
+        {disabilityStatus === '예' && (
           <InputTemplate id="barrierType" name="장애종류">
             <Select
               label="name"
@@ -43,7 +43,7 @@ export default function SignUpSecond() {
               setSelectedItem={setDisabilityType}
             />
           </InputTemplate>
-        ) : null}
+        )}
       </div>
       <div className={styles.buttonWrapper}>
         <div className={styles.button}>

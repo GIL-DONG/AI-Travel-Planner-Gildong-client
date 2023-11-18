@@ -154,7 +154,7 @@ export default function Header() {
                 <div className={styles.title}>마이페이지</div>
               </li>
             </ul>
-            {isLogin ? (
+            {isLogin && (
               <div className={styles.signout}>
                 <Button
                   icon={<FiLogOut />}
@@ -169,7 +169,7 @@ export default function Header() {
                   로그아웃
                 </Button>
               </div>
-            ) : null}
+            )}
           </nav>
         </section>
       ) : null}

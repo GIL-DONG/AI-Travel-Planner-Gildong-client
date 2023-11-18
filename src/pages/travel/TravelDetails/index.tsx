@@ -62,134 +62,134 @@ export default function TravelDetails() {
       ) : (
         <>
           <div className={styles.title}>{detailData.title}</div>
-          {detailData?.url ? (
+          {detailData?.url && (
             <img src={detailData.url} className={styles.img} />
-          ) : null}
+          )}
           <div className={styles.contentWrapper}>
-            {detailData?.addr ? (
+            {detailData?.addr && (
               <div className={styles.content}>
                 <FaMapMarkerAlt /> {detailData.addr}
               </div>
-            ) : null}
-            {detailData?.tel ? (
+            )}
+            {detailData?.tel && (
               <div className={styles.content}>
                 <BsFillTelephoneFill /> {detailData.tel}
               </div>
-            ) : null}
-            {detailData?.overview ? (
+            )}
+            {detailData?.overview && (
               <p className={styles.info}>
                 {detailData.overview.replaceAll('<br>', '')}
               </p>
-            ) : null}
+            )}
             {detailData?.visual &&
-            detailData?.physical &&
-            detailData?.hearing ? (
-              <>
-                <ul className={styles.tabWrapper}>
-                  {tabArr.map((el, index) => (
-                    <li
-                      key={index}
-                      className={
-                        index === currentTab
-                          ? `${styles.tab} ${styles.focused}`
-                          : styles.tab
+              detailData?.physical &&
+              detailData?.hearing && (
+                <>
+                  <ul className={styles.tabWrapper}>
+                    {tabArr.map((el, index) => (
+                      <li
+                        key={index}
+                        className={
+                          index === currentTab
+                            ? `${styles.tab} ${styles.focused}`
+                            : styles.tab
+                        }
+                        onClick={() => setCurrentTab(index)}
+                      >
+                        {el.name}
+                      </li>
+                    ))}
+                  </ul>
+                  <div className={styles.tabContent}>
+                    {tabArr[currentTab].content?.split('#').map((el, index) => {
+                      if (el.includes('주차')) {
+                        return (
+                          <div className={styles.iconWrapper} key={index}>
+                            <AiFillCar />
+                            {el}
+                          </div>
+                        );
+                      } else if (el.includes('점자')) {
+                        return (
+                          <div className={styles.iconWrapper} key={index}>
+                            <GrBraille />
+                            {el}
+                          </div>
+                        );
+                      } else if (el.includes('휠체어')) {
+                        return (
+                          <div className={styles.iconWrapper} key={index}>
+                            <FaWheelchair />
+                            {el}
+                          </div>
+                        );
+                      } else if (el.includes('엘리베이터')) {
+                        return (
+                          <div className={styles.iconWrapper} key={index}>
+                            <MdElevator />
+                            {el}
+                          </div>
+                        );
+                      } else if (el.includes('화장실')) {
+                        return (
+                          <div className={styles.iconWrapper} key={index}>
+                            <FaRestroom />
+                            {el}
+                          </div>
+                        );
+                      } else if (el.includes('보조견')) {
+                        return (
+                          <div className={styles.iconWrapper} key={index}>
+                            <FaDog />
+                            {el}
+                          </div>
+                        );
+                      } else if (el.includes('음성')) {
+                        return (
+                          <div className={styles.iconWrapper} key={index}>
+                            <AiFillSound />
+                            {el}
+                          </div>
+                        );
+                      } else if (el.includes('안내요원')) {
+                        return (
+                          <div className={styles.iconWrapper} key={index}>
+                            <BsFillPersonFill />
+                            {el}
+                          </div>
+                        );
+                      } else if (el.includes('안내 시스템')) {
+                        return (
+                          <div className={styles.iconWrapper} key={index}>
+                            <RiGuideFill />
+                            {el}
+                          </div>
+                        );
+                      } else if (el.includes('표지')) {
+                        return (
+                          <div className={styles.iconWrapper} key={index}>
+                            <BsFillSignpostSplitFill />
+                            {el}
+                          </div>
+                        );
+                      } else if (el.includes('비디오')) {
+                        return (
+                          <div className={styles.iconWrapper} key={index}>
+                            <MdOutlineOndemandVideo />
+                            {el}
+                          </div>
+                        );
+                      } else {
+                        return (
+                          <div className={styles.iconWrapper} key={index}>
+                            <AiOutlineCheck /> {el}
+                          </div>
+                        );
                       }
-                      onClick={() => setCurrentTab(index)}
-                    >
-                      {el.name}
-                    </li>
-                  ))}
-                </ul>
-                <div className={styles.tabContent}>
-                  {tabArr[currentTab].content?.split('#').map((el, index) => {
-                    if (el.includes('주차')) {
-                      return (
-                        <div className={styles.iconWrapper} key={index}>
-                          <AiFillCar />
-                          {el}
-                        </div>
-                      );
-                    } else if (el.includes('점자')) {
-                      return (
-                        <div className={styles.iconWrapper} key={index}>
-                          <GrBraille />
-                          {el}
-                        </div>
-                      );
-                    } else if (el.includes('휠체어')) {
-                      return (
-                        <div className={styles.iconWrapper} key={index}>
-                          <FaWheelchair />
-                          {el}
-                        </div>
-                      );
-                    } else if (el.includes('엘리베이터')) {
-                      return (
-                        <div className={styles.iconWrapper} key={index}>
-                          <MdElevator />
-                          {el}
-                        </div>
-                      );
-                    } else if (el.includes('화장실')) {
-                      return (
-                        <div className={styles.iconWrapper} key={index}>
-                          <FaRestroom />
-                          {el}
-                        </div>
-                      );
-                    } else if (el.includes('보조견')) {
-                      return (
-                        <div className={styles.iconWrapper} key={index}>
-                          <FaDog />
-                          {el}
-                        </div>
-                      );
-                    } else if (el.includes('음성')) {
-                      return (
-                        <div className={styles.iconWrapper} key={index}>
-                          <AiFillSound />
-                          {el}
-                        </div>
-                      );
-                    } else if (el.includes('안내요원')) {
-                      return (
-                        <div className={styles.iconWrapper} key={index}>
-                          <BsFillPersonFill />
-                          {el}
-                        </div>
-                      );
-                    } else if (el.includes('안내 시스템')) {
-                      return (
-                        <div className={styles.iconWrapper} key={index}>
-                          <RiGuideFill />
-                          {el}
-                        </div>
-                      );
-                    } else if (el.includes('표지')) {
-                      return (
-                        <div className={styles.iconWrapper} key={index}>
-                          <BsFillSignpostSplitFill />
-                          {el}
-                        </div>
-                      );
-                    } else if (el.includes('비디오')) {
-                      return (
-                        <div className={styles.iconWrapper} key={index}>
-                          <MdOutlineOndemandVideo />
-                          {el}
-                        </div>
-                      );
-                    } else {
-                      return (
-                        <div className={styles.iconWrapper} key={index}>
-                          <AiOutlineCheck /> {el}
-                        </div>
-                      );
-                    }
-                  })}
-                </div>
-              </>
-            ) : null}
+                    })}
+                  </div>
+                </>
+              )}
           </div>
         </>
       )}

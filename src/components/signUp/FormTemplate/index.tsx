@@ -24,7 +24,7 @@ export default function FormTemplate({
           </div>
           <div>
             <div className={styles.title}>{title}</div>
-            {text ? <div className={styles.text}>{text}</div> : null}
+            {text && <div className={styles.text}>{text}</div>}
           </div>
           <div className={text ? `${styles.content}` : ''}>{children}</div>
         </div>

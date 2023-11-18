@@ -221,59 +221,60 @@ export default function ItineraryChat() {
                 <div ref={(el) => (scrollRef.current[2] = el)}>
                   {list?.map((el, index) => (
                     <div className={styles.question} key={index}>
-                      {el.image_name ? (
+                      {el.image_name && (
                         <div className={styles.uploadImage}>
                           <img
                             src={`${BASE_URL}${API_URLS.viewImage}${el.image_name}`}
                           />
                         </div>
-                      ) : null}
+                      )}
                       {el.question}
                       <div className={styles.answer}>
                         <MarkDown text={el.answer} />
                       </div>
                     </div>
                   ))}
-                  {question || (image && !isImageOpen) ? (
-                    <div
-                      className={styles.question}
-                      ref={(el) => {
-                        scrollRef.current[0] = el;
-                      }}
-                    >
-                      {image ? (
-                        <div className={styles.uploadImage}>
-                          <img
-                            src={`${BASE_URL}${API_URLS.viewImage}${image}`}
-                          />
-                        </div>
-                      ) : null}
-                      {question}
-                      <div className={styles.answer}>
-                        {isChatLoading ? (
-                          <ChatLoading />
-                        ) : (
-                          <MarkDown text={answer} />
+                  {question ||
+                    (image && !isImageOpen && (
+                      <div
+                        className={styles.question}
+                        ref={(el) => {
+                          scrollRef.current[0] = el;
+                        }}
+                      >
+                        {image && (
+                          <div className={styles.uploadImage}>
+                            <img
+                              src={`${BASE_URL}${API_URLS.viewImage}${image}`}
+                            />
+                          </div>
                         )}
+                        {question}
+                        <div className={styles.answer}>
+                          {isChatLoading ? (
+                            <ChatLoading />
+                          ) : (
+                            <MarkDown text={answer} />
+                          )}
+                        </div>
                       </div>
-                    </div>
-                  ) : null}
+                    ))}
                 </div>
                 {stop ? null : <div className={styles.margin}></div>}
               </div>
               <div className={styles.chatContainer}>
                 <div className={styles.chatWrapper}>
                   <div className={styles.chat}>
-                    {isImageOpen ? (
+                    {isImageOpen && (
                       <div className={styles.imageContainer}>
                         <div className={styles.uploadImage}>
-                          {image ? (
+                          {image && (
                             <div className={styles.uploadImage}>
                               <img
                                 src={`${BASE_URL}${API_URLS.viewImage}${image}`}
                               />
                             </div>
-                          ) : null}
+                          )}
                           <span className={styles.cancel}>
                             <img
                               src={remove}
@@ -285,7 +286,7 @@ export default function ItineraryChat() {
                           </span>
                         </div>
                       </div>
-                    ) : null}
+                    )}
                     {isRecording ? (
                       <div className={styles.voiceContainer}>
                         <div className={styles.voice}>
@@ -295,13 +296,15 @@ export default function ItineraryChat() {
                           </div>
                         </div>
                       </div>
-                    ) : isSTTLoading ? (
-                      <div className={styles.voiceContainer}>
-                        <div className={styles.voice}>
-                          <img src={voiceLoading} />
+                    ) : (
+                      isSTTLoading && (
+                        <div className={styles.voiceContainer}>
+                          <div className={styles.voice}>
+                            <img src={voiceLoading} />
+                          </div>
                         </div>
-                      </div>
-                    ) : null}
+                      )
+                    )}
                     <div className={styles.icon}>
                       <ImageUploadButton setIsImageOpen={setIsImageOpen} />
                     </div>
@@ -322,17 +325,19 @@ export default function ItineraryChat() {
                           variant="primary"
                           onClick={handleSubmit}
                         />
-                      ) : !isRecordingStarting ? (
-                        <Button
-                          icon={<BsFillMicFill />}
-                          size="sm"
-                          color="secondary"
-                          iconBtn={true}
-                          onClick={startRecording}
-                        >
-                          녹음 시작
-                        </Button>
-                      ) : null}
+                      ) : (
+                        !isRecordingStarting && (
+                          <Button
+                            icon={<BsFillMicFill />}
+                            size="sm"
+                            color="secondary"
+                            iconBtn={true}
+                            onClick={startRecording}
+                          >
+                            녹음 시작
+                          </Button>
+                        )
+                      )}
                     </div>
                   </div>
                 </div>
