@@ -21,16 +21,6 @@ const tabState = atom<string>({
   default: '',
 });
 
-const imageState = atom<string>({
-  key: 'image',
-  default: '',
-});
-
-const uploadImageState = atom<string>({
-  key: 'uploadImage',
-  default: '',
-});
-
 const itineraryState = atom<ItineraryTypes>({
   key: 'itinerary',
   default: {
@@ -44,4 +34,4 @@ const itineraryState = atom<ItineraryTypes>({
   effects_UNSTABLE: [persistAtom],
 });
 
-export { theTopState, tabState, imageState, uploadImageState, itineraryState };
+export { theTopState, tabState, itineraryState };

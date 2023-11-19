@@ -8,17 +8,17 @@ import styles from './styles.module.scss';
 
 interface ChatBarProps {
   question: string;
-  isOpenImage: boolean;
+  uploadImage: string;
   setQuestion: React.Dispatch<SetStateAction<string>>;
-  setIsOpenImage: React.Dispatch<SetStateAction<boolean>>;
+  setUploadImage: React.Dispatch<SetStateAction<string>>;
   submitHandler: () => void;
 }
 
 export default function ChatBar({
   question,
+  uploadImage,
+  setUploadImage,
   setQuestion,
-  isOpenImage,
-  setIsOpenImage,
   submitHandler,
 }: ChatBarProps) {
   const {
@@ -44,8 +44,8 @@ export default function ChatBar({
       <div className={styles.chatWrapper}>
         <div className={styles.chat}>
           <ImagePreviewBox
-            isOpenImage={isOpenImage}
-            setIsOpenImage={setIsOpenImage}
+            uploadImage={uploadImage}
+            setUploadImage={setUploadImage}
           />
           <SpeechToTextBox
             isRecording={isRecording}
@@ -53,7 +53,7 @@ export default function ChatBar({
             stopRecording={stopRecording}
           />
           <div className={styles.imageUploadButton}>
-            <ImageUploadButton setIsImageOpen={setIsOpenImage} />
+            <ImageUploadButton setUploadImage={setUploadImage} />
           </div>
           <input
             className={styles.input}
@@ -64,7 +64,7 @@ export default function ChatBar({
           />
           <SendQuestionButton
             question={question}
-            isOpenImage={isOpenImage}
+            uploadImage={uploadImage}
             isRecordingStarting={isRecordingStarting}
             startRecording={startRecording}
             submitHandler={submitHandler}

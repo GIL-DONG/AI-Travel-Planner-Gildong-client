@@ -22,15 +22,15 @@ export default function ItineraryChat() {
     chatList,
     question,
     setQuestion,
+    uploadImage,
+    setUploadImage,
     isStopedScroll,
     setIsStopedScroll,
-    isOpenImage,
-    setIsOpenImage,
     fetchStreamData,
   } = useFetchStreamData(itineraryChatList, setItineraryChatList);
 
   const submitHandler = async () => {
-    setIsOpenImage(false);
+    setUploadImage('');
     await fetchStreamData('', '', id);
   };
 
@@ -50,7 +50,12 @@ export default function ItineraryChat() {
   };
 
   useEffect(() => {
-    if (
+    if (scrollRef.current[0]) {
+      scrollRef.current[0]?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      });
+    } else if (
       scrollRef.current[1] &&
       scrollRef.current[2] &&
       scrollRef.current[1]?.scrollTop + scrollRef.current[1]?.clientHeight <
@@ -61,11 +66,7 @@ export default function ItineraryChat() {
         block: 'end',
       });
     }
-    scrollRef.current[0]?.scrollIntoView({
-      behavior: 'smooth',
-      block: 'start',
-    });
-  }, [itineraryChatList]);
+  }, [chatList]);
 
   return (
     <main>
@@ -89,9 +90,9 @@ export default function ItineraryChat() {
               />
               <ChatBar
                 question={question}
+                uploadImage={uploadImage}
                 setQuestion={setQuestion}
-                isOpenImage={isOpenImage}
-                setIsOpenImage={setIsOpenImage}
+                setUploadImage={setUploadImage}
                 submitHandler={submitHandler}
               />
             </div>

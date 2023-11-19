@@ -5,7 +5,7 @@ import styles from './styles.module.scss';
 
 interface SendQuestionButtonProps {
   question: string;
-  isOpenImage: boolean;
+  uploadImage: string;
   isRecordingStarting: boolean;
   startRecording: () => void;
   submitHandler: () => void;
@@ -13,14 +13,14 @@ interface SendQuestionButtonProps {
 
 export default function SendQuestionButton({
   question,
-  isOpenImage,
+  uploadImage,
   isRecordingStarting,
   startRecording,
   submitHandler,
 }: SendQuestionButtonProps) {
   return (
     <div className={styles.submitWrapper}>
-      {question || isOpenImage ? (
+      {question || uploadImage ? (
         <Button
           size="sm"
           color="white"

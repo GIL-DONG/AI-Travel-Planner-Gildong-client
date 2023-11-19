@@ -27,9 +27,10 @@ export default function ChatRoomBox({
             }}
           >
             {el.image_name && (
-              <div className={styles.uploadImage}>
-                <img src={`${BASE_URL}${API_URLS.viewImage}${el.image_name}`} />
-              </div>
+              <img
+                src={`${BASE_URL}${API_URLS.viewImage}${el.image_name}`}
+                className={styles.uploadImage}
+              />
             )}
             {el.question}
             <div className={styles.answer}>

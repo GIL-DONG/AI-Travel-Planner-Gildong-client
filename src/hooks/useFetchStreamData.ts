@@ -1,6 +1,5 @@
 import React, { SetStateAction, useState } from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { imageState } from '@/store/atom/travelAtom';
 import { itineraryIdState, sessionIdState } from '@/store/atom/chatAtom';
 import { API_URLS, BASE_URL } from '@/constants/config';
 import { headerStatusState } from '@/store/atom/globalAtom';
@@ -9,16 +8,14 @@ export default function useFetchStreamData(
   chatList: ChatTypes[],
   setChatList: React.Dispatch<SetStateAction<ChatTypes[]>>,
 ) {
-  const image = useRecoilValue(imageState);
   const mainSessionId = useRecoilValue(sessionIdState);
   const status = useRecoilValue(headerStatusState);
   const itineraryId = useRecoilValue(itineraryIdState);
-  const setImage = useSetRecoilState(imageState);
   const setMainSessionId = useSetRecoilState(sessionIdState);
   const setItineraryId = useSetRecoilState(itineraryIdState);
   const [question, setQuestion] = useState('');
+  const [uploadImage, setUploadImage] = useState('');
   const [isStopedScroll, setIsStopedScroll] = useState(false);
-  const [isOpenImage, setIsOpenImage] = useState(false);
 
   const postQuestionAPI = async (
     inputText?: string,
@@ -41,7 +38,7 @@ export default function useFetchStreamData(
           session_id:
             status.pageName === 'mainChat' ? mainSessionId : sessionId,
           question: question || inputText || '',
-          image_name: imageUrl || image || '',
+          image_name: imageUrl || uploadImage || '',
         }),
       },
     );
@@ -54,14 +51,13 @@ export default function useFetchStreamData(
   ) => {
     try {
       setIsStopedScroll(false);
-      setIsOpenImage(false);
       setChatList([
         ...chatList,
         {
           question: question || inputText || '',
           answer: '',
           itinerary_id: '',
-          image_name: imageUrl || image || '',
+          image_name: imageUrl || uploadImage || '',
         },
       ]);
       setQuestion('');
@@ -104,7 +100,7 @@ export default function useFetchStreamData(
                       status.pageName === 'mainChat'
                         ? mainItineraryId
                         : itineraryId,
-                    image_name: imageUrl || image || '',
+                    image_name: imageUrl || uploadImage || '',
                   },
                 ]);
               }
@@ -112,7 +108,7 @@ export default function useFetchStreamData(
           }
         }
       }
-      setImage('');
+      setUploadImage('');
     } catch (error) {
       console.error(error);
     }
@@ -122,10 +118,10 @@ export default function useFetchStreamData(
     chatList,
     question,
     setQuestion,
+    uploadImage,
+    setUploadImage,
     isStopedScroll,
     setIsStopedScroll,
-    isOpenImage,
-    setIsOpenImage,
     fetchStreamData,
   };
 }

@@ -4,10 +4,6 @@
   flex-direction: column;
 }
 
-.margin {
-  height: 50rem;
-}
-
 .question {
   width: 100%;
   display: flex;
@@ -17,6 +13,15 @@
   background-color: var(--chat-background-color);
   border-radius: var(--border-radius-sm);
   font-weight: 600;
+}
+
+.uploadImage {
+  width: 6rem;
+  height: 6rem;
+  padding: 0.5rem;
+  border-radius: var(--border-radius-md);
+  border: 1px solid var(--light-gray-color);
+  margin: 0.5rem 0;
 }
 
 .answer {
@@ -32,4 +37,8 @@
   display: flex;
   justify-content: flex-end;
   margin-top: 1rem;
+}
+
+.margin {
+  height: 50rem;
 }

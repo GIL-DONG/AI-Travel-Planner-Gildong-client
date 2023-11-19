@@ -25,16 +25,16 @@ export default function MainChat({ home }: MainChatProps) {
     chatList,
     question,
     setQuestion,
+    uploadImage,
+    setUploadImage,
     isStopedScroll,
     setIsStopedScroll,
-    isOpenImage,
-    setIsOpenImage,
     fetchStreamData,
   } = useFetchStreamData(mainChatList, setMainChatList);
 
   const submitHandler = async () => {
     setPage(ROUTE_PATHS.mainChat);
-    setIsOpenImage(false);
+    setUploadImage('');
     navigate(ROUTE_PATHS.mainChat);
     await fetchStreamData();
   };
@@ -55,7 +55,12 @@ export default function MainChat({ home }: MainChatProps) {
   };
 
   useEffect(() => {
-    if (
+    if (scrollRef.current[0]) {
+      scrollRef.current[0]?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      });
+    } else if (
       scrollRef.current[1] &&
       scrollRef.current[2] &&
       scrollRef.current[1]?.scrollTop + scrollRef.current[1]?.clientHeight <
@@ -66,10 +71,6 @@ export default function MainChat({ home }: MainChatProps) {
         block: 'end',
       });
     }
-    scrollRef.current[0]?.scrollIntoView({
-      behavior: 'smooth',
-      block: 'start',
-    });
   }, [chatList]);
 
   return (
@@ -87,13 +88,16 @@ export default function MainChat({ home }: MainChatProps) {
               refHandler={refHandler}
             />
           ) : (
-            <ExampleQuestionBox fetchStreamData={fetchStreamData} />
+            <ExampleQuestionBox
+              setUploadImage={setUploadImage}
+              fetchStreamData={fetchStreamData}
+            />
           )}
           <ChatBar
             question={question}
+            uploadImage={uploadImage}
             setQuestion={setQuestion}
-            isOpenImage={isOpenImage}
-            setIsOpenImage={setIsOpenImage}
+            setUploadImage={setUploadImage}
             submitHandler={submitHandler}
           />
         </div>

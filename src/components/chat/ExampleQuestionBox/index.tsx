@@ -1,28 +1,28 @@
 import { useNavigate } from 'react-router-dom';
-import { useSetRecoilState } from 'recoil';
+import React, { SetStateAction } from 'react';
 import gildong from '@/assets/gildong_3d.png';
 import beach from '@/assets/beach.png';
 import blindPerson from '@/assets/blind_person.png';
 import mountain from '@/assets/mountain.png';
 import wheelchair from '@/assets/wheelchair.png';
-import { imageState } from '@/store/atom/travelAtom';
 import { ROUTE_PATHS } from '@/constants/config';
 import styles from './styles.module.scss';
 import ExampleQuestion from './ExampleQuesiton';
 
 interface ExampleQuestionBoxProps {
+  setUploadImage: React.Dispatch<SetStateAction<string>>;
   fetchStreamData: (text?: string, imageUrl?: string) => void;
 }
 
 export default function ExampleQuestionBox({
+  setUploadImage,
   fetchStreamData,
 }: ExampleQuestionBoxProps) {
   const navigate = useNavigate();
-  const setImage = useSetRecoilState(imageState);
 
   const clickHandler = (question: string, imageUrl?: string | undefined) => {
     if (imageUrl) {
-      setImage(imageUrl);
+      setUploadImage(imageUrl);
     }
     fetchStreamData(question, imageUrl);
     navigate(ROUTE_PATHS.mainChat);
