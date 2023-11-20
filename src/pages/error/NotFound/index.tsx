@@ -8,9 +8,9 @@ export default function NotFound() {
   const navigate = useNavigate();
 
   return (
-    <div className={styles.pageWrapper}>
+    <main className={styles.pageWrapper}>
       <div className={styles.container}>
-        <div className={styles.titleContainer}>
+        <div className={styles.titleWrapper}>
           <span className={styles.title}>4</span>
           <img src={gildong} className={styles.img} />
           <span className={styles.title}>4</span>
@@ -20,6 +20,6 @@ export default function NotFound() {
           홈으로 돌아가기
         </Button>
       </div>
-    </div>
+    </main>
   );
 }

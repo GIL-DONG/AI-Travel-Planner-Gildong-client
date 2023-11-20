@@ -22,7 +22,7 @@
   flex-direction: column;
 }
 
-.wrapper {
+.itinerary {
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -37,6 +37,20 @@
 
   &:hover {
     box-shadow: 0 0 0 2px var(--main-color) inset;
+  }
+}
+
+.topWrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+
+  > img {
+    width: 1.8rem;
+    height: 1.8rem;
+    padding: 0.2rem;
   }
 }
 
@@ -60,72 +74,4 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-
-.button {
-  width: 100%;
-  height: 10rem;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-}
-
-.btn {
-  width: 7rem;
-  height: 5rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  > button {
-    margin-left: 0.5rem;
-    > svg {
-      width: 2rem;
-      height: 2rem;
-      margin-bottom: 0.5rem;
-    }
-  }
-}
-
-.modalContainer {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  font-size: var(--font-size-lg);
-}
-
-.modalContent {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  font-size: var(--font-size-lg);
-}
-
-.modalButton {
-  display: flex;
-  justify-content: center;
-  margin-top: 1rem;
-}
-
-.top {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 0.5rem;
-
-  > img {
-    width: 1.8rem;
-    height: 1.8rem;
-    padding: 0.2rem;
-  }
-}
-
-.deleteButton {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1rem 0.4rem;
-  margin-top: 2rem;
 }

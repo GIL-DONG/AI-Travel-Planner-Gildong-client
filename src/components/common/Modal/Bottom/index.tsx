@@ -5,7 +5,6 @@ import styles from './styles.module.scss';
 
 interface ModalProps {
   variant?: 'default' | 'primary';
-  headerText?: string;
   isModalOpen: boolean;
   onClickCloseModal: () => void;
   children: ReactNode;
@@ -23,7 +22,6 @@ const VARIANTS: VariantTypes = {
 
 export default function ModalBottom({
   variant = 'default',
-  headerText,
   isModalOpen,
   onClickCloseModal,
   children,
@@ -56,8 +54,12 @@ export default function ModalBottom({
           ? `${styles.modal} ${styles.modal__opened}`
           : `${styles.modal} ${styles.closed}`
       }
+      onClick={onClickCloseModal}
     >
-      <div className={styles.modal_container}>
+      <div
+        className={styles.modal_container}
+        onClick={(event) => event.stopPropagation()}
+      >
         <section
           className={classNames(
             VARIANTS[variant as keyof VariantTypes],
@@ -66,15 +68,6 @@ export default function ModalBottom({
               : `${styles.modal_section} ${styles.modal_section__closed}`,
           )}
         >
-          <header className={styles.modal_header}>
-            {headerText}
-            <button
-              className={styles.modal_header__button}
-              onClick={onClickCloseModal}
-            >
-              &times;
-            </button>
-          </header>
           <main className={styles.modal_main}>{children}</main>
         </section>
       </div>

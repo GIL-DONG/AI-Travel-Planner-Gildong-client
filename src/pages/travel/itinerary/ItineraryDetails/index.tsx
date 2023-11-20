@@ -21,7 +21,7 @@ export default function ItineraryDetails() {
   const theTop = useRecoilValue(theTopState);
   useStatus('itineraryDetails', theTop?.title);
 
-  const getItinerary = async () => {
+  const getItineraryDetails = async () => {
     if (id) {
       setIsLoading(true);
       const data = await getItineraryDetailsAPI(id);
@@ -33,7 +33,7 @@ export default function ItineraryDetails() {
   };
 
   useEffect(() => {
-    getItinerary();
+    getItineraryDetails();
   }, []);
 
   useEffect(() => {
@@ -46,53 +46,49 @@ export default function ItineraryDetails() {
   }, [groupByDate]);
 
   return (
-    <div className={styles.pageWrapper}>
+    <>
       {isLoading ? (
         <Loading />
       ) : (
-        <div className={styles.container}>
-          <div className={styles.tabWrapper}>
-            {dateList.map((el, index) => (
-              <div
-                className={
-                  el === tab ? `${styles.tab} ${styles.focus}` : styles.tab
-                }
-                key={index}
-                onClick={() => setTab(el)}
-              >
-                {el}
-              </div>
-            ))}
-          </div>
-          <div className={styles.background}>
-            {groupByDate[tab]?.map((el, index) => (
-              <a
-                href={el.url}
-                className={styles.descriptionContainer}
-                key={index}
-              >
-                <div className={styles.description}>
-                  {el?.image_url && (
-                    <div className={styles.img}>
-                      <img src={el.image_url} />
-                    </div>
-                  )}
-                  <div className={styles.right}>
-                    <div className={styles.title}>{el.title}</div>
-                    <div className={styles.time}>
-                      {`${el.start_time?.slice(0, -3)} ~ ${el.end_time?.slice(
-                        0,
-                        -3,
-                      )}`}
-                    </div>
-                    <div>{el.description}</div>
-                  </div>
+        <main className={styles.pageWrapper}>
+          <div className={styles.container}>
+            <div className={styles.tabWrapper}>
+              {dateList.map((el, index) => (
+                <div
+                  className={
+                    el === tab ? `${styles.tab} ${styles.focus}` : styles.tab
+                  }
+                  key={index}
+                  onClick={() => setTab(el)}
+                >
+                  {el}
                 </div>
-              </a>
-            ))}
+              ))}
+            </div>
+            <div className={styles.descriptionWrapper}>
+              {groupByDate[tab]?.map((el, index) => (
+                <a href={el.url} className={styles.link} key={index}>
+                  <div className={styles.description}>
+                    {el?.image_url && (
+                      <img src={el.image_url} className={styles.image} />
+                    )}
+                    <div className={styles.content}>
+                      <span className={styles.title}>{el.title}</span>
+                      <span className={styles.time}>
+                        {`${el.start_time?.slice(0, -3)} ~ ${el.end_time?.slice(
+                          0,
+                          -3,
+                        )}`}
+                      </span>
+                      <span>{el.description}</span>
+                    </div>
+                  </div>
+                </a>
+              ))}
+            </div>
           </div>
-        </div>
+        </main>
       )}
-    </div>
+    </>
   );
 }
