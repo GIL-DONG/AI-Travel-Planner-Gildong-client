@@ -20,7 +20,7 @@ export default function FormTemplate({
       <div className={styles.formWrapper}>
         <div className={styles.form}>
           <div className={styles.progressBar}>
-            {page === 'first' ? null : <ProgressBar page={page} />}
+            {!(page === 'first') && <ProgressBar page={page} />}
           </div>
           <div>
             <div className={styles.title}>{title}</div>

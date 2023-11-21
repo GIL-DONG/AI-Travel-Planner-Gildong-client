@@ -1,8 +1,8 @@
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { IoPersonCircleSharp } from 'react-icons/io5';
 import { userProfileImageState } from '@/store/atom/userAtom';
-import gildong from '@/assets/gildong_icon.png';
 import useDebounce from '@/hooks/useDebounce';
 import { postCheckNickNameAPI } from '@/services/signUp';
 import NickName from '@/components/signUp/NickName';
@@ -23,7 +23,7 @@ export default function ModifyUserInfo() {
   const [nickNameValidation, setNickNameValidation] = useState(false);
   const [deleteImage, setDeleteImage] = useState(false);
   const debouncedInputText = useDebounce(name);
-  useStatus('modifyUserInfo', '회원정보 수정');
+  useStatus('modifyUserInfo', '회원정보수정');
 
   const checkNickName = async (value: string) => {
     const data = await postCheckNickNameAPI(value);
@@ -72,9 +72,9 @@ export default function ModifyUserInfo() {
           {profileImage !== 'default' && deleteImage === false ? (
             <img src={profileImage} />
           ) : (
-            <img src={gildong} />
+            <IoPersonCircleSharp />
           )}
-          {profileImage === 'default' ? null : (
+          {!(profileImage === 'default') && (
             <span
               className={styles.delete}
               onClick={() => setDeleteImage(!deleteImage)}
@@ -84,7 +84,7 @@ export default function ModifyUserInfo() {
           )}
         </div>
         <div>
-          <span>닉네임</span>
+          <strong>닉네임</strong>
           <NickName
             value={name}
             onChange={nickNameHandler}
@@ -95,8 +95,7 @@ export default function ModifyUserInfo() {
       <div className={styles.buttonWrapper}>
         <div className={styles.button}>
           <Button
-            variant="lined"
-            color="secondary"
+            variant="disabled"
             full={true}
             size="lg"
             onClick={() => navigate(ROUTE_PATHS.myPage)}
@@ -115,7 +114,7 @@ export default function ModifyUserInfo() {
               완료
             </Button>
           ) : (
-            <Button variant="disabled" full={true} size="lg">
+            <Button variant="disabled" full={true} size="lg" disabled={true}>
               완료
             </Button>
           )}

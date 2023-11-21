@@ -6,7 +6,7 @@ import useStatus from '@/hooks/useStatus';
 import styles from './styles.module.scss';
 
 export default function SignIn() {
-  useStatus('signIn', 'AI Travel Planner 길동이');
+  useStatus('signIn', '');
 
   useEffect(() => {
     const script = document.createElement('script');

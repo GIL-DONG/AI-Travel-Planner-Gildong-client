@@ -3,12 +3,18 @@ import { BsFillPencilFill } from 'react-icons/bs';
 import { FiLogOut } from 'react-icons/fi';
 import { AiOutlineRight } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
+import { IoPersonCircleSharp } from 'react-icons/io5';
+import { useState } from 'react';
+import { PiWarningCircleFill } from 'react-icons/pi';
 import { isLoginState, userProfileImageState } from '@/store/atom/userAtom';
-import gildong from '@/assets/gildong_icon.png';
 import { deleteUserAPI } from '@/services/user';
 import { ROUTE_PATHS } from '@/constants/config';
 import { nameState } from '@/store/atom/signUpAtom';
 import useStatus from '@/hooks/useStatus';
+import Modal from '@/components/common/Modal';
+import Button from '@/components/common/Button';
+import modify from '@/assets/modify.png';
+import logout from '@/assets/logout.png';
 import styles from './styles.module.scss';
 
 export default function MyPage() {
@@ -16,12 +22,10 @@ export default function MyPage() {
   const setIsLogin = useSetRecoilState(isLoginState);
   const name = useRecoilValue(nameState);
   const profileImage = useRecoilValue(userProfileImageState);
+  const [isOpenModal, setIsOpenModal] = useState(false);
   useStatus('myPage', '마이페이지');
 
   const DeleteUserHandler = async () => {
-    if (!confirm('정말 탈퇴하시겠습니까?')) {
-      return;
-    }
     const data = await deleteUserAPI();
     if (data.status === 204) {
       setIsLogin(false);
@@ -29,6 +33,7 @@ export default function MyPage() {
       sessionStorage.clear();
       navigate(ROUTE_PATHS.home);
     }
+    setIsOpenModal(false);
   };
 
   return (
@@ -37,10 +42,10 @@ export default function MyPage() {
         {profileImage !== 'default' ? (
           <img src={profileImage} />
         ) : (
-          <img src={gildong} />
+          <IoPersonCircleSharp />
         )}
         <div className={styles.name}>
-          <strong>{name}</strong> 님
+          <strong>{name}</strong>
         </div>
       </div>
       <div className={styles.container}>
@@ -49,8 +54,10 @@ export default function MyPage() {
             className={styles.content}
             onClick={() => navigate(ROUTE_PATHS.modifyUserInfo)}
           >
-            <BsFillPencilFill />
-            회원정보 수정
+            <span>
+              <img src={modify} />
+              <strong>회원정보수정</strong>
+            </span>
             <AiOutlineRight />
           </div>
           <div
@@ -61,14 +68,39 @@ export default function MyPage() {
               sessionStorage.clear();
             }}
           >
-            <FiLogOut />
-            로그아웃
+            <span>
+              <img src={logout} />
+              <strong>로그아웃</strong>
+            </span>
             <AiOutlineRight />
           </div>
         </div>
         <div className={styles.delete}>
-          <span onClick={DeleteUserHandler}>회원탈퇴</span>
+          <span onClick={() => setIsOpenModal(true)}>회원탈퇴</span>
         </div>
+        <Modal
+          isModalOpen={isOpenModal}
+          onClickCloseModal={() => setIsOpenModal(false)}
+        >
+          <div className={styles.modalContainer}>
+            <PiWarningCircleFill />
+            <span className={styles.text}>정말 탈퇴하시겠습니까?</span>
+            <div className={styles.confirmWrapper}>
+              <Button
+                variant="disabled"
+                size="lg"
+                onClick={() => {
+                  setIsOpenModal(false);
+                }}
+              >
+                취소
+              </Button>
+              <Button variant="primary" size="lg" onClick={DeleteUserHandler}>
+                확인
+              </Button>
+            </div>
+          </div>
+        </Modal>
       </div>
     </div>
   );

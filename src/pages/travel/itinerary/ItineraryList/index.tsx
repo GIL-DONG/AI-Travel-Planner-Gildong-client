@@ -19,7 +19,7 @@ export default function ItineraryList() {
   const [isLoading, setIsLoading] = useState(false);
   const [isMenuModalOpen, setIsMenuModalOpen] = useState(false);
   const setItinerary = useSetRecoilState(itineraryState);
-  useStatus('itineraryList', '여행 일정');
+  useStatus('itineraryList', '여행일정');
 
   const getItineraryList = async () => {
     setIsLoading(true);

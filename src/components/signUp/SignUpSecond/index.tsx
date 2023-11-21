@@ -48,8 +48,7 @@ export default function SignUpSecond() {
       <div className={styles.buttonWrapper}>
         <div className={styles.button}>
           <Button
-            variant="lined"
-            color="primary"
+            variant="disabled"
             full={true}
             size="lg"
             onClick={() => setIndex(1)}

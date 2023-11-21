@@ -8,9 +8,9 @@ import { GoPerson } from 'react-icons/go';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { AiOutlineArrowRight, AiOutlineLeft } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
+import { IoPersonCircleSharp } from 'react-icons/io5';
 import { nameState } from '@/store/atom/signUpAtom';
 import { isLoginState, userProfileImageState } from '@/store/atom/userAtom';
-import gildong from '@/assets/gildong_icon.png';
 import { ROUTE_PATHS } from '@/constants/config';
 import {
   mainChatListState,
@@ -70,7 +70,7 @@ export default function Header() {
           <div className={styles.menu}>{headerStatus?.title}</div>
         </section>
       </header>
-      {isOpen ? (
+      {isOpen && (
         <section
           className={styles.navbarWrapper}
           onClick={() => setIsOpen(false)}
@@ -86,11 +86,11 @@ export default function Header() {
                     {profileImage !== 'default' ? (
                       <img src={profileImage} />
                     ) : (
-                      <img src={gildong} />
+                      <IoPersonCircleSharp />
                     )}
                   </div>
                   <div className={styles.name}>
-                    <strong>{name}</strong> 님
+                    <div>{name}</div>
                   </div>
                 </li>
               ) : (
@@ -127,7 +127,7 @@ export default function Header() {
               >
                 <div className={styles.clicked} />
                 <PiWechatLogo />
-                <div className={styles.title}>AI 플래너</div>
+                <div className={styles.title}>AI플래너</div>
               </li>
               <li
                 className={styles.nav}
@@ -172,7 +172,7 @@ export default function Header() {
             )}
           </nav>
         </section>
-      ) : null}
+      )}
     </>
   );
 }

@@ -133,7 +133,7 @@ export default function ItineraryMenuBox({
               <div className={styles.text}>
                 <span>챗봇과의 대화를 통해</span>
                 <span>
-                  <strong>정확한 여행시작일</strong>을 정해주세요!
+                  정확한 <strong>여행시작일</strong>을 정해주세요!
                 </span>
               </div>
             </>
