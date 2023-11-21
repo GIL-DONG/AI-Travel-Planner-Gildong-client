@@ -32,6 +32,9 @@ export interface ItineraryScheduleTypes {
   title: string;
   url?: string;
   image_url?: string;
+  visual?: string;
+  hearing?: string;
+  physical?: string;
 }
 
 export interface DestinationsTypes {

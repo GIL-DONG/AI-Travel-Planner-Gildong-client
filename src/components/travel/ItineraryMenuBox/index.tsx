@@ -4,6 +4,8 @@ import { MdDeleteForever } from 'react-icons/md';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { LiaCalendarCheckSolid } from 'react-icons/lia';
 import { useNavigate } from 'react-router-dom';
+import { FaCheckCircle } from 'react-icons/fa';
+import { PiWarningCircleFill } from 'react-icons/pi';
 import ModalBottom from '@/components/common/Modal/Bottom';
 import Button from '@/components/common/Button';
 import Modal from '@/components/common/Modal';
@@ -114,27 +116,41 @@ export default function ItineraryMenuBox({
         </div>
       </ModalBottom>
       <Modal
-        headerText="AI Travel Planner 길동이"
         isModalOpen={isOpenKakaoCalendarModal}
         onClickCloseModal={() => setIsOpenKakaoCalendarModal(false)}
       >
         <div className={styles.modalContainer}>
           {!kakaoToken ? (
-            <span>
-              test용 ID로 로그인시 카카오 캘린더를 이용하실 수 없습니다.
-            </span>
+            <>
+              <PiWarningCircleFill />
+              <div className={styles.text}>
+                <span>카카오 캘린더를 이용하실 수 없습니다.</span>
+              </div>
+            </>
           ) : isFailedKakaoCalendar ? (
-            <div className={styles.modalContent}>
-              챗봇과의 대화를 통해 <br /> 정확한 여행시작일을 정해주세요!
-            </div>
+            <>
+              <PiWarningCircleFill />
+              <div className={styles.text}>
+                <span>챗봇과의 대화를 통해</span>
+                <span>
+                  <strong>정확한 여행시작일</strong>을 정해주세요!
+                </span>
+              </div>
+            </>
           ) : (
-            <span>
-              카카오 캘린더에서 저장된 일정을 <br /> 확인하실 수 있습니다.
-            </span>
+            <>
+              <FaCheckCircle />
+              <span className={styles.text}>
+                <span>
+                  <strong>카카오 캘린더</strong>에서 저장된 일정을
+                </span>
+                <span>확인하실 수 있습니다.</span>
+              </span>
+            </>
           )}
           <div className={styles.checkWrapper}>
             <Button
-              variant="secondary"
+              variant="primary"
               size="lg"
               onClick={() => setIsOpenKakaoCalendarModal(false)}
             >
@@ -144,18 +160,17 @@ export default function ItineraryMenuBox({
         </div>
       </Modal>
       <Modal
-        headerText="AI Travel Planner 길동이"
         isModalOpen={isOpenDeleteItineraryModal}
         onClickCloseModal={() => {
           setIsOpenDeleteItineraryModal(false);
         }}
       >
         <div className={styles.modalContainer}>
-          <span>삭제하시겠습니까?</span>
+          <MdDeleteForever />
+          <span className={styles.text}>일정을 삭제하시겠습니까?</span>
           <div className={styles.confirmWrapper}>
             <Button
-              variant="lined"
-              color="secondary"
+              variant="disabled"
               size="lg"
               onClick={() => {
                 setIsOpenDeleteItineraryModal(false);
@@ -164,7 +179,7 @@ export default function ItineraryMenuBox({
               취소
             </Button>
             <Button
-              variant="secondary"
+              variant="primary"
               size="lg"
               onClick={async () => {
                 if (itinerary) {

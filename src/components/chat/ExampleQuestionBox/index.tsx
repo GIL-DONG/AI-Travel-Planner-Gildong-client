@@ -40,7 +40,7 @@ export default function ExampleQuestionBox({
         />
         <ExampleQuestion
           clickHandler={clickHandler}
-          question="부산에서 휠체어 이용이 편리한 2박 3일 여행코스를 알려줄래?"
+          question="휠체어를 타시는 부모님과 함께 할 강릉 2박3일 일정 만들어줘!"
           src={wheelchair}
         />
         <ExampleQuestion

@@ -54,11 +54,11 @@ export default function TravelDetails() {
   }, [id]);
 
   return (
-    <div className={styles.pageWrapper}>
+    <>
       {isLoading ? (
         <Loading />
       ) : (
-        <>
+        <main className={styles.pageWrapper}>
           <div className={styles.title}>{detailData.title}</div>
           {detailData?.url && (
             <img src={detailData.url} className={styles.img} />
@@ -189,8 +189,8 @@ export default function TravelDetails() {
                 </>
               )}
           </div>
-        </>
+        </main>
       )}
-    </div>
+    </>
   );
 }

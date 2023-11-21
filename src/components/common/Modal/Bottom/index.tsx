@@ -16,8 +16,8 @@ interface VariantTypes {
 }
 
 const VARIANTS: VariantTypes = {
-  default: styles.modal_section__default,
-  primary: styles.modal_section__primary,
+  default: styles.modal_main__default,
+  primary: styles.modal_main__primary,
 };
 
 export default function ModalBottom({
@@ -61,14 +61,21 @@ export default function ModalBottom({
         onClick={(event) => event.stopPropagation()}
       >
         <section
-          className={classNames(
-            VARIANTS[variant as keyof VariantTypes],
+          className={
             isModalOpen
               ? `${styles.modal_section} ${styles.modal_section__opened}`
-              : `${styles.modal_section} ${styles.modal_section__closed}`,
-          )}
+              : `${styles.modal_section} ${styles.modal_section__closed}`
+          }
         >
-          <main className={styles.modal_main}>{children}</main>
+          <main
+            className={classNames(
+              VARIANTS[variant as keyof VariantTypes],
+              styles.modal_main,
+            )}
+          >
+            <button className={styles.modal_button} type="button"></button>
+            {children}
+          </main>
         </section>
       </div>
     </div>

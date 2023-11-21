@@ -31,15 +31,7 @@
   width: 768px;
   position: fixed;
   bottom: 0;
-  border-radius: var(--border-radius-lg) var(--border-radius-lg) 0 0;
   overflow: hidden;
-
-  &__default {
-    background: var(--white-color);
-  }
-  &__primary {
-    background: var(--main-color);
-  }
 
   &__opened {
     animation: modal__opened 0.3s;
@@ -55,8 +47,29 @@
 }
 
 .modal_main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: var(--border-radius-lg) var(--border-radius-lg) 0 0;
+  margin: 0rem 1rem;
   padding: 1rem;
   color: var(--black-color);
+
+  &__default {
+    background: var(--white-color);
+  }
+  &__primary {
+    background: var(--main-color);
+  }
+}
+
+.modal_button {
+  width: 3rem;
+  height: 0.5rem;
+  border-radius: var(--border-radius-xl);
+  background-color: var(--light-gray-color);
+  border: 0;
 }
 
 @keyframes modal__opened {
