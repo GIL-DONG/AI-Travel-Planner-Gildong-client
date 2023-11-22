@@ -6,9 +6,10 @@ import { LiaCalendarCheckSolid } from 'react-icons/lia';
 import { FiLogOut } from 'react-icons/fi';
 import { GoPerson } from 'react-icons/go';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { AiOutlineArrowRight, AiOutlineLeft } from 'react-icons/ai';
+import { AiOutlineLeft } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
 import { IoPersonCircleSharp } from 'react-icons/io5';
+import { FaAngleRight } from 'react-icons/fa';
 import { nameState } from '@/store/atom/signUpAtom';
 import { isLoginState, userProfileImageState } from '@/store/atom/userAtom';
 import { ROUTE_PATHS } from '@/constants/config';
@@ -101,7 +102,7 @@ export default function Header() {
                     navigate(ROUTE_PATHS.signIn);
                   }}
                 >
-                  로그인 및 회원가입 <AiOutlineArrowRight />
+                  로그인 및 회원가입 <FaAngleRight />
                 </li>
               )}
               <li

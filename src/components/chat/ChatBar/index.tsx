@@ -1,4 +1,4 @@
-import React, { SetStateAction } from 'react';
+import React, { SetStateAction, useEffect } from 'react';
 import useRecording from '@/hooks/useRecording';
 import ImageUploadButton from '../ImageUploadButton';
 import SpeechToTextBox from '../SpeechToTextBox';
@@ -56,11 +56,12 @@ export default function ChatBar({
             <ImageUploadButton setUploadImage={setUploadImage} />
           </div>
           <input
+            id="input"
             className={styles.input}
             onChange={inputHandler}
             value={question}
             onKeyDown={enterHandler}
-            placeholder="무엇이든 물어보세요!"
+            placeholder="길동이에게 여행일정을 맡겨보세요!"
           />
           <SendQuestionButton
             question={question}

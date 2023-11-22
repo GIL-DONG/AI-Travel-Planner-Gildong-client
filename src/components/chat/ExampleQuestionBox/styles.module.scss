@@ -7,20 +7,10 @@
   align-items: center;
 }
 
-.title {
-  margin: 0.5rem 0;
-  font-size: var(--font-size-xxxl);
-  font-family: 'JSArirangHON-Regular';
-
-  @include mobile {
-    font-size: var(--font-size-xxl);
-  }
-}
-
 .image {
   width: 10rem;
   height: 10rem;
-  margin: 2rem 0;
+  margin-top: 2rem;
 }
 
 .question {

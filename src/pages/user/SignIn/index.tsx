@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import gildong from '@/assets/gildong_3d_bg.png';
+import gildong from '@/assets/gildong_3d.png';
 import kakao from '@/assets/kakao.png';
 import { JAVASCRIPT_KEY, REDIRECT_URL } from '@/constants/auth';
 import useStatus from '@/hooks/useStatus';
@@ -32,10 +32,13 @@ export default function SignIn() {
     <div className={styles.pageWrapper}>
       <div className={styles.contentWrapper}>
         <title className={styles.titleWrapper}>
-          <div className={styles.text}>대화로 만들어가는 여행플래너</div>
-          <div className={styles.title}>AI Travel Planner 길동이</div>
+          <img src={gildong} className={styles.img} />
+          <div className={styles.description}>
+            대화로 만들어가는 여행 플래너
+          </div>
+          <div className={styles.text}>AI Travel Planner</div>
+          <div className={styles.title}>길동이</div>
         </title>
-        <img src={gildong} className={styles.img} />
         <button className={styles.btnWrapper} onClick={loginWithKakao}>
           <div className={styles.btn}>
             <img src={kakao} />

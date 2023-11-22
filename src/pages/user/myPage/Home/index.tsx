@@ -1,6 +1,4 @@
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { BsFillPencilFill } from 'react-icons/bs';
-import { FiLogOut } from 'react-icons/fi';
 import { AiOutlineRight } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
 import { IoPersonCircleSharp } from 'react-icons/io5';

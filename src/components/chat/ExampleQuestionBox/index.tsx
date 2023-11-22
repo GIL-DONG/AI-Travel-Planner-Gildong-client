@@ -30,7 +30,6 @@ export default function ExampleQuestionBox({
 
   return (
     <section className={styles.container}>
-      <span className={styles.title}>길동이에게 여행 일정을 맡겨보세요!</span>
       <img src={gildong} className={styles.image} />
       <ul className={styles.question}>
         <ExampleQuestion
