@@ -1,6 +1,8 @@
 import { ReactNode, useEffect, useRef } from 'react';
 import classNames from 'classnames';
+import { IoMdClose } from 'react-icons/io';
 import useIsModalOpen from '@/hooks/useIsModalOpen';
+import Button from '../../Button';
 import styles from './styles.module.scss';
 
 interface ModalProps {
@@ -74,6 +76,16 @@ export default function ModalBottom({
             )}
           >
             <button className={styles.modal_button} type="button"></button>
+            <div className={styles.modal_delete_button}>
+              <Button
+                size="sm"
+                icon={<IoMdClose />}
+                iconBtn={true}
+                onClick={onClickCloseModal}
+              >
+                닫기
+              </Button>
+            </div>
             {children}
           </main>
         </section>

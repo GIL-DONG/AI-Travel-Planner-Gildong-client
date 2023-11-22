@@ -9,5 +9,5 @@ export const deleteUserAPI = async () => {
 
 export const patchModifyUserInfoAPI = async (data: ModifyUserInfoTypes) => {
   const response = await apiClient.patch(API_URLS.modifyUserInfo, data);
-  return response.data;
+  return response;
 };

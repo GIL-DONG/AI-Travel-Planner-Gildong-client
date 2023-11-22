@@ -33,11 +33,11 @@ export default function SignIn() {
       <div className={styles.contentWrapper}>
         <title className={styles.titleWrapper}>
           <img src={gildong} className={styles.img} />
-          <div className={styles.description}>
+          <span className={styles.description}>
             대화로 만들어가는 여행 플래너
-          </div>
-          <div className={styles.text}>AI Travel Planner</div>
-          <div className={styles.title}>길동이</div>
+          </span>
+          <span className={styles.text}>AI Travel Planner</span>
+          <span className={styles.title}>길동이</span>
         </title>
         <button className={styles.btnWrapper} onClick={loginWithKakao}>
           <div className={styles.btn}>

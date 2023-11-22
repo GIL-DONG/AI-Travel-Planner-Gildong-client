@@ -9,7 +9,7 @@ import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { AiOutlineLeft } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
 import { IoPersonCircleSharp } from 'react-icons/io5';
-import { FaAngleRight } from 'react-icons/fa';
+import { IoMdClose } from 'react-icons/io';
 import { nameState } from '@/store/atom/signUpAtom';
 import { isLoginState, userProfileImageState } from '@/store/atom/userAtom';
 import { ROUTE_PATHS } from '@/constants/config';
@@ -81,6 +81,16 @@ export default function Header() {
             onClick={(event) => event.stopPropagation()}
           >
             <ul className={styles.content}>
+              <li className={styles.buttonWrapper}>
+                <Button
+                  size="md"
+                  icon={<IoMdClose />}
+                  iconBtn={true}
+                  onClick={() => setIsOpen(false)}
+                >
+                  닫기
+                </Button>
+              </li>
               {isLogin ? (
                 <li className={styles.profileWrapper}>
                   <div className={styles.profileImage}>
@@ -90,8 +100,8 @@ export default function Header() {
                       <IoPersonCircleSharp />
                     )}
                   </div>
-                  <div className={styles.name}>
-                    <div>{name}</div>
+                  <div className={styles.nameWrapper}>
+                    <span className={styles.name}>{name}</span>
                   </div>
                 </li>
               ) : (
@@ -102,7 +112,7 @@ export default function Header() {
                     navigate(ROUTE_PATHS.signIn);
                   }}
                 >
-                  로그인 및 회원가입 <FaAngleRight />
+                  로그인 및 회원가입
                 </li>
               )}
               <li

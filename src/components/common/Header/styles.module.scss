@@ -65,7 +65,7 @@
 
 .profileWrapper {
   width: 100%;
-  height: 18rem;
+  height: 14rem;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -74,7 +74,7 @@
 
 .login {
   width: 100%;
-  height: 15rem;
+  height: 10rem;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -89,34 +89,38 @@
   }
 }
 
+.buttonWrapper {
+  display: flex;
+  justify-content: flex-end;
+}
+
 .profileImage {
   > img {
     width: 7rem;
     height: 7rem;
-    margin: 0.5rem 0;
   }
 
   > svg {
     width: 8rem;
     height: 8rem;
-    margin: 0.5rem 0;
     color: var(--light-gray-color);
   }
 }
 
-.name {
+.nameWrapper {
   display: flex;
   flex-direction: row;
   align-items: center;
   padding-bottom: 2rem;
+}
 
-  > div {
-    max-width: 8rem;
-    font-weight: 600;
-    font-size: var(--font-size-lg);
-    margin-right: 0.2rem;
-    word-wrap: break-word;
-  }
+.name {
+  display: inline-block;
+  max-width: 8rem;
+  font-weight: 600;
+  font-size: var(--font-size-lg);
+  margin-right: 0.2rem;
+  word-wrap: break-word;
 }
 
 .nav {

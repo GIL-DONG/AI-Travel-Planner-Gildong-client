@@ -54,6 +54,7 @@
   border-radius: var(--border-radius-lg) var(--border-radius-lg) 0 0;
   margin: 0rem 1rem;
   padding: 1rem;
+  position: relative;
   color: var(--black-color);
 
   &__default {
@@ -70,6 +71,17 @@
   border-radius: var(--border-radius-xl);
   background-color: var(--light-gray-color);
   border: 0;
+}
+
+.modal_delete_button {
+  position: absolute;
+  top: 0.2rem;
+  right: 0.5rem;
+
+  > button > svg {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
 }
 
 @keyframes modal__opened {

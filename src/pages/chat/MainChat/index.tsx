@@ -55,12 +55,7 @@ export default function MainChat({ home }: MainChatProps) {
   };
 
   useEffect(() => {
-    if (scrollRef.current[0]) {
-      scrollRef.current[0]?.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start',
-      });
-    } else if (
+    if (
       scrollRef.current[1] &&
       scrollRef.current[2] &&
       scrollRef.current[1]?.scrollTop + scrollRef.current[1]?.clientHeight <
@@ -72,6 +67,13 @@ export default function MainChat({ home }: MainChatProps) {
       });
     }
   }, [chatList]);
+
+  useEffect(() => {
+    scrollRef.current[0]?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+    });
+  }, [scrollRef]);
 
   return (
     <main className={styles.pageWrapper}>

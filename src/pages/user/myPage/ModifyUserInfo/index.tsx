@@ -48,15 +48,14 @@ export default function ModifyUserInfo() {
     if (deleteImage && profileImage !== 'default') {
       obj.user_photo = 'default';
     }
-    try {
-      if (obj.user_name || obj.user_photo) {
-        await patchModifyUserInfoAPI(obj);
+    if (obj.user_name || obj.user_photo) {
+      const data = await patchModifyUserInfoAPI(obj);
+      if (data.status === 204) {
+        setName(name);
+        setProfileImage('default');
       }
-    } finally {
-      setName(name);
-      setProfileImage('default');
-      navigate(ROUTE_PATHS.myPage);
     }
+    navigate(ROUTE_PATHS.myPage);
   };
 
   useEffect(() => {
