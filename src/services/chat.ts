@@ -6,7 +6,7 @@ export const postImageUploadAPI = async (data: FormData) => {
   return response.data;
 };
 
-export const postSTTAPI = async (data: FormData) => {
-  const response = await apiClient.post(API_URLS.stt, data);
+export const postSpeechToTextAPI = async (data: FormData) => {
+  const response = await apiClient.post(API_URLS.speechToText, data);
   return response.data;
 };

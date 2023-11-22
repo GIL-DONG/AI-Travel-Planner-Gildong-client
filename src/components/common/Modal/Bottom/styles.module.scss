@@ -1,0 +1,123 @@
+@import '@/styles/media.scss';
+
+.modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 99;
+  background-color: rgba(0, 0, 0, 0.6);
+  cursor: pointer;
+
+  &__opened {
+    animation: modal__bg_opened 0.3s;
+  }
+
+  &__closed {
+    animation: modal__bg_closed 0.3s;
+  }
+}
+
+.modal_container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.modal_section {
+  width: 768px;
+  position: fixed;
+  bottom: 0;
+  overflow: hidden;
+
+  &__opened {
+    animation: modal__opened 0.3s;
+  }
+
+  &__closed {
+    animation: modal__closed 0.3s;
+  }
+
+  @include mobile {
+    width: 100%;
+  }
+}
+
+.modal_main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: var(--border-radius-lg) var(--border-radius-lg) 0 0;
+  margin: 0rem 1rem;
+  padding: 1rem;
+  position: relative;
+  color: var(--black-color);
+
+  &__default {
+    background: var(--white-color);
+  }
+  &__primary {
+    background: var(--main-color);
+  }
+}
+
+.modal_button {
+  width: 3rem;
+  height: 0.5rem;
+  border-radius: var(--border-radius-xl);
+  background-color: var(--light-gray-color);
+  border: 0;
+}
+
+.modal_delete_button {
+  position: absolute;
+  top: 0.2rem;
+  right: 0.5rem;
+
+  > button > svg {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+}
+
+@keyframes modal__opened {
+  from {
+    opacity: 0;
+    margin-bottom: -31.25rem;
+  }
+  to {
+    opacity: 1;
+    margin-bottom: 0px;
+  }
+}
+@keyframes modal_bg__opened {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modal__closed {
+  from {
+    opacity: 1;
+    margin-bottom: 0px;
+  }
+  to {
+    opacity: 0;
+    margin-bottom: -31.245rem;
+  }
+}
+@keyframes modal_bg__closed {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}

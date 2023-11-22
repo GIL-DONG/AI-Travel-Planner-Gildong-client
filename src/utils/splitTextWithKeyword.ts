@@ -1,6 +1,6 @@
-export const splitTextWithKeyword = (text: string, keyword: string) => {
+export default function splitTextWithKeyword(text: string, keyword: string) {
   const splitKey = '@#$%^';
   return text
     .replaceAll(keyword, `${splitKey}${keyword}${splitKey}`)
     .split(splitKey);
-};
+}

@@ -1,13 +1,13 @@
 import { atom } from 'recoil';
 import { recoilPersist } from 'recoil-persist';
-import { itineraryTypes, theTopTypes } from '@/types/travel';
+import { ItineraryTypes, TheTopTypes } from '@/types/travel';
 
 const { persistAtom } = recoilPersist({
   key: 'itinerary',
   storage: sessionStorage,
 });
 
-const theTopState = atom<theTopTypes>({
+const theTopState = atom<TheTopTypes>({
   key: 'theTop',
   default: {
     title: '',
@@ -21,17 +21,7 @@ const tabState = atom<string>({
   default: '',
 });
 
-const imageState = atom<string>({
-  key: 'image',
-  default: '',
-});
-
-const uploadImageState = atom<string>({
-  key: 'uploadImage',
-  default: '',
-});
-
-const itineraryState = atom<itineraryTypes>({
+const itineraryState = atom<ItineraryTypes>({
   key: 'itinerary',
   default: {
     date_type: '',
@@ -44,4 +34,4 @@ const itineraryState = atom<itineraryTypes>({
   effects_UNSTABLE: [persistAtom],
 });
 
-export { theTopState, tabState, imageState, uploadImageState, itineraryState };
+export { theTopState, tabState, itineraryState };

@@ -1,0 +1,26 @@
+@import '@/styles/media.scss';
+
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.image {
+  width: 10rem;
+  height: 10rem;
+  margin-top: 2rem;
+}
+
+.question {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem;
+  padding: 1rem;
+  background-color: rgba($color: #d9d9d9, $alpha: 0.2);
+  border-radius: var(--border-radius-md);
+  box-shadow:
+    0px 0px 1px rgba(50, 50, 50, 0.05),
+    0px 2px 4px rgba(50, 50, 50, 0.1);
+}

@@ -1,10 +1,10 @@
 import { API_URLS } from '@/constants/config';
-import { SignUpType } from '@/types/signUp';
+import { SignUpTypes } from '@/types/signUp';
 import { LIMIT } from '@/constants/signUp';
 import apiClient from './apiClient';
 
-export const postSignUpAPI = async (formData: SignUpType) => {
-  const response = await apiClient.post(API_URLS.signUp, formData);
+export const postRegisterUserAPI = async (formData: SignUpTypes) => {
+  const response = await apiClient.post(API_URLS.registerUser, formData);
   return response.data;
 };
 

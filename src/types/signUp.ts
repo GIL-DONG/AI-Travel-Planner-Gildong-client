@@ -1,4 +1,4 @@
-export interface SignUpType {
+export interface SignUpTypes {
   userID: string | null;
   user_name: string;
   gender: string;
@@ -6,19 +6,19 @@ export interface SignUpType {
   disability_status: boolean;
   disability_type: string;
   prefer_travel: string[];
-  residence: locationType | undefined;
+  residence: LocationTypes | undefined;
   user_photo: string;
 }
 
-export interface residenceType {
+export interface ResidenceTypes {
   id: number;
   word: string;
   city: string;
   district: string;
-  location: locationType;
+  location: LocationTypes;
 }
 
-export interface locationType {
+export interface LocationTypes {
   lat: number;
   lon: number;
 }

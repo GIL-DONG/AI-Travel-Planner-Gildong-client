@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 
-function useMouseDrag() {
+export default function useMouseDrag() {
   const scrollRef = useRef<any>(null);
   const [isDrag, setIsDrag] = useState(false);
   const [startX, setStartX] = useState(0);
@@ -55,5 +55,3 @@ function useMouseDrag() {
     onThrottleDragMove,
   };
 }
-
-export default useMouseDrag;

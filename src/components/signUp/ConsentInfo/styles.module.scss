@@ -1,0 +1,28 @@
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  label {
+    font-size: var(--font-size-lg);
+  }
+}
+
+.buttonWrapper {
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.button {
+  width: 29rem;
+  padding: 1rem;
+  height: 100%;
+
+  > button {
+    margin-top: 1rem;
+  }
+}

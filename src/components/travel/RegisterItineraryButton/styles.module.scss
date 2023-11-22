@@ -1,0 +1,57 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: var(--font-size-lg);
+
+  > svg {
+    width: 5rem;
+    height: 5rem;
+    color: var(--yellow-color);
+    margin-top: 1rem;
+  }
+
+  strong {
+    color: var(--main-color);
+  }
+}
+
+.content {
+  padding: 2rem 2rem 3rem 2rem;
+
+  > svg {
+    padding-top: 0.2rem;
+  }
+}
+
+.check {
+  > svg {
+    width: 5rem;
+    height: 5rem;
+    color: var(--main-color);
+    margin-top: 1rem;
+  }
+}
+
+.buttonWrapper {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem 0.4rem;
+}
+
+.top {
+  display: flex;
+  align-items: center;
+}
+
+.margin {
+  margin-bottom: 0.5rem;
+}
+
+.center {
+  font-weight: 600;
+  font-size: var(--font-size-xl);
+  display: flex;
+  justify-content: center;
+}

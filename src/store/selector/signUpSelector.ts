@@ -1,5 +1,5 @@
 import { selector } from 'recoil';
-import { SignUpType } from '@/types/signUp';
+import { SignUpTypes } from '@/types/signUp';
 import {
   ageGroupState,
   disabilityStatusState,
@@ -14,7 +14,7 @@ import { userProfileImageState } from '../atom/userAtom';
 
 export const signUpStateSelector = selector({
   key: 'signUpState',
-  get: ({ get }): SignUpType => {
+  get: ({ get }): SignUpTypes => {
     const id = get(idState);
     const name = get(nameState);
     const ageGroup = get(ageGroupState);

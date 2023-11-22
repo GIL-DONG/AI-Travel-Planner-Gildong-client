@@ -1,0 +1,74 @@
+.pageWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+
+.contentWrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.titleWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  > * {
+    font-family: 'JSArirangHON-Regular';
+  }
+}
+
+.description {
+  color: var(--main-color);
+  font-size: var(--font-size-lg);
+}
+
+.text {
+  font-weight: 600;
+  font-size: var(--font-size-xxxl);
+}
+
+.title {
+  font-weight: 600;
+  font-size: 4rem;
+}
+
+.img {
+  width: 12rem;
+  margin-bottom: 2rem;
+  border-radius: 50%;
+}
+
+.btnWrapper {
+  width: 22rem;
+  border: none;
+  background-color: #fee500;
+  padding: 1rem;
+  border-radius: 0.75rem;
+  margin-top: 2rem;
+  cursor: pointer;
+}
+
+.btn {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: rgba(0, 0, 0, 0.85);
+
+  > img {
+    width: 1rem;
+    height: 1rem;
+  }
+
+  > span {
+    flex-grow: 1;
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+  }
+}

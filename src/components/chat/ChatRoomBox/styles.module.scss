@@ -1,0 +1,44 @@
+.chatRoomBackground {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.question {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  background-color: var(--chat-background-color);
+  border-radius: var(--border-radius-sm);
+  font-weight: 600;
+}
+
+.uploadImage {
+  width: 6rem;
+  height: 6rem;
+  padding: 0.5rem;
+  border-radius: var(--border-radius-md);
+  border: 1px solid var(--light-gray-color);
+  margin: 0.5rem 0;
+}
+
+.answer {
+  width: 100%;
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: var(--white-color);
+  border-radius: var(--border-radius-sm);
+  font-weight: 500;
+}
+
+.registerItinerary {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1rem;
+}
+
+.margin {
+  height: 50rem;
+}
