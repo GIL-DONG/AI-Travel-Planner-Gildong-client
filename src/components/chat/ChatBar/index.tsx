@@ -1,4 +1,4 @@
-import React, { SetStateAction, useEffect } from 'react';
+import React, { SetStateAction } from 'react';
 import useRecording from '@/hooks/useRecording';
 import ImageUploadButton from '../ImageUploadButton';
 import SpeechToTextBox from '../SpeechToTextBox';
