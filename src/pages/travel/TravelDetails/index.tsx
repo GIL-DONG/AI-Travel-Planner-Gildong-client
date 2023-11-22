@@ -61,7 +61,11 @@ export default function TravelDetails() {
         <main className={styles.pageWrapper}>
           <div className={styles.title}>{detailData.title}</div>
           {detailData?.url && (
-            <img src={detailData.url} className={styles.img} />
+            <img
+              src={detailData.url}
+              className={styles.img}
+              alt="여행지이미지"
+            />
           )}
           <div className={styles.contentWrapper}>
             {detailData?.addr && (

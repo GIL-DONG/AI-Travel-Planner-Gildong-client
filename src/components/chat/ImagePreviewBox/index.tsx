@@ -21,10 +21,13 @@ export default function ImagePreviewBox({
         <section className={styles.imageUploadContainer}>
           <div className={styles.imageUpload}>
             {uploadImage && (
-              <img src={`${BASE_URL}${API_URLS.viewImage}${uploadImage}`} />
+              <img
+                src={`${BASE_URL}${API_URLS.viewImage}${uploadImage}`}
+                alt="이미지검색이미지"
+              />
             )}
             <span className={styles.cancel}>
-              <img src={remove} onClick={cancelHandler} />
+              <img src={remove} onClick={cancelHandler} alt="취소버튼이미지" />
             </span>
           </div>
         </section>

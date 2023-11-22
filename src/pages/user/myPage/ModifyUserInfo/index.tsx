@@ -69,7 +69,7 @@ export default function ModifyUserInfo() {
       <div className={styles.content}>
         <div className={styles.profileWrapper}>
           {profileImage !== 'default' && deleteImage === false ? (
-            <img src={profileImage} />
+            <img src={profileImage} alt="프로필이미지" />
           ) : (
             <IoPersonCircleSharp />
           )}

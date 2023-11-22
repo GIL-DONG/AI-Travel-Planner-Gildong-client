@@ -64,6 +64,7 @@ export default function ItineraryList() {
                       setItinerary(el);
                       setIsMenuModalOpen(true);
                     }}
+                    alt="메뉴버튼이미지"
                   />
                 </div>
                 <div className={styles.titleWrapper}>

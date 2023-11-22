@@ -20,7 +20,7 @@ export default function ExampleQuestion({
     >
       <span className={styles.question}>{question}</span>
       <span className={styles.image}>
-        <img src={src} />
+        <img src={src} alt="질문예시이미지" />
       </span>
     </li>
   );

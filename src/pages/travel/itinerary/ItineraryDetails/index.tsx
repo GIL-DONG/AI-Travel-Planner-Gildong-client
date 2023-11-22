@@ -70,7 +70,11 @@ export default function ItineraryDetails() {
                 <a href={el.url} className={styles.link} key={index}>
                   <div className={styles.description}>
                     {el?.image_url && (
-                      <img src={el.image_url} className={styles.image} />
+                      <img
+                        src={el.image_url}
+                        className={styles.image}
+                        alt="여행지이미지"
+                      />
                     )}
                     <div className={styles.content}>
                       <span className={styles.title}>{el.title}</span>

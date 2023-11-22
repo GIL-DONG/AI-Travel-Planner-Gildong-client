@@ -95,7 +95,7 @@ export default function Header() {
                 <li className={styles.profileWrapper}>
                   <div className={styles.profileImage}>
                     {profileImage !== 'default' ? (
-                      <img src={profileImage} />
+                      <img src={profileImage} alt="프로필이미지" />
                     ) : (
                       <IoPersonCircleSharp />
                     )}

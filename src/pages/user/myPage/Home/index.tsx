@@ -38,7 +38,7 @@ export default function MyPage() {
     <div className={styles.pageWrapper}>
       <div className={styles.profileWrapper}>
         {profileImage !== 'default' ? (
-          <img src={profileImage} />
+          <img src={profileImage} alt="프로필이미지" />
         ) : (
           <IoPersonCircleSharp />
         )}
@@ -53,7 +53,7 @@ export default function MyPage() {
             onClick={() => navigate(ROUTE_PATHS.modifyUserInfo)}
           >
             <span>
-              <img src={modify} />
+              <img src={modify} alt="회원정보수정버튼이미지" />
               <strong>회원정보수정</strong>
             </span>
             <AiOutlineRight />
@@ -67,7 +67,7 @@ export default function MyPage() {
             }}
           >
             <span>
-              <img src={logout} />
+              <img src={logout} alt="로그아웃이미지" />
               <strong>로그아웃</strong>
             </span>
             <AiOutlineRight />

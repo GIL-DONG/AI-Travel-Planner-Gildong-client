@@ -27,7 +27,7 @@ export default function SpeechToTextBox({
         isSTTLoading && (
           <section className={styles.voiceContainer}>
             <div className={styles.voice}>
-              <img src={voiceLoading} />
+              <img src={voiceLoading} alt="음성인식로딩이미지" />
             </div>
           </section>
         )

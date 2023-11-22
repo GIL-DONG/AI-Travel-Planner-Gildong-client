@@ -30,6 +30,7 @@ export default function ChatRoomBox({
               <img
                 src={`${BASE_URL}${API_URLS.viewImage}${el.image_name}`}
                 className={styles.uploadImage}
+                alt="이미지검색이미지"
               />
             )}
             {el.question}

@@ -30,7 +30,7 @@ export default function ExampleQuestionBox({
 
   return (
     <section className={styles.container}>
-      <img src={gildong} className={styles.image} />
+      <img src={gildong} className={styles.image} alt="길동이이미지" />
       <ul className={styles.question}>
         <ExampleQuestion
           clickHandler={clickHandler}

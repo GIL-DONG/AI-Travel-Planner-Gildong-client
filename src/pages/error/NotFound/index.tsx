@@ -12,7 +12,7 @@ export default function NotFound() {
       <div className={styles.container}>
         <div className={styles.titleWrapper}>
           <span className={styles.title}>4</span>
-          <img src={gildong} className={styles.img} />
+          <img src={gildong} className={styles.img} alt="길동이이미지" />
           <span className={styles.title}>4</span>
         </div>
         <span className={styles.text}>요청하신 페이지를 찾을 수 없습니다.</span>
