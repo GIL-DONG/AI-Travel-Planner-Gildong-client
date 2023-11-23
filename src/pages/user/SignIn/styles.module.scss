@@ -18,10 +18,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
-  > * {
-    font-family: 'JSArirangHON-Regular';
-  }
 }
 
 .description {
@@ -30,12 +26,10 @@
 }
 
 .text {
-  font-weight: 600;
   font-size: var(--font-size-xxxl);
 }
 
 .title {
-  font-weight: 600;
   font-size: 4rem;
 }
 

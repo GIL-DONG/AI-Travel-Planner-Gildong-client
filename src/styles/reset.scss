@@ -49,11 +49,16 @@ ul {
   list-style: none;
 }
 
+h1,
+h2 {
+  font-family: 'JSArirangHON-Regular', serif;
+}
+
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  font-family: 'SUITE-Regular';
+  font-family: 'SUITE-Regular', sans-serif;
 }
 
 html {

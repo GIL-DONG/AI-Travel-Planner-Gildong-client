@@ -1,9 +1,9 @@
 import { useNavigate } from 'react-router-dom';
-import gildong from '@/assets/gildong_3d.png';
-import beach from '@/assets/beach.png';
-import blindPerson from '@/assets/blind_person.png';
-import mountain from '@/assets/mountain.png';
-import wheelchair from '@/assets/wheelchair.png';
+import gildong from '@/assets/gildong.webp';
+import beach from '@/assets/beach.webp';
+import blindPerson from '@/assets/blind_person.webp';
+import mountain from '@/assets/mountain.webp';
+import wheelchair from '@/assets/wheelchair.webp';
 import { ROUTE_PATHS } from '@/constants/config';
 import styles from './styles.module.scss';
 import ExampleQuestion from './ExampleQuesiton';

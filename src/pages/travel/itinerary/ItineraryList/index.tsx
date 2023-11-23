@@ -7,7 +7,7 @@ import { ItineraryTypes } from '@/types/travel';
 import { ROUTE_PATHS } from '@/constants/config';
 import Destinations from '@/components/travel/Destinations';
 import { itineraryState, theTopState } from '@/store/atom/travelAtom';
-import menu from '@/assets/menu.png';
+import menu from '@/assets/menu.webp';
 import useStatus from '@/hooks/useStatus';
 import Loading from '@/components/common/Loading';
 import ItineraryMenuBox from '@/components/travel/ItineraryMenuBox';

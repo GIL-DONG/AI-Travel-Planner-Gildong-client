@@ -1,6 +1,6 @@
 import React, { SetStateAction } from 'react';
 import { API_URLS, BASE_URL } from '@/constants/config';
-import remove from '@/assets/remove.png';
+import remove from '@/assets/remove.webp';
 import styles from './styles.module.scss';
 
 interface ImagePreviewBoxProps {

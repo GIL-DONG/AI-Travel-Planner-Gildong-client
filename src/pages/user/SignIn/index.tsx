@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
-import gildong from '@/assets/gildong_3d.png';
-import kakao from '@/assets/kakao.png';
+import gildong from '@/assets/gildong.webp';
+import kakao from '@/assets/kakao.webp';
 import { JAVASCRIPT_KEY, REDIRECT_URL } from '@/constants/auth';
 import useStatus from '@/hooks/useStatus';
 import styles from './styles.module.scss';
@@ -37,11 +37,9 @@ export default function SignIn() {
       <div className={styles.contentWrapper}>
         <title className={styles.titleWrapper}>
           <img src={gildong} className={styles.img} alt="길동이이미지" />
-          <span className={styles.description}>
-            대화로 만들어가는 여행 플래너
-          </span>
-          <span className={styles.text}>AI Travel Planner</span>
-          <span className={styles.title}>길동이</span>
+          <h2 className={styles.description}>대화로 만들어가는 여행 플래너</h2>
+          <h1 className={styles.text}>AI Travel Planner</h1>
+          <h1 className={styles.title}>길동이</h1>
         </title>
         <button
           className={styles.btnWrapper}
