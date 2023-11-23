@@ -100,10 +100,7 @@ export default function MainChat({ home }: MainChatProps) {
               refHandler={refHandler}
             />
           ) : (
-            <ExampleQuestionBox
-              setUploadImage={setUploadImage}
-              fetchStreamData={fetchStreamData}
-            />
+            <ExampleQuestionBox fetchStreamData={fetchStreamData} />
           )}
           <ChatBar
             question={question}
