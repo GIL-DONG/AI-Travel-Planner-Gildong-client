@@ -12,8 +12,8 @@ import { nameState } from '@/store/atom/signUpAtom';
 import useStatus from '@/hooks/useStatus';
 import Modal from '@/components/common/Modal';
 import Button from '@/components/common/Button';
-import modify from '@/assets/modify.png';
-import logout from '@/assets/logout.png';
+import modify from '@/assets/modify.webp';
+import logout from '@/assets/logout.webp';
 import styles from './styles.module.scss';
 
 export default function MyPage() {

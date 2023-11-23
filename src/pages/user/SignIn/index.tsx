@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
-import gildong from '@/assets/gildong_3d.png';
-import kakao from '@/assets/kakao.png';
+import gildong from '@/assets/gildong.webp';
+import kakao from '@/assets/kakao.webp';
 import { JAVASCRIPT_KEY, REDIRECT_URL } from '@/constants/auth';
 import useStatus from '@/hooks/useStatus';
 import styles from './styles.module.scss';

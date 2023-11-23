@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import gildong from '@/assets/gildong_3d_bg.png';
+import gildong from '@/assets/gildong.webp';
 import Button from '@/components/common/Button';
 import { ROUTE_PATHS } from '@/constants/config';
 import styles from './styles.module.scss';
