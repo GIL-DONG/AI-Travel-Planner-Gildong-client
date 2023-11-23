@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { Helmet } from 'react-helmet-async';
 import { getItineraryDetailsAPI } from '@/services/travel';
 import { ItineraryScheduleTypes } from '@/types/travel';
 import groupObjectsByField from '@/utils/groupObjectsByField';
@@ -47,6 +48,9 @@ export default function ItineraryDetails() {
 
   return (
     <>
+      <Helmet>
+        <title>Itinerary Details</title>
+      </Helmet>
       {isLoading ? (
         <Loading />
       ) : (

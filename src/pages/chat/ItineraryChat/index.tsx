@@ -1,6 +1,7 @@
 import { useRef, useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
 import { useParams } from 'react-router';
+import { Helmet } from 'react-helmet-async';
 import { theTopState } from '@/store/atom/travelAtom';
 import Destinations from '@/components/travel/Destinations';
 import useStatus from '@/hooks/useStatus';
@@ -82,6 +83,9 @@ export default function ItineraryChat() {
 
   return (
     <main>
+      <Helmet>
+        <title>Itinerary ChatBot</title>
+      </Helmet>
       <div className={styles.destination}>
         <Destinations destinations={theTop.destinations} />
       </div>

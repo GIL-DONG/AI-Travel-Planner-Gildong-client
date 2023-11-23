@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import gildong from '@/assets/gildong_3d_bg.png';
 import Button from '@/components/common/Button';
 import { ROUTE_PATHS } from '@/constants/config';
@@ -9,6 +10,9 @@ export default function NotFound() {
 
   return (
     <main className={styles.pageWrapper}>
+      <Helmet>
+        <title>404 Error</title>
+      </Helmet>
       <div className={styles.container}>
         <div className={styles.titleWrapper}>
           <span className={styles.title}>4</span>

@@ -1,4 +1,5 @@
 import { useRecoilValue } from 'recoil';
+import { Helmet } from 'react-helmet-async';
 import FormTemplate from '@/components/signUp/FormTemplate';
 import SignUpFirst from '@/components/signUp/SignUpFirst';
 import SignUpSecond from '@/components/signUp/SignUpSecond';
@@ -45,6 +46,9 @@ export default function SignUp() {
 
   return (
     <div className={styles.pageWrapper}>
+      <Helmet>
+        <title>Sign Up</title>
+      </Helmet>
       <FormTemplate
         page={list[index].page}
         title={list[index].title}

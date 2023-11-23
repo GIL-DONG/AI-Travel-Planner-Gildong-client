@@ -61,7 +61,7 @@ export default function ChatBar({
             onChange={inputHandler}
             value={question}
             onKeyDown={enterHandler}
-            placeholder="길동이에게 여행일정을 맡겨보세요!"
+            placeholder="길동이에게 여행 일정을 맡겨보세요!"
           />
           <SendQuestionButton
             question={question}

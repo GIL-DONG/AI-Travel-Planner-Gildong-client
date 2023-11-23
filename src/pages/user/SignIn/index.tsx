@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { Helmet } from 'react-helmet-async';
 import gildong from '@/assets/gildong_3d.png';
 import kakao from '@/assets/kakao.png';
 import { JAVASCRIPT_KEY, REDIRECT_URL } from '@/constants/auth';
@@ -30,6 +31,9 @@ export default function SignIn() {
 
   return (
     <div className={styles.pageWrapper}>
+      <Helmet>
+        <title>Sign In</title>
+      </Helmet>
       <div className={styles.contentWrapper}>
         <title className={styles.titleWrapper}>
           <img src={gildong} className={styles.img} alt="길동이이미지" />

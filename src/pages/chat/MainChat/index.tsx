@@ -1,6 +1,7 @@
 import { useRef, useEffect } from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import useStatus from '@/hooks/useStatus';
 import useFetchStreamData from '@/hooks/useFetchStreamData';
 import ExampleQuestionBox from '@/components/chat/ExampleQuestionBox';
@@ -87,6 +88,9 @@ export default function MainChat({ home }: MainChatProps) {
 
   return (
     <main className={styles.pageWrapper}>
+      <Helmet>
+        <title>{home ? `AI Travel Planner 길동이` : `ChatBot`}</title>
+      </Helmet>
       <div className={styles.chatRoomContainer}>
         <div
           className={styles.chatRoom}
