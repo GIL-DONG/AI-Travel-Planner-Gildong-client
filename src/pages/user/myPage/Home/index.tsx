@@ -90,10 +90,16 @@ export default function MyPage() {
                 onClick={() => {
                   setIsOpenModal(false);
                 }}
+                label="취소"
               >
                 취소
               </Button>
-              <Button variant="primary" size="lg" onClick={DeleteUserHandler}>
+              <Button
+                variant="primary"
+                size="lg"
+                onClick={DeleteUserHandler}
+                label="확인"
+              >
                 확인
               </Button>
             </div>

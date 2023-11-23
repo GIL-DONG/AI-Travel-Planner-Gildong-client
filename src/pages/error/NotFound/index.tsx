@@ -16,7 +16,11 @@ export default function NotFound() {
           <span className={styles.title}>4</span>
         </div>
         <span className={styles.text}>요청하신 페이지를 찾을 수 없습니다.</span>
-        <Button variant="primary" onClick={() => navigate(ROUTE_PATHS.home)}>
+        <Button
+          variant="primary"
+          onClick={() => navigate(ROUTE_PATHS.home)}
+          label="홈으로돌아가기"
+        >
           홈으로 돌아가기
         </Button>
       </div>

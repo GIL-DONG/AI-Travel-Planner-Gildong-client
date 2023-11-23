@@ -86,6 +86,7 @@ export default function ItineraryMenuBox({
               iconBtn={true}
               size="sm"
               color="black"
+              label="공유"
             >
               공유
             </Button>
@@ -97,8 +98,9 @@ export default function ItineraryMenuBox({
               iconBtn={true}
               size="sm"
               color="primary"
+              label="여행일정챗봇"
             >
-              챗봇
+              여행일정챗봇
             </Button>
             여행일정챗봇
           </div>
@@ -108,6 +110,7 @@ export default function ItineraryMenuBox({
               iconBtn={true}
               size="sm"
               color="delete"
+              label="삭제"
             >
               삭제
             </Button>
@@ -153,6 +156,7 @@ export default function ItineraryMenuBox({
               variant="primary"
               size="lg"
               onClick={() => setIsOpenKakaoCalendarModal(false)}
+              label="확인"
             >
               확인
             </Button>
@@ -175,6 +179,7 @@ export default function ItineraryMenuBox({
               onClick={() => {
                 setIsOpenDeleteItineraryModal(false);
               }}
+              label="취소"
             >
               취소
             </Button>
@@ -194,6 +199,7 @@ export default function ItineraryMenuBox({
                   }
                 }
               }}
+              label="확인"
             >
               확인
             </Button>

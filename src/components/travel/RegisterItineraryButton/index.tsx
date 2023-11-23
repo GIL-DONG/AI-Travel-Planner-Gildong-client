@@ -76,6 +76,7 @@ export default function RegisterItineraryButton({
         variant="primary"
         icon={<AiOutlinePlus />}
         onClick={onClickOpenModal}
+        label="일정등록"
       >
         일정 등록
       </Button>
@@ -145,7 +146,12 @@ export default function RegisterItineraryButton({
             </>
           )}
           <div className={styles.buttonWrapper}>
-            <Button variant="disabled" size="lg" onClick={onClickCloseModal}>
+            <Button
+              variant="disabled"
+              size="lg"
+              onClick={onClickCloseModal}
+              label="취소"
+            >
               취소
             </Button>
             <Button
@@ -158,6 +164,7 @@ export default function RegisterItineraryButton({
                   navigate(ROUTE_PATHS.signIn);
                 }
               }}
+              label="확인"
             >
               확인
             </Button>

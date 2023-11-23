@@ -34,7 +34,10 @@ export default function SearchBar() {
             color="primary"
             icon={<BiSearch />}
             iconBtn={true}
-          />
+            label="검색"
+          >
+            검색
+          </Button>
         </span>
       </div>
       {isModalOpen && residenceList.length > 0 && (

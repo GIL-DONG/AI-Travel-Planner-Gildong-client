@@ -82,6 +82,7 @@ export default function ModalBottom({
                 icon={<IoMdClose />}
                 iconBtn={true}
                 onClick={onClickCloseModal}
+                label="닫기"
               >
                 닫기
               </Button>

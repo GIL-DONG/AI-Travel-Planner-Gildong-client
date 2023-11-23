@@ -56,11 +56,18 @@ export default function ConsentInfo() {
               full={true}
               size="lg"
               onClick={() => setIndex(1)}
+              label="다음"
             >
               다음
             </Button>
           ) : (
-            <Button variant="disabled" full={true} size="lg" disabled={true}>
+            <Button
+              variant="disabled"
+              full={true}
+              size="lg"
+              disabled={true}
+              label="다음"
+            >
               다음
             </Button>
           )}

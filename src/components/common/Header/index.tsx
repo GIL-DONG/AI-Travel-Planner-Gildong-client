@@ -59,14 +59,20 @@ export default function Header() {
                   navigate(-1);
                 }
               }}
-            />
+              label="뒤로가기"
+            >
+              뒤로가기
+            </Button>
           ) : (
             <Button
               size="md"
               icon={<AiOutlineMenu />}
               iconBtn={true}
               onClick={() => setIsOpen(true)}
-            />
+              label="메뉴"
+            >
+              메뉴
+            </Button>
           )}
           <div className={styles.menu}>{headerStatus?.title}</div>
         </section>
@@ -87,6 +93,7 @@ export default function Header() {
                   icon={<IoMdClose />}
                   iconBtn={true}
                   onClick={() => setIsOpen(false)}
+                  label="닫기"
                 >
                   닫기
                 </Button>
@@ -176,6 +183,7 @@ export default function Header() {
                     sessionStorage.clear();
                     setIsOpen(false);
                   }}
+                  label="로그아웃"
                 >
                   로그아웃
                 </Button>

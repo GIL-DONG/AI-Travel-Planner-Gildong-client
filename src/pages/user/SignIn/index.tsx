@@ -39,7 +39,11 @@ export default function SignIn() {
           <span className={styles.text}>AI Travel Planner</span>
           <span className={styles.title}>길동이</span>
         </title>
-        <button className={styles.btnWrapper} onClick={loginWithKakao}>
+        <button
+          className={styles.btnWrapper}
+          onClick={loginWithKakao}
+          aria-label="카카오로그인"
+        >
           <div className={styles.btn}>
             <img src={kakao} alt="카카오로고이미지" />
             <span>카카오 로그인</span>

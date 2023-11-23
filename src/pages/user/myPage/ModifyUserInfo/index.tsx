@@ -98,6 +98,7 @@ export default function ModifyUserInfo() {
             full={true}
             size="lg"
             onClick={() => navigate(ROUTE_PATHS.myPage)}
+            label="취소"
           >
             취소
           </Button>
@@ -109,11 +110,18 @@ export default function ModifyUserInfo() {
               full={true}
               size="lg"
               onClick={submitHandler}
+              label="완료"
             >
               완료
             </Button>
           ) : (
-            <Button variant="disabled" full={true} size="lg" disabled={true}>
+            <Button
+              variant="disabled"
+              full={true}
+              size="lg"
+              disabled={true}
+              label="완료"
+            >
               완료
             </Button>
           )}

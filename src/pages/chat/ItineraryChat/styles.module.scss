@@ -51,4 +51,8 @@
   &::-webkit-scrollbar {
     display: none;
   }
+
+  @include mobile {
+    width: 100%;
+  }
 }

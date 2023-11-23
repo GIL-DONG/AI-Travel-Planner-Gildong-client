@@ -21,6 +21,7 @@ export default function SignUpThird() {
             full={true}
             size="lg"
             onClick={() => setIndex(2)}
+            label="이전"
           >
             이전
           </Button>
@@ -30,11 +31,18 @@ export default function SignUpThird() {
               full={true}
               size="lg"
               onClick={() => setIndex(4)}
+              label="다음"
             >
               다음
             </Button>
           ) : (
-            <Button variant="disabled" full={true} size="lg" disabled={true}>
+            <Button
+              variant="disabled"
+              full={true}
+              size="lg"
+              disabled={true}
+              label="다음"
+            >
               다음
             </Button>
           )}

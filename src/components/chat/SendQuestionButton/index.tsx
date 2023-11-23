@@ -28,6 +28,7 @@ export default function SendQuestionButton({
           iconBtn={true}
           variant="primary"
           onClick={submitHandler}
+          label="전송"
         >
           전송
         </Button>
@@ -39,6 +40,7 @@ export default function SendQuestionButton({
             color="secondary"
             iconBtn={true}
             onClick={startRecording}
+            label="녹음시작"
           >
             녹음 시작
           </Button>
