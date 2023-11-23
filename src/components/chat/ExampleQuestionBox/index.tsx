@@ -21,9 +21,6 @@ export default function ExampleQuestionBox({
   const navigate = useNavigate();
 
   const clickHandler = (question: string, imageUrl?: string | undefined) => {
-    if (imageUrl) {
-      setUploadImage(imageUrl);
-    }
     fetchStreamData(question, imageUrl);
     navigate(ROUTE_PATHS.mainChat);
   };

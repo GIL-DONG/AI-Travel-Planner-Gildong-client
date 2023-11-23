@@ -50,10 +50,27 @@ export default function ItineraryChat() {
   };
 
   useEffect(() => {
-    if (
+    if (scrollRef.current[0]) {
+      if (
+        scrollRef.current[1] &&
+        scrollRef.current[2] &&
+        scrollRef.current[1]?.scrollTop + scrollRef.current[1]?.clientHeight <=
+          scrollRef.current[2]?.clientHeight
+      ) {
+        scrollRef.current[2]?.scrollIntoView({
+          behavior: 'smooth',
+          block: 'end',
+        });
+      } else {
+        scrollRef.current[0]?.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start',
+        });
+      }
+    } else if (
       scrollRef.current[1] &&
       scrollRef.current[2] &&
-      scrollRef.current[1]?.scrollTop + scrollRef.current[1]?.clientHeight <
+      scrollRef.current[1]?.scrollTop + scrollRef.current[1]?.clientHeight <=
         scrollRef.current[2]?.clientHeight
     ) {
       scrollRef.current[2]?.scrollIntoView({
@@ -62,13 +79,6 @@ export default function ItineraryChat() {
       });
     }
   }, [chatList]);
-
-  useEffect(() => {
-    scrollRef.current[0]?.scrollIntoView({
-      behavior: 'smooth',
-      block: 'start',
-    });
-  }, [scrollRef]);
 
   return (
     <main>
