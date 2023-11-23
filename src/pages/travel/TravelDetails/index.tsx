@@ -9,6 +9,7 @@ import { GrBraille } from 'react-icons/gr';
 import { RiGuideFill } from 'react-icons/ri';
 import { MdOutlineOndemandVideo } from 'react-icons/md';
 import { BsFillSignpostSplitFill } from 'react-icons/bs';
+import { Helmet } from 'react-helmet-async';
 import { getTravelDetailAPI } from '@/services/travel';
 import { TravelDetailsTypes } from '@/types/travel';
 import useStatus from '@/hooks/useStatus';
@@ -55,6 +56,9 @@ export default function TravelDetails() {
 
   return (
     <>
+      <Helmet>
+        <title>Travel Destination Details</title>
+      </Helmet>
       {isLoading ? (
         <Loading />
       ) : (

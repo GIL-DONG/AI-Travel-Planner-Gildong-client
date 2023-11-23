@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { Helmet } from 'react-helmet-async';
 import gildong from '@/assets/gildong_3d.png';
 import kakao from '@/assets/kakao.png';
 import { JAVASCRIPT_KEY, REDIRECT_URL } from '@/constants/auth';
@@ -30,6 +31,9 @@ export default function SignIn() {
 
   return (
     <div className={styles.pageWrapper}>
+      <Helmet>
+        <title>Sign In</title>
+      </Helmet>
       <div className={styles.contentWrapper}>
         <title className={styles.titleWrapper}>
           <img src={gildong} className={styles.img} alt="길동이이미지" />
@@ -39,7 +43,11 @@ export default function SignIn() {
           <span className={styles.text}>AI Travel Planner</span>
           <span className={styles.title}>길동이</span>
         </title>
-        <button className={styles.btnWrapper} onClick={loginWithKakao}>
+        <button
+          className={styles.btnWrapper}
+          onClick={loginWithKakao}
+          aria-label="카카오로그인"
+        >
           <div className={styles.btn}>
             <img src={kakao} alt="카카오로고이미지" />
             <span>카카오 로그인</span>

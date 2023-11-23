@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
+import { Helmet } from 'react-helmet-async';
 import { getItineraryListAPI } from '@/services/travel';
 import { ItineraryTypes } from '@/types/travel';
 import { ROUTE_PATHS } from '@/constants/config';
@@ -36,6 +37,9 @@ export default function ItineraryList() {
 
   return (
     <>
+      <Helmet>
+        <title>Itinerary</title>
+      </Helmet>
       {isLoading ? (
         <Loading />
       ) : (

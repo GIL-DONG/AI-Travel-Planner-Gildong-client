@@ -2,6 +2,7 @@ import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { IoPersonCircleSharp } from 'react-icons/io5';
+import { Helmet } from 'react-helmet-async';
 import { userProfileImageState } from '@/store/atom/userAtom';
 import useDebounce from '@/hooks/useDebounce';
 import { postCheckNickNameAPI } from '@/services/signUp';
@@ -66,6 +67,9 @@ export default function ModifyUserInfo() {
 
   return (
     <div className={styles.pageWrapper}>
+      <Helmet>
+        <title>Modify User Information</title>
+      </Helmet>
       <div className={styles.content}>
         <div className={styles.profileWrapper}>
           {profileImage !== 'default' && deleteImage === false ? (
@@ -98,6 +102,7 @@ export default function ModifyUserInfo() {
             full={true}
             size="lg"
             onClick={() => navigate(ROUTE_PATHS.myPage)}
+            label="취소"
           >
             취소
           </Button>
@@ -109,11 +114,18 @@ export default function ModifyUserInfo() {
               full={true}
               size="lg"
               onClick={submitHandler}
+              label="완료"
             >
               완료
             </Button>
           ) : (
-            <Button variant="disabled" full={true} size="lg" disabled={true}>
+            <Button
+              variant="disabled"
+              full={true}
+              size="lg"
+              disabled={true}
+              label="완료"
+            >
               완료
             </Button>
           )}

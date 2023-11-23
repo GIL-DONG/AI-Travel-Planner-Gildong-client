@@ -2,6 +2,7 @@ import { useState, useCallback, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import axios from 'axios';
+import { Helmet } from 'react-helmet-async';
 import { getUserInfoAPI } from '@/services/auth';
 import { idState, nameState } from '@/store/atom/signUpAtom';
 import {
@@ -90,5 +91,12 @@ export default function Auth() {
     getUserData();
   }, []);
 
-  return <div className={styles.pageWrapper}>{isLoading && <Loading />}</div>;
+  return (
+    <div className={styles.pageWrapper}>
+      <Helmet>
+        <title>Authorization</title>
+      </Helmet>
+      {isLoading && <Loading />}
+    </div>
+  );
 }

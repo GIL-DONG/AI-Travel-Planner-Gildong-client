@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { IoPersonCircleSharp } from 'react-icons/io5';
 import { useState } from 'react';
 import { PiWarningCircleFill } from 'react-icons/pi';
+import { Helmet } from 'react-helmet-async';
 import { isLoginState, userProfileImageState } from '@/store/atom/userAtom';
 import { deleteUserAPI } from '@/services/user';
 import { ROUTE_PATHS } from '@/constants/config';
@@ -36,6 +37,9 @@ export default function MyPage() {
 
   return (
     <div className={styles.pageWrapper}>
+      <Helmet>
+        <title>My Page</title>
+      </Helmet>
       <div className={styles.profileWrapper}>
         {profileImage !== 'default' ? (
           <img src={profileImage} alt="프로필이미지" />
@@ -90,10 +94,16 @@ export default function MyPage() {
                 onClick={() => {
                   setIsOpenModal(false);
                 }}
+                label="취소"
               >
                 취소
               </Button>
-              <Button variant="primary" size="lg" onClick={DeleteUserHandler}>
+              <Button
+                variant="primary"
+                size="lg"
+                onClick={DeleteUserHandler}
+                label="확인"
+              >
                 확인
               </Button>
             </div>

@@ -46,6 +46,7 @@ export default function SignUpFourth() {
             full={true}
             size="lg"
             onClick={() => setIndex(3)}
+            label="이전"
           >
             이전
           </Button>
@@ -56,6 +57,7 @@ export default function SignUpFourth() {
               full={true}
               size="lg"
               disabled={true}
+              label="완료"
             >
               완료
             </Button>
@@ -66,6 +68,7 @@ export default function SignUpFourth() {
               full={true}
               size="lg"
               onClick={submitHandler}
+              label="완료"
             >
               완료
             </Button>

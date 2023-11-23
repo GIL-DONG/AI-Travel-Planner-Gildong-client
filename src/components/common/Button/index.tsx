@@ -23,6 +23,7 @@ interface ButtonProps {
   className?: string;
   disabled?: boolean;
   to?: string | undefined;
+  label: string;
   type?: 'button' | 'submit' | 'reset' | undefined;
   onClick?: (
     event:
@@ -93,6 +94,7 @@ export default function Button({
   className,
   disabled,
   to,
+  label,
   onClick,
 }: ButtonProps) {
   const classNameValues = classNames(
@@ -128,6 +130,7 @@ export default function Button({
       className={classNameValues}
       disabled={disabled}
       onClick={onClick}
+      aria-label={label}
     >
       {icon}
       {!iconBtn ? (
