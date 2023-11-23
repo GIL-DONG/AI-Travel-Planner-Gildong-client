@@ -35,15 +35,20 @@
 
 .destination {
   width: 768px;
-  max-height: 5rem;
+  height: 5rem;
   display: flex;
   justify-content: center;
   align-items: center;
   position: fixed;
-  padding: 1rem 0 0.5rem 1rem;
+  overflow-x: scroll;
   box-shadow:
     0px 0px 0px rgba(50, 50, 50, 0.05),
     0px 2px 4px rgba(50, 50, 50, 0.1);
   top: 4rem;
   z-index: 30;
+  padding: 0 1rem;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
