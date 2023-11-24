@@ -23,7 +23,7 @@ export default function NotFound() {
         <Button
           variant="primary"
           onClick={() => navigate(ROUTE_PATHS.home)}
-          label="홈으로돌아가기"
+          label="홈으로 돌아가기"
         >
           홈으로 돌아가기
         </Button>

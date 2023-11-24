@@ -44,7 +44,7 @@ export default function SignIn() {
         <button
           className={styles.btn}
           onClick={loginWithKakao}
-          aria-label="카카오로그인"
+          aria-label="카카오 로그인"
         >
           <img src={kakao} alt="카카오로고이미지" />
           카카오 로그인
