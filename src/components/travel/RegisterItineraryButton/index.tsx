@@ -76,7 +76,7 @@ export default function RegisterItineraryButton({
         variant="primary"
         icon={<AiOutlinePlus />}
         onClick={onClickOpenModal}
-        label="일정등록"
+        label="일정 등록"
       >
         일정 등록
       </Button>

@@ -86,9 +86,9 @@ export default function ItineraryMenuBox({
               iconBtn={true}
               size="sm"
               color="black"
-              label="공유"
+              label="카카오톡캘린더"
             >
-              공유
+              카카오톡캘린더
             </Button>
             카카오톡캘린더
           </div>
@@ -110,9 +110,9 @@ export default function ItineraryMenuBox({
               iconBtn={true}
               size="sm"
               color="delete"
-              label="삭제"
+              label="일정삭제"
             >
-              삭제
+              일정삭제
             </Button>
             일정삭제
           </div>

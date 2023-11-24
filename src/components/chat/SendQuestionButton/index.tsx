@@ -40,7 +40,7 @@ export default function SendQuestionButton({
             color="secondary"
             iconBtn={true}
             onClick={startRecording}
-            label="녹음시작"
+            label="녹음 시작"
           >
             녹음 시작
           </Button>
