@@ -42,14 +42,12 @@ export default function SignIn() {
           <h1 className={styles.title}>길동이</h1>
         </title>
         <button
-          className={styles.btnWrapper}
+          className={styles.btn}
           onClick={loginWithKakao}
           aria-label="카카오로그인"
         >
-          <div className={styles.btn}>
-            <img src={kakao} alt="카카오로고이미지" />
-            <span>카카오 로그인</span>
-          </div>
+          <img src={kakao} alt="카카오로고이미지" />
+          카카오 로그인
         </button>
       </div>
     </div>

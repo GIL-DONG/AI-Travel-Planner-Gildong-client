@@ -39,30 +39,26 @@
   border-radius: 50%;
 }
 
-.btnWrapper {
+.btn {
   width: 22rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  padding: 1rem;
+  margin-top: 2rem;
+  color: rgba(0, 0, 0, 0.85);
   border: none;
   background-color: #fee500;
-  padding: 1rem;
   border-radius: 0.75rem;
-  margin-top: 2rem;
+  font-size: var(--font-size-lg);
+  font-weight: 600;
   cursor: pointer;
-}
-
-.btn {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: rgba(0, 0, 0, 0.85);
 
   > img {
+    position: absolute;
+    left: 1rem;
     width: 1rem;
     height: 1rem;
-  }
-
-  > span {
-    flex-grow: 1;
-    font-size: var(--font-size-lg);
-    font-weight: 600;
   }
 }
