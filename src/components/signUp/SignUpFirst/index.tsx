@@ -29,8 +29,8 @@ export default function SignUpFirst() {
   useStatus('', '');
 
   const checkNickName = async (value: string) => {
-    const data = await postCheckNickNameAPI(value);
-    if (!value || data.detail === 'Username already exists!') {
+    const response = await postCheckNickNameAPI(value);
+    if (!value || response?.data.detail === 'Username already exists!') {
       setNickNameValidation(false);
     } else {
       setNickNameValidation(true);

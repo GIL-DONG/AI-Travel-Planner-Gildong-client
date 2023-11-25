@@ -24,9 +24,9 @@ export default function ItineraryList() {
 
   const getItineraryList = async () => {
     setIsLoading(true);
-    const data = await getItineraryListAPI();
-    if (data.data) {
-      setItineraryList(data.data);
+    const response = await getItineraryListAPI();
+    if (response?.data) {
+      setItineraryList(response?.data?.data);
       setIsLoading(false);
     }
   };

@@ -21,9 +21,9 @@ export default function SignUpFourth() {
   useStatus('', '');
 
   const submitHandler = async () => {
-    const data = await postRegisterUserAPI(signUpState);
-    if (data) {
-      localStorage.setItem('access_token', data.access_token);
+    const response = await postRegisterUserAPI(signUpState);
+    if (response?.data) {
+      localStorage.setItem('access_token', response?.data.access_token);
       setIsLogin(true);
       navigate(ROUTE_PATHS.home);
     }

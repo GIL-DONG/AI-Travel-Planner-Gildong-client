@@ -47,20 +47,22 @@ export default function RegisterItineraryButton({
   };
 
   const confirmHandler = async () => {
-    const data = await getRegisterItineraryAPI(id);
-    if (data.message === 'Itinerary registered successfully.') {
-      const res = await getItineraryDetailsAPI(id);
-      if (res) {
+    const response = await getRegisterItineraryAPI(id);
+    if (response?.data.message === 'Itinerary registered successfully.') {
+      const response = await getItineraryDetailsAPI(id);
+      if (response?.data) {
         setTheTop({
-          title: res.data?.title,
-          destinations: res.data?.schedule.map((el: ItineraryScheduleTypes) => {
-            return {
-              title: el.title,
-              hearing: el.hearing,
-              physical: el.physical,
-              visual: el.visual,
-            };
-          }),
+          title: response?.data?.data?.title,
+          destinations: response?.data?.data?.schedule.map(
+            (el: ItineraryScheduleTypes) => {
+              return {
+                title: el.title,
+                hearing: el.hearing,
+                physical: el.physical,
+                visual: el.visual,
+              };
+            },
+          ),
         });
         setItineraryId('');
         setSessionId('');

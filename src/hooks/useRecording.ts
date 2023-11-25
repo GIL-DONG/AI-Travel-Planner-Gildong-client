@@ -114,10 +114,10 @@ export default function useRecording(
       audioChunks.current = [];
       const formData = new FormData();
       formData.append('in_files', audioFile);
-      const data = await postSpeechToTextAPI(formData);
+      const response = await postSpeechToTextAPI(formData);
       try {
-        if (data) {
-          const script = data.transcripts[0];
+        if (response?.data) {
+          const script = response?.data.transcripts[0];
           setValue(
             script
               .slice(script.indexOf(':') + 1, script.indexOf('\nConfidence:'))
