@@ -1,12 +1,10 @@
 import { API_URLS } from '@/constants/config';
-import apiClient from './apiClient';
+import apiRequest from './apiRequest';
 
-export const postImageUploadAPI = async (data: FormData) => {
-  const response = await apiClient.post(API_URLS.uploadImage, data);
-  return response.data;
+export const postImageUploadAPI = (data: FormData) => {
+  return apiRequest.post(API_URLS.uploadImage, data);
 };
 
-export const postSpeechToTextAPI = async (data: FormData) => {
-  const response = await apiClient.post(API_URLS.speechToText, data);
-  return response.data;
+export const postSpeechToTextAPI = (data: FormData) => {
+  return apiRequest.post(API_URLS.speechToText, data);
 };

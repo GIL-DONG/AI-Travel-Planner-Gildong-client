@@ -25,8 +25,8 @@ export default function MyPage() {
   useStatus('myPage', '마이페이지');
 
   const DeleteUserHandler = async () => {
-    const data = await deleteUserAPI();
-    if (data.status === 204) {
+    const response = await deleteUserAPI();
+    if (response.status === 204) {
       setIsLogin(false);
       localStorage.clear();
       sessionStorage.clear();

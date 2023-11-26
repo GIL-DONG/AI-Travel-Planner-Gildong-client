@@ -27,8 +27,8 @@ export default function ModifyUserInfo() {
   useStatus('modifyUserInfo', '회원정보수정');
 
   const checkNickName = async (value: string) => {
-    const data = await postCheckNickNameAPI(value);
-    if (!value || data.detail === 'Username already exists!') {
+    const response = await postCheckNickNameAPI(value);
+    if (!value || response?.data.detail === 'Username already exists!') {
       setNickNameValidation(false);
     } else {
       setNickNameValidation(true);
@@ -50,8 +50,8 @@ export default function ModifyUserInfo() {
       obj.user_photo = 'default';
     }
     if (obj.user_name || obj.user_photo) {
-      const data = await patchModifyUserInfoAPI(obj);
-      if (data.status === 204) {
+      const response = await patchModifyUserInfoAPI(obj);
+      if (response.status === 204) {
         setName(name);
         setProfileImage('default');
       }

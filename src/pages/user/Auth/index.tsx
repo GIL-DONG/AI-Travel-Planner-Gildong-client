@@ -37,7 +37,7 @@ export default function Auth() {
       setIsLoading(true);
       const code = new URL(window.location.href).searchParams.get('code');
       if (code) {
-        const response = await axios.post(
+        const data = await axios.post(
           'https://kauth.kakao.com/oauth/token',
           {
             grant_type: 'authorization_code',
@@ -49,22 +49,30 @@ export default function Auth() {
             headers: { 'Content-Type': `application/x-www-form-urlencoded` },
           },
         );
-        const token = response.data?.access_token;
-        const data = await getUserInfoAPI(token);
+        const token = data.data?.access_token;
+        const response = await getUserInfoAPI(token);
         setKakaoToken(token);
-        if (data.message === 'User not registered. Please sign up first.') {
-          setId(data.data.id);
-          setName(data.data.properties?.nickname);
-          if (!data.data.kakao_account?.profile.is_default_image) {
-            setProfileImage(data.data.properties?.profile_image);
-          } else if (data.data.kakao_account?.profile.is_default_image) {
+        if (
+          response?.data.message ===
+          'User not registered. Please sign up first.'
+        ) {
+          setId(response?.data?.data.id);
+          setName(response?.data?.data.properties?.nickname);
+          if (!response?.data?.data.kakao_account?.profile.is_default_image) {
+            setProfileImage(response?.data?.data.properties?.profile_image);
+          } else if (
+            response?.data?.data.kakao_account?.profile.is_default_image
+          ) {
             setProfileImage('default');
           }
           navigate(ROUTE_PATHS.signUp);
-        } else if (data.message === 'Logged in successfully') {
-          localStorage.setItem('access_token', data.data.access_token);
+        } else if (response?.data?.message === 'Logged in successfully') {
+          localStorage.setItem(
+            'access_token',
+            response?.data?.data.access_token,
+          );
           const { user_name, user_image, disability_status, disability_type } =
-            parseToken(data.data.access_token);
+            parseToken(response?.data?.data.access_token);
           setIsLogin(true);
           setName(user_name);
           setProfileImage(user_image);

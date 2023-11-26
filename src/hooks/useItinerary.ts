@@ -18,9 +18,9 @@ export default function useItinerary(sessionId?: string | undefined) {
 
   const getPreviousConversation = async (sessionId: string) => {
     setIsLoading(true);
-    const data = await getPrevioustConversationAPI(sessionId);
-    if (data) {
-      const chatList = data.data.map((el: ItineraryChatTypes) => {
+    const response = await getPrevioustConversationAPI(sessionId);
+    if (response?.data) {
+      const chatList = response?.data.data.map((el: ItineraryChatTypes) => {
         return {
           question: el.user_message,
           answer: el.formatted_ai_message,
@@ -33,13 +33,13 @@ export default function useItinerary(sessionId?: string | undefined) {
   };
 
   const getUpdateItinerary = async () => {
-    const data = await getRegisterItineraryAPI(itineraryId);
-    if (data.message === 'Itinerary registered successfully.') {
+    const response = await getRegisterItineraryAPI(itineraryId);
+    if (response?.data.message === 'Itinerary registered successfully.') {
       const response = await getItineraryDetailsAPI(itineraryId);
-      if (response) {
+      if (response?.data) {
         setTheTop({
-          title: response.data?.title,
-          destinations: response.data?.schedule.map(
+          title: response?.data?.data?.title,
+          destinations: response?.data.data?.schedule.map(
             (el: ItineraryScheduleTypes) => {
               return { title: el.title };
             },

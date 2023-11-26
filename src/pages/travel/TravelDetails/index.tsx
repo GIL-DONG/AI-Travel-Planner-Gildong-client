@@ -41,9 +41,9 @@ export default function TravelDetails() {
 
   const getTravelDetail = async (id: string) => {
     setIsLoading(true);
-    const data = await getTravelDetailAPI(id);
-    if (data) {
-      setDetailData(data.data);
+    const response = await getTravelDetailAPI(id);
+    if (response?.data) {
+      setDetailData(response?.data?.data);
       setIsLoading(false);
     }
   };

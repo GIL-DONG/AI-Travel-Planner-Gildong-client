@@ -21,9 +21,9 @@ export default function ImageUploadButton({
       const formData = new FormData();
       formData.append('in_files', file[0]);
       try {
-        const data = await postImageUploadAPI(formData);
-        if (data) {
-          const url = data.fileUrls[0];
+        const response = await postImageUploadAPI(formData);
+        if (response?.data) {
+          const url = response?.data.fileUrls[0];
           setUploadImage(url.slice(url.lastIndexOf('/') + 1));
         }
       } catch (error) {

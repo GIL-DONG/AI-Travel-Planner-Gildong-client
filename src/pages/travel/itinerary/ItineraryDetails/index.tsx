@@ -25,9 +25,11 @@ export default function ItineraryDetails() {
   const getItineraryDetails = async () => {
     if (id) {
       setIsLoading(true);
-      const data = await getItineraryDetailsAPI(id);
-      if (data.data) {
-        setGroupByDate(groupObjectsByField(data.data?.schedule || [], 'date'));
+      const response = await getItineraryDetailsAPI(id);
+      if (response?.data) {
+        setGroupByDate(
+          groupObjectsByField(response?.data?.data?.schedule || [], 'date'),
+        );
         setIsLoading(false);
       }
     }

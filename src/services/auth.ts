@@ -1,13 +1,11 @@
 import { API_URLS } from '@/constants/config';
 
-import apiClient from './apiClient';
+import apiRequest from './apiRequest';
 
-export const getUserInfoAPI = async (token: string) => {
-  const response = await apiClient.get(`${API_URLS.signIn}?token=${token}`);
-  return response.data;
+export const getUserInfoAPI = (token: string) => {
+  return apiRequest.get(`${API_URLS.signIn}?token=${token}`);
 };
 
-export const postRenewAccessTokenAPI = async () => {
-  const response = await apiClient.post(API_URLS.renewAccessToken);
-  return response.data;
+export const postRenewAccessTokenAPI = () => {
+  return apiRequest.post(API_URLS.renewAccessToken);
 };

@@ -17,7 +17,7 @@ export default function useSearch(inputText: string) {
     try {
       const trimmedText = inputText.trim();
       const response = await getSearchResidenceAPI(trimmedText, nextPage);
-      const { result, total } = response;
+      const { result, total } = response.data;
 
       setResidenceList((prev) => [...prev, ...result]);
 
@@ -46,7 +46,7 @@ export default function useSearch(inputText: string) {
         setIsSearching(true);
 
         const response = await getSearchResidenceAPI(trimmedText, 1);
-        const { result, total } = response;
+        const { result, total } = response.data;
 
         if (LIMIT * (1 - DEFAULT_PAGE) + result?.length < total)
           setHasNextPage(true);

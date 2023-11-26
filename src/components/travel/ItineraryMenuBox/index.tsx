@@ -39,8 +39,8 @@ export default function ItineraryMenuBox({
   const registerKakaoCalendar = async (id: string) => {
     const token = kakaoToken;
     if (token) {
-      const data = await getKaKaoCalendarAPI(id, token);
-      if (data.message === 'successful') {
+      const response = await getKaKaoCalendarAPI(id, token);
+      if (response?.data.message === 'successful') {
         setIsFailedKakaoCalendar(false);
         setIsOpenKakaoCalendarModal(true);
       }
@@ -188,8 +188,10 @@ export default function ItineraryMenuBox({
               size="lg"
               onClick={async () => {
                 if (itinerary) {
-                  const data = await deleteItineraryAPI(itinerary.itinerary_id);
-                  if (data.status === 200) {
+                  const response = await deleteItineraryAPI(
+                    itinerary.itinerary_id,
+                  );
+                  if (response.status === 200) {
                     setItineraryList((preItineraryList) =>
                       preItineraryList.filter(
                         (item) => item.itinerary_id !== itinerary.itinerary_id,
