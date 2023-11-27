@@ -5,7 +5,7 @@ import {
   ageGroupState,
   genderState,
   indexState,
-  nameState,
+  nickNameState,
 } from '@/store/atom/signUpAtom';
 import { AGEGROUP_LIST, GENDER_LIST } from '@/constants/signUp';
 import { postCheckNickNameAPI } from '@/services/signUp';
@@ -17,15 +17,15 @@ import NickName from '../NickName';
 import styles from './styles.module.scss';
 
 export default function SignUpFirst() {
-  const name = useRecoilValue(nameState);
+  const nickName = useRecoilValue(nickNameState);
   const gender = useRecoilValue(genderState);
   const ageGroup = useRecoilValue(ageGroupState);
-  const setName = useSetRecoilState(nameState);
+  const setNickName = useSetRecoilState(nickNameState);
   const setGender = useSetRecoilState(genderState);
   const setAgeGroup = useSetRecoilState(ageGroupState);
   const [nickNameValidation, setNickNameValidation] = useState(false);
   const setIndex = useSetRecoilState(indexState);
-  const debouncedInputText = useDebounce(name);
+  const debouncedInputText = useDebounce(nickName);
   useStatus('', '');
 
   const checkNickName = async (value: string) => {
@@ -40,7 +40,7 @@ export default function SignUpFirst() {
   const nickNameHandler = async (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
-    setName(event.target.value);
+    setNickName(event.target.value);
   };
 
   useEffect(() => {
@@ -54,7 +54,7 @@ export default function SignUpFirst() {
       <div>
         <InputTemplate htmlFor="name" name="닉네임">
           <NickName
-            value={name}
+            value={nickName}
             onChange={nickNameHandler}
             validation={nickNameValidation}
           />

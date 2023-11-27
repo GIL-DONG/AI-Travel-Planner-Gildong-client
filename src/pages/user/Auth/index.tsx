@@ -4,12 +4,13 @@ import { useRecoilValue, useSetRecoilState } from 'recoil';
 import axios from 'axios';
 import { Helmet } from 'react-helmet-async';
 import { getUserInfoAPI } from '@/services/auth';
-import { idState, nameState } from '@/store/atom/signUpAtom';
+import { idState, nickNameState } from '@/store/atom/signUpAtom';
 import {
   isLoginState,
   kakaoTokenState,
   userDisabilityStatusState,
   userDisabilityTypeState,
+  nameState,
   userProfileImageState,
 } from '@/store/atom/userAtom';
 import parseToken from '@/utils/parseToken';
@@ -22,6 +23,7 @@ import styles from './styles.module.scss';
 export default function Auth() {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
+  const setNickName = useSetRecoilState(nickNameState);
   const setName = useSetRecoilState(nameState);
   const setId = useSetRecoilState(idState);
   const setIsLogin = useSetRecoilState(isLoginState);
@@ -57,7 +59,7 @@ export default function Auth() {
           'User not registered. Please sign up first.'
         ) {
           setId(response?.data?.data.id);
-          setName(response?.data?.data.properties?.nickname);
+          setNickName(response?.data?.data.properties?.nickname);
           if (!response?.data?.data.kakao_account?.profile.is_default_image) {
             setProfileImage(response?.data?.data.properties?.profile_image);
           } else if (

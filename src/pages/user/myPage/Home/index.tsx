@@ -5,10 +5,13 @@ import { IoPersonCircleSharp } from 'react-icons/io5';
 import { useState } from 'react';
 import { PiWarningCircleFill } from 'react-icons/pi';
 import { Helmet } from 'react-helmet-async';
-import { isLoginState, userProfileImageState } from '@/store/atom/userAtom';
+import {
+  isLoginState,
+  nameState,
+  userProfileImageState,
+} from '@/store/atom/userAtom';
 import { deleteUserAPI } from '@/services/user';
 import { ROUTE_PATHS } from '@/constants/config';
-import { nameState } from '@/store/atom/signUpAtom';
 import useStatus from '@/hooks/useStatus';
 import Modal from '@/components/common/Modal';
 import Button from '@/components/common/Button';

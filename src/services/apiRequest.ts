@@ -4,9 +4,6 @@ import { postRenewAccessTokenAPI } from './auth';
 
 const apiRequest: AxiosInstance = axios.create({
   baseURL: BASE_URL,
-  headers: {
-    withCredential: true,
-  },
 });
 
 apiRequest.interceptors.request.use(
@@ -48,7 +45,9 @@ apiRequest.interceptors.response.use(
       renewAccessToken();
     } else if (error.response?.status === 500) {
       localStorage.clear();
-      window.location.href = `https://gildong.site${ROUTE_PATHS.signIn}`;
+      window.location.href = `${import.meta.env.VITE_APP_CLIENT_URL}${
+        ROUTE_PATHS.signIn
+      }`;
     }
     console.error('Response error:', error.response);
     return Promise.reject(error);
