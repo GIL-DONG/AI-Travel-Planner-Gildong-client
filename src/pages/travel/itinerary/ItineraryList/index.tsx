@@ -4,22 +4,16 @@ import { useSetRecoilState } from 'recoil';
 import { Helmet } from 'react-helmet-async';
 import { getItineraryListAPI } from '@/services/travel';
 import { ItineraryTypes } from '@/types/travel';
-import { ROUTE_PATHS } from '@/constants/config';
-import Destinations from '@/components/travel/Destinations';
-import { itineraryState, theTopState } from '@/store/atom/travelAtom';
-import menu from '@/assets/menu.webp';
 import useStatus from '@/hooks/useStatus';
 import Loading from '@/components/common/Loading';
 import ItineraryMenuBox from '@/components/travel/ItineraryMenuBox';
+import ItineraryItem from '@/components/travel/ItineraryItem';
 import styles from './styles.module.scss';
 
 export default function ItineraryList() {
-  const navigate = useNavigate();
-  const setTheTop = useSetRecoilState(theTopState);
   const [itineraryList, setItineraryList] = useState<ItineraryTypes[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isMenuModalOpen, setIsMenuModalOpen] = useState(false);
-  const setItinerary = useSetRecoilState(itineraryState);
   useStatus('itineraryList', '여행일정');
 
   const getItineraryList = async () => {
@@ -44,40 +38,15 @@ export default function ItineraryList() {
         <Loading />
       ) : (
         <main className={styles.pageWrapper}>
-          <div className={styles.container}>
+          <ul className={styles.container}>
             {itineraryList.map((el, index) => (
-              <div
+              <ItineraryItem
                 key={index}
-                className={styles.itinerary}
-                onClick={() => {
-                  setTheTop({
-                    title: el.title,
-                    destinations: el.destinations,
-                  });
-                  navigate(`${ROUTE_PATHS.itineraryList}/${el.itinerary_id}`);
-                }}
-              >
-                <div className={styles.topWrapper}>
-                  <div className={styles.time}>
-                    {el.timestamp.slice(0, el.timestamp.indexOf('T'))}
-                  </div>
-                  <img
-                    src={menu}
-                    onClick={(event) => {
-                      event.stopPropagation();
-                      setItinerary(el);
-                      setIsMenuModalOpen(true);
-                    }}
-                    alt="메뉴버튼이미지"
-                  />
-                </div>
-                <div className={styles.titleWrapper}>
-                  <span className={styles.title}>{el.title}</span>
-                </div>
-                <Destinations destinations={el.destinations} />
-              </div>
+                item={el}
+                setIsMenuModalOpen={setIsMenuModalOpen}
+              />
             ))}
-          </div>
+          </ul>
           <ItineraryMenuBox
             isManuModalOpen={isMenuModalOpen}
             setItineraryList={setItineraryList}
