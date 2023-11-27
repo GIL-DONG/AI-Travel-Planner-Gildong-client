@@ -16,11 +16,6 @@ const theTopState = atom<TheTopTypes>({
   effects_UNSTABLE: [persistAtom],
 });
 
-const tabState = atom<string>({
-  key: 'tabState',
-  default: '',
-});
-
 const itineraryState = atom<ItineraryTypes>({
   key: 'itinerary',
   default: {
@@ -34,4 +29,4 @@ const itineraryState = atom<ItineraryTypes>({
   effects_UNSTABLE: [persistAtom],
 });
 
-export { theTopState, tabState, itineraryState };
+export { theTopState, itineraryState };
