@@ -30,17 +30,17 @@ export default function SignIn() {
   };
 
   return (
-    <div className={styles.pageWrapper}>
+    <main className={styles.pageWrapper}>
       <Helmet>
         <title>Sign In</title>
       </Helmet>
-      <div className={styles.contentWrapper}>
-        <title className={styles.titleWrapper}>
+      <section className={styles.contentWrapper}>
+        <div className={styles.titleWrapper}>
           <img src={gildong} className={styles.img} alt="길동이이미지" />
           <h2 className={styles.description}>대화로 만들어가는 여행 플래너</h2>
           <h1 className={styles.text}>AI Travel Planner</h1>
           <h1 className={styles.title}>길동이</h1>
-        </title>
+        </div>
         <button
           className={styles.btn}
           onClick={loginWithKakao}
@@ -49,7 +49,7 @@ export default function SignIn() {
           <img src={kakao} alt="카카오로고이미지" />
           카카오 로그인
         </button>
-      </div>
-    </div>
+      </section>
+    </main>
   );
 }
