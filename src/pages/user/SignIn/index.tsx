@@ -9,6 +9,13 @@ import styles from './styles.module.scss';
 export default function SignIn() {
   useStatus('signIn', '');
 
+  const loginWithKakao = () => {
+    window.Kakao.Auth.authorize({
+      redirectUri: REDIRECT_URL,
+      scope: 'talk_calendar,profile_nickname,profile_image',
+    });
+  };
+
   useEffect(() => {
     const script = document.createElement('script');
     script.src = 'https://t1.kakaocdn.net/kakao_js_sdk/2.4.0/kakao.min.js';
@@ -21,13 +28,6 @@ export default function SignIn() {
     };
     document.body.appendChild(script);
   }, []);
-
-  const loginWithKakao = () => {
-    window.Kakao.Auth.authorize({
-      redirectUri: REDIRECT_URL,
-      scope: 'talk_calendar,profile_nickname,profile_image',
-    }).then((error: any) => console.log(error.json()));
-  };
 
   return (
     <main className={styles.pageWrapper}>

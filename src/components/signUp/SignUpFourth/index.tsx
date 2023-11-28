@@ -6,26 +6,33 @@ import { indexState, preferTravelStyleState } from '@/store/atom/signUpAtom';
 import Button from '@/components/common/Button';
 import { signUpStateSelector } from '@/store/selector/signUpSelector';
 import { postRegisterUserAPI } from '@/services/signUp';
-import { isLoginState } from '@/store/atom/userAtom';
 import { ROUTE_PATHS } from '@/constants/config';
 import useStatus from '@/hooks/useStatus';
+import useAuth from '@/hooks/useAuth';
+import { pageState } from '@/store/atom/chatAtom';
 import styles from './styles.module.scss';
 
 export default function SignUpFourth() {
   const navigate = useNavigate();
+  const page = useRecoilValue(pageState);
   const preferTravelStyle = useRecoilValue(preferTravelStyleState);
   const signUpState = useRecoilValue(signUpStateSelector);
   const setPreferTravelStyle = useSetRecoilState(preferTravelStyleState);
   const setIndex = useSetRecoilState(indexState);
-  const setIsLogin = useSetRecoilState(isLoginState);
+  const setPage = useSetRecoilState(pageState);
+  const { getUserInfoByParseToken } = useAuth();
   useStatus('', '');
 
   const submitHandler = async () => {
     const response = await postRegisterUserAPI(signUpState);
     if (response?.data) {
-      localStorage.setItem('access_token', response?.data.access_token);
-      setIsLogin(true);
-      navigate(ROUTE_PATHS.home);
+      getUserInfoByParseToken(response?.data.access_token);
+      if (page) {
+        navigate(page);
+        setPage('');
+      } else {
+        navigate(ROUTE_PATHS.home);
+      }
     }
   };
 

@@ -12,18 +12,19 @@ import styles from './styles.module.scss';
 
 export default function TravelDetails() {
   const { id } = useParams();
-  const [detailData, setDetailData] = useState<TravelDetailsTypes>({
-    title: '',
-    overview: '',
-    contenttypeid: '',
-    addr: '',
-    tel: '',
-    zipcode: '',
-    url: '',
-    physical: '',
-    visual: '',
-    hearing: '',
-  });
+  const [travelDetailsList, setTravelDetailsList] =
+    useState<TravelDetailsTypes>({
+      title: '',
+      overview: '',
+      contenttypeid: '',
+      addr: '',
+      tel: '',
+      zipcode: '',
+      url: '',
+      physical: '',
+      visual: '',
+      hearing: '',
+    });
   const [isLoading, setIsLoading] = useState(false);
   useStatus('travelDetails', '');
 
@@ -31,7 +32,7 @@ export default function TravelDetails() {
     setIsLoading(true);
     const response = await getTravelDetailAPI(id);
     if (response?.data) {
-      setDetailData(response?.data?.data);
+      setTravelDetailsList(response?.data?.data);
       setIsLoading(false);
     }
   };
@@ -51,34 +52,34 @@ export default function TravelDetails() {
         <Loading />
       ) : (
         <main className={styles.pageWrapper}>
-          <h1 className={styles.title}>{detailData.title}</h1>
-          {detailData?.url && (
+          <h1 className={styles.title}>{travelDetailsList.title}</h1>
+          {travelDetailsList?.url && (
             <img
-              src={detailData.url}
+              src={travelDetailsList.url}
               className={styles.img}
               alt="여행지이미지"
             />
           )}
           <div className={styles.contentWrapper}>
-            {detailData?.addr && (
+            {travelDetailsList?.addr && (
               <div className={styles.content}>
-                <FaMapMarkerAlt /> {detailData.addr}
+                <FaMapMarkerAlt /> {travelDetailsList.addr}
               </div>
             )}
-            {detailData?.tel && (
+            {travelDetailsList?.tel && (
               <div className={styles.content}>
-                <BsFillTelephoneFill /> {detailData.tel}
+                <BsFillTelephoneFill /> {travelDetailsList.tel}
               </div>
             )}
-            {detailData?.overview && (
+            {travelDetailsList?.overview && (
               <p className={styles.info}>
-                {detailData.overview.replaceAll('<br>', '')}
+                {travelDetailsList.overview.replaceAll('<br>', '')}
               </p>
             )}
-            {detailData?.visual &&
-              detailData?.physical &&
-              detailData?.hearing && (
-                <DisabilityInfoBox detailData={detailData} />
+            {travelDetailsList?.visual &&
+              travelDetailsList?.physical &&
+              travelDetailsList?.hearing && (
+                <DisabilityInfoBox travelDetailsList={travelDetailsList} />
               )}
           </div>
         </main>

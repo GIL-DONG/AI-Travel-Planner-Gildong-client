@@ -4,16 +4,16 @@ import DisabilityInfoContent from './DisabilityInfoContent';
 import DisabilityInfoTab from './DisabilityInfoTab';
 
 interface DisabilityInfoBoxProps {
-  detailData: TravelDetailsTypes;
+  travelDetailsList: TravelDetailsTypes;
 }
 
 export default function DisabilityInfoBox({
-  detailData,
+  travelDetailsList,
 }: DisabilityInfoBoxProps) {
   const disabilityInfoList = [
-    { name: '시각장애인', content: detailData.visual },
-    { name: '지체장애인', content: detailData.physical },
-    { name: '청각장애인', content: detailData.hearing },
+    { name: '시각장애인', content: travelDetailsList.visual },
+    { name: '지체장애인', content: travelDetailsList.physical },
+    { name: '청각장애인', content: travelDetailsList.hearing },
   ];
   const [currentTab, setCurrentTab] = useState(0);
 
