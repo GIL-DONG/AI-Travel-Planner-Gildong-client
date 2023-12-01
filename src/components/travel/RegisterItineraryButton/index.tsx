@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { AiOutlineCheck } from 'react-icons/ai';
 import { FaCheckCircle } from 'react-icons/fa';
 import { HiBellAlert } from 'react-icons/hi2';
+import { useMutation } from 'react-query';
 import Button from '@/components/common/Button';
 import Modal from '@/components/common/Modal';
 import { isLoginState } from '@/store/atom/userAtom';
@@ -38,37 +39,47 @@ export default function RegisterItineraryButton({
   const setItineraryId = useSetRecoilState(itineraryIdState);
   const setMainChatList = useSetRecoilState(mainChatListState);
 
-  const onClickOpenModal = () => {
-    setIsModalOpen(true);
+  const getRegisterItinerary = async (id: string) => {
+    const response = await getRegisterItineraryAPI(id);
+    return response.data.message;
   };
 
-  const onClickCloseModal = () => {
-    setIsModalOpen(false);
+  const getItineraryDetails = async (id: string) => {
+    const response = await getItineraryDetailsAPI(id);
+    return response.data;
   };
+
+  const postMutation = useMutation(getItineraryDetails, {
+    onSuccess: (data) => {
+      setTheTop({
+        title: data.data.title,
+        destinations: data.data.schedule.map((el: ItineraryScheduleTypes) => {
+          return {
+            title: el.title,
+            hearing: el.hearing,
+            physical: el.physical,
+            visual: el.visual,
+          };
+        }),
+      });
+      setItineraryId('');
+      setSessionId('');
+      setMainChatList([]);
+      navigate(`/chat/itinerary/${sessionId}`);
+    },
+  });
+  const patchMutation = useMutation(getRegisterItinerary, {
+    onSuccess: (data) => {
+      if (data === 'Itinerary registered successfully.')
+        postMutation.mutate(id);
+    },
+  });
 
   const confirmHandler = async () => {
-    const response = await getRegisterItineraryAPI(id);
-    if (response?.data.message === 'Itinerary registered successfully.') {
-      const response = await getItineraryDetailsAPI(id);
-      if (response?.data) {
-        setTheTop({
-          title: response?.data?.data?.title,
-          destinations: response?.data?.data?.schedule.map(
-            (el: ItineraryScheduleTypes) => {
-              return {
-                title: el.title,
-                hearing: el.hearing,
-                physical: el.physical,
-                visual: el.visual,
-              };
-            },
-          ),
-        });
-        setItineraryId('');
-        setSessionId('');
-        setMainChatList([]);
-        navigate(`/chat/itinerary/${sessionId}`);
-      }
+    if (isLogin) {
+      patchMutation.mutate(id);
+    } else {
+      navigate(ROUTE_PATHS.signIn);
     }
   };
 
@@ -77,12 +88,15 @@ export default function RegisterItineraryButton({
       <Button
         variant="primary"
         icon={<AiOutlinePlus />}
-        onClick={onClickOpenModal}
+        onClick={() => setIsModalOpen(true)}
         label="일정 등록"
       >
         일정 등록
       </Button>
-      <Modal isModalOpen={isModalOpen} onClickCloseModal={onClickCloseModal}>
+      <Modal
+        isModalOpen={isModalOpen}
+        onClickCloseModal={() => setIsModalOpen(false)}
+      >
         <div className={styles.container}>
           {isLogin ? (
             <>
@@ -151,7 +165,7 @@ export default function RegisterItineraryButton({
             <Button
               variant="disabled"
               size="lg"
-              onClick={onClickCloseModal}
+              onClick={() => setIsModalOpen(false)}
               label="취소"
             >
               취소
@@ -159,13 +173,7 @@ export default function RegisterItineraryButton({
             <Button
               variant="primary"
               size="lg"
-              onClick={() => {
-                if (isLogin) {
-                  confirmHandler();
-                } else {
-                  navigate(ROUTE_PATHS.signIn);
-                }
-              }}
+              onClick={confirmHandler}
               label="확인"
             >
               확인

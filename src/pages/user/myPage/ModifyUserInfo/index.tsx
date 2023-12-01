@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { IoPersonCircleSharp } from 'react-icons/io5';
 import { Helmet } from 'react-helmet-async';
+import { useMutation } from 'react-query';
 import { nameState, userProfileImageState } from '@/store/atom/userAtom';
 import useDebounce from '@/hooks/useDebounce';
 import { postCheckNickNameAPI } from '@/services/signUp';
@@ -28,7 +29,7 @@ export default function ModifyUserInfo() {
   const debouncedInputText = useDebounce(nickName);
   useStatus('modifyUserInfo', '회원정보수정');
 
-  const checkNickName = async (value: string) => {
+  const postCheckNickName = async (value: string) => {
     const response = await postCheckNickNameAPI(value);
     if (!value || response?.data.detail === 'Username already exists!') {
       setNickNameValidation(false);
@@ -37,6 +38,22 @@ export default function ModifyUserInfo() {
     }
   };
 
+  const patchModifyUserInfo = async (userInfo: ModifyUserInfoTypes) => {
+    const response = await patchModifyUserInfoAPI(userInfo);
+    return response;
+  };
+
+  const postMutation = useMutation(postCheckNickName);
+  const patchMutation = useMutation(patchModifyUserInfo, {
+    onSuccess: () => {
+      setName(nickName);
+      setProfileImage('default');
+    },
+    onSettled: () => {
+      navigate(ROUTE_PATHS.myPage);
+    },
+  });
+
   const nickNameHandler = async (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
@@ -44,26 +61,21 @@ export default function ModifyUserInfo() {
   };
 
   const submitHandler = async () => {
-    const obj: ModifyUserInfoTypes = {};
+    const userInfo: ModifyUserInfoTypes = {};
     if (nickName && nickNameValidation) {
-      obj.user_name = nickName;
+      userInfo.user_name = nickName;
     }
     if (deleteImage && profileImage !== 'default') {
-      obj.user_photo = 'default';
+      userInfo.user_photo = 'default';
     }
-    if (obj.user_name || obj.user_photo) {
-      const response = await patchModifyUserInfoAPI(obj);
-      if (response.status === 204) {
-        setName(nickName);
-        setProfileImage('default');
-      }
+    if (userInfo.user_name || userInfo.user_photo) {
+      patchMutation.mutate(userInfo);
     }
-    navigate(ROUTE_PATHS.myPage);
   };
 
   useEffect(() => {
     if (debouncedInputText) {
-      checkNickName(debouncedInputText);
+      postMutation.mutate(debouncedInputText);
     }
   }, [debouncedInputText]);
 

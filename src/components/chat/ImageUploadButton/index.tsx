@@ -1,5 +1,6 @@
 import { AiOutlineCamera } from 'react-icons/ai';
 import React, { SetStateAction } from 'react';
+import { useMutation } from 'react-query';
 import { postImageUploadAPI } from '@/services/chat';
 import styles from './styles.module.scss';
 
@@ -10,6 +11,22 @@ interface ImageUploadButtonProps {
 export default function ImageUploadButton({
   setUploadImage,
 }: ImageUploadButtonProps) {
+  const postImageUpload = async (formData: FormData) => {
+    const response = await postImageUploadAPI(formData);
+    return response;
+  };
+
+  const postMutation = useMutation(postImageUpload, {
+    onSuccess: (data) => {
+      const url = data.data.fileUrls[0];
+      setUploadImage(url.slice(url.lastIndexOf('/') + 1));
+    },
+    onError: () => {
+      setUploadImage('');
+      alert('용량이 큽니다');
+    },
+  });
+
   const onClickUploadImageHandler = async (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
@@ -20,16 +37,7 @@ export default function ImageUploadButton({
     } else {
       const formData = new FormData();
       formData.append('in_files', file[0]);
-      try {
-        const response = await postImageUploadAPI(formData);
-        if (response?.data) {
-          const url = response?.data.fileUrls[0];
-          setUploadImage(url.slice(url.lastIndexOf('/') + 1));
-        }
-      } catch (error) {
-        setUploadImage('');
-        alert('용량이 큽니다');
-      }
+      postMutation.mutate(formData);
     }
   };
 

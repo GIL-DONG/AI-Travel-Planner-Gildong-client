@@ -1,5 +1,6 @@
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { useNavigate } from 'react-router-dom';
+import { useMutation } from 'react-query';
 import Checkboxes from '@/components/common/Checkboxes';
 import { PREFER_TRAVEL_STYLE_LIST } from '@/constants/signUp';
 import { indexState, preferTravelStyleState } from '@/store/atom/signUpAtom';
@@ -10,6 +11,7 @@ import { ROUTE_PATHS } from '@/constants/config';
 import useStatus from '@/hooks/useStatus';
 import useAuth from '@/hooks/useAuth';
 import { pageState } from '@/store/atom/chatAtom';
+import { SignUpTypes } from '@/types/signUp';
 import styles from './styles.module.scss';
 
 export default function SignUpFourth() {
@@ -23,17 +25,25 @@ export default function SignUpFourth() {
   const { getUserInfoByParseToken } = useAuth();
   useStatus('', '');
 
-  const submitHandler = async () => {
-    const response = await postRegisterUserAPI(signUpState);
-    if (response?.data) {
-      getUserInfoByParseToken(response?.data.access_token);
+  const postRegisterUser = async (formData: SignUpTypes) => {
+    const response = await postRegisterUserAPI(formData);
+    return response;
+  };
+
+  const postMutation = useMutation(postRegisterUser, {
+    onSuccess: (data) => {
+      getUserInfoByParseToken(data?.data.access_token);
       if (page) {
         navigate(page);
         setPage('');
       } else {
         navigate(ROUTE_PATHS.home);
       }
-    }
+    },
+  });
+
+  const submitHandler = async () => {
+    postMutation.mutate(signUpState);
   };
 
   return (

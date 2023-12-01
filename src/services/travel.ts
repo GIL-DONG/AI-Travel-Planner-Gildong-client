@@ -1,7 +1,7 @@
 import { API_URLS } from '@/constants/config';
 import apiRequest from './apiRequest';
 
-export const getTravelDetailAPI = (id: string) => {
+export const getTravelDetailsAPI = (id: string) => {
   return apiRequest.get(`${API_URLS.travelDetails}?data_id=${id}`);
 };
 
@@ -21,7 +21,7 @@ export const getItineraryDetailsAPI = (id: string) => {
   return apiRequest.get(`${API_URLS.itineraryDetails}?itinerary_id=${id}`);
 };
 
-export const getPrevioustConversationAPI = (id: string) => {
+export const getPreviousConversationAPI = (id: string) => {
   return apiRequest.get(`${API_URLS.previousConversation}?session_id=${id}`);
 };
 

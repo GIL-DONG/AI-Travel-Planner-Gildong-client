@@ -1,5 +1,6 @@
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { useEffect, useState } from 'react';
+import { useMutation } from 'react-query';
 import RadioButtonGroup from '@/components/common/RadioButtonGroup';
 import {
   ageGroupState,
@@ -30,12 +31,21 @@ export default function SignUpFirst() {
 
   const checkNickName = async (value: string) => {
     const response = await postCheckNickNameAPI(value);
-    if (!value || response?.data.detail === 'Username already exists!') {
-      setNickNameValidation(false);
-    } else {
-      setNickNameValidation(true);
-    }
+    return { response, value };
   };
+
+  const postMutation = useMutation(checkNickName, {
+    onSuccess: (data) => {
+      if (
+        !data.value ||
+        data.response?.data.detail === 'Username already exists!'
+      ) {
+        setNickNameValidation(false);
+      } else {
+        setNickNameValidation(true);
+      }
+    },
+  });
 
   const nickNameHandler = async (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -45,7 +55,7 @@ export default function SignUpFirst() {
 
   useEffect(() => {
     if (debouncedInputText) {
-      checkNickName(debouncedInputText);
+      postMutation.mutate(debouncedInputText);
     }
   }, [debouncedInputText]);
 

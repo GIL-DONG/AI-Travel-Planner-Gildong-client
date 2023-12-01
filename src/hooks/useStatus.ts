@@ -10,5 +10,5 @@ export default function useStatus(pageName: string, title: string | undefined) {
       pageName: pageName,
       title: title,
     });
-  }, []);
+  }, [title]);
 }
