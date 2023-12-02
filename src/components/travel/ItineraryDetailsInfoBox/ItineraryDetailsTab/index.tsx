@@ -1,5 +1,4 @@
-import React, { SetStateAction, useEffect } from 'react';
-import { useQueryClient } from 'react-query';
+import React, { SetStateAction } from 'react';
 import styles from './styles.module.scss';
 
 interface ItineraryDetailsTabProps {
