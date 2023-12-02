@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import { useParams } from 'react-router';
 import { Helmet } from 'react-helmet-async';
@@ -10,6 +10,7 @@ import useFetchStreamData from '@/hooks/useFetchStreamData';
 import ChatRoomBox from '@/components/chat/ChatRoomBox';
 import ChatBar from '@/components/chat/ChatBar';
 import Loading from '@/components/common/Loading';
+import Error from '@/pages/error/Error';
 import styles from './styles.module.scss';
 
 export default function ItineraryChat() {
@@ -17,8 +18,8 @@ export default function ItineraryChat() {
   const scrollRef = useRef<null[] | HTMLDivElement[]>([]);
   const theTop = useRecoilValue(theTopState);
   useStatus('itineraryChat', theTop.title);
-  const { isLoading, itineraryChatList, setItineraryChatList } =
-    useItinerary(id);
+  const { data, isLoading, isError } = useItinerary(id);
+  const [itineraryChatList, setItineraryChatList] = useState<ChatTypes[]>([]);
   const {
     chatList,
     question,
@@ -51,6 +52,12 @@ export default function ItineraryChat() {
   };
 
   useEffect(() => {
+    if (data) {
+      setItineraryChatList(data);
+    }
+  }, [data]);
+
+  useEffect(() => {
     if (scrollRef.current[0]) {
       if (
         scrollRef.current[1] &&
@@ -81,6 +88,9 @@ export default function ItineraryChat() {
     }
   }, [chatList]);
 
+  if (isLoading) return <Loading />;
+  if (isError) return <Error />;
+
   return (
     <main>
       <Helmet>
@@ -90,30 +100,26 @@ export default function ItineraryChat() {
         <Destinations destinations={theTop.destinations} />
       </div>
       <div className={styles.pageWrapper}>
-        {isLoading ? (
-          <Loading />
-        ) : (
-          <div className={styles.chatRoomContainer}>
-            <div
-              className={styles.chatRoom}
-              ref={(el) => refHandler(el, 1)}
-              onWheel={wheelHandler}
-            >
-              <ChatRoomBox
-                chatList={chatList}
-                isStopedScroll={isStopedScroll}
-                refHandler={refHandler}
-              />
-              <ChatBar
-                question={question}
-                uploadImage={uploadImage}
-                setQuestion={setQuestion}
-                setUploadImage={setUploadImage}
-                submitHandler={submitHandler}
-              />
-            </div>
+        <div className={styles.chatRoomContainer}>
+          <div
+            className={styles.chatRoom}
+            ref={(el) => refHandler(el, 1)}
+            onWheel={wheelHandler}
+          >
+            <ChatRoomBox
+              chatList={chatList}
+              isStopedScroll={isStopedScroll}
+              refHandler={refHandler}
+            />
+            <ChatBar
+              question={question}
+              uploadImage={uploadImage}
+              setQuestion={setQuestion}
+              setUploadImage={setUploadImage}
+              submitHandler={submitHandler}
+            />
           </div>
-        )}
+        </div>
       </div>
     </main>
   );

@@ -6,7 +6,7 @@ import {
   disabilityTypeState,
   genderState,
   idState,
-  nameState,
+  nickNameState,
   preferTravelStyleState,
   residenceState,
 } from '../atom/signUpAtom';
@@ -16,7 +16,7 @@ export const signUpStateSelector = selector({
   key: 'signUpState',
   get: ({ get }): SignUpTypes => {
     const id = get(idState);
-    const name = get(nameState);
+    const nickName = get(nickNameState);
     const ageGroup = get(ageGroupState);
     const gender = get(genderState);
     const disabilityStatus = get(disabilityStatusState);
@@ -38,7 +38,7 @@ export const signUpStateSelector = selector({
 
     return {
       userID: id + '' || '',
-      user_name: name,
+      user_name: nickName,
       age_group: +ageGroup.slice(0, 2),
       gender: gender === '남자' ? '남' : '여',
       prefer_travel: preferTravelStyle,

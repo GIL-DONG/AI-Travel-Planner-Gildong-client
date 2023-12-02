@@ -1,32 +1,49 @@
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { useNavigate } from 'react-router-dom';
+import { useMutation } from 'react-query';
 import Checkboxes from '@/components/common/Checkboxes';
 import { PREFER_TRAVEL_STYLE_LIST } from '@/constants/signUp';
 import { indexState, preferTravelStyleState } from '@/store/atom/signUpAtom';
 import Button from '@/components/common/Button';
 import { signUpStateSelector } from '@/store/selector/signUpSelector';
 import { postRegisterUserAPI } from '@/services/signUp';
-import { isLoginState } from '@/store/atom/userAtom';
 import { ROUTE_PATHS } from '@/constants/config';
 import useStatus from '@/hooks/useStatus';
+import useAuth from '@/hooks/useAuth';
+import { pageState } from '@/store/atom/chatAtom';
+import { SignUpTypes } from '@/types/signUp';
 import styles from './styles.module.scss';
 
 export default function SignUpFourth() {
   const navigate = useNavigate();
+  const page = useRecoilValue(pageState);
   const preferTravelStyle = useRecoilValue(preferTravelStyleState);
   const signUpState = useRecoilValue(signUpStateSelector);
   const setPreferTravelStyle = useSetRecoilState(preferTravelStyleState);
   const setIndex = useSetRecoilState(indexState);
-  const setIsLogin = useSetRecoilState(isLoginState);
+  const setPage = useSetRecoilState(pageState);
+  const { getUserInfoByParseToken } = useAuth();
   useStatus('', '');
 
+  const postRegisterUser = async (formData: SignUpTypes) => {
+    const response = await postRegisterUserAPI(formData);
+    return response;
+  };
+
+  const postMutation = useMutation(postRegisterUser, {
+    onSuccess: (data) => {
+      getUserInfoByParseToken(data?.data.access_token);
+      if (page) {
+        navigate(page);
+        setPage('');
+      } else {
+        navigate(ROUTE_PATHS.home);
+      }
+    },
+  });
+
   const submitHandler = async () => {
-    const response = await postRegisterUserAPI(signUpState);
-    if (response?.data) {
-      localStorage.setItem('access_token', response?.data.access_token);
-      setIsLogin(true);
-      navigate(ROUTE_PATHS.home);
-    }
+    postMutation.mutate(signUpState);
   };
 
   return (

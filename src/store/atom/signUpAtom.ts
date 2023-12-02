@@ -13,10 +13,9 @@ const idState = atom<string>({
   effects_UNSTABLE: [persistAtom],
 });
 
-const nameState = atom<string>({
-  key: 'name',
+const nickNameState = atom<string>({
+  key: 'nickName',
   default: '',
-  effects_UNSTABLE: [persistAtom],
 });
 
 const genderState = atom<string>({
@@ -61,7 +60,7 @@ const indexState = atom<number>({
 
 export {
   idState,
-  nameState,
+  nickNameState,
   genderState,
   ageGroupState,
   disabilityStatusState,

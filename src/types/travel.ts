@@ -48,3 +48,8 @@ export interface TheTopTypes {
   title: string;
   destinations: DestinationsTypes[];
 }
+
+export interface DisabilityInfoListTypes {
+  name: string;
+  content: string | undefined;
+}

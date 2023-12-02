@@ -5,10 +5,14 @@ import { IoPersonCircleSharp } from 'react-icons/io5';
 import { useState } from 'react';
 import { PiWarningCircleFill } from 'react-icons/pi';
 import { Helmet } from 'react-helmet-async';
-import { isLoginState, userProfileImageState } from '@/store/atom/userAtom';
+import { useMutation } from 'react-query';
+import {
+  isLoginState,
+  nameState,
+  userProfileImageState,
+} from '@/store/atom/userAtom';
 import { deleteUserAPI } from '@/services/user';
 import { ROUTE_PATHS } from '@/constants/config';
-import { nameState } from '@/store/atom/signUpAtom';
 import useStatus from '@/hooks/useStatus';
 import Modal from '@/components/common/Modal';
 import Button from '@/components/common/Button';
@@ -24,15 +28,25 @@ export default function MyPage() {
   const [isOpenModal, setIsOpenModal] = useState(false);
   useStatus('myPage', '마이페이지');
 
-  const DeleteUserHandler = async () => {
+  const deleteUser = async () => {
     const response = await deleteUserAPI();
-    if (response.status === 204) {
+    return response;
+  };
+
+  const deleteMutation = useMutation(deleteUser, {
+    onSuccess: () => {
       setIsLogin(false);
       localStorage.clear();
       sessionStorage.clear();
       navigate(ROUTE_PATHS.home);
-    }
-    setIsOpenModal(false);
+    },
+    onSettled: () => {
+      setIsOpenModal(false);
+    },
+  });
+
+  const DeleteUserHandler = async () => {
+    deleteMutation.mutate();
   };
 
   return (

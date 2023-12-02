@@ -10,8 +10,11 @@ import { AiOutlineLeft } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
 import { IoPersonCircleSharp } from 'react-icons/io5';
 import { IoMdClose } from 'react-icons/io';
-import { nameState } from '@/store/atom/signUpAtom';
-import { isLoginState, userProfileImageState } from '@/store/atom/userAtom';
+import {
+  isLoginState,
+  nameState,
+  userProfileImageState,
+} from '@/store/atom/userAtom';
 import { ROUTE_PATHS } from '@/constants/config';
 import {
   mainChatListState,

@@ -6,27 +6,26 @@ import { LiaCalendarCheckSolid } from 'react-icons/lia';
 import { useNavigate } from 'react-router-dom';
 import { FaCheckCircle } from 'react-icons/fa';
 import { PiWarningCircleFill } from 'react-icons/pi';
+import { useMutation, useQueryClient } from 'react-query';
 import ModalBottom from '@/components/common/Modal/Bottom';
 import Button from '@/components/common/Button';
 import Modal from '@/components/common/Modal';
 import { deleteItineraryAPI, getKaKaoCalendarAPI } from '@/services/travel';
 import { kakaoTokenState } from '@/store/atom/userAtom';
 import { itineraryState, theTopState } from '@/store/atom/travelAtom';
-import { ItineraryTypes } from '@/types/travel';
 import styles from './styles.module.scss';
 
 interface ItineraryMenuBoxProps {
   isManuModalOpen: boolean;
-  setItineraryList: React.Dispatch<SetStateAction<ItineraryTypes[]>>;
   setIsMenuModalOpen: React.Dispatch<SetStateAction<boolean>>;
 }
 
 export default function ItineraryMenuBox({
   isManuModalOpen,
-  setItineraryList,
   setIsMenuModalOpen,
 }: ItineraryMenuBoxProps) {
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const kakaoToken = useRecoilValue(kakaoTokenState);
   const itinerary = useRecoilValue(itineraryState);
   const setTheTop = useSetRecoilState(theTopState);
@@ -36,14 +35,40 @@ export default function ItineraryMenuBox({
     useState(false);
   const [isFailedKakaoCalendar, setIsFailedKakaoCalendar] = useState(false);
 
+  interface getKaKaoCalendarProps {
+    id: string;
+    token: string;
+  }
+
+  const deleteItinerary = async (itineraryId: string) => {
+    const response = await deleteItineraryAPI(itineraryId);
+    return response;
+  };
+
+  const getKaKaoCalendar = async ({ id, token }: getKaKaoCalendarProps) => {
+    const response = await getKaKaoCalendarAPI(id, token);
+    return response;
+  };
+
+  const deleteMutation = useMutation(deleteItinerary, {
+    onSuccess: () => {
+      queryClient.invalidateQueries('itineraryList');
+    },
+    onSettled: () => {
+      setIsOpenDeleteItineraryModal(false);
+    },
+  });
+  const postMutation = useMutation(getKaKaoCalendar, {
+    onSuccess: () => {
+      setIsFailedKakaoCalendar(false);
+      setIsOpenKakaoCalendarModal(true);
+    },
+  });
+
   const registerKakaoCalendar = async (id: string) => {
     const token = kakaoToken;
     if (token) {
-      const response = await getKaKaoCalendarAPI(id, token);
-      if (response?.data.message === 'successful') {
-        setIsFailedKakaoCalendar(false);
-        setIsOpenKakaoCalendarModal(true);
-      }
+      postMutation.mutate({ id, token });
     }
   };
 
@@ -69,6 +94,12 @@ export default function ItineraryMenuBox({
   const deleteHandler = () => {
     setIsMenuModalOpen(false);
     setIsOpenDeleteItineraryModal(true);
+  };
+
+  const deleteConfirmHandler = () => {
+    if (itinerary?.itinerary_id) {
+      deleteMutation.mutate(itinerary?.itinerary_id);
+    }
   };
 
   return (
@@ -186,21 +217,7 @@ export default function ItineraryMenuBox({
             <Button
               variant="primary"
               size="lg"
-              onClick={async () => {
-                if (itinerary) {
-                  const response = await deleteItineraryAPI(
-                    itinerary.itinerary_id,
-                  );
-                  if (response.status === 200) {
-                    setItineraryList((preItineraryList) =>
-                      preItineraryList.filter(
-                        (item) => item.itinerary_id !== itinerary.itinerary_id,
-                      ),
-                    );
-                    setIsOpenDeleteItineraryModal(false);
-                  }
-                }
-              }}
+              onClick={deleteConfirmHandler}
               label="확인"
             >
               확인

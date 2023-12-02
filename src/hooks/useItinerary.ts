@@ -1,11 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useMutation, useQuery } from 'react-query';
 import { ItineraryScheduleTypes } from '@/types/travel';
 import { itineraryIdState } from '@/store/atom/chatAtom';
 import { theTopState } from '@/store/atom/travelAtom';
 import {
   getItineraryDetailsAPI,
-  getPrevioustConversationAPI,
+  getPreviousConversationAPI,
   getRegisterItineraryAPI,
 } from '@/services/travel';
 
@@ -13,54 +14,64 @@ export default function useItinerary(sessionId?: string | undefined) {
   const itineraryId = useRecoilValue(itineraryIdState);
   const setItineraryId = useSetRecoilState(itineraryIdState);
   const setTheTop = useSetRecoilState(theTopState);
-  const [isLoading, setIsLoading] = useState(false);
-  const [itineraryChatList, setItineraryChatList] = useState<ChatTypes[]>([]);
 
-  const getPreviousConversation = async (sessionId: string) => {
-    setIsLoading(true);
-    const response = await getPrevioustConversationAPI(sessionId);
-    if (response?.data) {
-      const chatList = response?.data.data.map((el: ItineraryChatTypes) => {
+  const getPreviousConversation = async (sessionId: string | undefined) => {
+    if (sessionId) {
+      const response = await getPreviousConversationAPI(sessionId);
+      return response?.data.data.map((el: ItineraryChatTypes) => {
         return {
           question: el.user_message,
           answer: el.formatted_ai_message,
           image_name: el.image_name,
         };
       });
-      setItineraryChatList(chatList);
-      setIsLoading(false);
     }
   };
 
-  const getUpdateItinerary = async () => {
-    const response = await getRegisterItineraryAPI(itineraryId);
-    if (response?.data.message === 'Itinerary registered successfully.') {
-      const response = await getItineraryDetailsAPI(itineraryId);
-      if (response?.data) {
-        setTheTop({
-          title: response?.data?.data?.title,
-          destinations: response?.data.data?.schedule.map(
-            (el: ItineraryScheduleTypes) => {
-              return { title: el.title };
-            },
-          ),
-        });
-        setItineraryId('');
-      }
-    }
+  const { data, isLoading, isError } = useQuery<ChatTypes[]>(
+    ['previousConversation'],
+    () => getPreviousConversation(sessionId),
+  );
+
+  const getRegisterItinerary = async (id: string) => {
+    const response = await getRegisterItineraryAPI(id);
+    return response.data.message;
   };
 
-  useEffect(() => {
-    if (sessionId) {
-      getPreviousConversation(sessionId);
-    }
-  }, []);
+  const getItineraryDetails = async (id: string) => {
+    const response = await getItineraryDetailsAPI(id);
+    return response.data;
+  };
+
+  const postMutation = useMutation(getItineraryDetails, {
+    onSuccess: (data) => {
+      setTheTop({
+        title: data.data.title,
+        destinations: data.data.schedule.map((el: ItineraryScheduleTypes) => {
+          return {
+            title: el.title,
+            hearing: el.hearing,
+            physical: el.physical,
+            visual: el.visual,
+          };
+        }),
+      });
+      setItineraryId('');
+    },
+  });
+
+  const patchMutation = useMutation(getRegisterItinerary, {
+    onSuccess: (data) => {
+      if (data === 'Itinerary registered successfully.')
+        postMutation.mutate(itineraryId);
+    },
+  });
 
   useEffect(() => {
     if (itineraryId) {
-      getUpdateItinerary();
+      patchMutation.mutate(itineraryId);
     }
   }, [itineraryId]);
 
-  return { isLoading, itineraryChatList, setItineraryChatList };
+  return { data, isLoading, isError };
 }

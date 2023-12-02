@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { useMutation } from 'react-query';
 import { postSpeechToTextAPI } from '@/services/chat';
 
 interface BrowserTypes {
@@ -86,6 +87,26 @@ export default function useRecording(
     }
   };
 
+  const postSpeechToText = async (formData: FormData) => {
+    const response = await postSpeechToTextAPI(formData);
+    return response.data;
+  };
+
+  const postMutation = useMutation(postSpeechToText, {
+    onSuccess: (data) => {
+      const script = data.transcripts[0];
+      setValue(
+        script
+          .slice(script.indexOf(':') + 1, script.indexOf('\nConfidence:'))
+          .trim(),
+      );
+    },
+    onSettled: () => {
+      setIsSTTLoading(false);
+      setIsRecordingStarting(false);
+    },
+  });
+
   const FileUpload = async () => {
     if (audioBlob) {
       setIsSTTLoading(true);
@@ -114,22 +135,7 @@ export default function useRecording(
       audioChunks.current = [];
       const formData = new FormData();
       formData.append('in_files', audioFile);
-      const response = await postSpeechToTextAPI(formData);
-      try {
-        if (response?.data) {
-          const script = response?.data.transcripts[0];
-          setValue(
-            script
-              .slice(script.indexOf(':') + 1, script.indexOf('\nConfidence:'))
-              .trim(),
-          );
-        }
-      } catch {
-        (error: any) => console.error(error);
-      } finally {
-        setIsSTTLoading(false);
-        setIsRecordingStarting(false);
-      }
+      postMutation.mutate(formData);
     }
   };
 
