@@ -1,4 +1,4 @@
-import React, { SetStateAction, useEffect } from 'react';
+import React, { SetStateAction } from 'react';
 import { ItineraryScheduleTypes } from '@/types/travel';
 import ItineraryDetailsContent from './ItineraryDetailsContent';
 import ItineraryDetailsTab from './ItineraryDetailsTab';
