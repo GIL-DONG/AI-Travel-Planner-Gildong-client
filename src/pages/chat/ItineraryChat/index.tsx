@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import { useParams } from 'react-router';
 import { Helmet } from 'react-helmet-async';
@@ -15,7 +15,6 @@ import styles from './styles.module.scss';
 
 export default function ItineraryChat() {
   const { id } = useParams();
-  const scrollRef = useRef<null[] | HTMLDivElement[]>([]);
   const theTop = useRecoilValue(theTopState);
   useStatus('itineraryChat', theTop.title);
   const { data, isLoading, isError } = useItinerary(id);
@@ -27,8 +26,9 @@ export default function ItineraryChat() {
     uploadImage,
     setUploadImage,
     isStopedScroll,
-    setIsStopedScroll,
     fetchStreamData,
+    refHandler,
+    wheelHandler,
   } = useFetchStreamData(itineraryChatList, setItineraryChatList);
 
   const submitHandler = async () => {
@@ -36,57 +36,11 @@ export default function ItineraryChat() {
     await fetchStreamData('', '', id);
   };
 
-  const refHandler = (el: HTMLDivElement | null, number: number) => {
-    scrollRef.current[number] = el;
-  };
-
-  const wheelHandler = () => {
-    if (
-      scrollRef.current[1] &&
-      scrollRef.current[2] &&
-      scrollRef.current[1]?.scrollTop + scrollRef.current[1]?.clientHeight <
-        scrollRef.current[2]?.clientHeight
-    ) {
-      setIsStopedScroll(true);
-    }
-  };
-
   useEffect(() => {
     if (data) {
       setItineraryChatList(data);
     }
   }, [data]);
-
-  useEffect(() => {
-    if (scrollRef.current[0]) {
-      if (
-        scrollRef.current[1] &&
-        scrollRef.current[2] &&
-        scrollRef.current[1]?.scrollTop + scrollRef.current[1]?.clientHeight <=
-          scrollRef.current[2]?.clientHeight
-      ) {
-        scrollRef.current[2]?.scrollIntoView({
-          behavior: 'smooth',
-          block: 'end',
-        });
-      } else {
-        scrollRef.current[0]?.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start',
-        });
-      }
-    } else if (
-      scrollRef.current[1] &&
-      scrollRef.current[2] &&
-      scrollRef.current[1]?.scrollTop + scrollRef.current[1]?.clientHeight <=
-        scrollRef.current[2]?.clientHeight
-    ) {
-      scrollRef.current[2]?.scrollIntoView({
-        behavior: 'smooth',
-        block: 'end',
-      });
-    }
-  }, [chatList]);
 
   if (isLoading) return <Loading />;
   if (isError) return <Error />;

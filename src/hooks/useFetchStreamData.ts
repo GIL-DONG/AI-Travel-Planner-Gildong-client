@@ -1,4 +1,4 @@
-import React, { SetStateAction, useState } from 'react';
+import React, { SetStateAction, useEffect, useRef, useState } from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { itineraryIdState, sessionIdState } from '@/store/atom/chatAtom';
 import { API_URLS, BASE_URL } from '@/constants/config';
@@ -8,6 +8,7 @@ export default function useFetchStreamData(
   chatList: ChatTypes[],
   setChatList: React.Dispatch<SetStateAction<ChatTypes[]>>,
 ) {
+  const scrollRef = useRef<null[] | HTMLDivElement[]>([]);
   const mainSessionId = useRecoilValue(sessionIdState);
   const status = useRecoilValue(headerStatusState);
   const itineraryId = useRecoilValue(itineraryIdState);
@@ -114,6 +115,52 @@ export default function useFetchStreamData(
     }
   };
 
+  const refHandler = (el: HTMLDivElement | null, number: number) => {
+    scrollRef.current[number] = el;
+  };
+
+  const wheelHandler = () => {
+    if (
+      scrollRef.current[1] &&
+      scrollRef.current[2] &&
+      scrollRef.current[1]?.scrollTop + scrollRef.current[1]?.clientHeight <
+        scrollRef.current[2]?.clientHeight
+    ) {
+      setIsStopedScroll(true);
+    }
+  };
+
+  useEffect(() => {
+    if (scrollRef.current[0]) {
+      if (
+        scrollRef.current[1] &&
+        scrollRef.current[2] &&
+        scrollRef.current[1]?.scrollTop + scrollRef.current[1]?.clientHeight <=
+          scrollRef.current[2]?.clientHeight
+      ) {
+        scrollRef.current[2]?.scrollIntoView({
+          behavior: 'smooth',
+          block: 'end',
+        });
+      } else {
+        scrollRef.current[0]?.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start',
+        });
+      }
+    } else if (
+      scrollRef.current[1] &&
+      scrollRef.current[2] &&
+      scrollRef.current[1]?.scrollTop + scrollRef.current[1]?.clientHeight <=
+        scrollRef.current[2]?.clientHeight
+    ) {
+      scrollRef.current[2]?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'end',
+      });
+    }
+  }, [chatList]);
+
   return {
     chatList,
     question,
@@ -123,5 +170,7 @@ export default function useFetchStreamData(
     isStopedScroll,
     setIsStopedScroll,
     fetchStreamData,
+    refHandler,
+    wheelHandler,
   };
 }

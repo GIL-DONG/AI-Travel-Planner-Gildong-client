@@ -1,4 +1,3 @@
-import { useRef, useEffect } from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
@@ -17,7 +16,6 @@ interface MainChatProps {
 
 export default function MainChat({ home }: MainChatProps) {
   const navigate = useNavigate();
-  const scrollRef = useRef<null[] | HTMLDivElement[]>([]);
   const mainChatList = useRecoilValue(mainChatListState);
   const setMainChatList = useSetRecoilState(mainChatListState);
   const setPage = useSetRecoilState(pageState);
@@ -29,8 +27,9 @@ export default function MainChat({ home }: MainChatProps) {
     uploadImage,
     setUploadImage,
     isStopedScroll,
-    setIsStopedScroll,
     fetchStreamData,
+    refHandler,
+    wheelHandler,
   } = useFetchStreamData(mainChatList, setMainChatList);
 
   const submitHandler = async () => {
@@ -39,52 +38,6 @@ export default function MainChat({ home }: MainChatProps) {
     navigate(ROUTE_PATHS.mainChat);
     await fetchStreamData();
   };
-
-  const refHandler = (el: HTMLDivElement | null, number: number) => {
-    scrollRef.current[number] = el;
-  };
-
-  const wheelHandler = () => {
-    if (
-      scrollRef.current[1] &&
-      scrollRef.current[2] &&
-      scrollRef.current[1]?.scrollTop + scrollRef.current[1]?.clientHeight <
-        scrollRef.current[2]?.clientHeight
-    ) {
-      setIsStopedScroll(true);
-    }
-  };
-
-  useEffect(() => {
-    if (scrollRef.current[0]) {
-      if (
-        scrollRef.current[1] &&
-        scrollRef.current[2] &&
-        scrollRef.current[1]?.scrollTop + scrollRef.current[1]?.clientHeight <=
-          scrollRef.current[2]?.clientHeight
-      ) {
-        scrollRef.current[2]?.scrollIntoView({
-          behavior: 'smooth',
-          block: 'end',
-        });
-      } else {
-        scrollRef.current[0]?.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start',
-        });
-      }
-    } else if (
-      scrollRef.current[1] &&
-      scrollRef.current[2] &&
-      scrollRef.current[1]?.scrollTop + scrollRef.current[1]?.clientHeight <=
-        scrollRef.current[2]?.clientHeight
-    ) {
-      scrollRef.current[2]?.scrollIntoView({
-        behavior: 'smooth',
-        block: 'end',
-      });
-    }
-  }, [chatList]);
 
   return (
     <main className={styles.pageWrapper}>
