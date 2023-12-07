@@ -1,7 +1,6 @@
 import { BsFillMicFill } from 'react-icons/bs';
 import { TbSend } from 'react-icons/tb';
 import Button from '@/components/common/Button';
-import styles from './styles.module.scss';
 
 interface SendQuestionButtonProps {
   question: string;
@@ -19,7 +18,7 @@ export default function SendQuestionButton({
   submitHandler,
 }: SendQuestionButtonProps) {
   return (
-    <div className={styles.submitWrapper}>
+    <>
       {question || uploadImage ? (
         <Button
           size="sm"
@@ -46,6 +45,6 @@ export default function SendQuestionButton({
           </Button>
         )
       )}
-    </div>
+    </>
   );
 }
