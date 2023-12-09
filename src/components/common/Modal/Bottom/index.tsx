@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useRef } from 'react';
+import { ReactNode } from 'react';
 import classNames from 'classnames';
 import { IoMdClose } from 'react-icons/io';
 import useIsModalOpen from '@/hooks/useIsModalOpen';
@@ -28,24 +28,6 @@ export default function ModalBottom({
   onClickCloseModal,
   children,
 }: ModalProps) {
-  const modalRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        modalRef.current &&
-        !modalRef.current.contains(event.target as Node | null)
-      ) {
-        onClickCloseModal();
-      }
-    };
-
-    document.addEventListener('click', handleClickOutside);
-    return () => {
-      document.removeEventListener('click', handleClickOutside);
-    };
-  }, [onClickCloseModal]);
-
   const isOpen = useIsModalOpen(isModalOpen, 100);
   if (!isOpen) return null;
 
@@ -75,7 +57,7 @@ export default function ModalBottom({
               styles.modal_main,
             )}
           >
-            <button className={styles.modal_button} type="button"></button>
+            <span className={styles.modal_button} />
             <div className={styles.modal_delete_button}>
               <Button
                 size="sm"

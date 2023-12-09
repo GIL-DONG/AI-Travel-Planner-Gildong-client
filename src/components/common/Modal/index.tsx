@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useRef } from 'react';
+import { ReactNode } from 'react';
 import classNames from 'classnames';
 import useIsModalOpen from '@/hooks/useIsModalOpen';
 import styles from './styles.module.scss';
@@ -26,24 +26,6 @@ export default function Modal({
   onClickCloseModal,
   children,
 }: ModalProps) {
-  const modalRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        modalRef.current &&
-        !modalRef.current.contains(event.target as Node | null)
-      ) {
-        onClickCloseModal();
-      }
-    };
-
-    document.addEventListener('click', handleClickOutside);
-    return () => {
-      document.removeEventListener('click', handleClickOutside);
-    };
-  }, [onClickCloseModal]);
-
   const isOpen = useIsModalOpen(isModalOpen, 100);
   if (!isOpen) return null;
 
